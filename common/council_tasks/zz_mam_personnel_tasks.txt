@@ -1,0 +1,272 @@
+﻿# Installed native task plus observation-gap bookkeeping. Recheck on updates.
+
+task_manage_talent = {
+
+	default_task = yes
+
+	position = minister_personnel
+
+	task_type = task_type_general
+
+	task_progress = task_progress_infinite
+
+
+
+	asset = {
+
+		icon = "gfx/interface/icons/council_task_types/task_manage_talent.dds"
+
+		background = "gfx/interface/buttons/button_round_bg.dds"
+
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+
+		glow = "gfx/particles/halo.dds"
+
+	}
+
+
+
+	effect_desc = {
+
+		### Find characters tooltip
+
+		desc = task_manage_talent_character_effect_desc
+
+		# Disciples tooltip
+
+		triggered_desc = {
+
+			trigger = {
+
+				num_of_relation_disciple > 0
+
+			}
+
+			desc = task_manage_talent_effect_desc_disciple_bonus
+
+		}
+
+		# Bureaucrats tooltip
+
+		triggered_desc = {
+
+			trigger = {
+
+				councillor_liege_has_erudition_legacy_5_perk = yes
+
+			}
+
+			desc = task_manage_talent_effect_desc_bureaucrats_bonus
+
+		}
+
+		# Family Business tooltip
+
+		triggered_desc = {
+
+			trigger = {
+
+				councillor_liege_has_family_business_bonus = yes
+
+			}
+
+			desc = task_manage_talent_effect_desc_family_business_bonus
+
+		}
+
+		### Opinion
+
+		desc = task_manage_talent_opinion_effect_desc
+
+		# Disciples tooltip
+
+		triggered_desc = {
+
+			trigger = {
+
+				num_of_relation_disciple > 0
+
+			}
+
+			desc = task_manage_talent_opinion_effect_desc_disciple_bonus
+
+		}
+
+		# Bureaucrats tooltip
+
+		triggered_desc = {
+
+			trigger = {
+
+				councillor_liege_has_erudition_legacy_5_perk = yes
+
+			}
+
+			desc = task_manage_talent_opinion_effect_desc_bureaucrats_bonus
+
+		}
+
+		# Family Business tooltip
+
+		triggered_desc = {
+
+			trigger = {
+
+				councillor_liege_has_family_business_bonus = yes
+
+			}
+
+			desc = task_manage_talent_opinion_effect_desc_family_business_bonus
+
+		}
+
+	
+		desc = mam_personnel_manage_talent_task_effect
+	}
+
+
+
+	on_start_task = {
+ scope:councillor_liege ?= { mam_personnel_assignment_maintenance_effect = yes }
+	}
+
+
+
+	on_cancel_task = {
+
+ scope:councillor_liege ?= { primary_title = { set_variable = { name = mam_personnel_observation_gap value = 1 } remove_variable = mam_personnel_observation_active } }
+
+ }
+
+
+
+	# Prestige Gain + Modifiers
+
+	council_owner_modifier = {
+
+		name = task_manage_talent
+
+		courtier_and_guest_opinion = 1
+
+		scale = task_manage_talent_opinion_total_scale_value
+
+	}
+
+
+
+	monthly_on_action = tgp_minister_manage_talent_on_action
+
+
+
+	ai_will_do = {
+
+		value = 1 # Always a good backup
+
+		if = {
+
+			limit = { court_positions_currently_filled < 10 }
+
+			add = 500
+
+		}
+
+	}
+
+}
+
+
+# Preserve the complete native favor task, adding a guaranteed independent monthly effect.
+task_bestow_royal_favor_minister_of_personnel = {
+ position = minister_personnel
+ clone = task_bestow_royal_favor
+ effect_desc = {
+		### Prestige effect
+		desc = task_bestow_royal_favor_prestige_effect_desc
+		# Bureaucrats tooltip
+		triggered_desc = {
+			trigger = {
+				councillor_liege_has_erudition_legacy_5_perk = yes
+				scope:councillor.chancellor_bestow_royal_favor_opinion_gain_erudition_bonus >= 1
+			}
+			desc = task_bestoy_royal_favor_effect_desc_bureaucrats_bonus_prestige
+		}
+		# Family Business tooltip
+		triggered_desc = {
+			trigger = {
+				councillor_liege_has_family_business_bonus = yes
+				scope:councillor.chancellor_bestow_royal_favor_opinion_gain_family_business_bonus >= 1
+			}
+			desc = task_bestoy_royal_favor_effect_desc_family_business_bonus_prestige
+		}
+		# Fp3 Consulted House Member tooltip
+		triggered_desc = {
+			trigger = {
+				councillor_liege_has_consulted_house_bonus = yes
+				scope:councillor.chancellor_bestow_royal_favor_opinion_gain_consulted_house_bonus >= 1
+			}
+			desc = task_bestoy_royal_favor_effect_desc_consulted_house_bonus_prestige
+		}
+		### Opinion effect
+		desc = task_bestow_royal_favor_opinion_effect_desc
+		# Bureaucrats tooltip
+		triggered_desc = {
+			trigger = {
+				councillor_liege_has_erudition_legacy_5_perk = yes
+			}
+			desc = task_bestoy_royal_favor_effect_desc_bureaucrats_bonus_opinion
+		}
+		# Family Business tooltip
+		triggered_desc = {
+			trigger = {
+				councillor_liege_has_family_business_bonus = yes
+			}
+			desc = task_bestoy_royal_favor_effect_desc_family_business_bonus_opinion
+		}
+		# Fp3 Consulted House Member tooltip
+		triggered_desc = {
+			trigger = {
+				councillor_liege_has_consulted_house_bonus = yes
+			}
+			desc = task_bestoy_royal_favor_effect_desc_consulted_house_bonus_opinion
+		}
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = {
+					scope:councillor.diplomacy > mediocre_skill_rating
+				}
+				desc = task_increase_control_improved_vassal_opinion
+			}
+			triggered_desc = {
+				trigger = {
+					scope:councillor.diplomacy > mediocre_skill_rating
+				}
+				desc = task_increase_control_end_internal_war
+			}
+			triggered_desc = {
+				trigger = {
+					scope:councillor.diplomacy < high_skill_rating
+				}
+				desc = task_increase_control_lose_vassal_opinion
+			}
+			triggered_desc = {
+				trigger = {
+					scope:councillor.diplomacy < high_skill_rating
+					liege = {
+						any_vassal = {
+							government_has_flag = government_is_feudal
+							primary_title.tier > tier_barony
+						}
+					}
+				}
+				desc = task_increase_control_worsen_contract
+			}
+		}
+	
+		desc = mam_personnel_favor_task_effect
+	}
+ on_monthly = {
+  mam_personnel_apply_favor_effect = yes
+  scope:councillor_liege ?= { mam_personnel_assignment_maintenance_effect = yes }
+ }
+}

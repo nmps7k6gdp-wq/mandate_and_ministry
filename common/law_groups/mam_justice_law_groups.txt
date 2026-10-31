@@ -1,0 +1,6 @@
+﻿mam_justice_authority_laws = {
+ default = mam_justice_authority_delegated cumulative = no flag = realm_law
+ required_government_flag = { government_is_celestial }
+ can_have_group = { has_tgp_dlc_trigger = yes has_title = title:h_china is_independent_ruler = yes }
+ can_change_law_group = { mam_justice_emperor_trigger = yes }
+}

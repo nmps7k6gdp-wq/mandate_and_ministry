@@ -1,0 +1,17 @@
+{
+  "build": "0.4.0-alpha.20-dev.66",
+  "source_checked": true,
+  "native_campaign_slots": 20,
+  "native_notification_replacements": 1,
+  "revalidated_start_types": 17,
+  "scenarios": [
+    "Wall/extension imperial sites pass despite unrelated governor selection; foreign and wrong provincial sites fail",
+    "eligibility, site or price changes return the request before payment",
+    "verified charge, refused no-charge return, unfunded partial debit and missing-proof holds",
+    "first pledge without war and later pledges bind only their own linked war; no war creation in binder",
+    "completion notifies funded living recipients only",
+    "test3 stale Wall attempt: zero debit; exact saved-key slot subsequently funded by another contributor"
+  ],
+  "engine_tested": false,
+  "limitations": "Source/model cases and a prior saved fixture; new CK3 behavior still needs a focused retest."
+}

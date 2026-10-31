@@ -1,0 +1,14 @@
+{
+  "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\character_interactions\\10_tgp_interactions.txt",
+  "native_definition": "celestial_request_treasury_interaction",
+  "native_definition_sha256": "70ee60ca844b27037fdd709c7bef4503176e3aea48ce34ab1fc055b0982ac496",
+  "native_acceptance_body_sha256": "4a8542ac23001cb5be8d1d96fbee4d212a0b2c01c6c93facb0766cc7518fa5a3",
+  "overridden_file": "common\\character_interactions\\zz_mam_revenue_native_requests.txt",
+  "changes": [
+    "conditional auto-accept into a single fiscal queue",
+    "supported-case validation and payer routing",
+    "supported debt-option affordability uses imperial treasury",
+    "native on_accept preserved inside unsupported else branch",
+    "supported human request shown only as the Ministry petition; native AI retains its route"
+  ]
+}

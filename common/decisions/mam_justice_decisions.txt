@@ -1,0 +1,24 @@
+﻿mam_justice_petition_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_justice_petition_interaction_desc selection_tooltip = mam_justice_petition_interaction_desc confirm_text = mam_jus.petition
+ is_shown = { is_ai = no mam_justice_self_petition_trigger = yes }
+ is_valid = { mam_justice_self_petition_trigger = yes
+  OR = { exists = var:mam_jus_case NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } } }
+ }
+ effect = { if = { limit = { mam_justice_self_petition_trigger = yes }
+  save_scope_as = actor save_scope_as = recipient mam_justice_petition_effect = yes
+ } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_justice_resume_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_justice_resume_decision_desc selection_tooltip = mam_justice_resume_decision_desc confirm_text = mam_jus.resume
+ is_shown = { is_ai = no exists = title:h_china.var:mam_jus_desk
+  title:h_china.var:mam_jus_desk = { mam_justice_live_trigger = yes exists = var:mam_jus_reviewer var:mam_jus_reviewer = root }
+ }
+ is_valid = { title:h_china.var:mam_jus_desk = { mam_justice_live_trigger = yes var:mam_jus_reviewer = root } }
+ effect = { title:h_china.var:mam_jus_desk = { remove_variable = mam_jus_sent set_variable = { name = mam_jus_due value = current_date } mam_justice_tick_effect = yes } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

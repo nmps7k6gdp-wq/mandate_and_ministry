@@ -1,0 +1,169 @@
+﻿mam_senior_propose_effect = {
+
+ if = { limit = { mam_senior_actor_trigger = yes }
+
+ save_scope_as = mam_senior_actor
+
+ save_scope_value_as = { name = mam_senior_personal_choice value = $PERSONAL$ }
+
+ $CANDIDATE$ = { save_scope_as = mam_senior_nominee }
+
+ scope:mam_senior_file = {
+
+ set_variable = { name = mam_senior_sponsor value = scope:mam_senior_actor }
+ set_variable = { name = mam_senior_sponsored_candidate value = scope:mam_senior_nominee }
+
+ if = { limit = {
+
+ OR = { var:mam_senior_realm.holder = { has_realm_law = mam_personnel_confirmation_all }
+
+ AND = { var:mam_senior_realm.holder = { has_realm_law = mam_personnel_confirmation_empire } var:mam_senior_title = { tier = tier_empire } } }
+
+ scope:mam_senior_nominee = { mam_senior_choice_trigger = yes }
+
+ }
+
+ set_variable = { name = mam_senior_recommended value = scope:mam_senior_nominee }
+
+ set_variable = { name = mam_senior_recommender value = scope:mam_senior_actor }
+
+ set_variable = { name = mam_senior_personal_recommendation value = $PERSONAL$ }
+
+ set_variable = { name = mam_senior_awaiting_confirmation value = 1 }
+
+ set_variable = { name = mam_senior_confirmation_until value = { value = current_date add = 90 } }
+
+ mam_senior_release_queue_effect = yes
+
+ mam_senior_notify_confirmation_effect = yes
+
+ }
+
+ else = { mam_senior_commit_effect = yes
+ if = { limit = { mam_senior_pending_trigger = yes }
+ debug_log = "MAM_PERSONNEL_APPOINTMENT: selection did not commit; releasing queue for other vacancies"
+ mam_senior_release_queue_effect = yes
+ set_variable = { name = mam_senior_snooze value = { value = current_date add = 1 } }
+ }
+ }
+
+ }
+
+ if = { limit = { is_ai = no scope:mam_senior_file = { mam_senior_pending_trigger = yes NOT = { has_variable = mam_senior_awaiting_confirmation } } }
+ send_interface_toast = { type = event_toast_effect_bad title = mam_senior.commit_failed_title custom_tooltip = mam_senior.commit_failed_tt }
+ }
+ # Queue release schedules the next file after this action resolves.
+ }
+
+}
+
+
+
+mam_senior_return_effect = {
+ remove_variable = mam_senior_sponsor remove_variable = mam_senior_sponsored_candidate
+
+ remove_variable = mam_senior_awaiting_confirmation remove_variable = mam_senior_approved
+
+ remove_variable = mam_senior_recommended remove_variable = mam_senior_recommender
+
+ remove_variable = mam_senior_confirmation_until
+
+ set_variable = { name = mam_senior_deadline value = { value = current_date add = 90 } }
+
+ set_variable = { name = mam_senior_snooze value = { value = current_date add = 30 } }
+
+ mam_senior_release_queue_effect = yes
+
+}
+
+mam_senior_timeout_recommendation_effect = {
+
+ if = { limit = { exists = scope:mam_senior_nominee scope:mam_senior_nominee = { mam_senior_choice_trigger = yes }
+
+ exists = var:mam_senior_realm.holder.cp:minister_personnel
+
+ var:mam_senior_realm.holder.cp:minister_personnel = { mam_can_nominate_trigger = yes } }
+
+ set_variable = { name = mam_senior_recommended value = scope:mam_senior_nominee }
+
+ set_variable = { name = mam_senior_recommender value = var:mam_senior_realm.holder.cp:minister_personnel }
+
+ set_variable = { name = mam_senior_personal_recommendation value = 0 }
+
+ set_variable = { name = mam_senior_awaiting_confirmation value = 1 }
+
+ set_variable = { name = mam_senior_confirmation_until value = { value = current_date add = 90 } }
+
+ mam_senior_release_queue_effect = yes
+
+ mam_senior_notify_confirmation_effect = yes
+
+ }
+
+}
+
+
+
+mam_senior_notify_confirmation_effect = {
+
+ save_scope_as = mam_senior_file
+
+ if = { limit = { mam_senior_pending_trigger = yes has_variable = mam_senior_awaiting_confirmation }
+
+ var:mam_senior_realm = {
+
+ if = { limit = { has_variable = mam_senior_imperial_open
+
+ OR = { NOT = { exists = var:mam_senior_imperial_open }
+
+ var:mam_senior_imperial_open = { OR = { mam_senior_pending_trigger = no NOT = { has_variable = mam_senior_awaiting_confirmation } } } } }
+
+ remove_variable = mam_senior_imperial_open
+
+ }
+
+ if = { limit = { NOT = { has_variable = mam_senior_imperial_open } }
+
+ set_variable = { name = mam_senior_imperial_open value = scope:mam_senior_file }
+
+ holder = {
+  save_scope_as = mam_senior_confirmation_presenter
+  cp:minister_personnel ?= { if = { limit = { mam_can_nominate_trigger = yes } save_scope_as = mam_senior_confirmation_presenter } }
+  scope:mam_senior_file.var:mam_senior_recommended = { save_scope_as = mam_senior_nominee }
+  trigger_event = { id = mam_senior.2 days = 1 }
+ }
+
+ }
+
+ }
+
+ }
+
+}
+
+
+mam_senior_schedule_nomination_effect = {
+ if = { limit = { exists = $CANDIDATE$ }
+ if = { limit = { mam_senior_actor_trigger = yes
+ $CANDIDATE$ = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes }
+ }
+ clear_saved_scope = mam_selected_nominee
+ $CANDIDATE$ = { save_scope_as = mam_selected_nominee }
+ if = { limit = { is_ai = yes }
+  $CANDIDATE$ = {
+   if = { limit = { mam_senior_first_office_trigger = yes } debug_log = "MAM_PERSONNEL_AI: Personnel selected first office grant" }
+   else_if = { limit = { mam_senior_lateral_trigger = yes } debug_log = "MAM_PERSONNEL_AI: Personnel selected lateral transfer" }
+   else_if = { limit = { mam_senior_promotion_trigger = yes } debug_log = "MAM_PERSONNEL_AI: Personnel selected promotion" }
+  }
+ }
+
+ save_scope_value_as = { name = mam_selected_personal value = $PERSONAL$ }
+ if = { limit = { exists = scope:mam_senior_default }
+  if = { limit = { scope:mam_selected_nominee = scope:mam_senior_default }
+   save_scope_value_as = { name = mam_selected_personal value = 0 }
+  }
+ }
+ trigger_event = mam_senior.7
+ }
+ }
+}

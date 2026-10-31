@@ -1,0 +1,48 @@
+﻿# Highest distinction only; do not sum each exam victory.
+mam_exam_distinction_points = {
+ value = 0
+ if = { limit = { mam_exam_triple_first_trigger = yes } add = 16 }
+ else_if = { limit = { mam_exam_palace_first_trigger = yes } add = 12 }
+ else_if = { limit = { mam_exam_palace_honors_trigger = yes } add = 8 }
+ else_if = { limit = { has_character_flag = mam_exam_metropolitan_first } add = 6 }
+ else_if = { limit = { has_character_flag = mam_exam_provincial_first mam_has_ordinary_provincial_evidence_trigger = yes } add = 4 }
+}
+# One-time career merit ceiling, not recurring income or an automatic rank.
+mam_exam_career_merit_ceiling = {
+ value = 0
+ if = { limit = { mam_exam_triple_first_trigger = yes } add = 150 }
+ else_if = { limit = { mam_exam_palace_first_trigger = yes } add = 100 }
+ else_if = { limit = { mam_exam_palace_honors_trigger = yes } add = 50 }
+}
+
+# Public recognition is separate from capped Merit; both use upgrade-only ledgers.
+mam_exam_recognition_rank = {
+ value = 0
+ if = { limit = { mam_exam_triple_first_trigger = yes } add = 3 }
+ else_if = { limit = { mam_exam_palace_first_trigger = yes } add = 2 }
+ else_if = { limit = { mam_exam_palace_honors_trigger = yes } add = 1 }
+}
+mam_exam_prestige_ceiling = {
+ value = 0
+ if = { limit = { mam_exam_triple_first_trigger = yes } add = 600 }
+ else_if = { limit = { mam_exam_palace_first_trigger = yes } add = 300 }
+ else_if = { limit = { mam_exam_palace_honors_trigger = yes } add = 150 }
+}
+# Candidate scope, current approval authority bound as mam_minister.
+mam_exam_professional_respect = {
+ value = 0
+ if = { limit = { exists = scope:mam_minister
+  scope:mam_minister = { OR = { has_trait = just has_trait = honest has_trait = diligent has_trait = patient } }
+ }
+  add = { value = mam_exam_recognition_rank multiply = 2 }
+ }
+}
+mam_exam_imperial_sponsorship_points = {
+ value = 0
+ if = { limit = {
+  has_character_modifier = mam_exam_imperial_sponsorship
+  exists = var:mam_exam_sponsor_realm
+  exists = var:mam_exam_sponsored_by
+  top_liege.primary_title = var:mam_exam_sponsor_realm
+ } add = 15 }
+}

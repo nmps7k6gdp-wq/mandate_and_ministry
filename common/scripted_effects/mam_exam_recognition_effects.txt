@@ -1,0 +1,29 @@
+﻿mam_sync_exam_laureate_effect = {
+ if = { limit = { mam_exam_recognition_rank > 0 NOT = { has_trait = mam_exam_laureate } }
+  add_trait = mam_exam_laureate
+ }
+}
+# Called only by the native palace-completion recorder, after real placement flags.
+mam_award_exam_recognition_effect = {
+ mam_sync_exam_laureate_effect = yes
+ if = { limit = { mam_exam_recognition_rank > 0 }
+  if = { limit = { NOT = { has_variable = mam_exam_prestige_paid } }
+   set_variable = { name = mam_exam_prestige_paid value = 0 }
+  }
+  if = { limit = { mam_exam_prestige_ceiling > var:mam_exam_prestige_paid }
+   save_scope_value_as = { name = mam_exam_prestige_gain value = { value = mam_exam_prestige_ceiling subtract = var:mam_exam_prestige_paid } }
+   add_prestige = { value = mam_exam_prestige_ceiling subtract = var:mam_exam_prestige_paid }
+   set_variable = { name = mam_exam_prestige_paid value = mam_exam_prestige_ceiling }
+   if = { limit = { is_ai = no } trigger_event = { id = mam_exam.1 days = 1 } }
+   if = { limit = { mam_exam_recognition_rank >= 2 }
+    trigger_event = { id = mam_exam.3 days = 2 }
+   }
+   debug_log = "MAM_EXAM: earned laureate recognition; upgrade-only Prestige paid"
+  }
+ }
+}
+mam_exam_close_audience_effect = {
+ scope:mam_laureate = {
+  set_variable = { name = mam_exam_audience_done_rank value = mam_exam_recognition_rank }
+ }
+}

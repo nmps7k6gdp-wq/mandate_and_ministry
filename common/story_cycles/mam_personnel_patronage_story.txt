@@ -1,0 +1,5 @@
+﻿# Passive durable ledger; no trial processing while Censor-Justice is disabled.
+mam_personnel_patronage_story = {
+ visible = no on_setup = { }
+ on_owner_death = { if = { limit = { exists = var:mam_patron_realm.holder } make_story_owner = var:mam_patron_realm.holder } }
+}

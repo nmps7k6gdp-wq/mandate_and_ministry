@@ -1,0 +1,22 @@
+﻿# Retired in dev.36 at user request. Inert keys exist only for loading/cleaning old saves.
+mam_recruitment_mixed = {
+ law_group_type = mam_recruitment_laws index = 0
+ potential = { always = no } should_start_with = { always = no }
+ can_keep = { always = no } can_have = { always = no }
+ can_realm_have = { always = no } can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+mam_recruitment_preference = {
+ law_group_type = mam_recruitment_laws index = 1
+ potential = { always = no } should_start_with = { always = no }
+ can_keep = { always = no } can_have = { always = no }
+ can_realm_have = { always = no } can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+mam_recruitment_strict = {
+ law_group_type = mam_recruitment_laws index = 2
+ potential = { always = no } should_start_with = { always = no }
+ can_keep = { always = no } can_have = { always = no }
+ can_realm_have = { always = no } can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}

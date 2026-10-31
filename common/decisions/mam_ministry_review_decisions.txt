@@ -1,0 +1,34 @@
+﻿mam_clear_ministry_candidate_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_clear_ministry_candidate_desc selection_tooltip = mam_clear_ministry_candidate_desc confirm_text = mam_mr.clear_mark
+ is_shown = { is_ai = no OR = {
+  AND = { mam_ministry_upper_authority_trigger = yes has_variable = mam_marked_upper_ministry_candidate }
+  AND = { mam_ministry_lower_authority_trigger = yes has_variable = mam_marked_lower_ministry_candidate }
+ } }
+ effect = {
+  if = { limit = { mam_ministry_upper_authority_trigger = yes } remove_variable = mam_marked_upper_ministry_candidate }
+  else_if = { limit = { mam_ministry_lower_authority_trigger = yes } remove_variable = mam_marked_lower_ministry_candidate }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_resume_ministry_reviews_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_resume_ministry_reviews_desc selection_tooltip = mam_resume_ministry_reviews_desc confirm_text = mam_mr.resume
+ is_shown = { is_ai = no mam_ministry_review_authority_trigger = yes OR = {
+  AND = { mam_ministry_upper_authority_trigger = yes title:h_china = { any_in_list = { variable = mam_mr_pending_files mam_ministry_review_current_trigger = yes var:mam_mr_level = 1 } } }
+  AND = { mam_ministry_lower_authority_trigger = yes title:h_china = { any_in_list = { variable = mam_mr_pending_files mam_ministry_review_current_trigger = yes var:mam_mr_level = 0 } } }
+ } }
+ effect = {
+  save_scope_as = mam_mr_actor
+  if = { limit = { mam_ministry_upper_authority_trigger = yes }
+   title:h_china = { every_in_list = { variable = mam_mr_pending_files limit = { mam_ministry_review_current_trigger = yes var:mam_mr_level = 1 } remove_variable = mam_mr_snooze } }
+  }
+  else = {
+   title:h_china = { every_in_list = { variable = mam_mr_pending_files limit = { mam_ministry_review_current_trigger = yes var:mam_mr_level = 0 } remove_variable = mam_mr_snooze } }
+  }
+  mam_ministry_review_queue_effect = yes
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

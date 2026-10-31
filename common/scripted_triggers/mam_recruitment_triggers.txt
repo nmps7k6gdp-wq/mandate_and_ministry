@@ -1,0 +1,21 @@
+﻿mam_can_change_recruitment_trigger = { always = no } # Retired custom law.
+# Compatibility adapter for dormant older workflows. Native gates remain in callers.
+mam_exam_standard_trigger = { $TITLE$ = { always = yes } }
+mam_professional_reason_trigger = {
+ scope:mam_nominee = { mam_public_suitability >= scope:mam_incumbent.mam_public_suitability }
+}
+mam_service_reason_trigger = {
+ scope:mam_nominee = { merit_level >= 4 }
+}
+mam_patronage_reason_trigger = {
+ exists = scope:mam_minister
+ scope:mam_nominee = {
+  OR = {
+   AND = { exists = house house = scope:mam_minister.house }
+   has_relation_friend = scope:mam_minister
+   is_close_family_of = scope:mam_minister
+   mam_private_obligation_trigger = yes
+   mam_political_client_trigger = yes
+  }
+ }
+}

@@ -1,0 +1,86 @@
+﻿# Character scope. This is screening access, not native appointment eligibility.
+mam_can_oversee_personnel_trigger = {
+ has_tgp_dlc_trigger = yes
+ is_independent_ruler = yes
+ government_has_flag = government_is_celestial
+}
+mam_can_open_register_trigger = {
+ mam_cj_office_allowed_trigger = yes
+ has_tgp_dlc_trigger = yes
+ is_alive = yes
+ is_imprisoned = no
+ is_independent_ruler = no
+ has_title = title:e_minister_of_personnel
+ top_liege = {
+  government_has_flag = government_is_celestial
+  cp:minister_personnel = prev
+ }
+}
+
+# Candidate character. Requires saved mam_emperor from the requesting workflow.
+# Scope deliberately excludes office-specific faith/gender/tier/cooldown checks:
+# those cannot be certified until a destination has been selected in Phase 2.
+mam_register_candidate_trigger = {
+    is_alive = yes
+    is_adult = yes
+    this != scope:mam_emperor
+    top_liege = scope:mam_emperor
+    OR = {
+        merit_level >= 1
+        mam_has_recorded_qualification_trigger = yes
+    }
+}
+
+mam_has_recorded_qualification_trigger = {
+    OR = {
+        has_character_flag = passed_palace_exam
+        has_character_flag = passed_metropolitan_exam
+        has_character_flag = passed_provincial_exam
+        has_character_modifier = tgp_passed_palace_exam_modifier
+        has_character_modifier = tgp_passed_metropolitan_exam_modifier
+        has_character_modifier = tgp_passed_provincial_exam_modifier
+        has_character_modifier = tgp_bypassed_provincial_exam_modifier
+    }
+}
+
+# Character: require positive ordinary-pass evidence; a bypass alone earns none.
+mam_has_ordinary_provincial_evidence_trigger = {
+    OR = {
+        has_character_modifier = tgp_passed_provincial_exam_modifier
+        AND = {
+            has_character_flag = passed_provincial_exam
+            NOT = { has_character_modifier = tgp_bypassed_provincial_exam_modifier }
+        }
+    }
+}
+
+# Routine reports and nominations belong to the current matched Personnel minister.
+mam_can_nominate_trigger = {
+ mam_can_open_register_trigger = yes
+ is_independent_ruler = no
+ has_title = title:e_minister_of_personnel
+ top_liege = { cp:minister_personnel = prev }
+}
+# Current list mode: 0 (default) available, 1 serving, 2 combined AI search.
+mam_register_list_category_trigger = {
+ mam_register_candidate_trigger = yes
+ is_civilian_candidate_trigger = yes
+ tgp_is_any_minister = no
+ NOT = { has_character_flag = mam_recent_appointment }
+ trigger_if = {
+  limit = { exists = scope:mam_review_mode scope:mam_review_mode = 1 }
+  is_landed = yes
+  mam_clean_source_bundle_trigger = { TITLE = primary_title }
+ }
+ trigger_else_if = {
+  limit = { exists = scope:mam_review_mode scope:mam_review_mode = 2 }
+  trigger_if = { limit = { is_landed = yes } mam_clean_source_bundle_trigger = { TITLE = primary_title } }
+ }
+ trigger_else_if = {
+  limit = { exists = scope:mam_review_mode scope:mam_review_mode = 3 }
+  is_landed = yes
+  primary_title = { tier >= tier_county tier < tier_kingdom }
+  mam_clean_source_bundle_trigger = { TITLE = primary_title }
+ }
+ trigger_else = { is_landed = no }
+}

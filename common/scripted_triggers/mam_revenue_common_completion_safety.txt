@@ -1,0 +1,20 @@
+﻿
+# Character/native contribution context. Do not accept payment for a new native
+# campaign action when no living current Marshal can execute it.
+mam_revenue_fund_campaign_command_ready_trigger = {
+ exists = title:h_china.holder exists = title:e_minister_grand_marshal.holder
+ title:e_minister_grand_marshal.holder ?= { is_alive = yes top_liege = title:h_china.holder }
+}
+# Project scope; same all-targets/all-counties objective as native .0002, with
+# nonempty targets and safe holder checks. No success for an empty/vacuous list.
+mam_revenue_fund_campaign_objectives_met_trigger = {
+ any_in_list = { variable = grand_campaign_targets
+  any_in_de_jure_hierarchy = { tier = tier_county exists = holder }
+ }
+ any_in_list = { variable = grand_campaign_targets count = all
+  any_in_de_jure_hierarchy = {
+   count = all filter = { tier = tier_county }
+   exists = holder holder ?= { top_overlord = title:h_china.holder }
+  }
+ }
+}

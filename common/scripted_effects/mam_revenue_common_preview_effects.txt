@@ -1,0 +1,40 @@
+﻿mam_revenue_fund_preview_effect = {
+ if = { limit = { scope:mam_cf_file.var:mam_cf_kind = 13 } custom_tooltip = mam_pc.reserve_budget_tt
+  if = { limit = { scope:mam_cf_file = { has_variable = mam_pc_campaign_launch } }
+   custom_tooltip = mam_pc.launch_authority_tt
+  } }
+ else = {
+
+ if = { limit = { custom_tooltip = { text = mam_cf.context_tt scope:mam_cf_file.var:mam_cf_kind = 5 
+} }
+  show_as_tooltip = { scope:mam_cf_emperor = { pay_short_term_treasury = { target = scope:mam_cf_custodian treasury = scope:mam_cf_quote } } }
+ }
+ else_if = { limit = { custom_tooltip = { text = mam_cf.context_tt scope:mam_cf_file.var:mam_cf_kind = 6 
+} }
+  show_as_tooltip = { scope:mam_cf_subject = { pay_short_term_treasury = { target = scope:mam_cf_custodian treasury = scope:mam_cf_quote } } }
+ }
+ else_if = { limit = { custom_tooltip = { text = mam_cf.context_tt scope:mam_cf_subject != scope:mam_cf_custodian 
+} }
+  show_as_tooltip = { scope:mam_cf_custodian = { pay_short_term_treasury = { target = scope:mam_cf_subject treasury = scope:mam_cf_quote } } }
+ }
+ else = { custom_tooltip = mam_cf.reserve_self_tt }
+ if = { limit = { custom_tooltip = { text = mam_cf.context_tt scope:mam_cf_file.var:mam_cf_kind = 2 
+} }
+  show_as_tooltip = { scope:mam_cf_subject = { add_character_modifier = { modifier = mam_revenue_recovery_office_modifier years = 1 } } }
+ }
+ if = { limit = { custom_tooltip = { text = mam_cf.context_tt scope:mam_cf_file.var:mam_cf_kind = 6 scope:mam_cf_subject != root 
+} }
+  show_as_tooltip = { scope:mam_cf_subject = { add_opinion = {
+   target = root modifier = mam_revenue_fund_levy_opinion years = 2
+  } } }
+ }
+ else_if = { limit = { custom_tooltip = { text = mam_cf.context_tt scope:mam_cf_file.var:mam_cf_kind != 5 scope:mam_cf_subject != root 
+} }
+  show_as_tooltip = { scope:mam_cf_subject = { add_opinion = {
+   target = root modifier = mam_revenue_fund_support_opinion years = 2
+  } } }
+ }
+ custom_tooltip = mam_cf.approval_tt
+
+}
+}

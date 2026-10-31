@@ -1,0 +1,122 @@
+# New Censorate, not the removed mam_cj case runtime. No fiscal/Personnel writes.
+mam_censor_emperor_trigger = {
+ is_alive = yes is_imprisoned = no has_tgp_dlc_trigger = yes
+ has_title = title:h_china is_independent_ruler = yes
+ government_has_flag = government_is_celestial tgp_has_access_to_ministry_trigger = yes
+}
+mam_censor_officer_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no
+ has_title = title:e_minister_censor
+ top_liege = { mam_censor_emperor_trigger = yes cp:councillor_spymaster = prev }
+}
+# Character scope, caller supplies the sovereign and the inspector explicitly.
+mam_censor_subject_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no
+ this != $EMPEROR$ this != $CENSOR$ top_liege = $EMPEROR$
+ OR = {
+  tgp_is_any_minister = yes
+  AND = {
+   government_has_flag = government_is_celestial
+   is_governor_or_admin_count = yes
+   primary_title = { tier >= tier_county tier <= tier_empire is_noble_family_title = no is_landless_type_title = no }
+  }
+ }
+}
+# Story scope; archival facts remain after pending becomes zero.
+mam_censor_live_trigger = {
+ has_variable = mam_cen_pending var:mam_cen_pending = 1
+ exists = var:mam_cen_realm.holder
+ var:mam_cen_realm = { exists = var:mam_cen_active var:mam_cen_active = prev }
+}
+# Event recipient scope. Bindings are per presentation; no global character inbox.
+mam_censor_actor_trigger = {
+ exists = scope:mam_cen_file exists = scope:mam_cen_subject
+ exists = scope:mam_cen_token exists = scope:mam_cen_expected
+ scope:mam_cen_file = {
+  mam_censor_live_trigger = yes
+  var:mam_cen_serial = scope:mam_cen_token
+  var:mam_cen_stage = scope:mam_cen_expected
+  exists = var:mam_cen_reviewer var:mam_cen_reviewer = root
+  var:mam_cen_subject = scope:mam_cen_subject
+ }
+ is_alive = yes
+ OR = { is_imprisoned = no
+  AND = { scope:mam_cen_expected = 2 this = scope:mam_cen_subject }
+ }
+ scope:mam_cen_subject = { is_alive = yes this != title:h_china.holder top_liege = title:h_china.holder }
+ trigger_if = { limit = { OR = {
+  scope:mam_cen_expected = 1 scope:mam_cen_expected = 4 scope:mam_cen_expected = 6 scope:mam_cen_expected = 9
+ } } mam_censor_officer_trigger = yes this != scope:mam_cen_subject }
+ trigger_if = { limit = { OR = { scope:mam_cen_expected = 7 scope:mam_cen_expected = 10 } }
+  mam_censor_emperor_trigger = yes
+ }
+ trigger_if = { limit = { scope:mam_cen_expected = 2 } this = scope:mam_cen_subject }
+ trigger_if = { limit = { scope:mam_cen_expected = 3 }
+  top_liege = scope:mam_cen_emperor this != scope:mam_cen_subject
+  this != title:e_minister_censor.holder
+  OR = { this = scope:mam_cen_file.var:mam_cen_petitioner has_title = title:e_minister_chancellor }
+ }
+ trigger_if = { limit = { scope:mam_cen_expected = 5 }
+  OR = {
+   mam_censor_emperor_trigger = yes
+   AND = { has_title = title:e_minister_of_justice top_liege = scope:mam_cen_emperor
+    scope:mam_cen_emperor = { cp:minister_justice = prev } this != scope:mam_cen_subject }
+  }
+ }
+ trigger_if = { limit = { scope:mam_cen_expected = 8 }
+  this = scope:mam_cen_file.var:mam_cen_connected top_liege = scope:mam_cen_emperor
+ }
+ trigger_if = { limit = { scope:mam_cen_expected = 11 } this = scope:mam_cen_subject }
+ trigger_if = { limit = { scope:mam_cen_expected = 12 } this = scope:mam_cen_subject }
+}
+mam_censor_supported_trigger = {
+ save_temporary_scope_as = mam_cen_support_file
+ OR = { var:mam_cen_proof = 1 var:mam_cen_obstruction = 1 var:mam_cen_admission = 1 var:mam_cen_return_exposed = 1
+  has_variable = mam_cen_native_fact
+  AND = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 exists = var:mam_cen_judicial_record
+   var:mam_cen_judicial_record = { OR = {
+    AND = { exists = var:mam_jus_offer_author var:mam_jus_offer_author = scope:mam_cen_support_file.var:mam_cen_subject has_variable = mam_jus_offer_sent }
+    AND = { exists = var:mam_jus_violation_author var:mam_jus_violation_author = scope:mam_cen_support_file.var:mam_cen_subject has_variable = mam_jus_violation }
+   } }
+  }
+ }
+}
+mam_censor_shared_faction_trigger = {
+ save_temporary_scope_as = mam_cen_faction_actor
+ top_liege = { any_targeting_faction = {
+  any_faction_member = { this = scope:mam_cen_faction_actor }
+  any_faction_member = { this = $OTHER$ }
+ } }
+}
+mam_censor_shared_bloc_trigger = {
+ exists = house.house_confederation exists = $OTHER$.house.house_confederation
+ house.house_confederation = $OTHER$.house.house_confederation
+}
+# Removal only by native retirement, never arbitrary title/vassal grants.
+# Keep mixed ministries/land, wars, existing custody and primary-title changes out.
+mam_censor_can_retire_trigger = {
+ save_temporary_scope_as = mam_cen_retire_candidate
+ is_alive = yes is_adult = yes is_imprisoned = no is_at_war = no
+ top_liege = scope:mam_cen_emperor
+ primary_title = $OFFICE$
+ any_held_title = { is_noble_family_title = yes }
+ OR = {
+  AND = {
+   tgp_is_any_minister = yes is_councillor_of = scope:mam_cen_emperor
+   primary_title = { tgp_is_minister_title = yes exists = current_heir
+    current_heir = { this != prev.holder mam_cj_ministry_candidate_trigger = { TITLE = prev OWNER = scope:mam_cen_emperor } } }
+   NOT = { any_held_title = { tier >= tier_county is_landless_type_title = no is_noble_family_title = no } }
+  }
+  AND = {
+   tgp_is_any_minister = no is_governor_or_admin_count = yes
+   primary_title = { is_landless_type_title = no is_noble_family_title = no tier >= tier_county tier <= tier_empire }
+   NOT = { any_held_title = { tgp_is_minister_title = yes } }
+   NOT = { any_held_title = { is_landless_type_title = no is_noble_family_title = no tier >= tier_county
+    this != scope:mam_cen_retire_candidate.primary_title
+    NOT = { target_is_de_jure_liege_or_above = scope:mam_cen_retire_candidate.primary_title }
+   } }
+   NOT = { primary_title = { has_variable = mam_senior_custody_file } }
+   trigger_if = { limit = { primary_title = { tier >= tier_kingdom } } mam_senior_incumbent_trigger = yes }
+  }
+ }
+}

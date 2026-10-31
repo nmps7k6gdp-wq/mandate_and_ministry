@@ -1,0 +1,515 @@
+﻿# Native treasury-request bridge. Only supported senior civilian requests are routed.
+# Native costs/cooldowns and unsupported outcomes are retained.
+# Supported players use the Ministry petition; AI keeps native request selection.
+celestial_request_treasury_interaction = {
+	# Supported civilian requests enter the Revenue queue directly; no duplicate response popup.
+	auto_accept = { mam_revenue_native_request_trigger = yes }
+	icon = icon_imperial_treasury
+	interface_priority = 61
+	category = interaction_category_vassal
+	common_interaction = no
+	desc = celestial_request_treasury_interaction_desc
+	filter_tags = { celestial_ministry dynastic_cycle }
+
+	ai_min_reply_days = 4
+	ai_max_reply_days = 9
+	popup_on_receive = yes
+	pause_on_receive = yes
+
+	cooldown = { years = 5 }
+
+	greeting = positive
+	notification_text = celestial_request_treasury_interaction_msg
+
+	pre_answer_yes_key = ACCEPT
+	pre_answer_no_key = DECLINE
+
+	# Let's find who we shall direct our request to (Liege's marshal/steward depending on type of governorship)
+	redirect = {
+		scope:recipient = {
+			if = {
+				limit = {
+					this = top_liege
+				}
+				if = {
+					limit = {
+						highest_held_title_tier >= tier_hegemony
+						government_has_flag = government_is_celestial
+						scope:actor = {
+							vassal_contract_has_flag = celestial_military_appointment
+							NOT = { is_councillor_of = top_liege }
+						}
+						exists = cp:councillor_marshal
+					}
+					cp:councillor_marshal = { save_scope_as = recipient }
+				}
+				else_if = {
+					limit = {
+						highest_held_title_tier >= tier_hegemony
+						government_has_flag = government_is_celestial
+						scope:actor = {
+							NOR = {
+								vassal_contract_has_flag = celestial_military_appointment
+								is_councillor_of = top_liege
+							}
+						}
+						exists = cp:councillor_steward
+					}
+					cp:councillor_steward = { save_scope_as = recipient }
+				}
+				else = {
+					save_scope_as = recipient
+				}
+			}
+		}
+	}
+
+	cost = {
+		influence = medium_influence_value
+	}
+
+	is_available = {
+		government_has_flag = government_is_celestial
+		OR = {
+			is_councillor_of = top_liege
+			is_governor = yes
+		}
+		trigger_if = {
+			limit = { is_ai = yes }
+			is_at_war = no
+			treasury <= minor_treasury_value
+			NOT = { has_variable = celestial_request_treasury_cooldown }
+		}
+		this != top_liege
+	}
+
+	is_shown = {
+		NOT = { AND = { mam_revenue_native_request_trigger = yes scope:actor = { is_ai = no } } }
+		scope:actor = {
+			this != scope:recipient
+		}
+		scope:actor.top_liege ?= scope:recipient.top_liege
+		scope:recipient = {
+			government_has_flag = government_is_celestial
+			OR = {
+				this = scope:actor.top_liege
+				OR = {
+					AND = {
+						has_title = title:e_minister_of_war
+						liege ?= {
+							highest_held_title_tier >= tier_hegemony
+							government_has_flag = government_is_celestial
+						}
+						scope:actor = {
+							vassal_contract_has_flag = celestial_military_appointment
+						}
+					}
+					AND = {
+						has_title = title:e_minister_of_revenue
+						liege ?= {
+							highest_held_title_tier >= tier_hegemony
+							government_has_flag = government_is_celestial
+						}
+						scope:actor = {
+							NOT = { vassal_contract_has_flag = celestial_military_appointment }
+						}
+					}
+				}
+			}
+			trigger_if = {
+				limit = {
+					scope:actor = { is_ai = yes }
+				}
+				NOT = { has_variable = celestial_request_treasury_ai_cooldown }
+			}
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			# Is not at war with anyone important
+			is_at_war_with_liege = no
+			NOT = { is_at_war_with = scope:recipient }
+		}
+
+		trigger_if = { limit = { mam_revenue_native_request_trigger = no }
+
+		scope:recipient = {
+			treasury >= request_treasury_value
+		}
+		}
+		trigger_else = { scope:actor = {
+			primary_title = { NOT = { has_variable = mam_rv_funding_file } mam_revenue_aid_available_trigger = yes
+				trigger_if = { limit = { has_variable = mam_rv_petition_until } var:mam_rv_petition_until <= current_date }
+			}
+			OR = { mam_revenue_needs_help_trigger = yes mam_revenue_has_project_trigger = yes mam_revenue_has_recovery_need_trigger = yes }
+		} }
+	}
+
+	can_send = {
+	}
+
+	on_send = {
+	}
+
+	# Hook
+	send_option = {
+		is_valid = {
+			scope:actor = { has_usable_hook = scope:recipient }
+			NOT = {
+				scope:recipient = { has_hook = scope:actor }
+			}
+		}
+		flag = hook
+		localization = GENERIC_SPEND_A_HOOK
+	}
+	# Dominant Family
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				house ?= { is_dominant_family = yes }
+			}
+		}
+		flag = dominant_family
+		localization = OPTION_DOMINANT_FAMILY
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				treasury < 0
+			}
+			scope:recipient = {
+				OR = {
+					has_title = title:e_minister_of_revenue
+					has_title = title:e_minister_of_war
+					this = scope:actor.top_liege
+				}
+			}
+		}
+
+		is_valid = { trigger_if = { limit = { mam_revenue_native_request_trigger = no }
+			scope:recipient = {
+				treasury >= {
+					value = scope:actor.treasury
+					multiply = -1
+				}
+			}
+		
+ } trigger_else = { title:h_china.holder = { treasury >= { value = scope:actor.treasury multiply = -1 add = mam_revenue_account_reserve } } } }
+
+		starts_enabled = { trigger_if = { limit = { mam_revenue_native_request_trigger = no }
+			scope:recipient = {
+				treasury >= {
+					value = scope:actor.treasury
+					multiply = -1
+				}
+			}
+		
+ } trigger_else = { title:h_china.holder = { treasury >= { value = scope:actor.treasury multiply = -1 add = mam_revenue_account_reserve } } } }
+		flag = clear_debt
+		localization = OPTION_CLEAR_DEBT
+	}
+	should_use_extra_icon = {
+		scope:actor = { has_usable_hook = scope:recipient }
+	}
+	extra_icon = "gfx/interface/icons/character_interactions/hook_icon.dds"
+	send_options_exclusive = no
+
+	on_accept = {
+		if = { limit = { mam_revenue_native_request_trigger = yes } mam_revenue_native_request_effect = yes }
+		else = {
+		scope:actor = {
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				# Add opinion
+				add_opinion = {
+					target = scope:recipient
+					modifier = grateful_opinion
+					opinion = 10
+				}
+			}
+			if = {
+				limit = {
+					scope:hook = yes
+					has_usable_hook = scope:recipient
+				}
+				use_hook = scope:recipient
+			}
+			# Trigger catalyst if applicable
+			tgp_activate_catalyst_against_hegemon_effect = {
+				HEGEMON = scope:recipient
+				CATALYST = catalyst_hegemon_influenced_by_interaction
+			}
+		}
+
+		scope:recipient = {
+			change_influence = major_influence_value
+			if = {
+				limit = {
+					scope:clear_debt = yes
+				}
+				pay_short_term_treasury = {
+					target = scope:actor
+					treasury = {
+						value = scope:actor.treasury
+						multiply = -1
+					}
+				}
+				add_hook = {
+					type = strong_indebted_hook
+					target = scope:actor
+				}
+				situation:dynastic_cycle ?= {
+					if = {
+						limit = {
+							situation_top_has_catalyst = catalyst_cleared_treasury_debt
+							any_situation_participant = {
+								this = scope:actor
+							}
+						}
+						trigger_situation_catalyst = {
+							catalyst = catalyst_cleared_treasury_debt
+							character = scope:actor
+						}
+					}
+				}
+			}
+			else = {
+				pay_short_term_treasury = {
+					target = scope:actor
+					treasury = request_treasury_value
+				}
+			}
+			# If recipient is a player - let's add a global AI cooldown so you don't get spammed with requests
+			if = {
+				limit = {
+					is_ai = no
+				}
+				set_variable = {
+					name = celestial_request_treasury_ai_cooldown
+					years = 3
+				}
+			}
+		}
+	
+		}
+	}
+
+	on_decline = {
+		scope:actor = {
+			if = {
+				limit = { is_ai = yes }
+				# Add opinion
+				add_opinion = {
+					target = scope:recipient
+					modifier = disappointed_opinion
+					opinion = -20
+				}
+				# Set up AI cooldown
+				if = {
+					limit = {
+						NOT = { has_variable = celestial_request_treasury_cooldown }
+					}
+					set_variable = { # If declined, we make the cooldown a bit longer to prevent the AI from asking again too soon
+						name = celestial_request_treasury_cooldown
+						years = 10
+					}
+				}
+			}
+		}
+		scope:recipient = {
+			if = {
+				limit = { scope:dominant_family = yes }
+				change_influence = medium_influence_loss
+			}
+			# If recipient is a player - let's add a global AI cooldown so you don't get spammed with requests
+			if = {
+				limit = {
+					is_ai = no
+				}
+				set_variable = {
+					name = celestial_request_treasury_ai_cooldown
+					years = 3
+				}
+			}
+		}
+	}
+
+	ai_targets = {
+		ai_recipients = top_liege
+		ai_recipients = liege
+		ai_recipients = peer_vassals
+	}
+	ai_frequency_by_tier = {
+		barony = 0
+		county = 108
+		duchy = 36
+		kingdom = 36
+		empire = 36
+		hegemony = 0
+	}
+
+	ai_will_do = {
+		base = 10
+
+		# Increase chance if we have a negative treasury
+		modifier = {
+			add = 10
+			treasury < 0
+		}
+
+		# Traits
+		modifier = {
+			add = 10
+			has_trait = greedy
+		}
+		modifier = {
+			add = 10
+			has_trait = ambitious
+		}
+		modifier = {
+			add = 5
+			has_trait = impatient
+		}
+		modifier = {
+			add = 5
+			has_trait = arbitrary
+		}
+		modifier = {
+			add = -10
+			has_trait = patient
+		}
+		modifier = {
+			add = -5
+			has_trait = humble
+		}
+
+		# Send options
+		modifier = { # Leverage your dominant family if applicable
+			factor = 1.2
+			scope:dominant_family = yes
+		}
+
+		# Councillors should be less likely to request funds
+		modifier = {
+			factor = 0.5
+			is_councillor_of = scope:recipient
+		}
+	}
+
+	ai_accept = {
+		base = -20
+
+		# Hook
+		modifier = {
+			add = 40
+			scope:hook = yes
+			desc = SCHEME_WEAK_HOOK_USED
+		}
+
+		# Opinion
+		opinion_modifier = {
+			opinion_target = scope:actor
+			who = scope:recipient
+			multiplier = 0.5
+		}
+
+		# Movements
+		modifier = {
+			add = {
+				value = 20
+				if = {
+					limit = {
+						is_in_pro_hegemon_or_hegemon_movement = yes
+					}
+					multiply = 1.5
+				}
+			}
+			is_in_same_movement_as = { TARGET = scope:actor }
+			desc = actor_and_recipient_in_same_movement
+		}
+		modifier = {
+			add = 20
+			is_in_same_movement_as = { TARGET = scope:actor }
+			scope:actor = { is_any_movement_leader = yes }
+			desc = actor_is_recipients_movement_leader
+		}
+
+		# Traits
+		modifier = {
+			add = 20
+			has_trait = generous
+			desc = INTERACTION_GENEROUS
+		}
+		modifier = {
+			add = -20
+			has_trait = greedy
+			desc = INTERACTION_GREEDY
+		}
+
+		# Treasury
+		modifier = {
+			add = -40
+			treasury < { value = request_treasury_value multiply = 2 }
+			desc = INTERACTION_RECIPIENT_WOULD_GET_LOW_TREASURY
+		}
+		modifier = {
+			add = -20
+			treasury < { value = request_treasury_value multiply = 4 }
+			treasury >= { value = request_treasury_value multiply = 2 }
+			desc = INTERACTION_RECIPIENT_WOULD_GET_LOW_TREASURY
+		}
+		modifier = {
+			add = 20
+			treasury > { value = request_treasury_value multiply = 8 }
+			desc = INTERACTION_RECIPIENT_HIGH_TREASURY
+		}
+		modifier = {
+			add = -30
+			scope:actor.treasury > { value = request_treasury_value multiply = 3 }
+			scope:actor.treasury <= { value = request_treasury_value multiply = 6 }
+			desc = INTERACTION_ACTOR_HIGH_TREASURY
+		}
+		modifier = {
+			add = -60
+			scope:actor.treasury > { value = request_treasury_value multiply = 6 }
+			desc = INTERACTION_ACTOR_HIGH_TREASURY
+		}
+
+		# Relations to actor
+		modifier = {
+			has_relation_friend = scope:actor
+			add = 20
+			desc = AI_YOUR_FRIEND
+		}
+		modifier = {
+			has_relation_lover = scope:actor
+			add = 10
+			desc = AI_YOUR_LOVER
+		}
+		modifier = {
+			has_relation_rival = scope:actor
+			add = -50
+			desc = AI_YOUR_RIVAL
+		}
+		modifier = {
+			has_relation_elder = scope:actor
+			add = 20
+			desc = AI_YOUR_DISCIPLE
+		}
+		modifier = {
+			has_relation_disciple = scope:actor
+			add = 5
+			desc = AI_YOUR_ELDER
+		}
+		# Grand Campaign
+		modifier = {
+			add = 30
+			any_character_war = {
+				using_cb = grand_campaign_kingdom_invasion_cb
+			}
+		}
+	}
+}

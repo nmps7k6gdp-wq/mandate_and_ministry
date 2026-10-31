@@ -1,0 +1,61 @@
+﻿# Capture a real, eligible laureate passed over for a weaker connected candidate.
+# Temporary scopes only; comparison happens before title transfers change scores.
+mam_exam_snapshot_snub_effect = {
+ clear_saved_scope = mam_exam_snubbed
+ clear_saved_scope = mam_exam_snub_actor
+ if = { limit = {
+  exists = $ACTOR$ exists = $BENCHMARK$ exists = $CANDIDATE$
+  $ACTOR$ = { is_alive = yes }
+ }
+  $ACTOR$ = { save_scope_as = mam_minister }
+  if = { limit = {
+   $BENCHMARK$ != $CANDIDATE$
+   $BENCHMARK$ = {
+    is_alive = yes mam_exam_recognition_rank > 0
+    $ELIGIBILITY$ = yes
+    trigger_if = { limit = { always = $SENIOR$ } mam_senior_source_actionable_trigger = yes }
+    top_liege = $ACTOR$.top_liege
+   }
+   $CANDIDATE$ = {
+    OR = { mam_senior_basis_family_trigger = yes mam_senior_basis_faction_trigger = yes mam_senior_basis_paid_trigger = yes }
+   }
+   $CANDIDATE$.$SCORE$ < { value = $BENCHMARK$.$SCORE$ subtract = 5 }
+  }
+   $BENCHMARK$ = { save_scope_as = mam_exam_snubbed }
+   $ACTOR$ = { save_scope_as = mam_exam_snub_actor }
+  }
+ }
+}
+mam_exam_apply_snub_effect = {
+ if = { limit = { exists = scope:mam_exam_snubbed exists = scope:mam_exam_snub_actor
+  scope:mam_exam_snubbed = { is_alive = yes top_liege = scope:mam_exam_snub_actor.top_liege }
+  scope:mam_exam_snub_actor = { is_alive = yes }
+ }
+  scope:mam_exam_snubbed = { add_opinion = { target = scope:mam_exam_snub_actor modifier = mam_exam_passed_over years = 3 } }
+ }
+}
+mam_exam_snub_preview_effect = {
+ if = { limit = { exists = scope:mam_exam_snubbed exists = scope:mam_exam_snub_actor }
+  custom_tooltip = mam_exam.snub_explanation_tt
+  show_as_tooltip = {
+   scope:mam_exam_snubbed = { add_opinion = { target = scope:mam_exam_snub_actor modifier = mam_exam_passed_over years = 3 } }
+  }
+ }
+}
+mam_exam_candidate_honor_tooltip_effect = {
+ save_scope_as = mam_exam_candidate
+ if = { limit = { mam_exam_recognition_rank > 0 }
+  custom_tooltip = mam_exam.candidate_honor_tt
+ }
+ if = { limit = { mam_exam_imperial_sponsorship_points > 0 }
+  custom_tooltip = mam_exam.candidate_sponsorship_tt
+ }
+}
+
+# Only central ministerial assessment adds the authority-specific respect term.
+mam_exam_professional_respect_tooltip_effect = {
+ if = { limit = { mam_exam_professional_respect > 0 }
+  save_scope_value_as = { name = mam_exam_respect_points value = mam_exam_professional_respect }
+  custom_tooltip = mam_exam.candidate_respect_tt
+ }
+}

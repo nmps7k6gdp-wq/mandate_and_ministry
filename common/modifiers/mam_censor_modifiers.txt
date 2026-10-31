@@ -1,0 +1,9 @@
+﻿mam_cen_feared = { icon = intrigue_positive dread_baseline_add = 10 general_opinion = -10 }
+mam_cen_trusted = { icon = diplomacy_positive monthly_influence_mult = 0.1 general_opinion = 5 }
+mam_cen_censured = { icon = intrigue_negative monthly_influence_mult = -0.15 general_opinion = -5 }
+mam_cen_restrained = { icon = intrigue_negative monthly_influence_mult = -0.1 }
+mam_cen_protected = { icon = diplomacy_positive }
+mam_cen_reformed = { icon = diplomacy_positive stress_gain_mult = -0.1 }
+mam_cen_discredited = { icon = intrigue_negative monthly_influence_mult = -0.2 general_opinion = -10 }
+
+mam_cen_guarded = { icon = intrigue_positive enemy_hostile_scheme_phase_duration_add = 5 }

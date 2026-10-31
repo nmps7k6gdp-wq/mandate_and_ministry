@@ -1,0 +1,39 @@
+﻿namespace = mam_personnel_direction
+
+mam_personnel_direction.1 = {
+
+ type = character_event theme = merit title = mam_personnel_direction.title desc = mam_personnel_direction.desc
+
+ trigger = { mam_personnel_can_direct_trigger = yes }
+
+ option = { name = mam_personnel_direction.professional
+ custom_tooltip = mam_personnel_direction.professional_tt
+
+ trigger = { mam_personnel_can_direct_trigger = yes }
+
+ hidden_effect = { if = { limit = { mam_can_oversee_personnel_trigger = yes } primary_title = { set_variable = { name = mam_personnel_imperial_direction value = 1 } } } top_liege.primary_title = { set_variable = { name = mam_personnel_priority value = 1 } remove_variable = mam_personnel_ai_priority_owner remove_variable = mam_personnel_ai_priority_until } }
+
+ }
+
+ option = { name = mam_personnel_direction.continuity
+ custom_tooltip = mam_personnel_direction.continuity_tt
+
+ trigger = { mam_personnel_can_direct_trigger = yes }
+
+ hidden_effect = { if = { limit = { mam_can_oversee_personnel_trigger = yes } primary_title = { set_variable = { name = mam_personnel_imperial_direction value = 1 } } } top_liege.primary_title = { set_variable = { name = mam_personnel_priority value = 2 } remove_variable = mam_personnel_ai_priority_owner remove_variable = mam_personnel_ai_priority_until } }
+
+ }
+
+ option = { name = mam_personnel_direction.discretion
+ custom_tooltip = mam_personnel_direction.discretion_tt
+
+ trigger = { mam_personnel_can_direct_trigger = yes }
+
+ hidden_effect = { if = { limit = { mam_can_oversee_personnel_trigger = yes } primary_title = { remove_variable = mam_personnel_imperial_direction } } top_liege.primary_title = { remove_variable = mam_personnel_priority remove_variable = mam_personnel_ai_priority_owner remove_variable = mam_personnel_ai_priority_until } }
+
+ }
+
+ option = { name = mam_personnel.close }
+
+}
+

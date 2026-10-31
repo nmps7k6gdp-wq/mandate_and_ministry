@@ -1,0 +1,37 @@
+﻿# Civilian governor appointment bonus only. Native eligibility remains with its appointment type.
+mam_personnel_civilian_appointment_bonus = {
+ value = 0
+ # No county/duchy, foreign realm or imperial-throne score changes.
+
+ if = { limit = { exists = scope:title exists = top_liege.primary_title
+
+ scope:title = { tier >= tier_kingdom tier <= tier_empire is_landless_type_title = no is_noble_family_title = no this != root.top_liege.primary_title }
+
+ top_liege = { government_has_flag = government_is_celestial }
+
+ }
+
+ if = { limit = { has_character_modifier = mam_personnel_service_endorsement
+
+ var:mam_personnel_endorsement_realm = top_liege.primary_title
+
+ scope:title = { tier > root.var:mam_personnel_endorsement_rank }
+ # A promotion outside this workflow must not turn an old endorsement into a lateral bonus.
+ NOT = { any_held_title = { is_landless_type_title = no is_noble_family_title = no tier >= scope:title.tier } }
+
+
+ } add = { value = 20 desc = mam_personnel_service_endorsement } }
+
+ if = { limit = { has_character_modifier = mam_personnel_poor_service var:mam_personnel_assessment_realm = top_liege.primary_title }
+
+ subtract = { value = 10 desc = mam_personnel_poor_service } }
+
+ if = { limit = { has_character_modifier = mam_personnel_royal_favor var:mam_personnel_favor_realm = top_liege.primary_title }
+
+ add = { value = 10 desc = mam_personnel_royal_favor } }
+
+ if = { limit = { mam_exam_imperial_sponsorship_points > 0 }
+  add = { value = mam_exam_imperial_sponsorship_points desc = mam_exam_imperial_sponsorship }
+ }
+ }
+}

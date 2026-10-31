@@ -1,0 +1,173 @@
+﻿# Character scope: establish a material operating review, never quietly endorse
+# every new court position/regiment. One review per office per quarter.
+mam_revenue_fund_open_operations_effect = {
+ save_scope_as = mam_cf_reviewed
+ mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 1 AMOUNT = 0 }
+ if = { limit = { exists = scope:mam_cf_created }
+  primary_title = { set_variable = { name = mam_cf_review_until value = { value = current_date add = 90 } } }
+  scope:mam_cf_created = {
+   set_variable = { name = mam_cf_cost value = scope:mam_cf_reviewed.mam_revenue_fund_observed_cost }
+   set_variable = { name = mam_cf_headroom value = scope:mam_cf_reviewed.primary_title.var:mam_cf_headroom }
+   set_variable = { name = mam_cf_old_headroom value = scope:mam_cf_reviewed.primary_title.var:mam_cf_headroom }
+   set_variable = { name = mam_cf_old_cost value = scope:mam_cf_reviewed.primary_title.var:mam_cf_cost }
+  }
+ }
+}
+mam_revenue_fund_open_relief_effect = {
+ if = { limit = { mam_revenue_province_trigger = yes
+  primary_title = { NOT = { has_variable = mam_cf_relief_until } }
+ }
+  mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 2 AMOUNT = 150 }
+  if = { limit = { exists = scope:mam_cf_created }
+   # Allow a smaller useful grant when the fund cannot meet the default request.
+   # Projects are deliberately excluded: their native start must be fully paid.
+   scope:mam_cf_created = {
+    if = { limit = { title:h_china.mam_revenue_fund_available > 0 title:h_china.mam_revenue_fund_available < 150 }
+     set_variable = { name = mam_cf_amount value = { value = title:h_china.mam_revenue_fund_available floor = yes min = 1 } }
+    }
+   }
+  }
+ }
+}
+# Target province/realm and type have been chosen in a character event. Quote the
+# installed native starting cost; Influence and site eligibility remain native.
+mam_revenue_fund_open_project_effect = {
+ if = { limit = { primary_title = {
+  NOT = { has_variable = mam_cf_return_pending }
+  trigger_if = { limit = { has_variable = mam_cf_next_project_request } var:mam_cf_next_project_request <= current_date }
+ } }
+
+ mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 3 AMOUNT = $COST$ }
+ if = { limit = { exists = scope:mam_cf_created }
+  mam_revenue_fund_record_diagnostic_effect = { KEY = project_requested }
+  debug_log = "MAM_FUND_PROJECT_REQUEST: type $TYPE$"
+  scope:mam_cf_created = {
+   set_variable = { name = mam_cf_project_type value = $TYPE$ }
+   set_variable = { name = mam_cf_project_target value = scope:mam_cf_site_title }
+   # Strengthen Capital is imperial work, regardless of the governor used to
+   # open the project chooser. Keep the beneficiary ministry as the payer.
+   if = { limit = { OR = {
+    var:mam_cf_project_type = 10 var:mam_cf_project_type = 11 var:mam_cf_project_type = 12
+   } } set_variable = { name = mam_cf_project_target value = title:h_china } }
+   if = { limit = { var:mam_cf_project_type = 9 }
+    set_variable = { name = mam_cf_project_target value = title:h_china }
+   }
+
+  }
+ }
+
+ }
+}
+
+mam_revenue_fund_open_contribution_effect = {
+ set_variable = { name = mam_pc_menu_offset value = 0 }
+ mam_revenue_fund_choose_invoice_effect = yes
+}
+
+mam_revenue_fund_open_appeal_effect = {
+ save_scope_as = mam_cf_appellant
+ mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 7 AMOUNT = 0 }
+ if = { limit = { exists = scope:mam_cf_created }
+  primary_title = { set_variable = { name = mam_cf_appeal_used value = 1 } }
+  scope:mam_cf_created = {
+   set_variable = { name = mam_cf_cost value = scope:mam_cf_appellant.mam_revenue_fund_observed_cost }
+   set_variable = { name = mam_cf_headroom value = scope:mam_cf_appellant.primary_title.var:mam_cf_cut_before }
+  }
+ }
+}
+mam_revenue_fund_initiative_effect = {
+random_vassal_or_below = { limit = {
+   mam_revenue_ministry_trigger = yes
+   primary_title = { NOT = { has_variable = mam_cf_case_1 }
+    trigger_if = { limit = { has_variable = mam_cf_review_until } var:mam_cf_review_until <= current_date }
+   }
+   OR = {
+ mam_revenue_fund_observed_cost > { value = primary_title.var:mam_cf_cost add = 10 }
+ mam_revenue_fund_observed_cost < { value = primary_title.var:mam_cf_cost subtract = 10 min = 0 }
+ }
+  } mam_revenue_fund_open_operations_effect = yes }
+
+ # Unsolicited matters are bounded: quarterly, at most one operating review,
+ # two genuine provincial needs, one contribution and one shortage proposal.
+ if = { limit = { OR = { title:h_china = { NOT = { has_variable = mam_cf_next_review } }
+  title:h_china.var:mam_cf_next_review <= current_date } }
+  title:h_china = { set_variable = { name = mam_cf_next_review value = { value = current_date add = 90 } } }
+  every_vassal_or_below = { limit = { mam_revenue_province_trigger = yes }
+   primary_title = {
+    if = { limit = { has_variable = mam_cf_relief_until var:mam_cf_relief_until <= current_date } remove_variable = mam_cf_relief_until }
+    if = { limit = { has_variable = mam_cf_remit_until var:mam_cf_remit_until <= current_date } remove_variable = mam_cf_remit_until }
+   }
+  }
+  
+  ordered_vassal_or_below = {
+   limit = { mam_revenue_province_trigger = yes mam_revenue_has_recovery_need_trigger = yes mam_revenue_needs_help_trigger = yes
+    primary_title = { NOT = { has_variable = mam_cf_relief_until } NOT = { has_variable = mam_cf_case_2 } }
+   }
+   order_by = mam_revenue_need_score max = 2 check_range_bounds = no
+   mam_revenue_fund_open_relief_effect = yes
+  }
+  if = { limit = { title:h_china = { OR = { NOT = { has_variable = mam_cf_programme_until } var:mam_cf_programme_until <= current_date } }
+   title:h_china = { NOT = { has_variable = mam_cf_case_4 } }
+  }
+   if = { limit = { exists = title:e_minister_chancellor.holder title:e_minister_chancellor.holder = { mam_revenue_chancellor_trigger = yes } }
+    title:e_minister_chancellor.holder = { mam_revenue_fund_request_effect = { TARGET = title:h_china KIND = 4 AMOUNT = 0 } }
+   }
+   else = { mam_revenue_fund_request_effect = { TARGET = title:h_china KIND = 4 AMOUNT = 0 } }
+  }
+  if = { limit = { OR = { title:h_china.var:mam_cf_unfunded > 0 title:h_china.var:mam_cf_claims_due > 0
+   title:e_minister_of_revenue.holder.treasury < title:e_minister_of_revenue.mam_revenue_fund_cash_target }
+   title:h_china.holder.treasury > 600 title:h_china = { NOT = { has_variable = mam_cf_case_5 } }
+   OR = { title:h_china = { NOT = { has_variable = mam_cf_topup_until } } title:h_china.var:mam_cf_topup_until <= current_date }
+  }
+   mam_revenue_fund_request_effect = { TARGET = title:h_china KIND = 5 AMOUNT = mam_revenue_fund_imperial_topup_quote }
+   title:h_china = { set_variable = { name = mam_cf_topup_until value = { value = current_date add = 365 } } }
+  }
+  # Ministers can seek native project money without waiting for a player. The
+  # funded proposal still passes the identical law/cash/earmark checks.
+  
+  # Under reserves, seek one affordable, non-distressed provincial contribution.
+  if = { limit = { title:h_china.var:mam_cf_programme = 1 }
+   random_vassal_or_below = { limit = {
+    mam_revenue_province_trigger = yes treasury >= 1000 mam_revenue_has_recovery_need_trigger = no
+    primary_title = { NOT = { has_variable = mam_cf_remit_until } NOT = { has_variable = mam_cf_case_6 } }
+   } mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 6 AMOUNT = 100 } }
+  }
+ 
+ random_vassal_or_below = { limit = {
+  mam_revenue_ministry_trigger = yes is_ai = yes treasury < major_treasury_value
+  primary_title = { NOT = { has_variable = mam_cf_case_12 } NOT = { has_variable = mam_cf_special_until } }
+  OR = {
+   AND = { has_title = title:e_minister_grand_marshal OR = {
+    top_liege = { is_at_war = yes } maa_regiments_count < maa_regiments_max_count
+   } }
+   AND = { has_title = title:e_minister_of_war top_liege = { any_vassal_or_below = {
+    vassal_contract_has_flag = celestial_military_appointment treasury < 0
+   } } }
+  }
+  title:h_china = { mam_revenue_fund_available > 1000 }
+ }
+ mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 12 AMOUNT = mam_revenue_fund_military_advance }
+ }
+}
+
+ # Fund one eligible project proposal each monthly review.
+ save_scope_value_as = { name = mam_cf_proposal_dispatched value = 0 }
+ mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_cycle }
+random_vassal_or_below = { limit = {
+   mam_revenue_ministry_trigger = yes is_ai = yes
+   primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } }
+   OR = { has_title = title:e_minister_grand_marshal has_title = title:e_minister_of_works has_title = title:e_minister_of_rites
+    has_title = title:e_minister_of_war has_title = title:e_minister_of_justice has_title = title:e_minister_of_revenue }
+   NOT = { has_trait = lazy }
+   primary_title = { NOT = { has_variable = mam_cf_return_pending }
+    trigger_if = { limit = { has_variable = mam_cf_next_project_request } var:mam_cf_next_project_request <= current_date }
+   }
+   top_liege = { mam_revenue_fund_available > 500 }
+  }
+ save_scope_value_as = { name = mam_cf_proposal_dispatched value = 1 }
+ mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_dispatched }
+ trigger_event = { id = mam_fund.96 days = 1 } }
+ if = { limit = { scope:mam_cf_proposal_dispatched = 0 }
+  mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_no_dispatch }
+ }
+}

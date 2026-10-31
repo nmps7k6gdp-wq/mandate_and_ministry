@@ -1,0 +1,60 @@
+﻿# Candidate scope: add only candidates passing destination-specific native gates.
+mam_add_posting_candidate_effect = {
+    if = {
+        limit = {
+            mam_eligible_for_office_trigger = { TITLE = scope:mam_posting }
+            NOT = { is_in_list = mam_posting_candidates }
+        }
+        add_to_list = mam_posting_candidates
+    }
+}
+
+# Requester scope. Ephemeral list, no office or persistent state changes.
+mam_build_posting_review_effect = {
+    mam_refresh_power_context_effect = { SUBJECT = scope:mam_inspected }
+    mam_read_marked_candidate_effect = yes
+    mam_read_native_successor_effect = yes
+ clear_saved_scope = mam_posting_candidate_1
+ clear_saved_scope = mam_posting_candidate_2
+ clear_saved_scope = mam_posting_candidate_3
+
+    scope:mam_emperor = {
+        every_courtier_or_guest = { mam_add_posting_candidate_effect = yes }
+        every_vassal_or_below = {
+            mam_add_posting_candidate_effect = yes
+            every_courtier_or_guest = { mam_add_posting_candidate_effect = yes }
+        }
+    }
+
+    ordered_in_list = {
+        list = mam_posting_candidates
+        limit = { mam_posting_eligible_trigger = yes }
+        order_by = mam_recommendation_score
+        max = 1
+        check_range_bounds = no
+        save_scope_as = mam_posting_candidate_1
+    }
+    if = { limit = { exists = scope:mam_posting_candidate_1 }
+
+    ordered_in_list = {
+        list = mam_posting_candidates
+        limit = { this != scope:mam_posting_candidate_1 mam_posting_eligible_trigger = yes }
+        order_by = mam_recommendation_score
+        max = 1
+        check_range_bounds = no
+        save_scope_as = mam_posting_candidate_2
+    }
+    }
+    if = { limit = { exists = scope:mam_posting_candidate_2 }
+
+    ordered_in_list = {
+        list = mam_posting_candidates
+        limit = { this != scope:mam_posting_candidate_1
+this != scope:mam_posting_candidate_2 mam_posting_eligible_trigger = yes }
+        order_by = mam_recommendation_score
+        max = 1
+        check_range_bounds = no
+        save_scope_as = mam_posting_candidate_3
+    }
+    }
+}

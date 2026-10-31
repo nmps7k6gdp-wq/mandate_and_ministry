@@ -1,0 +1,824 @@
+﻿namespace = mam_fund
+mam_fund.99 = { type = character_event hidden = yes immediate = { mam_revenue_fund_start_effect = yes } }
+mam_fund.98 = { type = character_event hidden = yes immediate = { mam_revenue_fund_wake_effect = yes } }
+mam_fund.90 = { type = character_event hidden = yes immediate = { mam_revenue_fund_present_effect = yes } }
+mam_fund.1 = {
+ type = letter_event title = mam_cf.request_title sender = scope:mam_cf_sender
+ opening = { desc = mam_cf.opening }
+ desc = { first_valid = {
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 13 scope:mam_cf_file = { has_variable = mam_pc_campaign_launch } scope:mam_cf_selected_project = { var:mam_pc_launch_authorized = 0 } } desc = mam_pc.campaign_request_desc }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 13 } desc = mam_pc.budget_request_desc } triggered_desc = { trigger = { scope:mam_cf_file = { has_variable = mam_cf_clear_debt } } desc = mam_cf.debt_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 5 } desc = mam_cf.topup_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 6 } desc = mam_cf.remit_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 1 } desc = mam_cf.project_request_1 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 2 } desc = mam_cf.project_request_2 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 3 } desc = mam_cf.project_request_3 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 4 } desc = mam_cf.project_request_4 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 5 } desc = mam_cf.project_request_5 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 6 } desc = mam_cf.project_request_6 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 7 } desc = mam_cf.project_request_7 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 8 } desc = mam_cf.project_request_8 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 9 } desc = mam_cf.project_request_9 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 10 } desc = mam_cf.project_request_10 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 11 } desc = mam_cf.project_request_11 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 12 } desc = mam_cf.project_request_12 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 13 } desc = mam_cf.project_request_13 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 14 } desc = mam_cf.project_request_14 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 15 } desc = mam_cf.project_request_15 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 16 } desc = mam_cf.project_request_16 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 17 } desc = mam_cf.project_request_17 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 } desc = mam_cf.project_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 9 } desc = mam_cf.contribution_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 12 } desc = mam_cf.supplement_desc }
+  desc = mam_cf.relief_desc
+ } }
+ trigger = { mam_revenue_fund_actor_trigger = yes }
+ option = {
+  name = mam_cf.revise trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes is_ai = no scope:mam_cf_file.var:mam_cf_stage != 2 
+} }
+  custom_tooltip = mam_cf.revise_tt
+  hidden_effect = { trigger_event = mam_fund.3 } ai_chance = { base = 0 }
+ }
+ option = {
+  name = mam_cf.recommend
+  trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_file.var:mam_cf_stage = 0
+   scope:mam_cf_quote > 0 scope:mam_cf_quote <= scope:mam_cf_max
+  
+} 
+ trigger_if = { limit = { scope:mam_cf_file.var:mam_cf_kind = 13 } scope:mam_cf_quote >= scope:mam_cf_file.var:mam_pc_minimum }
+}
+  custom_tooltip = mam_cf.recommend_tt
+  if = { limit = { custom_tooltip = { text = mam_cf.context_tt  scope:mam_cf_file = { mam_revenue_fund_delegated_trigger = yes }  } }
+   mam_revenue_fund_preview_effect = yes
+  }
+  hidden_effect = { mam_revenue_fund_recommend_effect = yes }
+  ai_chance = { base = 0 modifier = { add = mam_revenue_fund_support_weight } }
+ }
+ option = {
+  name = mam_cf.approve
+  trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_file.var:mam_cf_stage = 1 scope:mam_cf_quote <= scope:mam_cf_max scope:mam_cf_quote > 0 
+} 
+ trigger_if = { limit = { scope:mam_cf_file.var:mam_cf_kind = 13 } scope:mam_cf_quote >= scope:mam_cf_file.var:mam_pc_minimum }
+}
+  mam_revenue_fund_preview_effect = yes
+  hidden_effect = { mam_revenue_fund_approve_effect = yes }
+  ai_chance = { base = 0 modifier = { add = mam_revenue_fund_support_weight } }
+ }
+ option = {
+  name = mam_cf.consent
+  trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_file.var:mam_cf_stage = 2 scope:mam_cf_quote <= scope:mam_cf_max 
+} }
+  custom_tooltip = mam_cf.consent_tt
+  hidden_effect = { scope:mam_cf_file = {
+   set_variable = { name = mam_cf_consent value = root }
+   if = { limit = { mam_revenue_fund_delegated_trigger = yes }
+    set_variable = { name = mam_cf_authorized value = title:e_minister_of_revenue.holder }
+    mam_revenue_fund_commit_effect = yes
+   }
+   else = { set_variable = { name = mam_cf_stage value = 1 } mam_revenue_fund_release_effect = yes }
+  } }
+  ai_chance = { base = 70 modifier = { add = 30 has_trait = generous } modifier = { factor = 0.5 has_trait = greedy } }
+ }
+ option = {
+  name = mam_cf.refuse trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+  custom_tooltip = mam_cf.refuse_tt
+  if = { limit = { custom_tooltip = { text = mam_cf.context_tt  has_trait = compassionate scope:mam_cf_file.var:mam_cf_kind = 2 scope:mam_cf_max >= scope:mam_cf_quote scope:mam_cf_subject = { mam_revenue_has_recovery_need_trigger = yes }  } }
+   show_as_tooltip = { add_stress = 15 }
+  }
+  hidden_effect = { mam_revenue_fund_refuse_effect = yes }
+  ai_chance = { base = 25 modifier = { add = 25 has_trait = lazy } modifier = { add = 25 has_trait = paranoid } modifier = { add = 20 has_trait = greedy } modifier = { add = 70 has_trait = vengeful has_relation_rival = scope:mam_cf_subject } }
+ }
+ option = { name = mam_cf.defer trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes is_ai = no 
+} }
+  custom_tooltip = mam_cf.defer_tt hidden_effect = { mam_revenue_fund_defer_effect = yes } ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.changed trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = no 
+} }
+  custom_tooltip = mam_cf.changed_tt
+  hidden_effect = { if = { limit = { exists = scope:mam_cf_file }
+   scope:mam_cf_file = { if = { limit = { var:mam_cf_pending = 1 mam_revenue_fund_live_case_trigger = no }
+    mam_revenue_fund_close_effect = { RESULT = 4 }
+   } }
+  } }
+  ai_chance = { base = 100 }
+ }
+
+ immediate = { mam_revenue_fund_bind_effect = yes }
+}
+mam_fund.2 = {
+ type = character_event theme = stewardship title = mam_cf.operations_title desc = mam_cf.operations_desc
+ trigger = { mam_revenue_fund_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { scope:mam_cf_subject != root } character = scope:mam_cf_subject animation = thinking }
+ option = { name = mam_cf.lean
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+ custom_tooltip = mam_cf.lean_tt
+ if = { limit = { custom_tooltip = { text = mam_cf.context_tt  has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 25  } } show_as_tooltip = { add_stress = 10 } }
+ hidden_effect = {
+  if = { limit = { has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 25 } add_stress = 10 }
+  scope:mam_cf_file = { set_variable = { name = mam_cf_headroom value = 25 } }
+  if = { limit = { scope:mam_cf_file.var:mam_cf_stage = 1 } mam_revenue_fund_approve_effect = yes }
+  else = { mam_revenue_fund_recommend_effect = yes }
+ }
+ ai_chance = { base = 25 modifier = { add = 80 has_trait = vengeful has_relation_rival = scope:mam_cf_subject } modifier = { add = 25 has_trait = greedy } modifier = { add = 25 has_trait = paranoid }
+  modifier = { factor = 0.5 has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 25 }
+  modifier = { factor = 1.5 has_trait = ambitious has_relation_friend = scope:mam_cf_subject }
+ }
+}
+option = { name = mam_cf.standard
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+ custom_tooltip = mam_cf.standard_tt
+ if = { limit = { custom_tooltip = { text = mam_cf.context_tt  has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 75  } } show_as_tooltip = { add_stress = 10 } }
+ hidden_effect = {
+  if = { limit = { has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 75 } add_stress = 10 }
+  scope:mam_cf_file = { set_variable = { name = mam_cf_headroom value = 75 } }
+  if = { limit = { scope:mam_cf_file.var:mam_cf_stage = 1 } mam_revenue_fund_approve_effect = yes }
+  else = { mam_revenue_fund_recommend_effect = yes }
+ }
+ ai_chance = { base = 80 modifier = { add = 25 has_trait = just } modifier = { add = 25 has_trait = honest } modifier = { add = 25 has_trait = diligent } modifier = { add = 25 has_trait = lazy }
+  modifier = { factor = 0.5 has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 75 }
+  modifier = { factor = 1.5 has_trait = ambitious has_relation_friend = scope:mam_cf_subject }
+ }
+}
+option = { name = mam_cf.expanded
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+ custom_tooltip = mam_cf.expanded_tt
+ if = { limit = { custom_tooltip = { text = mam_cf.context_tt  has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 150  } } show_as_tooltip = { add_stress = 10 } }
+ hidden_effect = {
+  if = { limit = { has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 150 } add_stress = 10 }
+  scope:mam_cf_file = { set_variable = { name = mam_cf_headroom value = 150 } }
+  if = { limit = { scope:mam_cf_file.var:mam_cf_stage = 1 } mam_revenue_fund_approve_effect = yes }
+  else = { mam_revenue_fund_recommend_effect = yes }
+ }
+ ai_chance = { base = 25 modifier = { add = 35 has_trait = ambitious OR = { is_close_or_extended_family_of = scope:mam_cf_subject has_relation_friend = scope:mam_cf_subject is_in_same_movement_as = { TARGET = scope:mam_cf_subject } } } modifier = { add = 25 has_trait = generous } modifier = { add = 25 has_trait = trusting } modifier = { add = 25 has_trait = ambitious }
+  modifier = { factor = 0.5 has_trait = vengeful has_relation_rival = scope:mam_cf_subject scope:mam_cf_subject.primary_title.var:mam_cf_headroom < 150 }
+  modifier = { factor = 1.5 has_trait = ambitious has_relation_friend = scope:mam_cf_subject }
+ }
+}
+ option = { name = mam_cf.decline_increase trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+  custom_tooltip = mam_cf.decline_increase_tt hidden_effect = { mam_revenue_fund_refuse_effect = yes }
+  ai_chance = { base = 10 modifier = { add = 25 has_trait = stubborn } modifier = { add = 25 has_trait = lazy } }
+ }
+ option = { name = mam_cf.defer trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes is_ai = no 
+} }
+  custom_tooltip = mam_cf.defer_tt hidden_effect = { mam_revenue_fund_defer_effect = yes } ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.changed trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = no 
+} }
+  custom_tooltip = mam_cf.changed_tt
+  hidden_effect = { if = { limit = { exists = scope:mam_cf_file }
+   scope:mam_cf_file = { if = { limit = { var:mam_cf_pending = 1 mam_revenue_fund_live_case_trigger = no }
+    mam_revenue_fund_close_effect = { RESULT = 4 }
+   } }
+  } }
+  ai_chance = { base = 100 }
+ }
+
+ immediate = { mam_revenue_fund_bind_effect = yes }
+}
+mam_fund.3 = {
+ type = character_event theme = stewardship title = mam_cf.amount_title desc = mam_cf.amount_desc
+ trigger = { mam_revenue_fund_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { scope:mam_cf_subject != root } character = scope:mam_cf_subject animation = thinking }
+ option = { name = mam_cf.plus25
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_quote <= { value = scope:mam_cf_max subtract = 25 } 
+} }
+ hidden_effect = { scope:mam_cf_file = { change_variable = { name = mam_cf_amount add = 25 } } mam_revenue_fund_bind_effect = yes trigger_event = mam_fund.3 }
+ ai_chance = { base = 0 }
+}
+option = { name = mam_cf.plus100
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_quote <= { value = scope:mam_cf_max subtract = 100 } 
+} }
+ hidden_effect = { scope:mam_cf_file = { change_variable = { name = mam_cf_amount add = 100 } } mam_revenue_fund_bind_effect = yes trigger_event = mam_fund.3 }
+ ai_chance = { base = 0 }
+}
+option = { name = mam_cf.minus25
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_quote > 25 
+} }
+ hidden_effect = { scope:mam_cf_file = { change_variable = { name = mam_cf_amount add = -25 } } mam_revenue_fund_bind_effect = yes trigger_event = mam_fund.3 }
+ ai_chance = { base = 0 }
+}
+option = { name = mam_cf.minus100
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_quote > 100 
+} }
+ hidden_effect = { scope:mam_cf_file = { change_variable = { name = mam_cf_amount add = -100 } } mam_revenue_fund_bind_effect = yes trigger_event = mam_fund.3 }
+ ai_chance = { base = 0 }
+}
+ option = { name = mam_cf.amount_max trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_max > 0 
+} }
+  hidden_effect = { scope:mam_cf_file = { set_variable = { name = mam_cf_amount value = scope:mam_cf_max } } mam_revenue_fund_bind_effect = yes trigger_event = mam_fund.3 }
+  ai_chance = { base = 0 }
+ }
+ option = { name = mam_cf.amount_done trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+  hidden_effect = { mam_revenue_fund_bind_effect = yes mam_revenue_fund_show_request_effect = yes } ai_chance = { base = 100 }
+ }
+
+ option = { name = mam_cf.changed trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = no 
+} }
+  custom_tooltip = mam_cf.changed_tt
+  hidden_effect = { if = { limit = { exists = scope:mam_cf_file }
+   scope:mam_cf_file = { if = { limit = { var:mam_cf_pending = 1 mam_revenue_fund_live_case_trigger = no }
+    mam_revenue_fund_close_effect = { RESULT = 4 }
+   } }
+  } }
+  ai_chance = { base = 100 }
+ }
+
+ immediate = { mam_revenue_fund_bind_effect = yes }
+}
+mam_fund.4 = {
+ type = character_event theme = stewardship title = mam_cf.programme_title desc = mam_cf.programme_desc
+ trigger = { mam_revenue_fund_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_cf_custodian scope:mam_cf_custodian != root } character = scope:mam_cf_custodian animation = thinking }
+ option = { name = mam_cf.balanced trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+ custom_tooltip = mam_cf.balanced_tt
+ hidden_effect = { scope:mam_cf_file = { set_variable = { name = mam_cf_mode value = 0 } }
+  if = { limit = { OR = { mam_revenue_emperor_trigger = yes AND = { mam_revenue_chancellor_trigger = yes title:h_china.holder = { NOT = { has_realm_law = mam_revenue_authority_reserved } } } } } mam_revenue_fund_approve_effect = yes }
+  else = { mam_revenue_fund_recommend_effect = yes }
+ }
+ ai_chance = { modifier = { add = 35 has_trait = stubborn title:h_china.var:mam_cf_programme = 0 }
+ modifier = { add = 20 has_trait = fickle title:h_china = { NOT = { var:mam_cf_programme = 0 } } }
+ base = 80 modifier = { add = 50 has_trait = just } }
+}
+option = { name = mam_cf.reserves trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+ custom_tooltip = mam_cf.reserves_tt
+ hidden_effect = { scope:mam_cf_file = { set_variable = { name = mam_cf_mode value = 1 } }
+  if = { limit = { OR = { mam_revenue_emperor_trigger = yes AND = { mam_revenue_chancellor_trigger = yes title:h_china.holder = { NOT = { has_realm_law = mam_revenue_authority_reserved } } } } } mam_revenue_fund_approve_effect = yes }
+  else = { mam_revenue_fund_recommend_effect = yes }
+ }
+ ai_chance = { modifier = { add = 35 has_trait = stubborn title:h_china.var:mam_cf_programme = 1 }
+ modifier = { add = 20 has_trait = fickle title:h_china = { NOT = { var:mam_cf_programme = 1 } } }
+ base = 30 modifier = { add = 50 has_trait = greedy } }
+}
+option = { name = mam_cf.recovery trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+ custom_tooltip = mam_cf.recovery_tt
+ hidden_effect = { scope:mam_cf_file = { set_variable = { name = mam_cf_mode value = 2 } }
+  if = { limit = { OR = { mam_revenue_emperor_trigger = yes AND = { mam_revenue_chancellor_trigger = yes title:h_china.holder = { NOT = { has_realm_law = mam_revenue_authority_reserved } } } } } mam_revenue_fund_approve_effect = yes }
+  else = { mam_revenue_fund_recommend_effect = yes }
+ }
+ ai_chance = { modifier = { add = 35 has_trait = stubborn title:h_china.var:mam_cf_programme = 2 }
+ modifier = { add = 20 has_trait = fickle title:h_china = { NOT = { var:mam_cf_programme = 2 } } }
+ base = 30 modifier = { add = 50 has_trait = compassionate } }
+}
+ option = { name = mam_cf.defer trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes is_ai = no 
+} }
+  custom_tooltip = mam_cf.defer_tt hidden_effect = { mam_revenue_fund_defer_effect = yes } ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.changed trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = no 
+} }
+  custom_tooltip = mam_cf.changed_tt
+  hidden_effect = { if = { limit = { exists = scope:mam_cf_file }
+   scope:mam_cf_file = { if = { limit = { var:mam_cf_pending = 1 mam_revenue_fund_live_case_trigger = no }
+    mam_revenue_fund_close_effect = { RESULT = 4 }
+   } }
+  } }
+  ai_chance = { base = 100 }
+ }
+
+ immediate = { mam_revenue_fund_bind_effect = yes }
+}
+mam_fund.5 = {
+ type = character_event theme = stewardship title = mam_cf.project_title desc = mam_cf.project_choose_desc
+ trigger = { mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder
+  primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } }
+ }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { character = scope:mam_cf_site_title.holder animation = thinking }
+ immediate = { save_scope_as = founder mam_revenue_fund_preflight_project_choices_effect = yes }
+ option = { name = mam_cf.project_1
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_1 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_1 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 1 COST = mam_revenue_fund_start_cost_1 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_2
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_2 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_2 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 2 COST = mam_revenue_fund_start_cost_2 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_3
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_3 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_3 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 3 COST = mam_revenue_fund_start_cost_3 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_4
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_4 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_4 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 4 COST = mam_revenue_fund_start_cost_4 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_5
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_5 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_5 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 5 COST = mam_revenue_fund_start_cost_5 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_6
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_6 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_6 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 6 COST = mam_revenue_fund_start_cost_6 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_7
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_7 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_7 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 7 COST = mam_revenue_fund_start_cost_7 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_8
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_8 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_8 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 8 COST = mam_revenue_fund_start_cost_8 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_9
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_9 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_9 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 9 COST = mam_revenue_fund_start_cost_9 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_10
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_10 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_10 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 10 COST = mam_revenue_fund_start_cost_10 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_11
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_11 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_11 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 11 COST = mam_revenue_fund_start_cost_11 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_12
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_12 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_12 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 12 COST = mam_revenue_fund_start_cost_12 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_13
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_13 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_13 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 13 COST = mam_revenue_fund_start_cost_13 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_14
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_14 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_14 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 14 COST = mam_revenue_fund_start_cost_14 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_15
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_15 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_15 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 15 COST = mam_revenue_fund_start_cost_15 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_16
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_16 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_16 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 16 COST = mam_revenue_fund_start_cost_16 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+option = { name = mam_cf.project_17
+ trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_eligible_project_17 = yes mam_revenue_fund_member_trigger = yes exists = scope:mam_cf_site_title.holder 
+} 
+ trigger_if = { limit = { is_ai = yes } scope:mam_cf_start_choice_17 = 1 }
+}
+ custom_tooltip = mam_cf.project_request_tt
+ hidden_effect = { mam_revenue_fund_open_project_effect = { TYPE = 17 COST = mam_revenue_fund_start_cost_17 } title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ ai_chance = { base = 100 }
+}
+ option = { name = mam_cf.cancel ai_chance = { base = 1 } }
+}
+mam_fund.6 = {
+ type = character_event theme = stewardship title = mam_cf.accounts_title
+ desc = { first_valid = {
+ triggered_desc = { trigger = { mam_revenue_fund_custodian_trigger = no } desc = mam_cf.accounts_paused_desc }
+ triggered_desc = { trigger = { title:e_minister_of_revenue = { has_variable = mam_cf_payment_hold } } desc = mam_cf.accounts_held_desc }
+ triggered_desc = { trigger = { mam_revenue_ministry_trigger = yes } desc = mam_cf.accounts_desc } desc = mam_cf.accounts_desc } }
+ trigger = { OR = { mam_revenue_authority_trigger = yes mam_revenue_ministry_trigger = yes } mam_revenue_fund_enabled_trigger = yes }
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = title:e_minister_of_revenue.holder root != title:e_minister_of_revenue.holder } character = title:e_minister_of_revenue.holder animation = thinking }
+ option = { name = mam_cf.accounts_close custom_tooltip = mam_cf.accounts_tt }
+ 
+ 
+ 
+ 
+
+
+ option = { name = mam_cf.view_own trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_ministry_trigger = yes } }
+  hidden_effect = { trigger_event = mam_fund.10 }
+ }
+ option = { name = mam_cf.view_flow hidden_effect = { trigger_event = mam_fund.9 } }
+ option = { name = mam_cf.view_departments trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_authority_trigger = yes } }
+  hidden_effect = { trigger_event = mam_fund.11 }
+ }
+
+
+ option = { name = mam_cf.view_controls
+  trigger = { custom_tooltip = { text = mam_cf.context_tt
+   OR = { mam_revenue_emperor_trigger = yes mam_revenue_chancellor_trigger = yes } } }
+  hidden_effect = { trigger_event = mam_fund.14 }
+ }
+ option = { name = mam_cf.refresh_accounts custom_tooltip = mam_cf.refresh_accounts_tt
+  hidden_effect = { trigger_event = mam_fund.6 } }
+}
+mam_fund.7 = {
+ type = character_event theme = stewardship title = mam_cf.contribution_title desc = mam_cf.contribution_choose_desc
+ trigger = { mam_revenue_fund_member_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ immediate = {
+ clear_saved_scope = mam_cf_project_one clear_saved_scope = mam_cf_project_two
+ clear_saved_scope = mam_cf_project_three clear_saved_scope = mam_cf_project_four
+
+  ordered_great_project = { limit = { great_project_owner = { top_liege = title:h_china.holder }
+ save_temporary_scope_as = mam_cf_possible_project
+ NOT = { root = { any_in_list = { variable = mam_cf_seen_projects this = scope:mam_cf_possible_project } } }
+ }
+   order_by = { value = 1 } position = 0 check_range_bounds = no save_scope_as = mam_cf_project_one
+  }
+  ordered_great_project = { limit = { great_project_owner = { top_liege = title:h_china.holder }
+ save_temporary_scope_as = mam_cf_possible_project
+ NOT = { root = { any_in_list = { variable = mam_cf_seen_projects this = scope:mam_cf_possible_project } } }
+ }
+   order_by = { value = 1 } position = 1 check_range_bounds = no save_scope_as = mam_cf_project_two
+  }
+  ordered_great_project = { limit = { great_project_owner = { top_liege = title:h_china.holder }
+ save_temporary_scope_as = mam_cf_possible_project
+ NOT = { root = { any_in_list = { variable = mam_cf_seen_projects this = scope:mam_cf_possible_project } } }
+ }
+   order_by = { value = 1 } position = 2 check_range_bounds = no save_scope_as = mam_cf_project_three
+  }
+ 
+ ordered_great_project = { limit = { great_project_owner = { top_liege = title:h_china.holder }
+ save_temporary_scope_as = mam_cf_possible_project
+ NOT = { root = { any_in_list = { variable = mam_cf_seen_projects this = scope:mam_cf_possible_project } } }
+ }
+ order_by = { value = 1 } position = 3 check_range_bounds = no save_scope_as = mam_cf_project_four
+ }
+}
+ option = { name = mam_cf.contribution_one
+ trigger = { custom_tooltip = { text = mam_cf.context_tt exists = scope:mam_cf_project_one mam_revenue_fund_member_trigger = yes
+  primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } }
+ 
+} }
+ custom_tooltip = mam_cf.contribution_request_tt
+ hidden_effect = { scope:mam_cf_project_one = { save_scope_as = mam_cf_selected_project } mam_revenue_fund_open_contribution_effect = yes title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+}
+option = { name = mam_cf.contribution_two
+ trigger = { custom_tooltip = { text = mam_cf.context_tt exists = scope:mam_cf_project_two mam_revenue_fund_member_trigger = yes
+  primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } }
+ 
+} }
+ custom_tooltip = mam_cf.contribution_request_tt
+ hidden_effect = { scope:mam_cf_project_two = { save_scope_as = mam_cf_selected_project } mam_revenue_fund_open_contribution_effect = yes title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+}
+option = { name = mam_cf.contribution_three
+ trigger = { custom_tooltip = { text = mam_cf.context_tt exists = scope:mam_cf_project_three mam_revenue_fund_member_trigger = yes
+  primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } }
+ 
+} }
+ custom_tooltip = mam_cf.contribution_request_tt
+ hidden_effect = { scope:mam_cf_project_three = { save_scope_as = mam_cf_selected_project } mam_revenue_fund_open_contribution_effect = yes title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+}
+ option = { name = mam_cf.cancel }
+
+ option = { name = mam_cf.next_projects trigger = { custom_tooltip = { text = mam_cf.context_tt exists = scope:mam_cf_project_four mam_revenue_fund_member_trigger = yes 
+} }
+  hidden_effect = {
+   if = { limit = { exists = scope:mam_cf_project_one } add_to_variable_list = { name = mam_cf_seen_projects target = scope:mam_cf_project_one } }
+   if = { limit = { exists = scope:mam_cf_project_two } add_to_variable_list = { name = mam_cf_seen_projects target = scope:mam_cf_project_two } }
+   if = { limit = { exists = scope:mam_cf_project_three } add_to_variable_list = { name = mam_cf_seen_projects target = scope:mam_cf_project_three } }
+   trigger_event = mam_fund.7
+  }
+ }
+ option = { name = mam_cf.first_projects trigger = { custom_tooltip = { text = mam_cf.context_tt any_in_list = { variable = mam_cf_seen_projects always = yes } 
+} }
+  hidden_effect = { mam_revenue_fund_reset_project_menu_effect = yes trigger_event = mam_fund.7 }
+ }
+}
+mam_fund.20 = {
+ type = letter_event title = mam_cf.outcome_title sender = scope:mam_cf_sender
+ opening = { desc = mam_cf.opening }
+ desc = { first_valid = {
+ triggered_desc = { trigger = { scope:mam_cf_file = { has_variable = mam_cf_start_request_obsolete } } desc = mam_cf.project_obsolete_desc }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 13 scope:mam_cf_file.var:mam_cf_result = 1 } desc = mam_pc.budget_approved_desc }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 1 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_1 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 2 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_2 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 3 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_3 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 4 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_4 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 5 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_5 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 6 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_6 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 7 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_7 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 8 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_8 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 9 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_9 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 10 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_10 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 11 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_11 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 12 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_12 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 13 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_13 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 14 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_14 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 15 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_15 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 16 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_16 }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 17 scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from != scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.project_paid_17 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_kind = 4 } desc = mam_cf.programme_result_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_result = 1 OR = { scope:mam_cf_file.var:mam_cf_kind = 1 scope:mam_cf_file.var:mam_cf_kind = 7 } } desc = mam_cf.operations_result_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_kind = 12 scope:mam_cf_file.var:mam_cf_paid_from = scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.supplement_self_result_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_from = scope:mam_cf_file.var:mam_cf_paid_to } desc = mam_cf.reserved_result_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_result = 1 scope:mam_cf_file.var:mam_cf_paid_amount > 0 } desc = mam_cf.paid_result_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_result = 2 } desc = mam_cf.refused_result_desc }
+  desc = mam_cf.unpaid_result_desc
+ } }
+ option = { name = mam_cf.recorded }
+
+ immediate = { mam_revenue_fund_bind_effect = yes }
+}
+mam_fund.96 = {
+ type = character_event hidden = yes
+ trigger = { mam_revenue_fund_member_trigger = yes is_ai = yes }
+ immediate = {
+  clear_saved_scope = mam_cf_site_title
+  top_liege = {
+   random_vassal_or_below = { limit = { mam_revenue_province_trigger = yes
+ trigger_if = { limit = { root = { has_title = title:e_minister_grand_marshal } }
+  any_sub_realm_county = { any_neighboring_county = { exists = holder holder.top_liege != title:h_china.holder } }
+ }
+}
+    primary_title = { save_scope_as = mam_cf_site_title }
+   }
+  }
+  if = { limit = { exists = scope:mam_cf_site_title }
+   mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_jurisdiction_found }
+   trigger_event = mam_fund.5
+  }
+  else = { mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_no_jurisdiction } }
+ }
+}
+mam_fund.97 = {
+ type = character_event hidden = yes
+ trigger = { mam_revenue_fund_member_trigger = yes is_ai = yes primary_title = {
+  var:mam_cf_cut_holder = root has_variable = mam_cf_cut_until var:mam_cf_cut_until > current_date
+  NOT = { has_variable = mam_cf_appeal_used } NOT = { has_variable = mam_cf_case_7 }
+ } }
+ immediate = {
+  if = { limit = { OR = { has_trait = ambitious has_trait = stubborn has_trait = greedy
+   opinion = { target = title:e_minister_of_revenue.holder value < 0 }
+  } } mam_revenue_fund_open_appeal_effect = yes title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ }
+}
+
+mam_fund.8 = {
+ type = character_event theme = stewardship title = mam_cf.request_title 
+ 
+ desc = { first_valid = {
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 13 scope:mam_cf_file = { has_variable = mam_pc_campaign_launch } scope:mam_cf_selected_project = { var:mam_pc_launch_authorized = 0 } } desc = mam_pc.campaign_request_desc }
+ triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 13 } desc = mam_pc.budget_request_desc } triggered_desc = { trigger = { scope:mam_cf_file = { has_variable = mam_cf_clear_debt } } desc = mam_cf.debt_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 5 } desc = mam_cf.topup_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 6 } desc = mam_cf.remit_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 1 } desc = mam_cf.project_request_1 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 2 } desc = mam_cf.project_request_2 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 3 } desc = mam_cf.project_request_3 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 4 } desc = mam_cf.project_request_4 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 5 } desc = mam_cf.project_request_5 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 6 } desc = mam_cf.project_request_6 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 7 } desc = mam_cf.project_request_7 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 8 } desc = mam_cf.project_request_8 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 9 } desc = mam_cf.project_request_9 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 10 } desc = mam_cf.project_request_10 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 11 } desc = mam_cf.project_request_11 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 12 } desc = mam_cf.project_request_12 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 13 } desc = mam_cf.project_request_13 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 14 } desc = mam_cf.project_request_14 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 15 } desc = mam_cf.project_request_15 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 16 } desc = mam_cf.project_request_16 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 scope:mam_cf_file.var:mam_cf_project_type = 17 } desc = mam_cf.project_request_17 }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 3 } desc = mam_cf.project_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 9 } desc = mam_cf.contribution_desc }
+  triggered_desc = { trigger = { scope:mam_cf_file.var:mam_cf_kind = 12 } desc = mam_cf.supplement_desc }
+  desc = mam_cf.relief_desc
+ } }
+ trigger = { mam_revenue_fund_actor_trigger = yes }
+ option = {
+  name = mam_cf.revise trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes is_ai = no scope:mam_cf_file.var:mam_cf_stage != 2 
+} }
+  custom_tooltip = mam_cf.revise_tt
+  hidden_effect = { trigger_event = mam_fund.3 } ai_chance = { base = 0 }
+ }
+ option = {
+  name = mam_cf.recommend
+  trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_file.var:mam_cf_stage = 0
+   scope:mam_cf_quote > 0 scope:mam_cf_quote <= scope:mam_cf_max
+  
+} 
+ trigger_if = { limit = { scope:mam_cf_file.var:mam_cf_kind = 13 } scope:mam_cf_quote >= scope:mam_cf_file.var:mam_pc_minimum }
+}
+  custom_tooltip = mam_cf.recommend_tt
+  if = { limit = { custom_tooltip = { text = mam_cf.context_tt  scope:mam_cf_file = { mam_revenue_fund_delegated_trigger = yes }  } }
+   mam_revenue_fund_preview_effect = yes
+  }
+  hidden_effect = { mam_revenue_fund_recommend_effect = yes }
+  ai_chance = { base = 0 modifier = { add = mam_revenue_fund_support_weight } }
+ }
+ option = {
+  name = mam_cf.approve
+  trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_file.var:mam_cf_stage = 1 scope:mam_cf_quote <= scope:mam_cf_max scope:mam_cf_quote > 0 
+} 
+ trigger_if = { limit = { scope:mam_cf_file.var:mam_cf_kind = 13 } scope:mam_cf_quote >= scope:mam_cf_file.var:mam_pc_minimum }
+}
+  mam_revenue_fund_preview_effect = yes
+  hidden_effect = { mam_revenue_fund_approve_effect = yes }
+  ai_chance = { base = 0 modifier = { add = mam_revenue_fund_support_weight } }
+ }
+ option = {
+  name = mam_cf.consent
+  trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes scope:mam_cf_file.var:mam_cf_stage = 2 scope:mam_cf_quote <= scope:mam_cf_max 
+} }
+  custom_tooltip = mam_cf.consent_tt
+  hidden_effect = { scope:mam_cf_file = {
+   set_variable = { name = mam_cf_consent value = root }
+   if = { limit = { mam_revenue_fund_delegated_trigger = yes }
+    set_variable = { name = mam_cf_authorized value = title:e_minister_of_revenue.holder }
+    mam_revenue_fund_commit_effect = yes
+   }
+   else = { set_variable = { name = mam_cf_stage value = 1 } mam_revenue_fund_release_effect = yes }
+  } }
+  ai_chance = { base = 70 modifier = { add = 30 has_trait = generous } modifier = { factor = 0.5 has_trait = greedy } }
+ }
+ option = {
+  name = mam_cf.refuse trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes 
+} }
+  custom_tooltip = mam_cf.refuse_tt
+  if = { limit = { custom_tooltip = { text = mam_cf.context_tt  has_trait = compassionate scope:mam_cf_file.var:mam_cf_kind = 2 scope:mam_cf_max >= scope:mam_cf_quote scope:mam_cf_subject = { mam_revenue_has_recovery_need_trigger = yes }  } }
+   show_as_tooltip = { add_stress = 15 }
+  }
+  hidden_effect = { mam_revenue_fund_refuse_effect = yes }
+  ai_chance = { base = 25 modifier = { add = 25 has_trait = lazy } modifier = { add = 25 has_trait = paranoid } modifier = { add = 20 has_trait = greedy } modifier = { add = 70 has_trait = vengeful has_relation_rival = scope:mam_cf_subject } }
+ }
+ option = { name = mam_cf.defer trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = yes is_ai = no 
+} }
+  custom_tooltip = mam_cf.defer_tt hidden_effect = { mam_revenue_fund_defer_effect = yes } ai_chance = { base = 0 }
+ }
+
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { scope:mam_cf_subject != root } character = scope:mam_cf_subject animation = thinking }
+
+ option = { name = mam_cf.changed trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_fund_actor_trigger = no 
+} }
+  custom_tooltip = mam_cf.changed_tt
+  hidden_effect = { if = { limit = { exists = scope:mam_cf_file }
+   scope:mam_cf_file = { if = { limit = { var:mam_cf_pending = 1 mam_revenue_fund_live_case_trigger = no }
+    mam_revenue_fund_close_effect = { RESULT = 4 }
+   } }
+  } }
+  ai_chance = { base = 100 }
+ }
+
+ immediate = { mam_revenue_fund_bind_effect = yes }
+}
+
+
+mam_fund.9 = {
+ type = character_event theme = stewardship title = mam_cf.flow_title desc = mam_cf.flow_desc
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_cf.accounts_close }
+}
+mam_fund.10 = {
+ type = character_event theme = stewardship title = mam_cf.own_title
+ desc = { first_valid = {
+  triggered_desc = { trigger = { has_title = title:e_minister_of_revenue } desc = mam_cf.own_revenue_desc }
+  desc = mam_cf.own_desc
+ } }
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_cf.accounts_close }
+
+option = { name = mam_cf.review_mine trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_ministry_trigger = yes primary_title = {
+  NOT = { has_variable = mam_cf_case_1 }
+  trigger_if = { limit = { has_variable = mam_cf_review_until } var:mam_cf_review_until <= current_date }
+ } 
+} }
+  hidden_effect = { mam_revenue_fund_open_operations_effect = yes title:h_china.holder = { mam_revenue_fund_wake_effect = yes } }
+ }
+}
+
+mam_fund.11 = {
+ type = character_event theme = stewardship title = mam_cf.departments_title
+ desc = mam_cf.departments_all
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_cf.accounts_close }
+ option = { name = mam_cf.refresh_accounts custom_tooltip = mam_cf.refresh_accounts_tt
+  hidden_effect = { trigger_event = mam_fund.11 } }
+}
+
+mam_fund.12 = {
+ type = character_event theme = stewardship title = mam_cf.departments_title
+ desc = mam_cf.departments_all
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_cf.accounts_close }
+ option = { name = mam_cf.refresh_accounts custom_tooltip = mam_cf.refresh_accounts_tt
+  hidden_effect = { trigger_event = mam_fund.11 } }
+}
+
+mam_fund.13 = {
+ type = character_event theme = stewardship title = mam_cf.departments_title
+ desc = mam_cf.departments_all
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_cf.accounts_close }
+ option = { name = mam_cf.refresh_accounts custom_tooltip = mam_cf.refresh_accounts_tt
+  hidden_effect = { trigger_event = mam_fund.11 } }
+}
+
+mam_fund.14 = {
+ type = character_event theme = stewardship title = mam_cf.controls_title desc = mam_cf.controls_desc
+ immediate = { mam_revenue_fund_bind_accounts_effect = yes }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_cf.accounts_close }
+option = { name = mam_cf.release_programme trigger = { custom_tooltip = { text = mam_cf.context_tt mam_revenue_emperor_trigger = yes title:h_china = { has_variable = mam_cf_imperial_programme } 
+} }
+  custom_tooltip = mam_cf.release_programme_tt hidden_effect = { title:h_china = { remove_variable = mam_cf_imperial_programme } }
+ }
+option = { name = mam_cf.suspend trigger = { custom_tooltip = { text = mam_cf.context_tt OR = { mam_revenue_emperor_trigger = yes mam_revenue_chancellor_trigger = yes } title:h_china = { NOT = { has_variable = mam_cf_suspended } } 
+} }
+  custom_tooltip = mam_cf.suspend_tt
+  hidden_effect = { title:h_china = {
+   set_variable = { name = mam_cf_suspended value = 1 days = 90 }
+   set_variable = { name = mam_cf_suspender value = root }
+  } }
+ }
+option = { name = mam_cf.restore trigger = { custom_tooltip = { text = mam_cf.context_tt title:h_china = { has_variable = mam_cf_suspended }
+  OR = { mam_revenue_emperor_trigger = yes title:h_china.var:mam_cf_suspender = root }
+ 
+} }
+  custom_tooltip = mam_cf.restore_tt hidden_effect = { title:h_china = { remove_variable = mam_cf_suspended remove_variable = mam_cf_suspender } }
+ }
+}
+
+mam_fund.95 = { type = character_event hidden = yes immediate = { mam_revenue_fund_payroll_effect = yes } }

@@ -1,0 +1,57 @@
+﻿# Prototype opt-in. AI ministers use the common preparation/approval/commit pipeline.
+mam_enable_ai_personnel_decision = {
+    picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+    desc = mam_enable_ai_personnel_decision_desc
+    selection_tooltip = mam_enable_ai_personnel_decision_desc
+    confirm_text = mam_enable_ai_personnel_decision_confirm
+    decision_group_type = mam_ministries
+    ai_check_interval = 0
+    is_shown = { always = no # Legacy forced-replacement automation is retired.
+
+        mam_can_oversee_personnel_trigger = yes
+        is_independent_ruler = yes
+        primary_title = { NOT = { has_variable = mam_ai_personnel_enabled } }
+    }
+    effect = { primary_title = { set_variable = { name = mam_ai_personnel_enabled value = 1 } } }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}
+mam_disable_ai_personnel_decision = {
+    picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+    desc = mam_disable_ai_personnel_decision_desc
+    selection_tooltip = mam_disable_ai_personnel_decision_desc
+    confirm_text = mam_disable_ai_personnel_decision_confirm
+    decision_group_type = mam_ministries
+    ai_check_interval = 0
+    is_shown = { always = no # Legacy forced-replacement automation is retired.
+ mam_can_oversee_personnel_trigger = yes primary_title = { has_variable = mam_ai_personnel_enabled } }
+    effect = { primary_title = { remove_variable = mam_ai_personnel_enabled } }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}
+mam_ai_personnel_review_decision = {
+    picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+    desc = mam_ai_personnel_review_decision_desc
+    selection_tooltip = mam_ai_personnel_review_decision_desc
+    confirm_text = mam_ai_personnel_review_decision_confirm
+    decision_group_type = mam_ministries
+    # _decisions.info defines this interval in MONTHS.
+    ai_check_interval = 12
+    is_shown = { always = no # Legacy forced-replacement automation is retired.
+
+        always = no # Retired automatic forced replacement workflow.
+        is_ai = yes
+        mam_can_open_register_trigger = yes
+        has_title = title:e_minister_of_personnel
+        NOT = { has_character_flag = mam_ai_review_cooldown }
+        top_liege = {
+            primary_title = { has_variable = mam_ai_personnel_enabled }
+            NOT = { has_character_flag = mam_pending_proposal }
+            is_at_war = no
+            cp:minister_personnel = root
+        }
+    }
+    effect = { mam_ai_review_effect = yes }
+    ai_potential = { is_ai = yes }
+    ai_will_do = { base = 100 }
+}

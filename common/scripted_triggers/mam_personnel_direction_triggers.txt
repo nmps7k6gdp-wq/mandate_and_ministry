@@ -1,0 +1,6 @@
+﻿mam_personnel_can_direct_trigger = {
+ OR = {
+ mam_can_oversee_personnel_trigger = yes
+ AND = { mam_cj_is_chancellor_trigger = yes top_liege.primary_title = { NOT = { has_variable = mam_personnel_imperial_direction } } }
+ }
+}

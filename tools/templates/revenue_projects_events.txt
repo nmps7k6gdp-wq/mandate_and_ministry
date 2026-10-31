@@ -1,0 +1,116 @@
+namespace = mam_fund
+
+# One bounded callback per member; native helpers execute with this character as
+# event root, preserving native eligibility/AI calculations and contribution credit.
+mam_fund.31 = {
+ type = character_event hidden = yes
+ trigger = { mam_revenue_ministry_trigger = yes is_imprisoned = no NOT = { has_trait = incapable } }
+ immediate = {
+  if = { limit = { OR = { NOT = { has_variable = mam_pc_retry_invoice } var:mam_pc_retry_invoice <= current_date } }
+   if = { limit = { has_variable = mam_pc_wanted_project NOT = { exists = var:mam_pc_wanted_project } }
+    remove_variable = mam_pc_wanted_project remove_variable = mam_pc_wanted_key
+   }
+   mam_revenue_fund_find_project_invoice_effect = yes
+   if = { limit = { exists = scope:mam_cf_pick_project }
+    mam_revenue_fund_process_project_invoice_effect = yes
+   }
+   else_if = { limit = { has_variable = mam_pc_wanted_project }
+    remove_variable = mam_pc_wanted_project remove_variable = mam_pc_wanted_key
+   }
+  }
+ }
+}
+mam_fund.32 = {
+ type = character_event theme = stewardship title = mam_pc.invoice_title desc = mam_pc.invoice_desc
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { root != title:e_minister_of_revenue.holder } character = title:e_minister_of_revenue.holder animation = thinking }
+ option = { name = mam_pc.choose_one
+  trigger = { exists = scope:mam_cf_menu_slot_one }
+  custom_tooltip = mam_pc.choose_invoice_tt
+  hidden_effect = {
+   scope:mam_cf_selected_project = { save_scope_as = mam_cf_pick_project }
+   scope:mam_cf_menu_slot_one = { save_scope_as = mam_cf_pick_slot }
+   save_scope_value_as = { name = mam_cf_pick_key value = scope:mam_cf_menu_key_one }
+   save_scope_value_as = { name = mam_cf_pick_price value = scope:mam_cf_menu_price_one }
+   set_variable = { name = mam_pc_wanted_project value = scope:mam_cf_selected_project }
+   set_variable = { name = mam_pc_wanted_key value = scope:mam_cf_pick_key }
+   remove_variable = mam_pc_launch_prompt remove_variable = mam_pc_retry_invoice
+   mam_revenue_fund_process_project_invoice_effect = yes
+  }
+ }
+ option = { name = mam_pc.choose_two
+  trigger = { exists = scope:mam_cf_menu_slot_two }
+  custom_tooltip = mam_pc.choose_invoice_tt
+  hidden_effect = {
+   scope:mam_cf_selected_project = { save_scope_as = mam_cf_pick_project }
+   scope:mam_cf_menu_slot_two = { save_scope_as = mam_cf_pick_slot }
+   save_scope_value_as = { name = mam_cf_pick_key value = scope:mam_cf_menu_key_two }
+   save_scope_value_as = { name = mam_cf_pick_price value = scope:mam_cf_menu_price_two }
+   set_variable = { name = mam_pc_wanted_project value = scope:mam_cf_selected_project }
+   set_variable = { name = mam_pc_wanted_key value = scope:mam_cf_pick_key }
+   remove_variable = mam_pc_launch_prompt remove_variable = mam_pc_retry_invoice
+   mam_revenue_fund_process_project_invoice_effect = yes
+  }
+ }
+ option = { name = mam_pc.choose_three
+  trigger = { exists = scope:mam_cf_menu_slot_three }
+  custom_tooltip = mam_pc.choose_invoice_tt
+  hidden_effect = {
+   scope:mam_cf_selected_project = { save_scope_as = mam_cf_pick_project }
+   scope:mam_cf_menu_slot_three = { save_scope_as = mam_cf_pick_slot }
+   save_scope_value_as = { name = mam_cf_pick_key value = scope:mam_cf_menu_key_three }
+   save_scope_value_as = { name = mam_cf_pick_price value = scope:mam_cf_menu_price_three }
+   set_variable = { name = mam_pc_wanted_project value = scope:mam_cf_selected_project }
+   set_variable = { name = mam_pc_wanted_key value = scope:mam_cf_pick_key }
+   remove_variable = mam_pc_launch_prompt remove_variable = mam_pc_retry_invoice
+   mam_revenue_fund_process_project_invoice_effect = yes
+  }
+ }
+ option = { name = mam_pc.next_invoices
+  trigger = { exists = scope:mam_cf_menu_slot_three }
+  custom_tooltip = mam_pc.next_invoices_tt
+  hidden_effect = { set_variable = { name = mam_pc_menu_offset value = scope:mam_cf_menu_key_three } mam_revenue_fund_choose_invoice_effect = yes }
+ }
+ option = { name = mam_pc.first_invoices
+  trigger = { var:mam_pc_menu_offset > 0 }
+  hidden_effect = { set_variable = { name = mam_pc_menu_offset value = 0 } mam_revenue_fund_choose_invoice_effect = yes }
+ }
+ option = { name = mam_pc.close }
+}
+mam_fund.34 = {
+ type = character_event theme = stewardship title = mam_pc.blocked_title
+ desc = { first_valid = {
+  triggered_desc = { trigger = { primary_title = { has_variable = mam_cf_payment_hold } } desc = mam_pc.held_desc }
+  triggered_desc = { trigger = { treasury < 0 } desc = mam_pc.debt_desc }
+  triggered_desc = { trigger = { exists = scope:mam_cf_selected_project scope:mam_cf_selected_project = { has_variable = mam_pc_cash_shortfall } } desc = mam_pc.cash_shortfall_desc }
+  triggered_desc = { trigger = { exists = scope:mam_cf_selected_project scope:mam_cf_selected_project = { has_variable = mam_pc_pending } } desc = mam_pc.pending_desc }
+  triggered_desc = { trigger = { exists = scope:mam_cf_selected_project scope:mam_cf_selected_project = { has_variable = mam_pc_retry_after var:mam_pc_retry_after > current_date } } desc = mam_pc.retry_desc }
+  triggered_desc = { trigger = { exists = scope:mam_cf_selected_project scope:mam_cf_selected_project = { has_variable = mam_pc_blocked } } desc = mam_pc.native_blocked_desc }
+  desc = mam_pc.no_invoice_desc
+ } }
+ left_portrait = { character = root animation = thinking }
+ option = { name = mam_pc.close }
+ option = { name = mam_pc.first_invoices
+  trigger = { exists = scope:mam_cf_selected_project }
+  hidden_effect = { set_variable = { name = mam_pc_menu_offset value = 0 } mam_revenue_fund_choose_invoice_effect = yes }
+ }
+}
+mam_fund.35 = {
+ type = character_event theme = martial title = mam_pc.launch_title desc = mam_pc.launch_desc
+ left_portrait = { character = root animation = war_attacker }
+ right_portrait = { character = title:h_china.holder animation = thinking }
+ option = { name = mam_pc.launch
+  trigger = { has_title = title:e_minister_grand_marshal mam_revenue_fund_project_invoice_actor_trigger = yes
+   mam_revenue_fund_project_budget_authority_trigger = yes
+   scope:mam_cf_selected_project = { mam_revenue_fund_project_launch_needed_trigger = yes var:mam_pc_launch_authorized = 1 } }
+  custom_tooltip = mam_pc.launch_tt
+  hidden_effect = { remove_variable = mam_pc_launch_prompt mam_revenue_fund_execute_project_invoice_effect = yes }
+ }
+ option = { name = mam_pc.defer_launch
+  custom_tooltip = mam_pc.defer_launch_tt
+  hidden_effect = { remove_variable = mam_pc_launch_prompt set_variable = { name = mam_pc_retry_invoice value = { value = current_date add = 30 } } }
+ }
+ option = { name = mam_pc.close
+  hidden_effect = { remove_variable = mam_pc_launch_prompt set_variable = { name = mam_pc_retry_invoice value = { value = current_date add = 30 } } }
+ }
+}

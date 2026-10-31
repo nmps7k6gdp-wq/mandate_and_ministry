@@ -1,0 +1,183 @@
+﻿# Emperor scope. Each death marker is consumed only after a living successor holds office.
+mam_ministry_review_scan_effect = {
+ if = { limit = { mam_ministry_realm_emperor_trigger = yes }
+  save_scope_as = mam_mr_emperor
+  title:e_minister_chancellor = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_censor = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_grand_marshal = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_of_personnel = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_of_war = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_of_rites = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_of_works = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_of_revenue = { mam_ministry_review_capture_effect = yes }
+  title:e_minister_of_justice = { mam_ministry_review_capture_effect = yes }
+  mam_ministry_review_wake_effect = yes
+ }
+}
+# Ministry-title scope. A live incumbent remains in office throughout the review.
+mam_ministry_review_capture_effect = {
+ if = { limit = {
+  has_variable = mam_mr_death_pending exists = holder
+  exists = var:mam_mr_death_realm.holder
+  var:mam_mr_death_realm = title:h_china
+  holder != var:mam_mr_dead_holder
+  holder = { is_alive = yes top_liege = scope:mam_mr_emperor }
+ }
+  save_scope_as = mam_mr_capture_title
+  var:mam_mr_review_file ?= { set_variable = { name = mam_mr_pending value = 0 } mam_ministry_review_release_effect = yes }
+  scope:mam_mr_emperor = { create_story = { type = mam_ministry_review_story save_scope_as = mam_mr_created_file } }
+  scope:mam_mr_created_file = {
+   set_variable = { name = mam_mr_title value = scope:mam_mr_capture_title }
+   set_variable = { name = mam_mr_realm value = title:h_china }
+   set_variable = { name = mam_mr_incumbent value = scope:mam_mr_capture_title.holder }
+   set_variable = { name = mam_mr_predecessor value = scope:mam_mr_capture_title.var:mam_mr_dead_holder }
+   set_variable = { name = mam_mr_pending value = 1 }
+   set_variable = { name = mam_mr_level value = 0 }
+   if = { limit = { scope:mam_mr_capture_title = { mam_ministry_upper_office_trigger = yes } }
+    set_variable = { name = mam_mr_level value = 1 }
+   }
+  }
+  set_variable = { name = mam_mr_review_file value = scope:mam_mr_created_file }
+  remove_variable = mam_mr_death_pending remove_variable = mam_mr_dead_holder remove_variable = mam_mr_death_realm
+  scope:mam_mr_created_file = { mam_ministry_review_index_effect = yes }
+  debug_log = "MAM_MINISTRY_REVIEW: installed successor recorded for the proper superior"
+ }
+}
+mam_ministry_review_index_effect = {
+ save_scope_as = mam_mr_index_file
+ if = { limit = { mam_ministry_review_current_trigger = yes }
+  var:mam_mr_realm = {
+   if = { limit = { NOT = { any_in_list = { variable = mam_mr_pending_files this = scope:mam_mr_index_file } } }
+    if = { limit = { NOT = { has_variable = mam_mr_serial } } set_variable = { name = mam_mr_serial value = 0 } }
+    change_variable = { name = mam_mr_serial add = 1 }
+    scope:mam_mr_index_file = { set_variable = { name = mam_mr_position value = prev.var:mam_mr_serial } }
+    add_to_variable_list = { name = mam_mr_pending_files target = scope:mam_mr_index_file }
+   }
+  }
+ }
+}
+# Emperor scope. Two independent review queues; no authority may approve the other's offices.
+mam_ministry_review_wake_effect = {
+ if = { limit = { mam_ministry_realm_emperor_trigger = yes }
+  every_owned_story = { limit = { story_type = mam_ministry_review_story mam_ministry_review_current_trigger = yes }
+   mam_ministry_review_index_effect = yes
+  }
+  if = { limit = { mam_ministry_upper_authority_trigger = yes } mam_ministry_review_queue_effect = yes }
+  cp:councillor_chancellor ?= { if = { limit = { mam_ministry_lower_authority_trigger = yes } mam_ministry_review_queue_effect = yes } }
+ }
+}
+mam_ministry_review_queue_effect = {
+ if = { limit = { mam_ministry_review_authority_trigger = yes }
+  save_scope_as = mam_mr_actor
+  title:h_china = { save_scope_as = mam_mr_queue_realm }
+  if = { limit = { mam_ministry_upper_authority_trigger = yes }
+   mam_ministry_review_queue_group_effect = { LEVEL = upper TIER = 1 }
+  }
+  else = { mam_ministry_review_queue_group_effect = { LEVEL = lower TIER = 0 } }
+ }
+}
+# Actor scope. LEVEL is upper/lower, TIER the corresponding stored numeric value.
+mam_ministry_review_queue_group_effect = {
+ scope:mam_mr_queue_realm = {
+  every_in_list = { variable = mam_mr_pending_files limit = { mam_ministry_review_current_trigger = no }
+   scope:mam_mr_queue_realm = { remove_list_variable = { name = mam_mr_pending_files target = prev } }
+  }
+  if = { limit = { has_variable = mam_mr_$LEVEL$_open_file OR = {
+   NOT = { exists = var:mam_mr_$LEVEL$_open_file }
+   var:mam_mr_$LEVEL$_open_file = { mam_ministry_review_current_trigger = no }
+   NOT = { exists = var:mam_mr_$LEVEL$_open_actor }
+   var:mam_mr_$LEVEL$_open_actor != scope:mam_mr_actor
+   NOT = { has_variable = mam_mr_$LEVEL$_open_until }
+   AND = { has_variable = mam_mr_$LEVEL$_open_until var:mam_mr_$LEVEL$_open_until <= current_date }
+  } }
+   remove_variable = mam_mr_$LEVEL$_open_file remove_variable = mam_mr_$LEVEL$_open_actor
+   remove_variable = mam_mr_$LEVEL$_open_until remove_variable = mam_mr_$LEVEL$_presented
+  }
+  if = { limit = { NOT = { has_variable = mam_mr_$LEVEL$_open_file } }
+   clear_saved_scope = mam_mr_next_file
+   ordered_in_list = { variable = mam_mr_pending_files
+    limit = { mam_ministry_review_current_trigger = yes var:mam_mr_level = $TIER$
+     trigger_if = { limit = { has_variable = mam_mr_snooze } var:mam_mr_snooze <= current_date }
+    }
+    order_by = { value = var:mam_mr_position multiply = -1 } max = 1 check_range_bounds = no
+    save_scope_as = mam_mr_next_file
+   }
+   if = { limit = { exists = scope:mam_mr_next_file }
+    set_variable = { name = mam_mr_$LEVEL$_open_file value = scope:mam_mr_next_file }
+    set_variable = { name = mam_mr_$LEVEL$_open_actor value = scope:mam_mr_actor }
+    set_variable = { name = mam_mr_$LEVEL$_open_until value = { value = current_date add = 30 } }
+    remove_variable = mam_mr_$LEVEL$_presented
+    scope:mam_mr_actor = { trigger_event = { id = mam_ministry.3 days = 1 } }
+    debug_log = "MAM_MINISTRY_REVIEW: queued one succession review for its current authority"
+   }
+  }
+ }
+}
+# Story scope. Release only this file's lease, then wake the current officeholders.
+mam_ministry_review_release_effect = {
+ save_scope_as = mam_mr_releasing
+ if = { limit = { var:mam_mr_level = 1 }
+  mam_ministry_review_release_group_effect = { LEVEL = upper }
+ }
+ else = { mam_ministry_review_release_group_effect = { LEVEL = lower } }
+ var:mam_mr_realm.holder ?= { trigger_event = { id = mam_ministry.5 days = 1 } }
+}
+mam_ministry_review_release_group_effect = {
+ var:mam_mr_realm ?= {
+  if = { limit = { exists = var:mam_mr_$LEVEL$_open_file var:mam_mr_$LEVEL$_open_file = scope:mam_mr_releasing }
+   remove_variable = mam_mr_$LEVEL$_open_file remove_variable = mam_mr_$LEVEL$_open_actor
+   remove_variable = mam_mr_$LEVEL$_open_until remove_variable = mam_mr_$LEVEL$_presented
+  }
+ }
+}
+mam_ministry_review_tick_effect = {
+ if = { limit = { mam_ministry_review_current_trigger = no }
+  set_variable = { name = mam_mr_pending value = 0 }
+  mam_ministry_review_release_effect = yes
+ }
+ else = { var:mam_mr_realm.holder ?= { trigger_event = { id = mam_ministry.5 days = 1 } } }
+}
+# Candidate scope. The marked character is explicitly scanned, including eligible unlanded people.
+mam_ministry_review_add_candidate_effect = {
+ if = { limit = { mam_ministry_review_candidate_trigger = yes NOT = { is_in_list = mam_mr_candidates } }
+  add_to_list = mam_mr_candidates
+ }
+}
+# Story scope. Refresh just before display; displayed names stay bound for that event.
+mam_ministry_review_refresh_effect = {
+ save_scope_as = mam_mr_file
+ var:mam_mr_realm.holder = { save_scope_as = mam_mr_emperor save_scope_as = mam_emperor }
+ var:mam_mr_title = { save_scope_as = mam_mr_title }
+ scope:mam_mr_actor = { save_scope_as = mam_minister }
+ remove_variable = mam_mr_marked remove_variable = mam_mr_professional remove_variable = mam_mr_preferred remove_variable = mam_mr_benchmark
+ if = { limit = { var:mam_mr_level = 1 }
+  scope:mam_mr_actor.var:mam_marked_upper_ministry_candidate ?= { scope:mam_mr_file = { set_variable = { name = mam_mr_marked value = prev } } }
+ }
+ else = { scope:mam_mr_actor.var:mam_marked_lower_ministry_candidate ?= { scope:mam_mr_file = { set_variable = { name = mam_mr_marked value = prev } } } }
+ every_in_list = { list = mam_mr_candidates remove_from_list = mam_mr_candidates }
+ var:mam_mr_incumbent = { mam_ministry_review_add_candidate_effect = yes }
+ var:mam_mr_marked ?= { mam_ministry_review_add_candidate_effect = yes }
+ scope:mam_mr_emperor = {
+  every_courtier_or_guest = { mam_ministry_review_add_candidate_effect = yes }
+  every_vassal_or_below = { mam_ministry_review_add_candidate_effect = yes every_courtier_or_guest = { mam_ministry_review_add_candidate_effect = yes } }
+ }
+ ordered_in_list = { list = mam_mr_candidates order_by = mam_ministry_public_suitability max = 1 check_range_bounds = no
+  scope:mam_mr_file = { set_variable = { name = mam_mr_benchmark value = prev } }
+ }
+ ordered_in_list = { list = mam_mr_candidates
+  limit = { this != scope:mam_mr_file.var:mam_mr_incumbent
+   trigger_if = { limit = { exists = scope:mam_mr_file.var:mam_mr_marked } this != scope:mam_mr_file.var:mam_mr_marked }
+  }
+  order_by = mam_ministry_public_suitability max = 1 check_range_bounds = no
+  scope:mam_mr_file = { set_variable = { name = mam_mr_professional value = prev } }
+ }
+ ordered_in_list = { list = mam_mr_candidates
+  limit = { this != scope:mam_mr_file.var:mam_mr_incumbent mam_ministry_personal_bias > 0
+   trigger_if = { limit = { exists = scope:mam_mr_file.var:mam_mr_professional } this != scope:mam_mr_file.var:mam_mr_professional }
+   trigger_if = { limit = { exists = scope:mam_mr_file.var:mam_mr_marked } this != scope:mam_mr_file.var:mam_mr_marked }
+  }
+  order_by = mam_ministry_personal_score max = 1 check_range_bounds = no
+  scope:mam_mr_file = { set_variable = { name = mam_mr_preferred value = prev } }
+ }
+ debug_log = "MAM_MINISTRY_REVIEW: incumbent and eligible alternatives prepared"
+}

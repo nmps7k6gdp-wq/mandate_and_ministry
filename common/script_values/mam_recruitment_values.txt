@@ -1,0 +1,1 @@
+﻿# Custom recruitment-law score bonus removed in dev.36. Examination achievements retain their assessment points.

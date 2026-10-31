@@ -1,0 +1,9 @@
+﻿mam_revenue_fund_contribute_project_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 68
+ desc = mam_revenue_fund_contribute_project_interaction_desc common_interaction = yes auto_accept = yes
+ is_shown = { scope:actor = { is_ai = no mam_revenue_ministry_trigger = yes }
+  scope:recipient = { mam_revenue_officer_trigger = yes this != scope:actor } }
+ is_valid = { custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+  scope:actor = { any_great_project = { great_project_owner = title:h_china.holder } } }
+ on_accept = { scope:actor = { mam_revenue_fund_reset_project_menu_effect = yes trigger_event = mam_fund.7 } }
+}

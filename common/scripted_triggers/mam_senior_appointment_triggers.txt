@@ -1,0 +1,102 @@
+﻿# Senior civilian public offices only. The emperor's throne and central ministries are excluded.
+mam_senior_incumbent_trigger = {
+ save_temporary_scope_as = mam_senior_dying_official
+ is_alive = yes is_independent_ruler = no is_governor = yes is_at_war = no
+ tgp_is_any_minister = no government_has_flag = government_is_celestial
+ mam_senior_supported_hierarchy_trigger = yes
+ top_liege = { mam_can_oversee_personnel_trigger = yes }
+ OR = { vassal_contract_has_flag = celestial_civil_appointment vassal_contract_has_flag = meritocratic_civil_appointment }
+ primary_title = { tier >= tier_kingdom tier <= tier_empire is_landless_type_title = no is_noble_family_title = no OR = { has_title_law_flag = appointment_type_succession holder = { has_realm_law_flag = appointment_type_succession } } }
+ NOT = { any_held_title = { is_landless_type_title = no is_noble_family_title = no tier >= tier_county this != scope:mam_senior_dying_official.primary_title NOT = { target_is_de_jure_liege_or_above = scope:mam_senior_dying_official.primary_title } } }
+ NOT = { any_vassal = { primary_title = { is_landless_type_title = no is_noble_family_title = no NOT = { target_is_de_jure_liege_or_above = scope:mam_senior_dying_official.primary_title } } } }
+}
+# Before custody: use native validity without the legacy mod jurisdiction/ranking pipeline.
+mam_senior_candidate_trigger = {
+ NOT = { any_held_title = { tier > scope:mam_posting.tier is_landless_type_title = no is_noble_family_title = no } }
+
+ is_alive = yes is_adult = yes top_liege = scope:mam_emperor this != scope:mam_emperor this != scope:mam_incumbent
+ mam_cj_office_allowed_trigger = yes is_civilian_candidate_trigger = yes tgp_is_any_minister = no
+
+ can_appoint_for_title = scope:mam_posting has_appointment_level_for_title = scope:mam_posting
+ 
+
+
+}
+# Story snapshot limits choices; no new unvalidated candidate can be injected during custody.
+mam_senior_pending_trigger = {
+ save_temporary_scope_as = mam_pending_check_file
+ has_variable = mam_senior_pending var:mam_senior_pending = 1
+ exists = var:mam_senior_title.holder exists = var:mam_senior_realm.holder
+ var:mam_senior_title.holder = var:mam_senior_realm.holder
+ var:mam_senior_title = { tier >= tier_kingdom tier <= tier_empire }
+ var:mam_senior_title = {
+  trigger_if = { limit = { exists = var:mam_senior_custody_file }
+   var:mam_senior_custody_file = scope:mam_pending_check_file
+  }
+ }
+ var:mam_senior_realm.holder = { mam_can_oversee_personnel_trigger = yes }
+}
+mam_senior_choice_trigger = {
+ NOT = { any_held_title = { tier > scope:mam_posting.tier is_landless_type_title = no is_noble_family_title = no } }
+
+ # The caller sets the permanent mam_emperor target; never shadow it temporarily.
+ OR = {
+ mam_senior_was_native_candidate_trigger = yes
+ mam_senior_native_valid_trigger = { TITLE = scope:mam_senior_file.var:mam_senior_title CANDIDATE = this TOP_LIEGE = scope:mam_senior_file.var:mam_senior_realm.holder }
+ }
+
+ is_alive = yes is_adult = yes is_imprisoned = no
+ top_liege.primary_title = scope:mam_senior_file.var:mam_senior_realm
+ this != scope:mam_senior_file.var:mam_senior_realm.holder
+ is_civilian_candidate_trigger = yes tgp_is_any_minister = no mam_cj_office_allowed_trigger = yes
+
+ scope:mam_senior_file = { has_variable = mam_senior_native_certified has_variable = mam_senior_merit_floor }
+ merit_level >= scope:mam_senior_file.var:mam_senior_merit_floor
+
+
+}
+mam_senior_actor_trigger = {
+ top_liege.primary_title = { exists = var:mam_senior_open_file var:mam_senior_open_file = scope:mam_senior_file var:mam_senior_open_actor = prev }
+
+ exists = scope:mam_senior_file scope:mam_senior_file = { mam_senior_pending_trigger = yes NOT = { has_variable = mam_senior_awaiting_confirmation } }
+ top_liege.primary_title = scope:mam_senior_file.var:mam_senior_realm
+ mam_can_nominate_trigger = yes
+}
+
+mam_senior_requires_confirmation_trigger = {
+ OR = {
+ var:mam_senior_realm.holder = { has_realm_law = mam_personnel_confirmation_all }
+ AND = { var:mam_senior_realm.holder = { has_realm_law = mam_personnel_confirmation_empire } var:mam_senior_title = { tier = tier_empire } }
+ }
+}
+mam_senior_confirmation_actor_trigger = {
+ primary_title = { exists = var:mam_senior_imperial_open var:mam_senior_imperial_open = scope:mam_senior_file }
+
+ mam_can_oversee_personnel_trigger = yes
+ exists = scope:mam_senior_file
+ scope:mam_senior_file = { mam_senior_pending_trigger = yes has_variable = mam_senior_awaiting_confirmation }
+ this = scope:mam_senior_file.var:mam_senior_realm.holder
+}
+
+# Compare public territorial offices, never the nominal rank of a family estate.
+mam_senior_first_office_trigger = {
+ NOT = { any_held_title = { tier >= tier_county is_landless_type_title = no is_noble_family_title = no } }
+}
+mam_senior_lateral_trigger = {
+ any_held_title = { tier = scope:mam_posting.tier is_landless_type_title = no is_noble_family_title = no }
+ NOT = { any_held_title = { tier > scope:mam_posting.tier is_landless_type_title = no is_noble_family_title = no } }
+}
+mam_senior_promotion_trigger = {
+ mam_senior_first_office_trigger = no
+ NOT = { any_held_title = { tier >= scope:mam_posting.tier is_landless_type_title = no is_noble_family_title = no } }
+}
+
+# Engine-qualified candidates are certified before changing the temporary holder.
+mam_senior_was_native_candidate_trigger = {
+ save_temporary_scope_as = mam_senior_certification_subject
+ scope:mam_senior_file = { any_in_list = { variable = mam_senior_native_candidates this = scope:mam_senior_certification_subject } }
+}
+
+mam_senior_source_actionable_trigger = {
+ OR = { mam_senior_first_office_trigger = yes mam_clean_source_bundle_trigger = { TITLE = primary_title } }
+}

@@ -1,0 +1,853 @@
+﻿
+# AI proposals should not lock funds to a province with no eligible site.
+mam_revenue_fund_preflight_project_choices_effect = {
+ if = { limit = { is_ai = yes exists = scope:mam_cf_site_title.holder }
+  mam_revenue_fund_check_start_choices_effect = yes
+if = { limit = { OR = { scope:mam_cf_start_choice_1 = 1 scope:mam_cf_start_choice_2 = 1 scope:mam_cf_start_choice_3 = 1 scope:mam_cf_start_choice_4 = 1 scope:mam_cf_start_choice_5 = 1 scope:mam_cf_start_choice_6 = 1 scope:mam_cf_start_choice_7 = 1 scope:mam_cf_start_choice_8 = 1 scope:mam_cf_start_choice_9 = 1 scope:mam_cf_start_choice_10 = 1 scope:mam_cf_start_choice_11 = 1 scope:mam_cf_start_choice_12 = 1 scope:mam_cf_start_choice_13 = 1 scope:mam_cf_start_choice_14 = 1 scope:mam_cf_start_choice_15 = 1 scope:mam_cf_start_choice_16 = 1 scope:mam_cf_start_choice_17 = 1 } }
+  mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_valid_choices }
+ }
+ else = { mam_revenue_fund_record_diagnostic_effect = { KEY = proposal_no_valid_choice } }
+
+ }
+}
+# Character-root continuation: an existing paid grant, never another payment.
+mam_revenue_fund_auto_start_effect = {
+ if = { limit = { is_ai = yes mam_revenue_ministry_trigger = yes mam_revenue_fund_ready_trigger = yes
+  treasury >= 0 primary_title = {
+   has_variable = mam_cf_project_type has_variable = mam_cf_project_target
+   exists = var:mam_cf_project_target.holder var:mam_cf_project_cash > 0
+   has_variable = mam_cf_project_until var:mam_cf_project_until > current_date
+   NOT = { has_variable = mam_cf_project_instance } NOT = { has_variable = mam_cf_payment_hold }
+   trigger_if = { limit = { has_variable = mam_cf_start_retry } var:mam_cf_start_retry <= current_date }
+  }
+ }
+  mam_revenue_fund_prepare_project_budget_effect = yes
+  save_scope_as = mam_cf_start_actor save_scope_as = founder
+  title:h_china.holder = { save_scope_as = owner }
+  primary_title.var:mam_cf_project_target = { save_scope_as = mam_cf_start_target }
+  clear_saved_scope = mam_cf_start_site clear_saved_scope = mam_cf_auto_project clear_saved_scope = province
+  primary_title = { set_variable = { name = mam_cf_start_retry value = { value = current_date add = 7 } } }
+if = { limit = { primary_title.var:mam_cf_project_type = 8
+ mam_revenue_fund_eligible_project_8 = yes
+ can_plan_great_project = great_project_type:construct_great_barracks
+ treasury >= mam_revenue_fund_start_cost_8
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_8_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_8 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = construct_great_barracks save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 9
+ mam_revenue_fund_eligible_project_9 = yes
+ can_plan_great_project = great_project_type:strengthen_capital
+ treasury >= mam_revenue_fund_start_cost_9
+ }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_9_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_9 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = strengthen_capital save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 10
+ mam_revenue_fund_eligible_project_10 = yes
+ can_plan_great_project = great_project_type:great_wall
+ treasury >= mam_revenue_fund_start_cost_10
+ }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_10_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_10 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = great_wall save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 11
+ mam_revenue_fund_eligible_project_11 = yes
+ can_plan_great_project = great_project_type:great_wall_extend_to_shanhai_pass
+ treasury >= mam_revenue_fund_start_cost_11
+ }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_11_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_11 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = great_wall_extend_to_shanhai_pass save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 12
+ mam_revenue_fund_eligible_project_12 = yes
+ can_plan_great_project = great_project_type:great_wall_extend_to_liaodong
+ treasury >= mam_revenue_fund_start_cost_12
+ }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_12_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_12 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = great_wall_extend_to_liaodong save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 13
+ mam_revenue_fund_eligible_project_13 = yes
+ can_plan_great_project = great_project_type:grand_canals
+ treasury >= mam_revenue_fund_start_cost_13
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_13_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_13 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = grand_canals save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 1
+ mam_revenue_fund_eligible_project_1 = yes
+ can_plan_great_project = great_project_type:grand_campaign_project
+ treasury >= mam_revenue_fund_start_cost_1
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_neighboring_county = { limit = { exists = holder holder.top_liege != title:h_china.holder }
+ title_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_1_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_1 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = grand_campaign_project save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 2
+ mam_revenue_fund_eligible_project_2 = yes
+ can_plan_great_project = great_project_type:minister_project_culture
+ treasury >= mam_revenue_fund_start_cost_2
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_2_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_2 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = minister_project_culture save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 3
+ mam_revenue_fund_eligible_project_3 = yes
+ can_plan_great_project = great_project_type:minister_project_development
+ treasury >= mam_revenue_fund_start_cost_3
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_3_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_3 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = minister_project_development save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 4
+ mam_revenue_fund_eligible_project_4 = yes
+ can_plan_great_project = great_project_type:minister_project_establish_control
+ treasury >= mam_revenue_fund_start_cost_4
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_4_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_4 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = minister_project_establish_control save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 5
+ mam_revenue_fund_eligible_project_5 = yes
+ can_plan_great_project = great_project_type:minister_project_train_troops
+ treasury >= mam_revenue_fund_start_cost_5
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_5_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_5 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = minister_project_train_troops save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 6
+ mam_revenue_fund_eligible_project_6 = yes
+ can_plan_great_project = great_project_type:minister_project_conduct_census
+ treasury >= mam_revenue_fund_start_cost_6
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_6_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_6 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = minister_project_conduct_census save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 7
+ mam_revenue_fund_eligible_project_7 = yes
+ can_plan_great_project = great_project_type:minister_compel_religious_uniformity
+ treasury >= mam_revenue_fund_start_cost_7
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_7_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_7 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = minister_compel_religious_uniformity save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 14
+ mam_revenue_fund_eligible_project_14 = yes
+ can_plan_great_project = great_project_type:pam_cathedral_01
+ treasury >= mam_revenue_fund_start_cost_14
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_14_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_14 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = pam_cathedral_01 save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 15
+ mam_revenue_fund_eligible_project_15 = yes
+ can_plan_great_project = great_project_type:pam_cathedral_02
+ treasury >= mam_revenue_fund_start_cost_15
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_15_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_15 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = pam_cathedral_02 save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 16
+ mam_revenue_fund_eligible_project_16 = yes
+ can_plan_great_project = great_project_type:pam_cathedral_03
+ treasury >= mam_revenue_fund_start_cost_16
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_16_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_16 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = pam_cathedral_03 save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+else_if = { limit = { primary_title.var:mam_cf_project_type = 17
+ mam_revenue_fund_eligible_project_17 = yes
+ can_plan_great_project = great_project_type:pam_mass_rite_conversion
+ treasury >= mam_revenue_fund_start_cost_17
+ }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_neighboring_county = { limit = { exists = holder holder.top_liege != title:h_china.holder }
+ title_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_17_trigger = yes mam_revenue_fund_project_location_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_before value = treasury }
+  save_scope_value_as = { name = mam_cf_start_price value = mam_revenue_fund_start_cost_17 }
+  scope:mam_cf_start_site = { plan_great_project = {
+   founder = scope:mam_cf_start_actor great_project_type = pam_mass_rite_conversion save_scope_as = mam_cf_auto_project
+  } }
+  mam_revenue_fund_check_auto_start_effect = yes
+ }
+}
+  if = { limit = { NOT = { exists = scope:mam_cf_start_site } }
+   primary_title = {
+    if = { limit = { NOT = { has_variable = mam_cf_start_blocked } }
+     debug_log = "MAM_PROJECT_START: paid grant waiting for native eligibility, affordability or a valid authorized site"
+ mam_revenue_fund_record_diagnostic_effect = { KEY = start_waiting_native }
+    }
+    set_variable = { name = mam_cf_start_blocked value = 1 }
+   }
+  }
+ }
+}
+mam_revenue_fund_check_auto_start_effect = {
+ if = { limit = { exists = scope:mam_cf_auto_project }
+  primary_title = {
+   set_variable = { name = mam_cf_start_before value = scope:mam_cf_start_before }
+   set_variable = { name = mam_cf_start_price value = scope:mam_cf_start_price }
+  }
+  save_scope_value_as = { name = mam_cf_start_after value = treasury }
+  primary_title = { set_variable = { name = mam_cf_start_after value = scope:mam_cf_start_after } }
+  if = { limit = { primary_title.var:mam_cf_project_instance = scope:mam_cf_auto_project
+   treasury <= { value = scope:mam_cf_start_before subtract = scope:mam_cf_start_price add = 0.01 }
+  }
+   primary_title = { remove_variable = mam_cf_start_blocked set_variable = { name = mam_cf_start_on value = current_date } }
+   debug_log = "MAM_PROJECT_START: funded AI ministry planned its authorized native project"
+ mam_revenue_fund_record_diagnostic_effect = { KEY = start_planned }
+   trigger_event = { id = mam_fund.31 days = 1 }
+  }
+  else = {
+   primary_title = { set_variable = { name = mam_cf_payment_hold value = 1 } set_variable = { name = mam_cf_start_blocked value = 2 } }
+   debug_log = "MAM_PROJECT_START: project created but native charge or grant receipt uncertain; held without replay"
+ mam_revenue_fund_record_diagnostic_effect = { KEY = start_payment_uncertain }
+  }
+ }
+ else = {
+  primary_title = { set_variable = { name = mam_cf_start_blocked value = 1 } }
+  debug_log = "MAM_PROJECT_START: native planning returned no project; grant retained, retry in seven days"
+ mam_revenue_fund_record_diagnostic_effect = { KEY = start_no_project }
+ }
+}
+
+# Character scope; caller binds mam_cf_site_title. No currency or diagnostic effects.
+mam_revenue_fund_check_start_choices_effect = {
+
+  save_scope_as = mam_cf_start_actor save_scope_as = founder
+  title:h_china.holder = { save_scope_as = owner }
+  scope:mam_cf_site_title = { save_scope_as = mam_cf_start_target }
+save_scope_value_as = { name = mam_cf_start_choice_8 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_8 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_8_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_8 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_9 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_9 = yes }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_9_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_9 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_10 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_10 = yes }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_10_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_10 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_11 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_11 = yes }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_11_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_11 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_12 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_12 = yes }
+ title:h_china.holder.capital_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_12_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_12 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_13 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_13 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_13_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_13 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_1 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_1 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_neighboring_county = { limit = { exists = holder holder.top_liege != title:h_china.holder }
+ title_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_1_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_1 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_2 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_2 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_2_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_2 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_3 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_3 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_3_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_3 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_4 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_4 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_4_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_4 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_5 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_5 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_5_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_5 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_6 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_6 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_6_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_6 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_7 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_7 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_7_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_7 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_14 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_14 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_14_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_14 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_15 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_15 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_15_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_15 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_16 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_16 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_county_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_16_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_16 value = 1 }
+ }
+ }
+save_scope_value_as = { name = mam_cf_start_choice_17 value = 0 }
+ clear_saved_scope = mam_cf_start_site
+ if = { limit = { mam_revenue_fund_eligible_project_17 = yes }
+ scope:mam_cf_start_target.holder = { every_sub_realm_county = {
+ every_neighboring_county = { limit = { exists = holder holder.top_liege != title:h_china.holder }
+ title_province = { if = { limit = { NOT = { exists = scope:mam_cf_start_site } has_holding = yes }
+ save_scope_as = province
+ scope:mam_cf_start_actor = {
+  if = { limit = { mam_revenue_fund_native_start_location_17_trigger = yes }
+   scope:province = { save_scope_as = mam_cf_start_site }
+  }
+ }
+} }
+ }
+} }
+ if = { limit = { exists = scope:mam_cf_start_site }
+  save_scope_value_as = { name = mam_cf_start_choice_17 value = 1 }
+ }
+ }
+  clear_saved_scope = mam_cf_start_site
+ 
+ 
+}
+
+# Story scope. Revalidate the actual requesting holder and current native site
+# before any Treasury payment. An obsolete request is returned without cash.
+mam_revenue_fund_validate_start_request_effect = {
+ save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 }
+ if = { limit = { var:mam_cf_kind = 3 mam_revenue_fund_live_case_trigger = yes }
+  save_scope_value_as = { name = mam_cf_start_commit_valid value = 0 }
+  var:mam_cf_target.holder = {
+   if = { limit = { mam_revenue_ministry_trigger = yes
+    exists = scope:mam_cf_committing.var:mam_cf_project_target.holder
+   }
+    scope:mam_cf_committing.var:mam_cf_project_target = { save_scope_as = mam_cf_site_title }
+    mam_revenue_fund_check_start_choices_effect = yes
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 1
+    scope:mam_cf_start_choice_1 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_1
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 2
+    scope:mam_cf_start_choice_2 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_2
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 3
+    scope:mam_cf_start_choice_3 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_3
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 4
+    scope:mam_cf_start_choice_4 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_4
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 5
+    scope:mam_cf_start_choice_5 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_5
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 6
+    scope:mam_cf_start_choice_6 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_6
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 7
+    scope:mam_cf_start_choice_7 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_7
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 8
+    scope:mam_cf_start_choice_8 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_8
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 9
+    scope:mam_cf_start_choice_9 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_9
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 10
+    scope:mam_cf_start_choice_10 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_10
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 11
+    scope:mam_cf_start_choice_11 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_11
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 12
+    scope:mam_cf_start_choice_12 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_12
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 13
+    scope:mam_cf_start_choice_13 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_13
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 14
+    scope:mam_cf_start_choice_14 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_14
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 15
+    scope:mam_cf_start_choice_15 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_15
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 16
+    scope:mam_cf_start_choice_16 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_16
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   if = { limit = { scope:mam_cf_committing.var:mam_cf_project_type = 17
+    scope:mam_cf_start_choice_17 = 1
+    scope:mam_cf_committing.var:mam_cf_amount >= mam_revenue_fund_start_cost_17
+   } save_scope_value_as = { name = mam_cf_start_commit_valid value = 1 } }
+   }
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+  "build": "0.4.0-alpha.20-dev.66",
+  "native_site_predicates": 17,
+  "source_checks": [
+    "paid grant event continuation",
+    "weekly retry",
+    "native site/region parity",
+    "AI proposal preflight",
+    "frontier Marshal target",
+    "existing grant without new transfer",
+    "expiry/holder/hold guards",
+    "native planning and receipt proof",
+    "temporary/permanent aliases disjoint"
+  ],
+  "engine_tested": false
+}

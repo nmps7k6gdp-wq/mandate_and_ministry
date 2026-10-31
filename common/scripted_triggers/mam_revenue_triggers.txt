@@ -1,0 +1,328 @@
+﻿# Revenue owns fiscal state only. Native office/council identity is read-only.
+mam_revenue_emperor_trigger = {
+ is_alive = yes has_title = title:h_china is_independent_ruler = yes
+ government_has_flag = government_is_celestial has_treasury = yes
+ tgp_has_access_to_ministry_trigger = yes
+}
+mam_revenue_officer_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no
+ NOT = { has_trait = incapable }
+ has_title = title:e_minister_of_revenue primary_title = title:e_minister_of_revenue
+ is_councillor_of = title:h_china.holder has_council_position = councillor_steward
+ top_liege = title:h_china.holder has_treasury = yes
+ title:h_china.holder = { mam_revenue_emperor_trigger = yes }
+}
+mam_revenue_chancellor_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no
+ NOT = { has_trait = incapable }
+ has_title = title:e_minister_chancellor primary_title = title:e_minister_chancellor
+ is_councillor_of = title:h_china.holder has_council_position = councillor_chancellor
+ top_liege = title:h_china.holder has_treasury = yes
+}
+mam_revenue_authority_trigger = {
+ OR = { mam_revenue_officer_trigger = yes mam_revenue_chancellor_trigger = yes mam_revenue_emperor_trigger = yes }
+ is_imprisoned = no OR = { is_adult = yes mam_revenue_emperor_trigger = yes }
+ NOT = { has_trait = incapable }
+}
+# Character scope. Public ministry identity must match its actual council seat.
+mam_revenue_ministry_trigger = {
+ is_alive = yes is_adult = yes has_treasury = yes top_liege = title:h_china.holder
+ primary_title = {
+  tgp_is_minister_title = yes holder = prev
+  mam_ministry_office_synchronized_trigger = { OWNER = title:h_china.holder }
+ }
+}
+mam_revenue_budget_office_trigger = {
+ mam_revenue_ministry_trigger = yes
+ primary_title = { has_title_law = celestial_ministry_appointment_succession_law }
+ NOT = { has_title = title:e_minister_grand_marshal }
+}
+mam_revenue_reserved_ministry_trigger = {
+ OR = { has_title = title:e_minister_chancellor has_title = title:e_minister_censor
+  has_title = title:e_minister_grand_marshal has_title = title:e_minister_of_war }
+}
+# No dependency on Personnel's vacancy/death filters or custody effects.
+mam_revenue_province_trigger = {
+ save_temporary_scope_as = mam_rv_province_subject
+ is_alive = yes is_adult = yes is_governor = yes has_treasury = yes
+ government_has_flag = government_is_celestial tgp_is_any_minister = no
+ top_liege = title:h_china.holder this != title:h_china.holder
+ primary_title = {
+  OR = { tier = tier_kingdom tier = tier_empire }
+  is_landless_type_title = no is_noble_family_title = no
+ }
+ OR = { vassal_contract_has_flag = celestial_civil_appointment vassal_contract_has_flag = meritocratic_civil_appointment }
+ OR = {
+  liege = title:h_china.holder
+  AND = { primary_title = { tier = tier_kingdom }
+   liege = { is_governor = yes tgp_is_any_minister = no top_liege = title:h_china.holder
+    liege = title:h_china.holder primary_title = { tier = tier_empire }
+    OR = { vassal_contract_has_flag = celestial_civil_appointment vassal_contract_has_flag = meritocratic_civil_appointment }
+   }
+  }
+ }
+ # An account must not represent a second unrelated senior jurisdiction.
+ NOT = { any_held_title = {
+  is_landless_type_title = no is_noble_family_title = no tier >= tier_kingdom
+  this != scope:mam_rv_province_subject.primary_title
+  NOT = { target_is_de_jure_liege_or_above = scope:mam_rv_province_subject.primary_title }
+ } }
+}
+mam_revenue_recipient_trigger = {
+ OR = { mam_revenue_province_trigger = yes mam_revenue_ministry_trigger = yes }
+}
+mam_revenue_has_recovery_need_trigger = {
+ save_temporary_scope_as = mam_rv_recovery_subject
+ any_sub_realm_county = { county_control < 60
+  NOT = { holder = { mam_revenue_province_trigger = yes primary_title = { tier = tier_kingdom } this != scope:mam_rv_recovery_subject } }
+  NOT = { holder = { any_liege_or_above = {
+   mam_revenue_province_trigger = yes primary_title = { tier = tier_kingdom }
+   this != scope:mam_rv_recovery_subject is_vassal_or_below_of = scope:mam_rv_recovery_subject
+  } } }
+ }
+}
+mam_revenue_conflicting_settlement_trigger = {
+ save_temporary_scope_as = mam_rv_settlement_subject
+ OR = {
+  any_vassal_or_below = { mam_revenue_province_trigger = yes primary_title = { OR = {
+   has_variable = mam_rv_settlement_file
+   AND = { has_variable = mam_rv_settlement_until var:mam_rv_settlement_until > current_date }
+  } } }
+  any_liege_or_above = { this != scope:mam_rv_settlement_subject mam_revenue_province_trigger = yes primary_title = { OR = {
+   has_variable = mam_rv_settlement_file
+   AND = { has_variable = mam_rv_settlement_until var:mam_rv_settlement_until > current_date }
+  } } }
+ }
+}
+mam_revenue_has_project_trigger = {
+ save_temporary_scope_as = mam_rv_project_subject
+ any_great_project = {
+  great_project_owner = { top_liege = title:h_china.holder }
+  OR = {
+   great_project_founder = scope:mam_rv_project_subject
+   great_project_location.county.holder = {
+    OR = { this = scope:mam_rv_project_subject is_vassal_or_below_of = scope:mam_rv_project_subject }
+   }
+  }
+  OR = { great_project_type = minister_project_development great_project_type = minister_project_conduct_census
+   great_project_type = minister_project_establish_control great_project_type = great_project_earthquake
+   great_project_type = great_project_flood }
+  trigger_if = { limit = { has_variable = mam_rv_project_funded_until } var:mam_rv_project_funded_until <= current_date }
+ }
+}
+mam_revenue_priority_authority_trigger = {
+ OR = { mam_revenue_emperor_trigger = yes
+  AND = { mam_revenue_chancellor_trigger = yes title:h_china = { NOT = { has_variable = mam_rv_imperial_priority } } }
+ }
+ is_imprisoned = no
+ NOT = { has_trait = incapable }
+}
+mam_revenue_offer_ready_trigger = {
+ mam_revenue_actor_trigger = yes exists = scope:mam_rv_donor exists = scope:mam_rv_recipient
+ trigger_if = { limit = { exists = scope:mam_rv_donor exists = scope:mam_rv_recipient }
+  scope:mam_rv_donor = {
+   treasury >= { value = mam_revenue_account_reserve add = $AMOUNT$ }
+   trigger_if = { limit = { this != title:h_china.holder }
+    primary_title = { trigger_if = { limit = { has_variable = mam_rv_donor_until } var:mam_rv_donor_until <= current_date } }
+   }
+  }
+  trigger_if = { limit = { scope:mam_rv_file.var:mam_rv_kind != 3 }
+   scope:mam_rv_recipient.primary_title = { mam_revenue_aid_available_trigger = yes }
+  }
+ }
+}
+mam_revenue_needs_help_trigger = {
+ OR = { treasury < 0
+  AND = { treasury < minor_treasury_value OR = { monthly_character_treasury_balance < 0 mam_revenue_has_recovery_need_trigger = yes mam_revenue_has_project_trigger = yes } }
+ }
+}
+# Title scope: each purpose has its own pointer; real financial aid shares a cooldown.
+mam_revenue_aid_available_trigger = {
+ trigger_if = { limit = { has_variable = mam_rv_aid_until } var:mam_rv_aid_until <= current_date }
+}
+# Story scope. Completed or replaced pointers cannot be replayed.
+mam_revenue_file_current_trigger = {
+ exists = var:mam_rv_subject exists = var:mam_rv_subject.holder exists = title:h_china.holder
+ trigger_if = { limit = { exists = var:mam_rv_subject exists = var:mam_rv_subject.holder exists = title:h_china.holder }
+
+ save_temporary_scope_as = mam_rv_check_current
+ has_variable = mam_rv_pending var:mam_rv_pending = 1
+ exists = var:mam_rv_subject exists = var:mam_rv_subject.holder
+ title:h_china.holder = { mam_revenue_emperor_trigger = yes }
+ var:mam_rv_subject.holder = { top_liege = title:h_china.holder }
+ trigger_if = { limit = { var:mam_rv_slot <= 3 }
+  var:mam_rv_subject.holder = { mam_revenue_recipient_trigger = yes primary_title = scope:mam_rv_check_current.var:mam_rv_subject }
+ }
+ trigger_if = { limit = { var:mam_rv_slot = 1 } var:mam_rv_subject = { var:mam_rv_funding_file = prev } }
+ trigger_if = { limit = { var:mam_rv_slot = 2 } var:mam_rv_subject = { var:mam_rv_budget_file = prev } }
+ trigger_if = { limit = { var:mam_rv_slot = 3 } var:mam_rv_subject = { var:mam_rv_settlement_file = prev } }
+ trigger_if = { limit = { var:mam_rv_slot = 4 } title:h_china = { var:mam_rv_annual_file = prev } }
+ trigger_if = { limit = { var:mam_rv_slot = 5 } title:h_china = { var:mam_rv_mandate_file = prev } }
+ trigger_if = { limit = { var:mam_rv_slot = 6 } title:h_china = { var:mam_rv_priority_file = prev } }
+ trigger_if = { limit = { var:mam_rv_slot = 7 }
+  var:mam_rv_subject = { var:mam_rv_appeal_file = scope:mam_rv_check_current }
+  exists = var:mam_rv_recipient_snapshot
+  var:mam_rv_subject.holder = {
+   mam_revenue_budget_office_trigger = yes
+   this = scope:mam_rv_check_current.var:mam_rv_recipient_snapshot
+   mam_revenue_budget_level = scope:mam_rv_check_current.var:mam_rv_budget_before
+  }
+ }
+
+ }
+}
+# Character scope. Every option is tied to its exact displayed file and generation.
+mam_revenue_actor_trigger = {
+ title:h_china = { NOT = { has_variable = mam_cf_active } }
+ is_alive = yes is_imprisoned = no
+ NOT = { has_trait = incapable }
+ exists = scope:mam_rv_file exists = var:mam_rv_open_file
+ var:mam_rv_open_file = scope:mam_rv_file
+ scope:mam_rv_file = {
+  mam_revenue_file_current_trigger = yes
+  var:mam_rv_actor = root
+  var:mam_rv_generation = scope:mam_rv_generation
+  var:mam_rv_stage = scope:mam_rv_stage
+ }
+ trigger_if = { limit = { scope:mam_rv_file = { var:mam_rv_stage = 0 } }
+  OR = {
+   AND = { scope:mam_rv_file = { var:mam_rv_kind = 10 } mam_revenue_emperor_trigger = yes }
+   AND = { scope:mam_rv_file = { var:mam_rv_kind = 11 } mam_revenue_priority_authority_trigger = yes }
+   AND = { scope:mam_rv_file = { NOT = { var:mam_rv_kind = 10 } NOT = { var:mam_rv_kind = 11 } } mam_revenue_officer_trigger = yes }
+  }
+ }
+ trigger_if = { limit = { scope:mam_rv_file = { var:mam_rv_stage = 2 } }
+  exists = scope:mam_rv_donor scope:mam_rv_donor = root
+  scope:mam_rv_file.var:mam_rv_donor_title.holder = root
+ }
+ trigger_if = { limit = { scope:mam_rv_file = { var:mam_rv_stage = 3 } }
+  mam_revenue_authority_trigger = yes
+  trigger_if = { limit = { scope:mam_rv_file = { var:mam_rv_reserved = 1 } } mam_revenue_emperor_trigger = yes }
+  trigger_if = { limit = { scope:mam_rv_file = { var:mam_rv_reserved = 0 } } OR = { mam_revenue_chancellor_trigger = yes mam_revenue_emperor_trigger = yes } }
+ }
+}
+# Story scope. This gate is called again immediately before the native payment.
+mam_revenue_payment_ready_trigger = {
+ exists = var:mam_rv_donor_snapshot exists = var:mam_rv_recipient_snapshot
+ exists = var:mam_rv_subject.holder exists = var:mam_rv_donor_title.holder exists = var:mam_rv_recipient_title.holder exists = var:mam_rv_proposer
+ trigger_if = { limit = { exists = var:mam_rv_subject.holder exists = var:mam_rv_donor_title.holder exists = var:mam_rv_recipient_title.holder exists = var:mam_rv_proposer exists = var:mam_rv_donor_snapshot exists = var:mam_rv_recipient_snapshot }
+
+ mam_revenue_file_current_trigger = yes
+ exists = var:mam_rv_donor_title.holder exists = var:mam_rv_recipient_title.holder
+ exists = var:mam_rv_proposer
+ var:mam_rv_proposer = { mam_revenue_officer_trigger = yes }
+ var:mam_rv_amount > 0
+ save_temporary_scope_as = mam_rv_check
+ var:mam_rv_donor_title.holder = {
+  is_alive = yes has_treasury = yes top_liege = title:h_china.holder
+  primary_title = scope:mam_rv_check.var:mam_rv_donor_title
+  this = scope:mam_rv_check.var:mam_rv_donor_snapshot
+  treasury >= { value = scope:mam_rv_check.var:mam_rv_amount add = mam_revenue_account_reserve }
+  trigger_if = { limit = { this != title:h_china.holder }
+   trigger_if = { limit = { primary_title = { has_variable = mam_rv_donor_until } } primary_title.var:mam_rv_donor_until <= current_date }
+  }
+ }
+ var:mam_rv_recipient_title.holder = {
+  is_alive = yes has_treasury = yes top_liege = title:h_china.holder
+  primary_title = scope:mam_rv_check.var:mam_rv_recipient_title
+  this = scope:mam_rv_check.var:mam_rv_recipient_snapshot
+  this != scope:mam_rv_check.var:mam_rv_donor_title.holder
+ }
+ trigger_if = { limit = { NOT = { var:mam_rv_kind = 3 } }
+  var:mam_rv_recipient_title = { mam_revenue_aid_available_trigger = yes }
+ }
+ trigger_if = { limit = { var:mam_rv_kind = 3 }
+  var:mam_rv_donor_title.holder = { mam_revenue_province_trigger = yes NOT = { mam_revenue_has_recovery_need_trigger = yes } NOT = { mam_revenue_conflicting_settlement_trigger = yes } }
+  trigger_if = { limit = { var:mam_rv_subject = { has_variable = mam_rv_settlement_until } } var:mam_rv_subject.var:mam_rv_settlement_until <= current_date }
+ }
+ trigger_if = { limit = { var:mam_rv_kind = 6 }
+  exists = var:mam_rv_project
+  var:mam_rv_recipient_title.holder = { mam_revenue_has_project_trigger = yes }
+  trigger_if = { limit = { exists = var:mam_rv_project } var:mam_rv_project = {
+   great_project_owner = { top_liege = title:h_china.holder }
+   OR = { great_project_founder = scope:mam_rv_check.var:mam_rv_recipient_title.holder
+    great_project_location.county.holder = { OR = { this = scope:mam_rv_check.var:mam_rv_recipient_title.holder is_vassal_or_below_of = scope:mam_rv_check.var:mam_rv_recipient_title.holder } }
+   }
+   trigger_if = { limit = { has_variable = mam_rv_project_funded_until } var:mam_rv_project_funded_until <= current_date }
+  } }
+ }
+ trigger_if = { limit = { var:mam_rv_kind = 5 }
+  var:mam_rv_recipient_title.holder = { mam_revenue_province_trigger = yes mam_revenue_has_recovery_need_trigger = yes NOT = { mam_revenue_conflicting_settlement_trigger = yes } }
+ }
+ trigger_if = { limit = { var:mam_rv_donor_title.holder = title:h_china.holder }
+  title:h_china.holder = { mam_revenue_emperor_trigger = yes }
+ }
+
+ }
+}
+mam_revenue_imperial_measure_trigger = {
+ OR = {
+  var:mam_rv_subject.holder = { mam_revenue_reserved_ministry_trigger = yes has_treasury = yes }
+  var:mam_rv_subject = title:e_minister_of_revenue
+  var:mam_rv_donor_title.holder = { mam_revenue_reserved_ministry_trigger = yes }
+  var:mam_rv_recipient_title.holder = { mam_revenue_reserved_ministry_trigger = yes }
+  title:h_china = { NOT = { has_variable = mam_rv_mandate_owner } }
+  title:h_china = { var:mam_rv_mandate = 0 }
+  title:h_china = { var:mam_rv_mandate_owner != holder }
+ }
+}
+mam_revenue_delegated_trigger = {
+ save_temporary_scope_as = mam_rv_delegation_file
+ mam_revenue_imperial_measure_trigger = no
+ title:h_china = { var:mam_rv_mandate_owner = holder }
+ OR = {
+  AND = { var:mam_rv_amount <= 100 title:h_china = { var:mam_rv_mandate = 1 }
+   OR = { var:mam_rv_donor_title.holder != title:h_china.holder title:h_china = { var:mam_rv_year_spent <= { value = 400 subtract = scope:mam_rv_delegation_file.var:mam_rv_amount } } }
+  }
+  AND = { var:mam_rv_amount <= 200 title:h_china = { var:mam_rv_mandate = 2 }
+   OR = { var:mam_rv_donor_title.holder != title:h_china.holder title:h_china = { var:mam_rv_year_spent <= { value = 800 subtract = scope:mam_rv_delegation_file.var:mam_rv_amount } } }
+  }
+ }
+}
+mam_revenue_law_realm_trigger = {
+ has_title = title:h_china is_independent_ruler = yes
+ government_has_flag = government_is_celestial has_tgp_dlc_trigger = yes
+}
+mam_revenue_can_appeal_trigger = {
+ is_imprisoned = no NOT = { has_trait = incapable }
+ mam_revenue_budget_office_trigger = yes
+ save_temporary_scope_as = mam_rv_appellant
+ primary_title = {
+  exists = var:mam_rv_cut_record has_variable = mam_rv_cut_until
+  NOT = { has_variable = mam_rv_appeal_file }
+  trigger_if = { limit = { exists = var:mam_rv_cut_record has_variable = mam_rv_cut_until }
+   var:mam_rv_cut_until > current_date
+   var:mam_rv_cut_record = {
+    save_temporary_scope_as = mam_rv_appeal_eligibility
+    NOT = { has_variable = mam_rv_appeal_used }
+    var:mam_rv_result = 1 var:mam_rv_kind = 4
+    var:mam_rv_recipient_snapshot = scope:mam_rv_appellant
+    var:mam_rv_budget_level < var:mam_rv_budget_before
+    scope:mam_rv_appellant = { mam_revenue_budget_level = scope:mam_rv_appeal_eligibility.var:mam_rv_budget_level }
+   }
+  }
+ }
+}
+mam_revenue_personal_favour_trigger = {
+ exists = scope:mam_rv_recipient exists = scope:mam_rv_revenue
+ scope:mam_rv_recipient = { mam_revenue_need_score < 100
+  OR = { is_close_or_extended_family_of = scope:mam_rv_revenue has_relation_friend = scope:mam_rv_revenue is_in_same_movement_as = { TARGET = scope:mam_rv_revenue } }
+ }
+ title:h_china = { any_in_list = { variable = mam_rv_files
+  mam_revenue_file_current_trigger = yes var:mam_rv_slot = 1
+  var:mam_rv_recipient_title.holder != scope:mam_rv_recipient
+  var:mam_rv_recipient_title.holder = { mam_revenue_need_score >= 100 }
+ } }
+}
+mam_revenue_native_request_trigger = {
+ exists = title:h_china.holder exists = scope:actor exists = scope:recipient
+ trigger_if = { limit = { exists = title:h_china.holder exists = scope:actor exists = scope:recipient }
+  mam_revenue_fund_ready_trigger = yes
+  OR = {
+   AND = { scope:actor = { mam_revenue_province_trigger = yes } scope:recipient = { mam_revenue_officer_trigger = yes } }
+   AND = { scope:actor = { mam_revenue_fund_member_trigger = yes }
+    OR = { scope:recipient = title:h_china.holder scope:recipient = { mam_revenue_officer_trigger = yes } }
+   }
+  }
+ }
+}

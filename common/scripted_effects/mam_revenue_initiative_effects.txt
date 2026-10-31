@@ -1,0 +1,190 @@
+﻿mam_revenue_maintenance_effect = {
+ # legacy common-fund guard
+ if = { limit = { title:h_china = { NOT = { has_variable = mam_cf_active } } }
+
+ if = { limit = { mam_revenue_emperor_trigger = yes }
+  save_scope_as = mam_rv_service_emperor
+  title:h_china = {
+   if = { limit = { NOT = { has_variable = mam_rv_initialized } }
+    set_variable = { name = mam_rv_initialized value = 1 }
+    set_variable = { name = mam_rv_serial value = 0 }
+    set_variable = { name = mam_rv_scan_count value = 0 }
+    set_variable = { name = mam_rv_payment_count value = 0 }
+    set_variable = { name = mam_rv_refusal_count value = 0 }
+    set_variable = { name = mam_rv_uncertain_count value = 0 }
+    set_variable = { name = mam_rv_rejected_commit_count value = 0 }
+    set_variable = { name = mam_rv_last_need_count value = 0 }
+    set_variable = { name = mam_rv_priority value = 0 }
+    set_variable = { name = mam_rv_year_spent value = 0 }
+    set_variable = { name = mam_rv_year_until value = { value = current_date add = 365 } }
+   }
+   if = { limit = { OR = { NOT = { has_variable = mam_rv_year_until } var:mam_rv_year_until <= current_date } }
+    set_variable = { name = mam_rv_year_spent value = 0 }
+    set_variable = { name = mam_rv_year_until value = { value = current_date add = 365 } }
+   }
+   mam_revenue_sync_authority_law_effect = yes
+   if = { limit = { has_variable = mam_rv_imperial_priority }
+    set_variable = { name = mam_rv_priority value = var:mam_rv_imperial_priority }
+   }
+   else_if = { limit = { exists = title:e_minister_chancellor.holder title:e_minister_chancellor.holder = { mam_revenue_chancellor_trigger = yes } }
+    if = { limit = { OR = {
+     NOT = { exists = var:mam_rv_priority_owner } var:mam_rv_priority_owner != title:e_minister_chancellor.holder
+     AND = { NOT = { has_variable = mam_rv_priority_manual } var:mam_rv_priority_until <= current_date }
+    } }
+     if = { limit = { title:e_minister_chancellor.holder = { is_ai = yes } }
+      if = { limit = { holder = { treasury < 1000 } title:e_minister_chancellor.holder = { NOT = { has_trait = compassionate } } }
+       mam_revenue_set_priority_effect = { LEVEL = 1 OWNER = title:e_minister_chancellor.holder MANUAL = no }
+      }
+      else_if = { limit = { OR = { title:e_minister_chancellor.holder = { has_trait = compassionate } holder = { any_vassal_or_below = { mam_revenue_province_trigger = yes treasury < 0 } } } }
+       mam_revenue_set_priority_effect = { LEVEL = 2 OWNER = title:e_minister_chancellor.holder MANUAL = no }
+      }
+      else = { mam_revenue_set_priority_effect = { LEVEL = 0 OWNER = title:e_minister_chancellor.holder MANUAL = no } }
+     }
+     else = { mam_revenue_open_priority_effect = yes
+      set_variable = { name = mam_rv_priority_owner value = title:e_minister_chancellor.holder }
+      set_variable = { name = mam_rv_priority_until value = { value = current_date add = 365 } }
+     }
+    }
+   }
+   if = { limit = { exists = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes }
+    OR = { NOT = { has_variable = mam_rv_annual_until } var:mam_rv_annual_until <= current_date
+     NOT = { exists = var:mam_rv_annual_owner } var:mam_rv_annual_owner != title:e_minister_of_revenue.holder }
+   }
+    save_scope_as = mam_rv_subject
+    mam_revenue_create_file_effect = { SLOT = annual SLOT_ID = 4 KIND = 9 }
+    if = { limit = { exists = scope:mam_rv_created }
+     scope:mam_rv_created = { set_variable = { name = mam_rv_urgency value = 10 } }
+     set_variable = { name = mam_rv_annual_until value = { value = current_date add = 365 } }
+     set_variable = { name = mam_rv_annual_owner value = title:e_minister_of_revenue.holder }
+    }
+    else_if = { limit = { exists = var:mam_rv_annual_file var:mam_rv_annual_file = { mam_revenue_file_current_trigger = yes } }
+     set_variable = { name = mam_rv_annual_until value = { value = current_date add = 365 } }
+     set_variable = { name = mam_rv_annual_owner value = title:e_minister_of_revenue.holder }
+    }
+   }
+  }
+ }
+
+ }
+}
+# Emperor scope. Realm cadence guard prevents duplicate scans after succession or reload.
+mam_revenue_quarter_effect = {
+ # legacy common-fund guard
+ if = { limit = { title:h_china = { NOT = { has_variable = mam_cf_active } } }
+
+ if = { limit = { mam_revenue_emperor_trigger = yes }
+  mam_revenue_maintenance_effect = yes
+  if = { limit = { title:h_china = { OR = { NOT = { has_variable = mam_rv_scan_until } var:mam_rv_scan_until <= current_date } }
+   exists = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes }
+  }
+   save_scope_as = mam_rv_scan_emperor
+   title:e_minister_of_revenue.holder = { save_scope_as = mam_rv_revenue }
+   title:h_china = { set_variable = { name = mam_rv_scan_until value = { value = current_date add = 85 } } }
+   title:h_china = { change_variable = { name = mam_rv_scan_count add = 1 } set_variable = { name = mam_rv_last_need_count value = 0 } }
+   clear_variable_list = mam_rv_scan_candidates
+   every_vassal_or_below = { limit = {
+    mam_revenue_recipient_trigger = yes mam_revenue_needs_help_trigger = yes
+    primary_title = { NOT = { has_variable = mam_rv_funding_file } mam_revenue_aid_available_trigger = yes
+     trigger_if = { limit = { has_variable = mam_rv_petition_until } var:mam_rv_petition_until <= current_date }
+    }
+   }
+    save_scope_as = mam_rv_scanned
+    scope:mam_rv_scan_emperor = { add_to_variable_list = { name = mam_rv_scan_candidates target = scope:mam_rv_scanned } }
+    title:h_china = { change_variable = { name = mam_rv_last_need_count add = 1 } }
+   }
+   ordered_in_list = { variable = mam_rv_scan_candidates order_by = mam_revenue_priority_score max = 2 check_range_bounds = no
+    mam_revenue_open_aid_effect = yes
+   }
+   clear_variable_list = mam_rv_scan_candidates
+   if = { limit = { title:h_china = { var:mam_rv_priority = 1 } }
+    ordered_vassal_or_below = { limit = {
+     mam_revenue_province_trigger = yes treasury >= { value = mam_revenue_account_reserve add = 100 }
+     monthly_character_treasury_balance >= 0
+     NOT = { mam_revenue_has_recovery_need_trigger = yes }
+     NOT = { mam_revenue_conflicting_settlement_trigger = yes }
+     primary_title = { NOT = { has_variable = mam_rv_settlement_file } NOT = { has_variable = mam_rv_funding_file }
+      trigger_if = { limit = { has_variable = mam_rv_settlement_until } var:mam_rv_settlement_until <= current_date }
+      trigger_if = { limit = { has_variable = mam_rv_donor_until } var:mam_rv_donor_until <= current_date }
+      trigger_if = { limit = { has_variable = mam_rv_settlement_review_until } var:mam_rv_settlement_review_until <= current_date }
+     }
+    } order_by = treasury max = 1 check_range_bounds = no mam_revenue_open_settlement_effect = yes }
+   }
+   # Review one eligible departmental allocation when its finances support it.
+   ordered_councillor = { limit = {
+    mam_revenue_budget_office_trigger = yes
+    primary_title = { NOT = { has_variable = mam_rv_budget_file }
+     trigger_if = { limit = { has_variable = mam_rv_budget_review_until } var:mam_rv_budget_review_until <= current_date }
+    }
+    OR = {
+     AND = { treasury < 100 mam_revenue_budget_level < 2 monthly_character_treasury_balance < 0 }
+     AND = { treasury > 1500 mam_revenue_budget_level > 0 title:h_china = { var:mam_rv_priority = 1 } NOT = { mam_revenue_has_project_trigger = yes } }
+    }
+   } order_by = treasury max = 1 check_range_bounds = no
+    mam_revenue_open_budget_effect = yes
+   }
+   debug_log = "MAM_REVENUE: quarterly needs scan completed; at most two new funding cases and one budget review"
+   if = { limit = { title:h_china = { var:mam_rv_last_need_count = 0 } } debug_log = "MAM_REVENUE: no eligible new funding needs; policy/settlement/budget work considered separately" }
+  }
+  mam_revenue_wake_effect = yes
+ }
+
+ }
+}
+# Actor context with live beneficiary. Selection is read-only and refreshed before choice.
+mam_revenue_find_donor_effect = {
+ clear_saved_scope = mam_rv_alternative_donor
+ if = { limit = { exists = scope:mam_rv_recipient }
+  title:h_china.holder = {
+   ordered_councillor = { limit = {
+    mam_revenue_ministry_trigger = yes this != scope:mam_rv_recipient
+    NOT = { mam_revenue_reserved_ministry_trigger = yes }
+    treasury >= { value = mam_revenue_account_reserve add = scope:mam_rv_amount }
+    monthly_character_treasury_balance >= 0
+    primary_title = {
+     NOT = { has_variable = mam_rv_funding_file }
+     trigger_if = { limit = { has_variable = mam_rv_donor_until } var:mam_rv_donor_until <= current_date }
+    }
+    OR = { NOT = { mam_revenue_has_project_trigger = yes } treasury >= 1500 }
+   } order_by = treasury max = 1 check_range_bounds = no save_scope_as = mam_rv_alternative_donor }
+  }
+ }
+}
+mam_revenue_use_alternative_donor_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes exists = scope:mam_rv_alternative_donor scope:mam_rv_alternative_donor = { mam_revenue_ministry_trigger = yes } }
+  scope:mam_rv_alternative_donor = { save_scope_as = mam_rv_donor }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_donor_title value = scope:mam_rv_donor.primary_title }
+   set_variable = { name = mam_rv_kind value = 2 }
+  }
+  mam_revenue_propose_payment_effect = { AMOUNT = scope:mam_rv_amount }
+ }
+}
+mam_revenue_decline_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  save_scope_as = mam_rv_declining
+  if = { limit = { scope:mam_rv_file.var:mam_rv_slot = 1 has_trait = compassionate exists = scope:mam_rv_recipient scope:mam_rv_recipient = { mam_revenue_need_score >= 100 }
+   title:h_china.holder = { treasury >= { value = mam_revenue_account_reserve add = scope:mam_rv_amount } }
+  } add_stress = 10 }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_result value = 2 }
+   title:h_china = { change_variable = { name = mam_rv_refusal_count add = 1 } }
+   if = { limit = { var:mam_rv_slot = 1 }
+    var:mam_rv_subject = { set_variable = { name = mam_rv_petition_until value = { value = current_date add = 180 } } }
+    if = { limit = { exists = var:mam_rv_recipient_title.holder var:mam_rv_kind != 3 var:mam_rv_slot = 1 }
+     var:mam_rv_recipient_title.holder = {
+      add_opinion = { target = scope:mam_rv_declining modifier = mam_revenue_refused_aid_opinion }
+      # A full result event is sent after recording the decision.
+     }
+    }
+   }
+   else_if = { limit = { var:mam_rv_slot = 2 }
+    var:mam_rv_subject = { set_variable = { name = mam_rv_budget_review_until value = { value = current_date add = 180 } } }
+   }
+   else_if = { limit = { var:mam_rv_slot = 3 }
+    var:mam_rv_subject = { set_variable = { name = mam_rv_settlement_review_until value = { value = current_date add = 180 } } }
+   }
+   mam_revenue_notify_effect = { STATUS = 2 PAID = no }
+   mam_revenue_close_effect = yes
+  }
+ }
+}

@@ -1,0 +1,12 @@
+﻿on_game_start_after_lobby = { on_actions = { mam_senior_jurisdiction_startup } }
+mam_senior_jurisdiction_startup = {
+ effect = { every_independent_ruler = { mam_senior_repair_existing_jurisdictions_effect = yes } }
+}
+# Loaded-save fallback; guarded by one realm-level migration stamp.
+quarterly_playable_pulse = { on_actions = { mam_senior_jurisdiction_migration } }
+mam_senior_jurisdiction_migration = {
+ trigger = { mam_can_oversee_personnel_trigger = yes
+  primary_title = { NOT = { has_variable = mam_senior_jurisdiction_migrated_dev43 } }
+ }
+ effect = { mam_senior_repair_existing_jurisdictions_effect = yes }
+}

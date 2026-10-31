@@ -1,0 +1,115 @@
+﻿# Realm title scope; mirror the persistent fiscal law for payment guards.
+mam_revenue_set_mandate_effect = {
+ set_variable = { name = mam_rv_mandate value = $LEVEL$ }
+ set_variable = { name = mam_rv_mandate_owner value = holder }
+}
+mam_revenue_pass_authority_law_effect = {
+ set_variable = { name = mam_rv_law_migrated value = 1 }
+ set_variable = { name = mam_rv_law_cooldown value = 1 years = 5 }
+ mam_revenue_set_mandate_effect = { LEVEL = $LEVEL$ }
+ # Re-route uncommitted papers under the current control rights immediately.
+ holder = { mam_revenue_fund_wake_effect = yes }
+}
+# Realm title scope. Migrate the old standing mandate once, without a cost or
+# cooldown. Thereafter the actual law is authoritative and survives succession.
+mam_revenue_sync_authority_law_effect = {
+ if = { limit = { NOT = { has_variable = mam_rv_law_migrated } }
+  if = { limit = { has_variable = mam_rv_mandate var:mam_rv_mandate = 2 }
+   holder = { add_realm_law_skip_effects = mam_revenue_authority_expanded }
+  }
+  else_if = { limit = { OR = { AND = { has_variable = mam_rv_mandate var:mam_rv_mandate = 1 }
+   AND = { NOT = { has_variable = mam_rv_mandate } holder = { is_ai = yes treasury >= 1000 } }
+  } } holder = { add_realm_law_skip_effects = mam_revenue_authority_limited } }
+  else = { holder = { add_realm_law_skip_effects = mam_revenue_authority_reserved } }
+  set_variable = { name = mam_rv_law_migrated value = 1 }
+ }
+ if = { limit = { holder = { has_realm_law = mam_revenue_authority_expanded } } mam_revenue_set_mandate_effect = { LEVEL = 2 } }
+ else_if = { limit = { holder = { has_realm_law = mam_revenue_authority_limited } } mam_revenue_set_mandate_effect = { LEVEL = 1 } }
+ else = {
+  holder = {
+   if = { limit = { NOT = { has_realm_law = mam_revenue_authority_reserved } }
+    add_realm_law_skip_effects = mam_revenue_authority_reserved
+   }
+  }
+  mam_revenue_set_mandate_effect = { LEVEL = 0 }
+ }
+ if = { limit = { holder = { is_ai = no } OR = { NOT = { exists = var:mam_rv_law_seen_owner } var:mam_rv_law_seen_owner != holder } }
+  mam_revenue_open_mandate_effect = yes
+  set_variable = { name = mam_rv_law_seen_owner value = holder }
+ }
+}
+mam_revenue_set_priority_effect = {
+ set_variable = { name = mam_rv_priority value = $LEVEL$ }
+ set_variable = { name = mam_rv_priority_owner value = $OWNER$ }
+ set_variable = { name = mam_rv_priority_until value = { value = current_date add = 365 } }
+ if = { limit = { always = $MANUAL$ } set_variable = { name = mam_rv_priority_manual value = 1 } }
+ else = { remove_variable = mam_rv_priority_manual }
+}
+mam_revenue_open_mandate_effect = {
+ title:h_china = { save_scope_as = mam_rv_subject }
+ mam_revenue_create_file_effect = { SLOT = mandate SLOT_ID = 5 KIND = 10 }
+ if = { limit = { exists = scope:mam_rv_created } scope:mam_rv_created = { set_variable = { name = mam_rv_urgency value = 80 } } }
+}
+mam_revenue_open_priority_effect = {
+ title:h_china = { save_scope_as = mam_rv_subject }
+ mam_revenue_create_file_effect = { SLOT = priority SLOT_ID = 6 KIND = 11 }
+ if = { limit = { exists = scope:mam_rv_created } scope:mam_rv_created = { set_variable = { name = mam_rv_urgency value = 45 } } }
+}
+# Actor scope. Emperor owns the override; Chancellor's change is otherwise limited
+# to their current office. Annual Revenue recommendations never overwrite policy.
+mam_revenue_choose_priority_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes mam_revenue_priority_authority_trigger = yes }
+  title:h_china = {
+   if = { limit = { root = { mam_revenue_emperor_trigger = yes } }
+    set_variable = { name = mam_rv_imperial_priority value = $LEVEL$ }
+   }
+   mam_revenue_set_priority_effect = { LEVEL = $LEVEL$ OWNER = root MANUAL = yes }
+  }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_result value = 1 } mam_revenue_close_effect = yes }
+ }
+}
+mam_revenue_recommend_priority_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes mam_revenue_officer_trigger = yes }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_kind value = 12 }
+   set_variable = { name = mam_rv_requested_priority value = $LEVEL$ }
+   set_variable = { name = mam_rv_reserved value = 0 }
+   if = { limit = { title:h_china = { has_variable = mam_rv_imperial_priority } } set_variable = { name = mam_rv_reserved value = 1 } }
+   set_variable = { name = mam_rv_stage value = 3 }
+   mam_revenue_release_effect = yes
+  }
+ }
+}
+mam_revenue_accept_priority_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes mam_revenue_priority_authority_trigger = yes }
+  title:h_china = {
+   mam_revenue_set_priority_effect = { LEVEL = scope:mam_rv_file.var:mam_rv_requested_priority OWNER = root MANUAL = no }
+   if = { limit = { root = { mam_revenue_emperor_trigger = yes } has_variable = mam_rv_imperial_priority }
+    set_variable = { name = mam_rv_imperial_priority value = scope:mam_rv_file.var:mam_rv_requested_priority }
+   }
+  }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_result value = 1 } mam_revenue_close_effect = yes }
+ }
+}
+# Call the existing native recommendation event with its expected scope contract.
+mam_revenue_native_budget_proposal_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes mam_revenue_officer_trigger = yes is_at_war = no
+  influence >= medium_influence_value
+  title:h_china = { NOT = { has_variable = mam_rv_native_budget_until } }
+  title:h_china.holder = { treasury_months_since_budget_enact_date >= 36 }
+ }
+  save_scope_as = minister_of_revenue
+  title:h_china.holder = { save_scope_as = treasury_ruler }
+  clear_saved_scope = budget_suggestion_salary_template clear_saved_scope = budget_suggestion_ministry_template
+  clear_saved_scope = budget_suggestion_military_template clear_saved_scope = budget_suggestion_hegemon_template
+  clear_saved_scope = budget_suggestion_balanced_template clear_saved_scope = budget_suggestion_salary_increase
+  clear_saved_scope = budget_suggestion_ministry_increase clear_saved_scope = budget_suggestion_military_increase
+  if = { limit = { title:h_china = { var:mam_rv_priority = 2 } can_suggest_budget_ministry_template_trigger = yes } save_scope_as = budget_suggestion_ministry_template }
+  else_if = { limit = { can_suggest_budget_balanced_template_trigger = yes } save_scope_as = budget_suggestion_balanced_template }
+  else = { save_scope_as = budget_suggestion_ministry_template }
+  change_influence = { value = medium_influence_value multiply = -1 }
+  title:h_china = { set_variable = { name = mam_rv_native_budget_until value = 1 years = 3 } }
+  title:h_china.holder = { trigger_event = { id = tgp_china_ministry.0200 days = 1 } }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_result value = 1 } mam_revenue_close_effect = yes }
+ }
+}

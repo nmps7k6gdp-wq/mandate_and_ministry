@@ -1,0 +1,17 @@
+﻿MamExamDistinction = {
+ type = character
+ text = { trigger = { mam_exam_triple_first_trigger = yes } localization_key = mam_exam.triple }
+ text = { trigger = { mam_exam_palace_first_trigger = yes } localization_key = mam_exam.first }
+ text = { trigger = { mam_exam_palace_honors_trigger = yes } localization_key = mam_exam.honors }
+ text = { trigger = { has_character_flag = mam_exam_metropolitan_first } localization_key = mam_exam.metro }
+ text = { trigger = { has_character_flag = mam_exam_provincial_first mam_has_ordinary_provincial_evidence_trigger = yes } localization_key = mam_exam.provincial }
+ text = { localization_key = mam_exam.unknown }
+}
+
+MamExamAppointmentLabel = {
+ type = character
+ text = { trigger = { mam_exam_triple_first_trigger = yes } localization_key = mam_exam.label_triple }
+ text = { trigger = { mam_exam_palace_first_trigger = yes } localization_key = mam_exam.label_champion }
+ text = { trigger = { mam_exam_palace_honors_trigger = yes } localization_key = mam_exam.label_honors }
+ text = { localization_key = mam_exam.label_none }
+}

@@ -1,0 +1,14 @@
+﻿mam_mark_candidate_interaction = {
+ category = interaction_category_ministry
+ icon = scroll_scales
+ desc = mam_mark_candidate_interaction_desc
+ common_interaction = yes auto_accept = yes ai_frequency = 0
+ ai_targets = { ai_recipients = vassals }
+ interface_priority = 42
+ is_shown = {
+  scope:actor = { is_ai = no mam_can_nominate_trigger = yes }
+  scope:recipient = { is_alive = yes is_adult = yes is_civilian_candidate_trigger = yes tgp_is_any_minister = no this != scope:actor this != scope:actor.top_liege top_liege = scope:actor.top_liege }
+ }
+ on_accept = { scope:actor = { mam_mark_candidate_effect = { CANDIDATE = scope:recipient } } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

@@ -1,0 +1,19 @@
+{
+  "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_effects\\10_dlc_tgp_natural_disaster_scripted_effects.txt",
+  "definition": "natural_disaster_insurance_effect",
+  "native_sha256": "a04cba47a3897ef30019fd6a9120866c479348225419faff8dcb29b9552b2aeb",
+  "insertions": [
+    {
+      "at": 57,
+      "text": "\n mam_revenue_fund_enabled_trigger = no\n"
+    },
+    {
+      "at": 1124,
+      "text": "if = { limit = { mam_revenue_fund_enabled_trigger = yes has_treasury = yes top_liege = title:h_china.holder }\n mam_revenue_fund_insurance_claim_effect = yes\n} else = {\n"
+    },
+    {
+      "at": 2619,
+      "text": "\n}\n"
+    }
+  ]
+}

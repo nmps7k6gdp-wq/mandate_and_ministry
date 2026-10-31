@@ -1,0 +1,52 @@
+{
+    "date":  "2026-10-30",
+    "background_removed_with":  "built-in image_gen transparent edit",
+    "upload_export":  "Native Windows PNG/ARGB encoding, alpha bounding-box trim, 12px clear padding, maximum 1280px width",
+    "steam_upload_verified":  false,
+    "assets":  [
+                   {
+                       "file":  "divider-alpha-feedback-transparent.png",
+                       "width":  1280,
+                       "height":  374,
+                       "bytes":  312824,
+                       "transparent_pixels":  377898,
+                       "partial_alpha_pixels":  99492,
+                       "opaque_pixels":  1330,
+                       "sha256":  "6c242fe35629277b601aa62cfd2bd116c82bcf833c1df8ce1025b333ebb1184a",
+                       "source_sha256":  "37920bb55b8af8d7c2f925deaa37aac642c791dd186b7d308b05e1874f8562f5"
+                   },
+                   {
+                       "file":  "divider-current-features-transparent.png",
+                       "width":  1280,
+                       "height":  422,
+                       "bytes":  331552,
+                       "transparent_pixels":  428515,
+                       "partial_alpha_pixels":  110822,
+                       "opaque_pixels":  823,
+                       "sha256":  "8b3991bbb8765ee956806fa3d233ecb2c7326b4fdbf6f0abd58d8c508c698cec",
+                       "source_sha256":  "5746a85d1147ec1af7855396791b674a8757965a343986f3728254ad84ab592f"
+                   },
+                   {
+                       "file":  "divider-planned-features-transparent.png",
+                       "width":  1280,
+                       "height":  387,
+                       "bytes":  357352,
+                       "transparent_pixels":  379864,
+                       "partial_alpha_pixels":  114089,
+                       "opaque_pixels":  1407,
+                       "sha256":  "ab58fe2254cc711ec5db926796d9f7b8d58cb014baf6c5f02f1e95c03c62fbd0",
+                       "source_sha256":  "ee253973aa821102b222de5e968f5979d725af2f048adc336f9f449b90dcef3a"
+                   },
+                   {
+                       "file":  "workshop-banner-transparent.png",
+                       "width":  1280,
+                       "height":  633,
+                       "bytes":  855476,
+                       "transparent_pixels":  521571,
+                       "partial_alpha_pixels":  288325,
+                       "opaque_pixels":  344,
+                       "sha256":  "2ba12f8ed26c60269f8a377d5a50090cb88ed5d7f6d462ccf8436085225cf97c",
+                       "source_sha256":  "666a4f8334590fdcd92b8abb75fe737b0ba8521c98ec9f654bebb719944c16dd"
+                   }
+               ]
+}

@@ -1,0 +1,408 @@
+﻿# Title scope. Clear advice when the dossier begins a different observation period.
+
+mam_clear_service_advice_effect = {
+
+ remove_variable = mam_rv_war
+
+ remove_variable = mam_rv_kind
+
+ remove_variable = mam_rv_author
+
+ remove_variable = mam_rv_holder
+
+ remove_variable = mam_rv_realm
+
+ remove_variable = mam_rv_baseline
+
+ remove_variable = mam_rv_serial
+
+ remove_variable = mam_rv_control
+
+ remove_variable = mam_rv_development
+
+ remove_variable = mam_rv_merit
+
+ remove_variable = mam_rv_sample
+
+ remove_variable = mam_rv_date
+
+ remove_variable = mam_rv_concern
+
+ remove_variable = mam_rv_scrutiny
+
+ remove_variable = mam_rv_reason
+
+}
+
+# Title scope, optional mam_srv_minister. 0 observe; 1 retain; 2 further review.
+
+mam_build_service_advice_effect = {
+
+ save_scope_value_as = { name = mam_srv_concern value = 0 }
+
+ save_scope_value_as = { name = mam_srv_scrutiny value = 2 }
+
+ save_scope_value_as = { name = mam_srv_choice value = 0 }
+
+ save_scope_value_as = { name = mam_srv_reason value = 0 }
+
+ save_scope_value_as = { name = mam_srv_improvements value = 0 }
+
+ save_scope_value_as = { name = mam_srv_praise value = 2 }
+
+ if = { limit = { mam_service_evidence_trigger = yes }
+
+  save_scope_value_as = { name = mam_srv_concern value = mam_service_concern_value }
+
+  save_scope_value_as = { name = mam_srv_scrutiny value = mam_service_scrutiny_value }
+
+  save_scope_value_as = { name = mam_srv_improvements value = mam_service_improvement_value }
+
+  save_scope_value_as = { name = mam_srv_praise value = mam_service_praise_threshold_value }
+
+  if = { limit = { has_variable = mam_ds_war_observed mam_service_concern_value > 0 }
+
+   save_scope_value_as = { name = mam_srv_choice value = 0 }
+
+  }
+
+  else_if = { limit = { mam_service_concern_value >= mam_service_scrutiny_value }
+
+   save_scope_value_as = { name = mam_srv_choice value = 2 }
+
+  }
+
+  else_if = { limit = { mam_service_concern_value = 0 mam_service_improvement_value >= mam_service_praise_threshold_value }
+
+   save_scope_value_as = { name = mam_srv_choice value = 3 }
+
+  }
+
+  else = { save_scope_value_as = { name = mam_srv_choice value = 1 } }
+
+  if = { limit = { has_variable = mam_ds_war_observed }
+
+   save_scope_value_as = { name = mam_srv_reason value = 12 }
+
+   if = { limit = { mam_service_concern_value > 0 } save_scope_value_as = { name = mam_srv_reason value = 1 } }
+
+  }
+
+  else_if = { limit = { var:mam_ds_control <= { value = var:mam_ds_baseline_control subtract = 20 } }
+
+   save_scope_value_as = { name = mam_srv_reason value = 2 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_development <= { value = var:mam_ds_baseline_development subtract = 2 } }
+
+   save_scope_value_as = { name = mam_srv_reason value = 3 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_merit < var:mam_ds_baseline_merit }
+
+   save_scope_value_as = { name = mam_srv_reason value = 4 }
+
+  }
+
+  else_if = { limit = { mam_service_concern_value = 2 mam_service_scrutiny_value > 2 }
+
+   save_scope_value_as = { name = mam_srv_reason value = 11 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_control <= { value = var:mam_ds_baseline_control subtract = 5 } }
+
+   save_scope_value_as = { name = mam_srv_reason value = 5 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_development <= { value = var:mam_ds_baseline_development subtract = 0.5 } }
+
+   save_scope_value_as = { name = mam_srv_reason value = 6 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_merit > var:mam_ds_baseline_merit }
+
+   save_scope_value_as = { name = mam_srv_reason value = 7 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_development >= { value = var:mam_ds_baseline_development add = 0.5 } }
+
+   save_scope_value_as = { name = mam_srv_reason value = 8 }
+
+  }
+
+  else_if = { limit = { var:mam_ds_control >= { value = var:mam_ds_baseline_control add = 5 } }
+
+   save_scope_value_as = { name = mam_srv_reason value = 9 }
+
+  }
+
+  else = { save_scope_value_as = { name = mam_srv_reason value = 10 } }
+
+ }
+
+ else_if = { limit = { has_variable = mam_ds_war_observed }
+
+  save_scope_value_as = { name = mam_srv_reason value = 1 }
+
+ }
+
+}
+
+# Title scope; only review metadata. Caller validates authority and evidence.
+
+mam_store_service_advice_effect = {
+
+ if = { limit = { scope:mam_srv_minister = { mam_personnel_manage_talent_trigger = yes is_ai = yes } scope:mam_srv_choice = 2
+
+ mam_service_evidence_trigger = yes NOT = { has_variable = mam_ds_war_observed } mam_service_concern_value > 0
+
+ holder = { NOT = { has_character_modifier = mam_personnel_poor_service } }
+
+ }
+
+ holder = { set_variable = { name = mam_personnel_assessment_realm value = top_liege.primary_title }
+
+ add_character_modifier = { modifier = mam_personnel_poor_service years = 3 } remove_character_modifier = mam_personnel_service_endorsement
+ debug_log = "MAM_PERSONNEL_SERVICE: poor service assessment applied" }
+
+ scope:mam_srv_minister = { stress_impact = { compassionate = 10 } }
+
+ }
+
+
+
+ if = { limit = { scope:mam_srv_minister = { mam_personnel_manage_talent_trigger = yes }
+
+ scope:mam_srv_choice = 3 mam_service_evidence_trigger = yes mam_service_concern_value = 0 mam_service_improvement_value > 0
+
+ holder = { NOT = { has_character_modifier = mam_personnel_service_endorsement } }
+
+ }
+
+ holder = {
+
+ set_variable = { name = mam_personnel_endorsement_realm value = top_liege.primary_title }
+
+ set_variable = { name = mam_personnel_endorsement_rank value = primary_title.tier }
+
+ add_character_modifier = { modifier = mam_personnel_service_endorsement years = 3 }
+
+ remove_character_modifier = mam_personnel_poor_service
+ debug_log = "MAM_PERSONNEL_SERVICE: advancement endorsed and old concern withdrawn"
+
+ }
+
+ }
+
+ set_variable = { name = mam_rv_war value = 0 }
+
+ if = { limit = { has_variable = mam_ds_war_observed } set_variable = { name = mam_rv_war value = 1 } }
+
+ set_variable = { name = mam_rv_kind value = $KIND$ }
+
+ set_variable = { name = mam_rv_author value = scope:mam_srv_minister }
+
+ set_variable = { name = mam_rv_holder value = holder }
+
+ set_variable = { name = mam_rv_realm value = var:mam_ds_realm }
+
+ set_variable = { name = mam_rv_baseline value = var:mam_ds_started }
+
+ set_variable = { name = mam_rv_serial value = var:mam_ds_serial }
+
+ set_variable = { name = mam_rv_control value = var:mam_ds_control }
+
+ set_variable = { name = mam_rv_development value = var:mam_ds_development }
+
+ set_variable = { name = mam_rv_merit value = var:mam_ds_merit }
+
+ set_variable = { name = mam_rv_sample value = var:mam_ds_sampled }
+
+ set_variable = { name = mam_rv_date value = current_date }
+
+ set_variable = { name = mam_rv_concern value = scope:mam_srv_concern }
+
+ set_variable = { name = mam_rv_scrutiny value = scope:mam_srv_scrutiny }
+
+ set_variable = { name = mam_rv_reason value = scope:mam_srv_reason }
+
+}
+
+# Requester scope. Refresh first, then reject changed evidence or lost authority.
+
+mam_record_player_service_advice_effect = {
+
+ save_scope_value_as = { name = mam_srv_saved value = 0 }
+
+ scope:mam_dossier_governor ?= { mam_update_one_dossier_effect = yes }
+
+ if = { limit = { mam_service_can_record_trigger = yes }
+
+  scope:mam_dossier_title = {
+
+   if = { limit = { OR = {
+
+    AND = { always = $OBSERVE$ }
+
+    AND = { mam_service_safe_advice_trigger = yes
+
+     OR = { always = $INVESTIGATE$ NOT = { mam_service_major_concern_trigger = yes } }
+
+    }
+
+   } }
+
+    if = { limit = { OR = {
+
+     always = $NOT_COMMEND$
+
+     AND = { mam_service_concern_value = 0 mam_service_improvement_value > 0 }
+
+    } }
+
+     mam_build_service_advice_effect = yes
+
+     if = { limit = { NOT = { scope:mam_srv_choice = $KIND$ } }
+
+      save_scope_value_as = { name = mam_srv_reason value = 13 }
+
+     }
+
+     mam_store_service_advice_effect = { KIND = $KIND$ }
+
+     save_scope_value_as = { name = mam_srv_saved value = 1 }
+
+    }
+
+   }
+
+  }
+
+ }
+
+}
+
+# Independent ruler scope. One bounded pass after the ordinary annual refresh.
+
+# AI advice has no event spam, no title effects, and no authority over the emperor.
+
+mam_ai_service_reviews_effect = {
+
+ save_scope_as = mam_srv_emperor
+
+ clear_saved_scope = mam_srv_minister
+
+ cp:minister_personnel ?= {
+
+  if = { limit = { is_alive = yes is_ai = yes mam_personnel_manage_talent_trigger = yes }
+
+   save_scope_as = mam_srv_minister
+
+  }
+
+ }
+
+ if = { limit = { exists = scope:mam_srv_minister primary_title = { has_variable = mam_ds_enabled } }
+
+  every_vassal_or_below = {
+
+   if = { limit = { mam_dossier_governor_trigger = yes }
+
+    primary_title = {
+
+     if = { limit = { mam_dossier_record_current_trigger = yes }
+
+      mam_build_service_advice_effect = yes
+
+      mam_store_service_advice_effect = { KIND = scope:mam_srv_choice }
+
+     }
+
+    }
+
+   }
+
+  }
+
+ }
+
+}
+
+# Requester scope. Clear old authority before resolving the current office holder.
+
+mam_prepare_service_review_effect = {
+
+ clear_saved_scope = mam_minister
+
+ clear_saved_scope = mam_srv_minister
+
+ clear_saved_scope = mam_srv_author
+
+ mam_resolve_register_authority_effect = yes
+
+ scope:mam_emperor = { save_scope_as = mam_srv_emperor }
+
+ scope:mam_minister ?= { save_scope_as = mam_srv_minister }
+
+ mam_prepare_dossier_report_effect = yes
+
+ save_scope_value_as = { name = mam_srv_opened_baseline value = -1 }
+
+ save_scope_value_as = { name = mam_srv_opened_sample value = -1 }
+
+ save_scope_value_as = { name = mam_srv_record_reason value = 0 }
+
+ save_scope_value_as = { name = mam_srv_stored value = -1 }
+
+ save_scope_value_as = { name = mam_srv_current value = 0 }
+
+ scope:mam_dossier_title = {
+
+  mam_build_service_advice_effect = yes
+
+  save_scope_value_as = { name = mam_srv_opened_war value = 0 }
+
+  if = { limit = { has_variable = mam_ds_war_observed } save_scope_value_as = { name = mam_srv_opened_war value = 1 } }
+
+  if = { limit = { mam_dossier_record_current_trigger = yes }
+
+   save_scope_value_as = { name = mam_srv_opened_baseline value = var:mam_ds_started }
+
+   save_scope_value_as = { name = mam_srv_opened_serial value = var:mam_ds_serial }
+
+   save_scope_value_as = { name = mam_srv_opened_control value = var:mam_ds_control }
+
+   save_scope_value_as = { name = mam_srv_opened_development value = var:mam_ds_development }
+
+   save_scope_value_as = { name = mam_srv_opened_merit value = var:mam_ds_merit }
+
+   save_scope_value_as = { name = mam_srv_opened_sample value = var:mam_ds_sampled }
+
+  }
+
+  if = { limit = { has_variable = mam_rv_kind has_variable = mam_rv_author }
+
+   var:mam_rv_author = { save_scope_as = mam_srv_author }
+
+   save_scope_value_as = { name = mam_srv_stored value = var:mam_rv_kind }
+
+   if = { limit = { has_variable = mam_rv_reason } save_scope_value_as = { name = mam_srv_record_reason value = var:mam_rv_reason } }
+
+   if = { limit = { mam_service_advice_current_trigger = yes }
+
+    save_scope_value_as = { name = mam_srv_current value = 1 }
+
+   }
+
+  }
+
+ }
+
+}
+

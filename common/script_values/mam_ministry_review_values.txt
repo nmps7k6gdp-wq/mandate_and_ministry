@@ -1,0 +1,30 @@
+﻿# Candidate scope; callers bind mam_mr_title, mam_minister and mam_emperor.
+# Professional ranking supplements the existing public record with the native seat skill.
+mam_ministry_role_skill = {
+ value = 0
+ if = { limit = { scope:mam_mr_title = title:e_minister_chancellor } add = diplomacy }
+ if = { limit = { scope:mam_mr_title = title:e_minister_censor } add = intrigue }
+ if = { limit = { scope:mam_mr_title = title:e_minister_grand_marshal } add = martial }
+ if = { limit = { scope:mam_mr_title = title:e_minister_of_personnel } add = diplomacy }
+ if = { limit = { scope:mam_mr_title = title:e_minister_of_war } add = martial }
+ if = { limit = { scope:mam_mr_title = title:e_minister_of_rites } add = learning }
+ if = { limit = { scope:mam_mr_title = title:e_minister_of_works } add = stewardship }
+ if = { limit = { scope:mam_mr_title = title:e_minister_of_revenue } add = stewardship }
+ if = { limit = { scope:mam_mr_title = title:e_minister_of_justice } add = learning }
+}
+mam_ministry_public_suitability = {
+ value = mam_public_suitability
+ add = mam_exam_professional_respect
+ add = { value = mam_ministry_role_skill multiply = 1.5 }
+}
+mam_ministry_personal_bias = {
+ value = mam_minister_preference
+ add = mam_private_patronage_preference
+ if = { limit = { mam_senior_basis_family_trigger = yes } add = 4 }
+ if = { limit = { mam_senior_basis_friend_trigger = yes } add = 3 }
+ if = { limit = { mam_senior_basis_faction_trigger = yes } add = 4 }
+ min = -20 max = 25
+}
+mam_ministry_personal_score = {
+ value = mam_ministry_public_suitability add = mam_ministry_personal_bias
+}

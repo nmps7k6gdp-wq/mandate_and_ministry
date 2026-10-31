@@ -1,0 +1,51 @@
+﻿# Title scope. A concern opens an examination of successors, not a finding of guilt.
+mam_service_case_record_trigger = {
+ mam_service_advice_current_trigger = yes
+ mam_service_safe_advice_trigger = yes
+ mam_service_concern_value >= 2
+ var:mam_rv_kind = 2
+ var:mam_rv_author = scope:mam_minister
+}
+mam_service_case_cooldown_trigger = {
+ has_variable = mam_case_followup_until
+ var:mam_case_followup_until > current_date
+}
+mam_service_case_ai_cooldown_trigger = {
+ OR = {
+  mam_service_case_cooldown_trigger = yes
+  AND = { has_variable = mam_case_ai_attempt_until var:mam_case_ai_attempt_until > current_date }
+ }
+}
+# Requester scope. Inspecting a case does not itself submit or dismiss anyone.
+mam_service_case_open_trigger = {
+ always = no # Retired forced replacement workflow.
+
+ mam_service_can_record_trigger = yes
+ scope:mam_dossier_governor = {
+  mam_clean_bundle_trigger = { TITLE = scope:mam_dossier_title }
+  NOT = { has_character_flag = mam_recent_appointment }
+ }
+ scope:mam_emperor = { is_at_war = no NOT = { has_character_flag = mam_pending_proposal } }
+ scope:mam_dossier_title = {
+  mam_service_case_record_trigger = yes
+  NOT = { mam_service_case_cooldown_trigger = yes }
+ }
+}
+# Scope-neutral. This exact evidentiary snapshot must survive drafting and approval.
+mam_service_case_valid_trigger = {
+ exists = scope:mam_service_case
+ scope:mam_service_case = scope:mam_posting
+ scope:mam_service_case.holder = scope:mam_incumbent
+ scope:mam_service_case = {
+  mam_service_case_record_trigger = yes
+  NOT = { has_variable = mam_ds_war_observed }
+  var:mam_ds_started = scope:mam_case_baseline
+  var:mam_ds_serial = scope:mam_case_serial
+  var:mam_ds_sampled = scope:mam_case_sample
+  var:mam_ds_control = scope:mam_case_control
+  var:mam_ds_development = scope:mam_case_development
+  var:mam_ds_merit = scope:mam_case_merit
+  var:mam_rv_date = scope:mam_case_recorded
+  var:mam_rv_reason = scope:mam_case_reason
+ }
+}

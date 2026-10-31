@@ -1,0 +1,167 @@
+﻿# Minister scope. Every captured jurisdiction has an independent durable queue entry.
+# Reindexing owned stories also recovers files created before dev.35.
+mam_senior_queue_effect = {
+ if = { limit = { mam_can_nominate_trigger = yes }
+ save_scope_as = mam_queue_minister
+ top_liege = {
+  save_scope_as = mam_emperor
+  primary_title = { save_scope_as = mam_queue_realm }
+  every_owned_story = { limit = { story_type = mam_senior_appointment_story mam_senior_pending_trigger = yes }
+   mam_senior_index_file_effect = yes
+  }
+ }
+ scope:mam_queue_realm = {
+  every_in_list = { variable = mam_senior_pending_files
+   limit = { mam_senior_pending_trigger = no }
+   scope:mam_queue_realm = { remove_list_variable = { name = mam_senior_pending_files target = prev } }
+  }
+  if = { limit = { has_variable = mam_senior_open_file
+   OR = {
+    NOT = { exists = var:mam_senior_open_file }
+    var:mam_senior_open_file = { OR = { mam_senior_pending_trigger = no has_variable = mam_senior_awaiting_confirmation } }
+    NOT = { exists = var:mam_senior_open_actor }
+    var:mam_senior_open_actor != scope:mam_queue_minister
+    NOT = { has_variable = mam_senior_open_until }
+    AND = { has_variable = mam_senior_open_until var:mam_senior_open_until <= current_date }
+   }
+  }
+   remove_variable = mam_senior_open_file remove_variable = mam_senior_open_actor remove_variable = mam_senior_open_until remove_variable = mam_senior_open_presented
+  }
+  if = { limit = { NOT = { has_variable = mam_senior_open_file } }
+   clear_saved_scope = mam_queue_next
+   ordered_in_list = { variable = mam_senior_pending_files
+    limit = { mam_senior_pending_trigger = yes NOT = { has_variable = mam_senior_awaiting_confirmation }
+     trigger_if = { limit = { has_variable = mam_senior_snooze } var:mam_senior_snooze <= current_date }
+    }
+    order_by = { value = var:mam_senior_queue_position multiply = -1 }
+    max = 1 check_range_bounds = no
+    save_scope_as = mam_queue_next
+   }
+   if = { limit = { exists = scope:mam_queue_next }
+    remove_variable = mam_senior_open_presented
+    set_variable = { name = mam_senior_open_file value = scope:mam_queue_next }
+    set_variable = { name = mam_senior_open_actor value = scope:mam_queue_minister }
+    set_variable = { name = mam_senior_open_until value = { value = current_date add = 30 } }
+    scope:mam_queue_next = { save_scope_as = mam_senior_file }
+    debug_log = "MAM_PERSONNEL_QUEUE: leased oldest available custody file"
+    scope:mam_queue_minister = { trigger_event = { id = mam_senior.3 days = 1 } }
+   }
+  }
+ }
+ }
+}
+mam_senior_release_queue_effect = {
+ save_scope_as = mam_releasing_file
+ if = { limit = { var:mam_senior_realm = { exists = var:mam_senior_imperial_open var:mam_senior_imperial_open = scope:mam_releasing_file } }
+ var:mam_senior_realm = { remove_variable = mam_senior_imperial_open }
+ }
+
+ # Story scope; never release a different pending file's lease.
+ if = { limit = { var:mam_senior_realm = { exists = var:mam_senior_open_file var:mam_senior_open_file = scope:mam_releasing_file } }
+ var:mam_senior_realm = { remove_variable = mam_senior_open_file remove_variable = mam_senior_open_actor remove_variable = mam_senior_open_until remove_variable = mam_senior_open_presented }
+ }
+ # Wake both queues AFTER this transaction/event has finished restoring its scopes.
+ # This covers successful grants, deferral, rejection and imperial approval alike.
+ var:mam_senior_realm.holder ?= {
+  cp:minister_personnel ?= { if = { limit = { mam_can_nominate_trigger = yes }
+   trigger_event = { id = mam_senior.9 days = 1 }
+  } }
+  trigger_event = { id = mam_senior.10 days = 1 }
+ }
+}
+mam_senior_refresh_effect = {
+ # Refresh is a read-only search apart from shortlist variables. Original default is retained.
+ save_scope_as = mam_senior_file
+ if = { limit = { mam_senior_pending_trigger = yes }
+ var:mam_senior_realm.holder = { save_scope_as = mam_emperor }
+ var:mam_senior_title = { save_scope_as = mam_posting }
+ clear_saved_scope = mam_minister
+ scope:mam_emperor.cp:minister_personnel ?= { if = { limit = { mam_can_nominate_trigger = yes } save_scope_as = mam_minister } }
+ if = { limit = { exists = scope:mam_minister }
+ every_in_list = { list = mam_senior_refresh_candidates remove_from_list = mam_senior_refresh_candidates }
+ set_variable = { name = mam_senior_scan_count value = 0 }
+ set_variable = { name = mam_senior_native_count value = 0 }
+ set_variable = { name = mam_senior_merit_count value = 0 }
+ set_variable = { name = mam_senior_valid_count value = 0 }
+ scope:mam_emperor = {
+ every_courtier_or_guest = { mam_senior_refresh_candidate_effect = yes }
+ every_vassal_or_below = { mam_senior_refresh_candidate_effect = yes every_courtier_or_guest = { mam_senior_refresh_candidate_effect = yes } }
+ }
+ scope:mam_minister.var:mam_marked_candidate ?= { mam_senior_refresh_candidate_effect = yes }
+ if = { limit = { var:mam_senior_scan_count = 0 } debug_log = "MAM_PERSONNEL_POOL: no characters scanned" }
+ if = { limit = { var:mam_senior_native_count = 0 } debug_log = "MAM_PERSONNEL_POOL: native custody validity rejected every scanned character" }
+ if = { limit = { var:mam_senior_merit_count = 0 } debug_log = "MAM_PERSONNEL_POOL: appointment merit requirement rejected every scanned character" }
+ if = { limit = { var:mam_senior_valid_count = 0 } debug_log = "MAM_PERSONNEL_POOL: no fully eligible candidates after custody; keeping previous shortlist references" }
+ else = { debug_log = "MAM_PERSONNEL_POOL: eligible candidates found after custody" }
+ remove_variable = mam_senior_lateral remove_variable = mam_senior_promotion remove_variable = mam_senior_first_office
+ ordered_in_list = { list = mam_senior_refresh_candidates
+ limit = { mam_senior_lateral_trigger = yes
+ trigger_if = { limit = { exists = scope:mam_minister.var:mam_marked_candidate } this != scope:mam_minister.var:mam_marked_candidate }
+ trigger_if = { limit = { exists = scope:mam_senior_file.var:mam_senior_default } this != scope:mam_senior_file.var:mam_senior_default }
+ }
+ order_by = mam_public_suitability max = 1 check_range_bounds = no
+ scope:mam_senior_file = { set_variable = { name = mam_senior_lateral value = prev } }
+ }
+ ordered_in_list = { list = mam_senior_refresh_candidates
+ limit = { mam_senior_promotion_trigger = yes
+ trigger_if = { limit = { exists = scope:mam_minister.var:mam_marked_candidate } this != scope:mam_minister.var:mam_marked_candidate }
+ trigger_if = { limit = { exists = scope:mam_senior_file.var:mam_senior_default } this != scope:mam_senior_file.var:mam_senior_default }
+ }
+ order_by = mam_public_suitability max = 1 check_range_bounds = no
+ scope:mam_senior_file = { set_variable = { name = mam_senior_promotion value = prev } }
+ }
+ ordered_in_list = { list = mam_senior_refresh_candidates
+ limit = { mam_senior_first_office_trigger = yes
+ trigger_if = { limit = { exists = scope:mam_minister.var:mam_marked_candidate } this != scope:mam_minister.var:mam_marked_candidate }
+ trigger_if = { limit = { exists = scope:mam_senior_file.var:mam_senior_default } this != scope:mam_senior_file.var:mam_senior_default }
+ }
+ order_by = mam_public_suitability max = 1 check_range_bounds = no
+ scope:mam_senior_file = { set_variable = { name = mam_senior_first_office value = prev } }
+ }
+ remove_variable = mam_senior_marked
+ scope:mam_minister.var:mam_marked_candidate ?= {
+ if = { limit = { always = yes }
+ scope:mam_senior_file = { set_variable = { name = mam_senior_marked value = prev } }
+ } }
+ # Do not destroy the original references when an empty refresh fails.
+ if = { limit = { var:mam_senior_valid_count > 0 }
+ remove_variable = mam_senior_professional remove_variable = mam_senior_preferred remove_variable = mam_senior_marked
+ ordered_in_list = { list = mam_senior_refresh_candidates order_by = mam_public_suitability max = 1 check_range_bounds = no
+ scope:mam_senior_file = { set_variable = { name = mam_senior_professional value = prev } } }
+ ordered_in_list = { list = mam_senior_refresh_candidates order_by = mam_recommendation_score max = 1 check_range_bounds = no
+ scope:mam_senior_file = { set_variable = { name = mam_senior_preferred value = prev } } }
+ scope:mam_minister.var:mam_marked_candidate ?= { if = { limit = { always = yes }
+ scope:mam_senior_file = { set_variable = { name = mam_senior_marked value = prev } } } }
+ }
+ }
+ }
+}
+mam_senior_refresh_candidate_effect = {
+ scope:mam_senior_file = { change_variable = { name = mam_senior_scan_count add = 1 } }
+ if = { limit = { mam_senior_native_valid_trigger = { TITLE = scope:mam_senior_file.var:mam_senior_title CANDIDATE = this TOP_LIEGE = scope:mam_emperor } }
+ scope:mam_senior_file = { change_variable = { name = mam_senior_native_count add = 1 } } }
+ if = { limit = { scope:mam_senior_file = { has_variable = mam_senior_merit_floor } merit_level >= scope:mam_senior_file.var:mam_senior_merit_floor }
+ scope:mam_senior_file = { change_variable = { name = mam_senior_merit_count add = 1 } } }
+
+ if = { limit = { mam_senior_choice_trigger = yes NOT = { is_in_list = mam_senior_refresh_candidates } }
+ add_to_list = mam_senior_refresh_candidates
+ scope:mam_senior_file = { change_variable = { name = mam_senior_valid_count add = 1 } } }
+}
+
+# Story scope; registration is idempotent and never overwrites another vacancy.
+mam_senior_index_file_effect = {
+ save_scope_as = mam_index_file
+ if = { limit = { mam_senior_pending_trigger = yes }
+  var:mam_senior_realm = {
+   if = { limit = { NOT = { any_in_list = { variable = mam_senior_pending_files this = scope:mam_index_file } } }
+    if = { limit = { NOT = { has_variable = mam_senior_queue_serial } }
+     set_variable = { name = mam_senior_queue_serial value = 0 }
+    }
+    change_variable = { name = mam_senior_queue_serial add = 1 }
+    scope:mam_index_file = { set_variable = { name = mam_senior_queue_position value = prev.var:mam_senior_queue_serial } }
+    add_to_variable_list = { name = mam_senior_pending_files target = scope:mam_index_file }
+    debug_log = "MAM_PERSONNEL_QUEUE: registered independent custody file"
+   }
+  }
+ }
+}

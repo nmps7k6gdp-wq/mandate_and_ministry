@@ -1,0 +1,180 @@
+﻿# Queue the actual choice outside tooltip evaluation, retaining the displayed person.
+mam_ministry_review_schedule_choice_effect = {
+ if = { limit = { mam_ministry_review_actor_trigger = yes }
+  $CANDIDATE$ = { save_scope_as = mam_mr_selected }
+  save_scope_value_as = { name = mam_mr_personal value = $PERSONAL$ }
+  trigger_event = mam_ministry.4
+ }
+}
+# Story scope. The native council routine performs ministry-title and seat synchronization.
+mam_ministry_review_install_effect = {
+ # Use the same entry point as native minister succession, with an explicit owner.
+ scope:mam_mr_emperor = { save_scope_as = councillor_liege }
+ clear_saved_scope = swapped_position
+ if = { limit = { var:mam_mr_title = title:e_minister_chancellor }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_chancellor MINISTER_POSITION = councillor_chancellor } }
+  if = { limit = { NOT = { title:e_minister_chancellor = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = councillor_chancellor target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_censor }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_censor MINISTER_POSITION = councillor_spymaster } }
+  if = { limit = { NOT = { title:e_minister_censor = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = councillor_spymaster target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_grand_marshal }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_grand_marshal MINISTER_POSITION = minister_grand_marshal } }
+  if = { limit = { NOT = { title:e_minister_grand_marshal = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = minister_grand_marshal target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_of_personnel }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_of_personnel MINISTER_POSITION = minister_personnel } }
+  if = { limit = { NOT = { title:e_minister_of_personnel = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = minister_personnel target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_of_war }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_of_war MINISTER_POSITION = councillor_marshal } }
+  if = { limit = { NOT = { title:e_minister_of_war = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = councillor_marshal target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_of_rites }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_of_rites MINISTER_POSITION = councillor_court_chaplain } }
+  if = { limit = { NOT = { title:e_minister_of_rites = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = councillor_court_chaplain target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_of_works }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_of_works MINISTER_POSITION = minister_works } }
+  if = { limit = { NOT = { title:e_minister_of_works = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = minister_works target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_of_revenue }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_of_revenue MINISTER_POSITION = councillor_steward } }
+  if = { limit = { NOT = { title:e_minister_of_revenue = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = councillor_steward target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+ if = { limit = { var:mam_mr_title = title:e_minister_of_justice }
+  scope:mam_mr_selected = { got_minister_position_effect = { MINISTER_TITLE = e_minister_of_justice MINISTER_POSITION = minister_justice } }
+  if = { limit = { NOT = { title:e_minister_of_justice = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } } }
+   scope:mam_mr_emperor = { assign_councillor_type = { type = minister_justice target = scope:mam_mr_selected remove_existing_councillor = yes } }
+  }
+ }
+}
+# Actor scope. Opinions and stress occur only after the office and council seat match.
+mam_ministry_review_commit_effect = {
+ if = { limit = { mam_ministry_review_actor_trigger = yes exists = scope:mam_mr_selected }
+  save_scope_as = mam_mr_actor save_scope_as = mam_minister
+  scope:mam_mr_file.var:mam_mr_realm.holder = { save_scope_as = mam_mr_emperor save_scope_as = mam_emperor }
+  scope:mam_mr_file.var:mam_mr_title = { save_scope_as = mam_mr_title }
+  if = { limit = { scope:mam_mr_selected = { mam_ministry_review_candidate_trigger = yes } }
+   mam_exam_snapshot_snub_effect = { ACTOR = scope:mam_mr_actor BENCHMARK = scope:mam_mr_file.var:mam_mr_benchmark CANDIDATE = scope:mam_mr_selected SCORE = mam_ministry_public_suitability ELIGIBILITY = mam_ministry_review_candidate_trigger SENIOR = no }
+   # Snapshot consequences before native appointment modifiers can change the candidate's score.
+   save_scope_value_as = { name = mam_mr_stress_personal value = 0 }
+   save_scope_value_as = { name = mam_mr_stress_rival value = 0 }
+   if = { limit = { scope:mam_mr_personal = 1 scope:mam_mr_selected = { mam_ministry_review_weak_trigger = yes } }
+    save_scope_value_as = { name = mam_mr_stress_personal value = 1 }
+   }
+   if = { limit = { scope:mam_mr_selected = { has_relation_rival = scope:mam_mr_actor } }
+    save_scope_value_as = { name = mam_mr_stress_rival value = 1 }
+   }
+   scope:mam_mr_file = {
+    if = { limit = { OR = {
+     var:mam_mr_incumbent != scope:mam_mr_selected
+     NOT = { var:mam_mr_title = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } } }
+    } }
+     mam_ministry_review_install_effect = yes
+    }
+    if = { limit = {
+     var:mam_mr_title.holder = scope:mam_mr_selected
+     var:mam_mr_title = { mam_ministry_office_synchronized_trigger = { OWNER = scope:mam_mr_emperor } }
+    }
+     set_variable = { name = mam_mr_pending value = 0 }
+     set_variable = { name = mam_mr_result value = scope:mam_mr_selected }
+     set_variable = { name = mam_mr_approved_by value = scope:mam_mr_actor }
+     mam_exam_apply_snub_effect = yes
+     var:mam_mr_result = { add_opinion = { target = scope:mam_mr_file.var:mam_mr_approved_by modifier = mam_ministry_confirmed_appointment years = 5 } }
+     if = { limit = { var:mam_mr_incumbent != scope:mam_mr_selected }
+      var:mam_mr_incumbent = {
+       add_opinion = { target = scope:mam_mr_actor modifier = mam_ministry_displaced_appointment years = 5 }
+       if = { limit = { is_ai = no }
+        send_interface_toast = { type = event_toast_effect_bad title = mam_mr.displaced_title custom_tooltip = mam_mr.displaced_notice }
+       }
+      }
+     }
+     scope:mam_mr_actor = {
+      if = { limit = { scope:mam_mr_stress_personal = 1 } stress_impact = { just = 15 honest = 15 } }
+      if = { limit = { scope:mam_mr_stress_rival = 1 } stress_impact = { vengeful = 15 } }
+     }
+     scope:mam_mr_selected = { if = { limit = { is_ai = no }
+      send_interface_toast = { type = event_toast_effect_good title = mam_mr.confirmed_title custom_tooltip = mam_mr.confirmed_notice }
+     } }
+     mam_ministry_review_release_effect = yes
+     debug_log = "MAM_MINISTRY_REVIEW: title and council seat verified; succession approved"
+    }
+    else = {
+     # If native title transfer succeeded but council synchronization failed,
+     # retain a review of the ACTUAL current holder rather than silently canceling it.
+     if = { limit = { exists = var:mam_mr_title.holder
+      var:mam_mr_title.holder = { is_alive = yes top_liege = scope:mam_mr_file.var:mam_mr_realm.holder }
+     } set_variable = { name = mam_mr_incumbent value = var:mam_mr_title.holder } }
+     set_variable = { name = mam_mr_snooze value = { value = current_date add = 1 } }
+     mam_ministry_review_release_effect = yes
+     scope:mam_mr_actor = { if = { limit = { is_ai = no }
+      send_interface_toast = { type = event_toast_effect_bad title = mam_mr.failed_title custom_tooltip = mam_mr.failed_notice }
+     } }
+     debug_log = "MAM_MINISTRY_REVIEW: native assignment did not satisfy title/seat postconditions"
+    }
+   }
+  }
+  else = { scope:mam_mr_file = {
+   set_variable = { name = mam_mr_snooze value = { value = current_date add = 1 } }
+   mam_ministry_review_release_effect = yes
+  } }
+ }
+}
+# Display-only. Actual native effects are hidden until the selected choice commits.
+mam_ministry_review_choice_tooltip_effect = {
+ $CANDIDATE$ = {
+  if = { limit = { is_alive = no } custom_tooltip = mam_mr.block_dead }
+  if = { limit = { is_adult = no } custom_tooltip = mam_mr.block_age }
+  if = { limit = { is_imprisoned = yes } custom_tooltip = mam_mr.block_prison }
+  if = { limit = { top_liege != scope:mam_mr_emperor } custom_tooltip = mam_mr.block_realm }
+  if = { limit = { is_alive = yes is_adult = yes is_imprisoned = no
+   NOT = { mam_cj_ministry_candidate_trigger = { TITLE = scope:mam_mr_title OWNER = scope:mam_mr_emperor } }
+  } custom_tooltip = mam_mr.block_native_council }
+  if = { limit = { this != scope:mam_mr_file.var:mam_mr_incumbent is_alive = yes is_adult = yes is_imprisoned = no top_liege = scope:mam_mr_emperor }
+   if = { limit = { NOT = { can_appoint_for_title = scope:mam_mr_title } } custom_tooltip = mam_mr.block_native_title }
+   if = { limit = { NOT = { has_appointment_level_for_title = scope:mam_mr_title } } custom_tooltip = mam_mr.block_merit }
+   if = { limit = { scope:mam_mr_file = { var:mam_mr_level = 0 } any_held_title = { mam_ministry_upper_office_trigger = yes } }
+    custom_tooltip = mam_mr.block_upper_minister
+   }
+  }
+ }
+ if = { limit = { $CANDIDATE$ = { mam_ministry_review_candidate_trigger = yes } }
+  if = { limit = { $CANDIDATE$ = scope:mam_mr_file.var:mam_mr_incumbent } custom_tooltip = mam_mr.approve_tt }
+  else = {
+   custom_tooltip = mam_mr.replace_tt
+   show_as_tooltip = { scope:mam_mr_file.var:mam_mr_incumbent = { add_opinion = { target = root modifier = mam_ministry_displaced_appointment years = 5 } } }
+  }
+  $CANDIDATE$ = { mam_exam_candidate_honor_tooltip_effect = yes mam_exam_professional_respect_tooltip_effect = yes }
+  mam_exam_snapshot_snub_effect = { ACTOR = root BENCHMARK = scope:mam_mr_file.var:mam_mr_benchmark CANDIDATE = $CANDIDATE$ SCORE = mam_ministry_public_suitability ELIGIBILITY = mam_ministry_review_candidate_trigger SENIOR = no }
+  mam_exam_snub_preview_effect = yes
+  show_as_tooltip = { $CANDIDATE$ = { add_opinion = { target = root modifier = mam_ministry_confirmed_appointment years = 5 } } }
+  if = { limit = { always = $PERSONAL$ OR = { has_trait = just has_trait = honest }
+   $CANDIDATE$ = { mam_ministry_review_weak_trigger = yes }
+  }
+   custom_tooltip = mam_mr.stress_commit_tt
+   show_as_tooltip = { stress_impact = { just = 15 honest = 15 } }
+  }
+  if = { limit = { has_trait = vengeful $CANDIDATE$ = { has_relation_rival = root } }
+   custom_tooltip = mam_mr.stress_commit_tt
+   show_as_tooltip = { stress_impact = { vengeful = 15 } }
+  }
+ }
+}

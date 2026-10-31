@@ -1,0 +1,24 @@
+﻿# Observation is not a title-transfer authorization. Wartime governors are observed.
+mam_dossier_governor_trigger = {
+ mam_supported_source_governor_trigger = yes
+ top_liege = { is_independent_ruler = yes government_has_flag = government_is_celestial }
+}
+mam_dossier_can_read_trigger = {
+ mam_personnel_manage_talent_trigger = yes
+ mam_can_open_register_trigger = yes
+ OR = { is_independent_ruler = yes mam_can_nominate_trigger = yes }
+}
+# Title scope. Realm identity is a title, not the emperor's character identity.
+mam_dossier_record_current_trigger = {
+ has_variable = mam_ds_holder has_variable = mam_ds_realm
+ has_variable = mam_ds_started has_variable = mam_ds_sampled
+ has_variable = mam_ds_baseline_count
+ NOT = { has_variable = mam_ds_invalidated }
+ holder = var:mam_ds_holder
+ var:mam_ds_realm = holder.top_liege.primary_title
+ var:mam_ds_baseline_count > 0
+}
+mam_dossier_mature_trigger = {
+ mam_dossier_record_current_trigger = yes
+ var:mam_ds_sampled >= { value = var:mam_ds_started add = 1095 }
+}

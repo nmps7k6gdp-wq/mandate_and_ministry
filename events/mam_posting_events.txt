@@ -1,0 +1,274 @@
+﻿namespace = mam_personnel
+mam_personnel.0020 = {
+    type = character_event
+    title = mam_personnel.0020.t
+    desc = {
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_marked_candidate } desc = mam_feedback.marked } desc = mam_feedback.unmarked }
+        desc = mam_personnel.0020.desc
+        triggered_desc = { trigger = { exists = scope:mam_service_case } desc = mam_case.summary }
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_native_successor } desc = mam_native.successor } desc = mam_native.no_successor }
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_posting_candidate_1 }
+                desc = mam_posting_has_candidates
+            }
+            desc = mam_posting_no_candidates
+        }
+    }
+    theme = merit
+    left_portrait = { character = scope:mam_incumbent animation = reading }
+    option = {
+        name = mam_dossier.open
+        trigger = { mam_dossier_can_read_trigger = yes scope:mam_incumbent = { mam_dossier_governor_trigger = yes } }
+        hidden_effect = {
+            scope:mam_incumbent = { save_scope_as = mam_dossier_governor }
+            save_scope_value_as = { name = mam_dossier_return value = 1 }
+            mam_prepare_dossier_report_effect = yes trigger_event = mam_personnel.0060
+        }
+        ai_chance = { base = 0 }
+    }
+    option = { name = mam_personnel.close }
+
+    option = {
+        name = mam_posting.inspect_1
+        trigger = { exists = scope:mam_posting_candidate_1 }
+        hidden_effect = {
+            scope:mam_posting_candidate_1 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+    option = {
+        name = mam_posting.inspect_2
+        trigger = { exists = scope:mam_posting_candidate_2 }
+        hidden_effect = {
+            scope:mam_posting_candidate_2 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+    option = {
+        name = mam_posting.inspect_3
+        trigger = { exists = scope:mam_posting_candidate_3 }
+        hidden_effect = {
+            scope:mam_posting_candidate_3 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+option = { name = mam_list.show_serving hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 1 } mam_build_posting_review_effect = yes trigger_event = mam_personnel.0022 } }
+option = { name = mam_native.inspect trigger = { exists = scope:mam_native_successor } hidden_effect = { scope:mam_native_successor = { save_scope_as = mam_inspected } trigger_event = mam_personnel.0021 } }
+option = {
+ name = mam_list.show_promotions
+ trigger = { scope:mam_posting = { tier = tier_kingdom } }
+ hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 3 } mam_build_posting_review_effect = yes trigger_event = mam_personnel.0023 }
+}
+option = {
+   name = mam_marked.review
+   trigger = { exists = scope:mam_marked_candidate }
+   hidden_effect = { scope:mam_marked_candidate = { save_scope_as = mam_inspected } trigger_event = mam_personnel.0021 }
+   ai_chance = { base = 0 }
+  }
+}
+mam_personnel.0021 = {
+    type = character_event
+    title = mam_personnel.0021.t
+    desc = {
+        desc = mam_posting_candidate_intro
+        triggered_desc = { trigger = { exists = scope:mam_service_case } desc = mam_case.summary }
+        desc = mam_native.candidate_score
+
+        triggered_desc = { trigger = { exists = scope:mam_service_case NOT = { mam_service_case_valid_trigger = yes } } desc = mam_case.changed }
+        desc = mam_feedback.checks
+        triggered_desc = { trigger = { exists = scope:mam_exception_candidate } desc = mam_corrupt.exception_notice }
+        desc = mam_power.request_summary
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_power_best_destination } desc = mam_power.comparison } desc = mam_power.no_benchmark }
+        triggered_desc = { trigger = { NOT = { mam_power_title_allowed_trigger = { TITLE = scope:mam_posting } } } desc = mam_power.block_jurisdiction }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { mam_power_destination_discretion_trigger = yes } } } desc = mam_power.block_discretion }
+
+        triggered_desc = { trigger = { scope:mam_inspected = { has_character_flag = mam_recent_appointment } } desc = mam_block.recent }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { mam_exam_standard_trigger = { TITLE = scope:mam_posting } } } } desc = mam_block.exam }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { has_appointment_level_for_title = scope:mam_posting } } } desc = mam_block.merit }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { is_civilian_candidate_trigger = yes } } } desc = mam_block.civilian }
+        triggered_desc = { trigger = { scope:mam_inspected = { tgp_is_any_minister = yes } } desc = mam_block.minister }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { mam_register_candidate_trigger = yes } } } desc = mam_block.register }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { can_appoint_for_title = scope:mam_posting } } } desc = mam_block.appointment }
+        triggered_desc = { trigger = { scope:mam_inspected = { NOT = { is_appointment_valid_trigger = { TITLE = scope:mam_posting CANDIDATE = this TOP_LIEGE = scope:mam_emperor } } } } desc = mam_block.native }
+        triggered_desc = { trigger = { scope:mam_inspected = { is_landed = yes NOT = { mam_clean_source_bundle_trigger = { TITLE = primary_title } } } } desc = mam_block.source }
+        triggered_desc = { trigger = { scope:mam_incumbent = { NOT = { mam_clean_bundle_trigger = { TITLE = scope:mam_posting } } } } desc = mam_block.destination }
+        triggered_desc = { trigger = { scope:mam_emperor = { is_at_war = yes } } desc = mam_block.war }
+        triggered_desc = { trigger = { scope:mam_emperor = { has_character_flag = mam_pending_proposal } } desc = mam_block.pending }
+        triggered_desc = { trigger = { NOT = { exists = scope:mam_requester scope:mam_requester = { mam_can_nominate_trigger = yes this = scope:mam_minister } } } desc = mam_block.authority }
+        triggered_desc = { trigger = { mam_nomination_ready_trigger = yes } desc = mam_feedback.ready }
+        first_valid = {
+            triggered_desc = {
+                trigger = { scope:mam_inspected = { is_landed = yes } }
+                desc = mam_posting_existing_office
+            }
+            desc = mam_posting_no_existing_office
+        }
+        desc = mam_posting_review_only
+    }
+    immediate = { mam_refresh_power_context_effect = { SUBJECT = scope:mam_inspected } scope:mam_inspected = { save_scope_value_as = { name = mam_native_candidate_score value = "appointment_candidate_score(scope:mam_posting)" } } }
+    theme = merit
+    left_portrait = { character = scope:mam_inspected animation = reading }
+    option = {
+        name = mam_corrupt.petition
+        trigger = { mam_may_petition_exception_trigger = yes }
+        hidden_effect = { mam_prepare_exception_petition_effect = yes }
+        ai_chance = { base = 0 }
+    }
+    option = {
+        name = mam_transfer.prepare
+        trigger = { custom_tooltip = { text = mam_transfer.rules_checked mam_nomination_ready_trigger = yes } }
+        hidden_effect = { mam_prepare_nomination_effect = yes }
+        ai_chance = { base = 0 }
+    }
+    option = {
+        name = mam_posting.view_credentials
+        hidden_effect = { save_scope_value_as = { name = mam_credentials_origin value = 2 } trigger_event = mam_personnel.0010 }
+    }
+    option = {
+        name = mam_posting.back
+        hidden_effect = { mam_build_posting_review_effect = yes if = { limit = { exists = scope:mam_review_mode scope:mam_review_mode = 3 } trigger_event = mam_personnel.0023 } else_if = { limit = { exists = scope:mam_review_mode scope:mam_review_mode = 1 } trigger_event = mam_personnel.0022 } else = { trigger_event = mam_personnel.0020 } }
+    }
+    option = { name = mam_personnel.close }
+}
+
+mam_personnel.0022 = {
+    type = character_event
+    title = mam_personnel.0022.t
+    desc = {
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_marked_candidate } desc = mam_feedback.marked } desc = mam_feedback.unmarked }
+        desc = mam_personnel.0020.desc
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_native_successor } desc = mam_native.successor } desc = mam_native.no_successor }
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_posting_candidate_1 }
+                desc = mam_list.serving_posting
+            }
+            desc = mam_posting_no_candidates
+        }
+    }
+    theme = merit
+    left_portrait = { character = scope:mam_incumbent animation = reading }
+    option = {
+        name = mam_dossier.open
+        trigger = { mam_dossier_can_read_trigger = yes scope:mam_incumbent = { mam_dossier_governor_trigger = yes } }
+        hidden_effect = {
+            scope:mam_incumbent = { save_scope_as = mam_dossier_governor }
+            save_scope_value_as = { name = mam_dossier_return value = 1 }
+            mam_prepare_dossier_report_effect = yes trigger_event = mam_personnel.0060
+        }
+        ai_chance = { base = 0 }
+    }
+    option = { name = mam_personnel.close }
+
+    option = {
+        name = mam_posting.inspect_1
+        trigger = { exists = scope:mam_posting_candidate_1 }
+        hidden_effect = {
+            scope:mam_posting_candidate_1 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+    option = {
+        name = mam_posting.inspect_2
+        trigger = { exists = scope:mam_posting_candidate_2 }
+        hidden_effect = {
+            scope:mam_posting_candidate_2 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+    option = {
+        name = mam_posting.inspect_3
+        trigger = { exists = scope:mam_posting_candidate_3 }
+        hidden_effect = {
+            scope:mam_posting_candidate_3 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+option = { name = mam_list.show_available hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 0 } mam_build_posting_review_effect = yes trigger_event = mam_personnel.0020 } }
+option = { name = mam_native.inspect trigger = { exists = scope:mam_native_successor } hidden_effect = { scope:mam_native_successor = { save_scope_as = mam_inspected } trigger_event = mam_personnel.0021 } }
+option = {
+ name = mam_list.show_promotions
+ trigger = { scope:mam_posting = { tier = tier_kingdom } }
+ hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 3 } mam_build_posting_review_effect = yes trigger_event = mam_personnel.0023 }
+}
+option = {
+   name = mam_marked.review
+   trigger = { exists = scope:mam_marked_candidate }
+   hidden_effect = { scope:mam_marked_candidate = { save_scope_as = mam_inspected } trigger_event = mam_personnel.0021 }
+   ai_chance = { base = 0 }
+  }
+}
+
+mam_personnel.0023 = {
+    type = character_event
+    title = mam_personnel.0023.t
+    desc = {
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_marked_candidate } desc = mam_feedback.marked } desc = mam_feedback.unmarked }
+        desc = mam_personnel.0020.desc
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_native_successor } desc = mam_native.successor } desc = mam_native.no_successor }
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_posting_candidate_1 }
+                desc = mam_list.promotion_posting
+            }
+            desc = mam_posting_no_candidates
+        }
+    }
+    theme = merit
+    left_portrait = { character = scope:mam_incumbent animation = reading }
+    option = {
+        name = mam_dossier.open
+        trigger = { mam_dossier_can_read_trigger = yes scope:mam_incumbent = { mam_dossier_governor_trigger = yes } }
+        hidden_effect = {
+            scope:mam_incumbent = { save_scope_as = mam_dossier_governor }
+            save_scope_value_as = { name = mam_dossier_return value = 1 }
+            mam_prepare_dossier_report_effect = yes trigger_event = mam_personnel.0060
+        }
+        ai_chance = { base = 0 }
+    }
+    option = { name = mam_personnel.close }
+
+    option = {
+        name = mam_posting.inspect_1
+        trigger = { exists = scope:mam_posting_candidate_1 }
+        hidden_effect = {
+            scope:mam_posting_candidate_1 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+    option = {
+        name = mam_posting.inspect_2
+        trigger = { exists = scope:mam_posting_candidate_2 }
+        hidden_effect = {
+            scope:mam_posting_candidate_2 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+    option = {
+        name = mam_posting.inspect_3
+        trigger = { exists = scope:mam_posting_candidate_3 }
+        hidden_effect = {
+            scope:mam_posting_candidate_3 = { save_scope_as = mam_inspected }
+            trigger_event = mam_personnel.0021
+        }
+    }
+
+option = { name = mam_list.show_available hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 0 } mam_build_posting_review_effect = yes trigger_event = mam_personnel.0020 } }
+option = { name = mam_native.inspect trigger = { exists = scope:mam_native_successor } hidden_effect = { scope:mam_native_successor = { save_scope_as = mam_inspected } trigger_event = mam_personnel.0021 } }
+option = { name = mam_list.show_serving hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 1 } mam_build_posting_review_effect = yes trigger_event = mam_personnel.0022 } }
+option = {
+   name = mam_marked.review
+   trigger = { exists = scope:mam_marked_candidate }
+   hidden_effect = { scope:mam_marked_candidate = { save_scope_as = mam_inspected } trigger_event = mam_personnel.0021 }
+   ai_chance = { base = 0 }
+  }
+}

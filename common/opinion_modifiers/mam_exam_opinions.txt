@@ -1,0 +1,5 @@
+﻿mam_exam_imperial_congratulations = { opinion = 10 years = 3 stacking = no }
+mam_exam_imperial_commendation = { opinion = 20 years = 5 stacking = no }
+mam_exam_imperial_gratitude = { opinion = 30 years = 10 stacking = no }
+mam_exam_scholar_respect = { opinion = 10 years = 5 stacking = no }
+mam_exam_passed_over = { opinion = -10 years = 3 stacking = no }

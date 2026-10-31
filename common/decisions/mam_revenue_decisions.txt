@@ -1,0 +1,26 @@
+﻿mam_revenue_resume_cases_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_revenue_resume_cases_desc selection_tooltip = mam_revenue_resume_cases_desc confirm_text = mam_rv.resume
+ is_shown = {
+ always = no # retired common-fund entry
+
+  is_ai = no is_alive = yes is_imprisoned = no
+  save_temporary_scope_as = mam_rv_resume_actor
+  OR = {
+   has_variable = mam_rv_open_file
+   title:h_china = { any_in_list = { variable = mam_rv_files mam_revenue_file_current_trigger = yes
+    exists = var:mam_rv_next_actor var:mam_rv_next_actor = scope:mam_rv_resume_actor
+   } }
+  }
+ }
+ effect = {
+  save_scope_as = mam_rv_resume_actor
+  var:mam_rv_open_file ?= { if = { limit = { mam_revenue_file_current_trigger = yes } mam_revenue_release_effect = yes } }
+  title:h_china = { every_in_list = { variable = mam_rv_files limit = {
+   mam_revenue_file_current_trigger = yes exists = var:mam_rv_next_actor var:mam_rv_next_actor = scope:mam_rv_resume_actor
+  } remove_variable = mam_rv_snooze } }
+  title:h_china.holder ?= { mam_revenue_maintenance_effect = yes mam_revenue_wake_effect = yes }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

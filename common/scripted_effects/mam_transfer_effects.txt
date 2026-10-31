@@ -1,0 +1,352 @@
+﻿mam_add_replacement_effect = {
+    if = {
+        limit = { mam_replacement_eligible_trigger = yes NOT = { is_in_list = mam_replacements } }
+        add_to_list = mam_replacements
+    }
+}
+mam_prepare_nomination_effect = {
+ mam_refresh_power_context_effect = { SUBJECT = scope:mam_inspected }
+ if = { limit = { exists = scope:mam_service_case } scope:mam_incumbent ?= { mam_update_one_dossier_effect = yes } }
+ if = { limit = { exists = scope:mam_service_case NOT = { mam_nomination_ready_trigger = yes } }
+  trigger_event = mam_personnel.0065
+ }
+
+ if = { limit = { mam_nomination_ready_trigger = yes }
+
+    clear_saved_scope = mam_source
+    clear_saved_scope = mam_replacement
+ clear_saved_scope = mam_replacement_1
+ clear_saved_scope = mam_replacement_2
+ clear_saved_scope = mam_replacement_3
+
+    scope:mam_inspected = {
+        save_scope_as = mam_nominee
+        if = { limit = { is_landed = yes } primary_title = { save_scope_as = mam_source } }
+    }
+    if = {
+        limit = { exists = scope:mam_source }
+        scope:mam_emperor = {
+            every_courtier_or_guest = { mam_add_replacement_effect = yes }
+            every_vassal_or_below = {
+                # Landless noble-family heads are realm vassals, not courtiers.
+                mam_add_replacement_effect = yes
+                every_courtier_or_guest = { mam_add_replacement_effect = yes }
+            }
+        }
+
+        ordered_in_list = {
+            list = mam_replacements
+            limit = {  }
+            order_by = mam_recommendation_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_replacement_1
+        }
+        if = { limit = { exists = scope:mam_replacement_1 }
+
+        ordered_in_list = {
+            list = mam_replacements
+            limit = { this != scope:mam_replacement_1 }
+            order_by = mam_recommendation_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_replacement_2
+        }
+        }
+        if = { limit = { exists = scope:mam_replacement_2 }
+
+        ordered_in_list = {
+            list = mam_replacements
+            limit = { this != scope:mam_replacement_1 this != scope:mam_replacement_2 }
+            order_by = mam_recommendation_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_replacement_3
+        }
+        }
+
+    }
+    if = {
+        limit = { is_ai = yes }
+        scope:mam_emperor.primary_title = {
+            set_variable = { name = mam_ai_last_stage value = 4 }
+            if = {
+                limit = { OR = { NOT = { exists = scope:mam_source } exists = scope:mam_replacement_1 } }
+                set_variable = { name = mam_ai_last_stage value = 5 }
+            }
+        }
+    }
+    trigger_event = mam_personnel.0051
+
+ }
+}
+
+mam_submit_proposal_effect = {
+ mam_refresh_power_context_effect = { SUBJECT = scope:mam_inspected }
+ if = { limit = { exists = scope:mam_service_case } scope:mam_incumbent ?= { mam_update_one_dossier_effect = yes } }
+ if = { limit = { exists = scope:mam_service_case NOT = { mam_nomination_ready_trigger = yes } }
+  trigger_event = mam_personnel.0065
+ }
+
+ if = { limit = { mam_nomination_ready_trigger = yes
+  trigger_if = { limit = { exists = scope:mam_source }
+   exists = scope:mam_replacement scope:mam_replacement = { mam_replacement_eligible_trigger = yes }
+  }
+ }
+
+    mam_note_service_case_submission_effect = yes
+    mam_record_reason_effect = yes
+    scope:mam_emperor = {
+        if = {
+            limit = { NOT = { has_variable = mam_proposal_generation } }
+            set_variable = { name = mam_proposal_generation value = 0 }
+        }
+        change_variable = { name = mam_proposal_generation add = 1 }
+        primary_title = {
+            if = { limit = { NOT = { has_variable = mam_realm_proposals } } set_variable = { name = mam_realm_proposals value = 0 } }
+            change_variable = { name = mam_realm_proposals add = 1 }
+        }
+        save_scope_value_as = { name = mam_generation value = var:mam_proposal_generation }
+        mam_record_appointment_evidence_effect = yes
+        primary_title = {
+            save_scope_as = mam_proposal_realm
+            set_variable = { name = mam_active_proposal_generation value = scope:mam_generation days = 92 }
+            set_variable = { name = mam_active_proposal_emperor value = scope:mam_emperor days = 92 }
+        }
+        add_character_flag = { flag = mam_pending_proposal days = 90 }
+        # Anchor the watchdog on the requester so an emperor's death does not
+        # suppress feedback to a surviving player minister.
+        scope:mam_requester = { trigger_event = { id = mam_personnel.0044 days = 91 } }
+        trigger_event = mam_personnel.0040
+    }
+
+ }
+}
+
+# Queue a snapshot of personally held constituent titles and jurisdiction vassals.
+# TITLE/OLD/NEW are supplied explicitly. No broad resignation helper is called.
+mam_queue_bundle_effect = {
+    every_in_list = { list = mam_bundle_parts remove_from_list = mam_bundle_parts }
+    $OLD$ = {
+        every_held_title = {
+            limit = {
+                this != $TITLE$
+                is_landless_type_title = no
+                is_noble_family_title = no
+                tier >= tier_county
+                target_is_de_jure_liege_or_above = $TITLE$
+            }
+            add_to_list = mam_bundle_parts
+        }
+    }
+    every_in_list = {
+        list = mam_bundle_parts
+        limit = { holder = $OLD$ target_is_de_jure_liege_or_above = $TITLE$ }
+        change_title_holder_include_vassals = {
+            holder = $NEW$
+            change = scope:mam_appointment_change
+            take_baronies = no
+        }
+    }
+    $TITLE$ = {
+        change_title_holder_include_vassals = {
+            holder = $NEW$
+            change = scope:mam_appointment_change
+            take_baronies = no
+        }
+    }
+}
+
+# Single resolution avoids an intentional landless interval for a transferring player.
+# Runtime verification is required: script execution has no general rollback facility.
+# A stale event must never dismiss a newer proposal's lock.
+mam_clear_matching_proposal_effect = {
+    # Title variables remain supported after a character dies. Match both the
+    # emperor reference and generation so an old timer cannot clear new business.
+    scope:mam_proposal_realm ?= {
+        if = {
+            limit = {
+                exists = scope:mam_generation
+                has_variable = mam_active_proposal_generation
+                var:mam_active_proposal_generation = scope:mam_generation
+                has_variable = mam_active_proposal_emperor
+                var:mam_active_proposal_emperor = scope:mam_emperor
+            }
+            remove_variable = mam_active_proposal_generation
+            remove_variable = mam_active_proposal_emperor
+        }
+    }
+    scope:mam_emperor ?= {
+        if = {
+            limit = {
+                is_alive = yes
+                exists = scope:mam_generation
+                has_variable = mam_proposal_generation
+                var:mam_proposal_generation = scope:mam_generation
+            }
+            remove_character_flag = mam_pending_proposal
+            set_variable = { name = mam_resolved_generation value = scope:mam_generation }
+        }
+    }
+}
+
+# Human ministers need the emperor's response, including when the emperor is AI.
+mam_notify_requester_effect = {
+    scope:mam_requester ?= {
+        if = {
+            limit = { is_alive = yes is_ai = no this != scope:mam_emperor }
+            trigger_event = $EVENT$
+        }
+    }
+}
+
+mam_commit_proposal_effect = {
+ mam_refresh_power_context_effect = { SUBJECT = scope:mam_nominee }
+ if = { limit = { exists = scope:mam_service_case } scope:mam_incumbent ?= { mam_update_one_dossier_effect = yes } }
+
+    if = {
+        limit = { mam_proposal_valid_trigger = yes }
+        if = { limit = { scope:mam_requester = { is_ai = yes } } scope:mam_emperor.primary_title = { if = { limit = { NOT = { has_variable = mam_ai_commits } } set_variable = { name = mam_ai_commits value = 0 } } change_variable = { name = mam_ai_commits add = 1 } } }
+        mam_clear_matching_proposal_effect = yes
+        create_title_and_vassal_change = {
+            type = appointment
+            save_scope_as = mam_appointment_change
+        }
+        if = {
+            limit = { exists = scope:mam_source }
+            mam_queue_bundle_effect = {
+                TITLE = scope:mam_source
+                OLD = scope:mam_nominee
+                NEW = scope:mam_replacement
+            }
+        }
+        mam_queue_bundle_effect = {
+            TITLE = scope:mam_posting
+            OLD = scope:mam_incumbent
+            NEW = scope:mam_nominee
+        }
+        resolve_title_and_vassal_change = scope:mam_appointment_change
+        if = { limit = { scope:mam_requester = { is_ai = yes } } scope:mam_emperor.primary_title = { if = { limit = { scope:mam_posting.holder = scope:mam_nominee scope:mam_nominee = { mam_clean_bundle_trigger = { TITLE = scope:mam_posting } } trigger_if = { limit = { exists = scope:mam_source } scope:mam_source.holder = scope:mam_replacement scope:mam_replacement = { mam_clean_source_bundle_trigger = { TITLE = scope:mam_source } } } } if = { limit = { NOT = { has_variable = mam_ai_commit_postconditions_passed } } set_variable = { name = mam_ai_commit_postconditions_passed value = 0 } } change_variable = { name = mam_ai_commit_postconditions_passed add = 1 } } else = { if = { limit = { NOT = { has_variable = mam_ai_commit_postconditions_failed } } set_variable = { name = mam_ai_commit_postconditions_failed value = 0 } } change_variable = { name = mam_ai_commit_postconditions_failed add = 1 } if = { limit = { NOT = { has_variable = mam_failure_nominee } } if = { limit = { NOT = { scope:mam_posting.holder = scope:mam_nominee } } set_variable = { name = mam_failure_posting_holder value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { mam_clean_bundle_trigger = { TITLE = scope:mam_posting } } } } set_variable = { name = mam_failure_nominee_clean value = 1 } }
+if = { limit = { NOT = { scope:mam_source.holder ?= scope:mam_replacement } } set_variable = { name = mam_failure_source_holder value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { mam_clean_source_bundle_trigger = { TITLE = scope:mam_source } } } } set_variable = { name = mam_failure_replacement_clean value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { is_alive = yes } } } set_variable = { name = mam_failure_nominee_alive value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { is_governor = yes } } } set_variable = { name = mam_failure_nominee_governor value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { government_has_flag = government_is_celestial } } } set_variable = { name = mam_failure_nominee_celestial value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { tgp_is_any_minister = no } } } set_variable = { name = mam_failure_nominee_nonminister value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { is_at_war = no } } } set_variable = { name = mam_failure_nominee_peace value = 1 } }
+if = { limit = { NOT = { scope:mam_nominee = { OR = { vassal_contract_has_flag = celestial_civil_appointment vassal_contract_has_flag = meritocratic_civil_appointment } } } } set_variable = { name = mam_failure_nominee_civil_contract value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { is_alive = yes } } } set_variable = { name = mam_failure_replacement_alive value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { is_governor = yes } } } set_variable = { name = mam_failure_replacement_governor value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { government_has_flag = government_is_celestial } } } set_variable = { name = mam_failure_replacement_celestial value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { tgp_is_any_minister = no } } } set_variable = { name = mam_failure_replacement_nonminister value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { is_at_war = no } } } set_variable = { name = mam_failure_replacement_peace value = 1 } }
+if = { limit = { NOT = { scope:mam_replacement ?= { OR = { vassal_contract_has_flag = celestial_civil_appointment vassal_contract_has_flag = meritocratic_civil_appointment } } } } set_variable = { name = mam_failure_replacement_civil_contract value = 1 } }
+if = { limit = { exists = scope:mam_posting } set_variable = { name = mam_failure_posting value = scope:mam_posting } }
+if = { limit = { exists = scope:mam_nominee } set_variable = { name = mam_failure_nominee value = scope:mam_nominee } }
+if = { limit = { exists = scope:mam_incumbent } set_variable = { name = mam_failure_incumbent value = scope:mam_incumbent } }
+if = { limit = { exists = scope:mam_source } set_variable = { name = mam_failure_source value = scope:mam_source } }
+if = { limit = { exists = scope:mam_replacement } set_variable = { name = mam_failure_replacement value = scope:mam_replacement } }
+ } } } }
+        scope:mam_nominee = { add_character_flag = { flag = mam_recent_appointment years = 5 } }
+        scope:mam_replacement ?= { add_character_flag = { flag = mam_recent_appointment years = 5 } }
+        scope:mam_emperor = {
+            if = {
+                limit = { NOT = { has_variable = mam_completed_appointments } }
+                set_variable = { name = mam_completed_appointments value = 0 }
+            }
+            change_variable = { name = mam_completed_appointments add = 1 }
+            primary_title = {
+                if = { limit = { NOT = { has_variable = mam_realm_appointments } } set_variable = { name = mam_realm_appointments value = 0 } }
+                change_variable = { name = mam_realm_appointments add = 1 }
+            }
+        }
+        mam_note_service_case_success_effect = yes
+        mam_record_corruption_appointment_success_effect = yes
+        mam_record_sponsorship_effect = yes
+        trigger_event = mam_personnel.0041
+        mam_notify_requester_effect = { EVENT = mam_personnel.0041 }
+    }
+    else = {
+        mam_clear_matching_proposal_effect = yes
+        trigger_event = mam_personnel.0042
+        mam_notify_requester_effect = { EVENT = mam_personnel.0042 }
+    }
+}
+
+# Annual AI opportunity review: lowest-scoring supported office; three-year review cooldown.
+# The realm-title opt-in survives succession. Stage counters are QA diagnostics.
+mam_ai_review_effect = {
+    mam_resolve_register_authority_effect = yes
+    scope:mam_emperor = {
+        if = { limit = { NOT = { has_variable = mam_ai_reviews_attempted } } set_variable = { name = mam_ai_reviews_attempted value = 0 } }
+        change_variable = { name = mam_ai_reviews_attempted add = 1 }
+        primary_title = {
+            if = { limit = { NOT = { has_variable = mam_ai_realm_reviews } } set_variable = { name = mam_ai_realm_reviews value = 0 } }
+            change_variable = { name = mam_ai_realm_reviews add = 1 }
+            set_variable = { name = mam_ai_last_stage value = 0 }
+        }
+    }
+    add_character_flag = { flag = mam_ai_review_cooldown years = 3 }
+    mam_select_service_case_effect = yes
+    if = { limit = { NOT = { exists = scope:mam_service_case } }
+    scope:mam_emperor = {
+        ordered_vassal = {
+            limit = {
+                primary_title = { NOT = { mam_service_case_ai_cooldown_trigger = yes } }
+                mam_power_title_allowed_trigger = { TITLE = primary_title }
+                mam_supported_governor_trigger = yes
+                mam_clean_bundle_trigger = { TITLE = primary_title }
+                NOT = { has_character_flag = mam_recent_appointment }
+            }
+            order_by = { value = mam_recommendation_score multiply = -1 }
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_incumbent
+            primary_title = { save_scope_as = mam_posting }
+        }
+    }
+    }
+    if = {
+        limit = { exists = scope:mam_posting }
+        save_scope_value_as = { name = mam_review_mode value = 2 }
+        mam_build_posting_review_effect = yes
+        scope:mam_incumbent = {
+            save_scope_value_as = { name = mam_incumbent_score value = mam_recommendation_score }
+        }
+        scope:mam_emperor.primary_title = {
+            set_variable = { name = mam_ai_last_stage value = 1 }
+            set_variable = { name = mam_ai_last_incumbent_score value = scope:mam_incumbent_score }
+        }
+        ordered_in_list = {
+            list = mam_posting_candidates
+            limit = {
+                mam_posting_eligible_trigger = yes
+                NOT = { has_character_flag = mam_recent_appointment }
+                mam_public_suitability >= scope:mam_incumbent.mam_public_suitability
+                mam_recommendation_score >= { value = scope:mam_incumbent_score add = 15 }
+                trigger_if = {
+                    limit = { is_landed = yes }
+                    mam_clean_source_bundle_trigger = { TITLE = primary_title }
+                }
+            }
+            order_by = mam_recommendation_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_inspected
+        }
+        mam_try_private_nominee_effect = yes
+        if = {
+            limit = { exists = scope:mam_inspected mam_nomination_ready_trigger = yes }
+            scope:mam_emperor.primary_title = {
+                set_variable = { name = mam_ai_last_stage value = 3 }
+                set_variable = { name = mam_ai_last_nominee_score value = scope:mam_inspected.mam_recommendation_score }
+            }
+            scope:mam_emperor.primary_title = {
+                if = { limit = { NOT = { has_variable = mam_ai_qualified_selections } } set_variable = { name = mam_ai_qualified_selections value = 0 } }
+                change_variable = { name = mam_ai_qualified_selections add = 1 }
+            }
+            mam_prepare_nomination_effect = yes
+        }
+    }
+}

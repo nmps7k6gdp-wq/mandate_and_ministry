@@ -1,0 +1,91 @@
+﻿mam_justice_offer_valid_trigger = {
+ exists = var:mam_jus_offer_author NOT = { has_variable = mam_jus_offer_void }
+ var:mam_jus_offer_author = { mam_justice_officer_trigger = yes }
+ var:mam_jus_offer_author = var:mam_jus_judge
+ var:mam_jus_subject = { is_alive = yes }
+ trigger_if = { limit = { var:mam_jus_offer_kind = 1 } var:mam_jus_subject = { gold >= 100 } }
+ trigger_else = { var:mam_jus_offer_author = { NOT = { has_hook = scope:mam_jus_subject } can_add_hook = { target = scope:mam_jus_subject type = favor_hook } } }
+}
+mam_justice_action_1_available = {
+ scope:mam_jus_subject = { is_imprisoned = no }
+ scope:mam_jus_case = { NOT = { has_variable = mam_jus_arrest_done } }
+ OR = { scope:mam_jus_subject = { mam_justice_native_ground_trigger = yes }
+  AND = { scope:mam_jus_expected = 9 mam_justice_officer_trigger = yes } }
+}
+mam_justice_action_2_available = {
+ exists = scope:mam_jus_pardon_authority
+ scope:mam_jus_pardon_authority = { mam_justice_any_reason_trigger = { TARGET = scope:mam_jus_subject } }
+}
+mam_justice_action_3_available = {
+ scope:mam_jus_subject = { is_imprisoned = yes exists = imprisoner imprisoner = { top_liege = title:h_china.holder } }
+}
+mam_justice_action_4_available = {
+ scope:mam_jus_subject = { is_imprisoned = yes exists = imprisoner
+  imprisoner = { top_liege = title:h_china.holder has_execute_reason = scope:mam_jus_subject }
+ }
+}
+mam_justice_action_5_available = {
+ scope:mam_jus_subject = { is_imprisoned = yes exists = imprisoner
+  imprisoner = { top_liege = title:h_china.holder has_banish_reason = scope:mam_jus_subject }
+  OR = { is_vassal_of = scope:mam_jus_subject.imprisoner is_courtier_of = scope:mam_jus_subject.imprisoner }
+ }
+}
+mam_justice_action_6_available = {
+ scope:mam_jus_subject = { exists = var:mam_jus_warrant_record
+  var:mam_jus_warrant_record = { has_variable = mam_jus_warrant_issued NOT = { has_variable = mam_jus_warrant_spent }
+   exists = var:mam_jus_warrant_issuer var:mam_jus_warrant_issuer = title:h_china.holder
+   var:mam_jus_warrant_issuer = { has_opinion_modifier = { target = scope:mam_jus_subject modifier = mam_jus_imperial_warrant } }
+  }
+ }
+}
+mam_justice_action_7_available = {
+ scope:mam_jus_case = {
+  mam_justice_custom_evidence_trigger = yes
+  NOT = { has_variable = mam_jus_warrant_issued }
+  NOT = { var:mam_jus_realm = { any_in_list = { variable = mam_jus_warrant_sources this = scope:mam_jus_case.var:mam_jus_offense_identity } } }
+ }
+ scope:mam_jus_subject = { mam_justice_native_ground_trigger = no }
+}
+mam_justice_native_affordable_trigger = {
+ OR = { scope:mam_jus_cost_treasury <= 0 scope:mam_jus_performer = { treasury >= scope:mam_jus_cost_treasury } }
+ OR = { scope:mam_jus_cost_gold <= 0 scope:mam_jus_performer = { gold >= scope:mam_jus_cost_gold } }
+ OR = { scope:mam_jus_cost_influence <= 0 scope:mam_jus_performer = { influence >= scope:mam_jus_cost_influence } }
+ OR = { scope:mam_jus_cost_prestige <= 0 scope:mam_jus_performer = { prestige >= scope:mam_jus_cost_prestige } }
+ OR = { scope:mam_jus_cost_piety <= 0 scope:mam_jus_performer = { piety >= scope:mam_jus_cost_piety } }
+}
+mam_justice_native_valid_trigger = {
+ var:mam_jus_subject = { mam_justice_person_trigger = yes }
+ exists = scope:mam_jus_performer scope:mam_jus_performer = { is_alive = yes is_imprisoned = no }
+ trigger_if = { limit = { var:mam_jus_action = 1 }
+  var:mam_jus_subject = { is_imprisoned = no }
+  scope:mam_jus_performer = { is_character_interaction_valid = { recipient = scope:mam_jus_subject interaction = imprison_interaction }
+   OR = { mam_justice_native_auto_1_trigger = yes
+    scope:mam_jus_case = { exists = var:mam_jus_surrender var:mam_jus_surrender = scope:mam_jus_performer }
+   }
+  }
+ }
+ trigger_else_if = { limit = { var:mam_jus_action = 2 }
+  exists = scope:mam_jus_pardon_authority scope:mam_jus_pardon_authority = { mam_justice_any_reason_trigger = { TARGET = scope:mam_jus_subject } }
+  scope:mam_jus_performer = { is_character_interaction_valid = { recipient = scope:mam_jus_subject interaction = pardon_interaction } }
+ }
+ trigger_else_if = { limit = { OR = { var:mam_jus_action = 3 var:mam_jus_action = 5 } }
+  var:mam_jus_subject = { is_imprisoned_by = scope:mam_jus_performer }
+  scope:mam_jus_performer = { is_character_interaction_valid = { recipient = scope:mam_jus_subject interaction = release_from_prison_interaction } }
+  trigger_if = { limit = { var:mam_jus_action = 5 }
+   scope:mam_jus_performer = { mam_justice_native_banish_trigger = yes has_banish_reason = scope:mam_jus_subject }
+   exists = var:mam_jus_terms_consent var:mam_jus_terms_consent = scope:mam_jus_performer
+  }
+ }
+ trigger_else_if = { limit = { var:mam_jus_action = 4 }
+  var:mam_jus_subject = { is_imprisoned_by = scope:mam_jus_performer }
+  scope:mam_jus_performer = { has_execute_reason = scope:mam_jus_subject
+   is_character_interaction_valid = { recipient = scope:mam_jus_subject interaction = execute_prisoner_interaction }
+  }
+ }
+ trigger_else = { always = no }
+}
+mam_justice_shadow_needed_trigger = {
+ OR = { mam_justice_reserved_trigger = yes
+  AND = { var:mam_jus_action = 1 var:mam_jus_subject = { mam_justice_native_ground_trigger = no } }
+ }
+}

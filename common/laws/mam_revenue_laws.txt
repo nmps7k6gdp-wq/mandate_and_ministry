@@ -1,0 +1,31 @@
+﻿# Fiscal authority is a persistent realm law. The event only explains it.
+mam_revenue_authority_reserved = {
+ law_group_type = mam_revenue_fiscal_authority_laws index = 0
+ can_keep = { mam_revenue_law_realm_trigger = yes }
+ can_have = { mam_revenue_law_realm_trigger = yes }
+ can_realm_have = { mam_revenue_law_realm_trigger = yes }
+ can_pass = { is_at_war = no custom_tooltip = { text = mam_rv.law_cooldown_tt title:h_china = { NOT = { has_variable = mam_rv_law_cooldown } } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { title:h_china = { mam_revenue_pass_authority_law_effect = { LEVEL = 0 } } }
+ ai_will_do = { value = 5 if = { limit = { treasury < 800 } add = 60 } if = { limit = { has_trait = paranoid } add = 20 } }
+}
+mam_revenue_authority_limited = {
+ law_group_type = mam_revenue_fiscal_authority_laws index = 1
+ can_keep = { mam_revenue_law_realm_trigger = yes }
+ can_have = { mam_revenue_law_realm_trigger = yes }
+ can_realm_have = { mam_revenue_law_realm_trigger = yes }
+ can_pass = { is_at_war = no custom_tooltip = { text = mam_rv.law_cooldown_tt title:h_china = { NOT = { has_variable = mam_rv_law_cooldown } } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { title:h_china = { mam_revenue_pass_authority_law_effect = { LEVEL = 1 } } }
+ ai_will_do = { value = 0 if = { limit = { treasury >= 1000 } add = 30 } }
+}
+mam_revenue_authority_expanded = {
+ law_group_type = mam_revenue_fiscal_authority_laws index = 2
+ can_keep = { mam_revenue_law_realm_trigger = yes }
+ can_have = { mam_revenue_law_realm_trigger = yes }
+ can_realm_have = { mam_revenue_law_realm_trigger = yes }
+ can_pass = { is_at_war = no custom_tooltip = { text = mam_rv.law_cooldown_tt title:h_china = { NOT = { has_variable = mam_rv_law_cooldown } } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { title:h_china = { mam_revenue_pass_authority_law_effect = { LEVEL = 2 } } }
+ ai_will_do = { value = 0 if = { limit = { treasury >= 2500 has_trait = trusting } add = 15 } }
+}

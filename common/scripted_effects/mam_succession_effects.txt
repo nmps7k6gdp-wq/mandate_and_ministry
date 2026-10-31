@@ -1,0 +1,10 @@
+﻿mam_read_native_successor_effect = {
+ clear_saved_scope = mam_native_successor
+ save_scope_value_as = { name = mam_native_successor_score value = 0 }
+ scope:mam_posting = {
+  current_heir ?= {
+   save_scope_as = mam_native_successor
+   save_scope_value_as = { name = mam_native_successor_score value = "appointment_candidate_score(scope:mam_posting)" }
+  }
+ }
+}

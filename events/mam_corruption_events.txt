@@ -1,0 +1,26 @@
+﻿namespace = mam_personnel
+mam_personnel.0080 = {
+ type = character_event title = mam_corrupt.offer_title desc = mam_corrupt.offer_text theme = intrigue
+ left_portrait = { character = scope:mam_bribe_payer }
+ option = { name = mam_corrupt.refuse hidden_effect = { mam_refuse_bribe_effect = yes }
+  ai_chance = { base = 60 modifier = { add = 100 has_trait = honest } modifier = { add = 100 has_trait = just } }
+ }
+ option = { name = mam_corrupt.accept trigger = { mam_bribe_offer_valid_trigger = yes }
+  custom_tooltip = mam_corrupt.accept_stress_tt
+  hidden_effect = { mam_accept_bribe_effect = yes }
+  ai_chance = { base = 10 modifier = { add = 70 has_trait = greedy } modifier = { add = 35 has_trait = arbitrary }
+   modifier = { add = 25 has_trait = ambitious } modifier = { factor = 0 has_trait = honest } modifier = { factor = 0 has_trait = just } }
+ }
+ option = { name = mam_corrupt.report trigger = { mam_bribe_offer_valid_trigger = yes }
+  hidden_effect = { mam_report_bribe_effect = yes }
+  ai_chance = { base = 5 modifier = { add = 40 has_trait = just } modifier = { add = 25 has_trait = honest } }
+ }
+}
+mam_personnel.0081 = {
+ type = character_event title = mam_corrupt.accepted_title desc = mam_corrupt.accepted_text theme = intrigue
+ option = { name = mam_personnel.close ai_chance = { base = 100 } }
+}
+mam_personnel.0082 = {
+ type = character_event title = mam_corrupt.refused_title desc = mam_corrupt.refused_text theme = intrigue
+ option = { name = mam_personnel.close ai_chance = { base = 100 } }
+}

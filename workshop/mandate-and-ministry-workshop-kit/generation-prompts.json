@@ -1,0 +1,23 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-30",
+  "image_references_used": false,
+  "assets": [
+    {
+      "name": "workshop-banner",
+      "prompt": "Original Steam Workshop description artwork for the CK3 mod Mandate and Ministry. Premium restrained historical grand strategy illustration, dark charcoal and deep teal lacquer, warm antique gold, tiny muted vermilion accents, fine paper grain and engraved gold Chinese geometric linework. Elegant serif typography, beautifully legible at 640px display width. No modern UI, no franchise logo, no fake gameplay screenshot, no copied cover illustration, no throne-room scene, no large portrait figures. Opaque background. Full standalone finished asset, clean edges.\nAsset: separate wide description header banner, target 1536 x 768 landscape. Original close still life of an imperial civil administration desk: folded memorials, an open appointment ledger with abstract ink marks, a small vermilion seal and brush rest, a faint territorial map fading into shadow. Objects compose the lower and outer edges; centre remains beautifully calm. Centered exact text: \"MANDATE & MINISTRY\" on two balanced lines. Restrained thin ornamental border, generous padding. This is a new design, NOT the square main mod cover. No other text."
+    },
+    {
+      "name": "divider-current-features",
+      "prompt": "Original Steam Workshop description artwork for the CK3 mod Mandate and Ministry. Premium restrained historical grand strategy illustration, dark charcoal and deep teal lacquer, warm antique gold, tiny muted vermilion accents, fine paper grain and engraved gold Chinese geometric linework. Elegant serif typography, beautifully legible at 640px display width. No modern UI, no franchise logo, no fake gameplay screenshot, no copied cover illustration, no throne-room scene, no large portrait figures. Opaque background. Full standalone finished asset, clean edges.\nAsset: wide shallow horizontal section divider, target 1536 x 512, generous dark negative space, compact centered header area with slender long gold rules and subtle symmetrical cloud-scroll corner ornaments. A tiny engraved rolled scroll ornament above the label. Exact text, large and centred: \"CURRENT FEATURES\". One single divider only. No subtitle, no extra words or numerals."
+    },
+    {
+      "name": "divider-planned-features",
+      "prompt": "Original Steam Workshop description artwork for the CK3 mod Mandate and Ministry. Premium restrained historical grand strategy illustration, dark charcoal and deep teal lacquer, warm antique gold, tiny muted vermilion accents, fine paper grain and engraved gold Chinese geometric linework. Elegant serif typography, beautifully legible at 640px display width. No modern UI, no franchise logo, no fake gameplay screenshot, no copied cover illustration, no throne-room scene, no large portrait figures. Opaque background. Full standalone finished asset, clean edges.\nAsset: wide shallow horizontal section divider, target 1536 x 512, generous dark negative space, compact centered header area with slender long gold rules and subtle symmetrical cloud-scroll corner ornaments. A tiny engraved brush-and-blank-memorial ornament above the label. Exact text, large and centred: \"PLANNED FEATURES\". One single divider only. No subtitle, no extra words or numerals."
+    },
+    {
+      "name": "divider-alpha-feedback",
+      "prompt": "Original Steam Workshop description artwork for the CK3 mod Mandate and Ministry. Premium restrained historical grand strategy illustration, dark charcoal and deep teal lacquer, warm antique gold, tiny muted vermilion accents, fine paper grain and engraved gold Chinese geometric linework. Elegant serif typography, beautifully legible at 640px display width. No modern UI, no franchise logo, no fake gameplay screenshot, no copied cover illustration, no throne-room scene, no large portrait figures. Opaque background. Full standalone finished asset, clean edges.\nAsset: wide shallow horizontal section divider, target 1536 x 512, generous dark negative space, compact centered header area with slender long gold rules and subtle symmetrical cloud-scroll corner ornaments. A tiny engraved vermilion seal ornament above the label. Exact text, large and centred: \"EARLY ALPHA & FEEDBACK\". One single divider only. No subtitle, no extra words or numerals."
+    }
+  ]
+}

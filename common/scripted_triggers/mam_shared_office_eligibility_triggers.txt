@@ -1,0 +1,31 @@
+﻿# Shared appointment/authority plumbing retained verbatim for Personnel.
+# Historical function names are stable caller APIs, not a case subsystem.
+mam_cj_office_allowed_trigger = {
+ NOT = { has_variable = mam_cj_bar_permanent }
+ trigger_if = { limit = { has_variable = mam_cj_bar_until }
+  var:mam_cj_bar_until <= current_date
+ }
+}
+
+mam_cj_is_chancellor_trigger = {
+
+ trigger_if = { limit = { exists = top_liege.cp:councillor_chancellor }
+
+  is_alive = yes is_imprisoned = no mam_cj_office_allowed_trigger = yes this = top_liege.cp:councillor_chancellor has_title = title:e_minister_chancellor
+
+ }
+
+ trigger_else = { always = no }
+
+}
+
+mam_cj_ministry_candidate_trigger = {
+ is_alive = yes is_imprisoned = no
+ mam_cj_office_allowed_trigger = yes
+ exists = $OWNER$
+ trigger_if = { limit = { $TITLE$ = title:e_minister_grand_marshal }
+  tgp_can_be_grand_marshal_trigger = { COURT_OWNER = $OWNER$ }
+ }
+ trigger_else = { tgp_can_be_a_minister_trigger = { COURT_OWNER = $OWNER$ } }
+ tgp_is_ceremonial_liege_trigger = no
+}

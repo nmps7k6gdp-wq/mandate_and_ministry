@@ -1,0 +1,17 @@
+﻿mam_senior_appointment_story = {
+
+ visible = no on_setup = { }
+
+ on_owner_death = {
+  clear_saved_scope = mam_senior_next_owner
+  var:mam_senior_realm.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_senior_next_owner } }
+  if = { limit = { NOT = { exists = scope:mam_senior_next_owner } }
+   var:mam_senior_realm.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_senior_next_owner } }
+  }
+  if = { limit = { exists = scope:mam_senior_next_owner } make_story_owner = scope:mam_senior_next_owner }
+ }
+
+ effect_group = { days = 30 triggered_effect = { trigger = { OR = { var:mam_senior_pending = 1 has_variable = mam_senior_vassal_repair_pending has_variable = mam_senior_parent_waiting } } effect = { mam_senior_tick_effect = yes } } }
+
+}
+

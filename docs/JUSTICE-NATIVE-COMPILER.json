@@ -1,0 +1,32 @@
+{
+  "imprison_interaction": {
+    "action": 1,
+    "acceptance_sha256": "87d86f2bf0a19024d5706aff0a90c67da80a2bb69e7aaf83b64eee911eedc08a",
+    "resources": [
+      "prestige",
+      "treasury"
+    ]
+  },
+  "pardon_interaction": {
+    "action": 2,
+    "acceptance_sha256": "6c8ded8dcdbc1d94d5a3e91392c8d58fef12f7e98e141d4d31a09d90fe988832",
+    "resources": [
+      "influence",
+      "treasury"
+    ]
+  },
+  "release_from_prison_interaction": {
+    "action": 3,
+    "acceptance_sha256": "19f0d49cc5b0e30360cd2218b1cc1c7f1fc9bfea97c1c9d7bcf479fb61b5c246",
+    "resources": [
+      "prestige"
+    ]
+  },
+  "execute_prisoner_interaction": {
+    "action": 4,
+    "acceptance_sha256": "73fdb36b9f1dc36c9f19bf85da5c2f604249ffe0ecf7f5af72afd1461da8136a",
+    "resources": [
+      "prestige"
+    ]
+  }
+}

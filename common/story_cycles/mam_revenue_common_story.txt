@@ -1,0 +1,23 @@
+﻿mam_revenue_fund_story = {
+ visible = no on_setup = { }
+ on_owner_death = {
+ clear_saved_scope = mam_cf_heir
+  title:h_china.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cf_heir } }
+  if = { limit = { NOT = { exists = scope:mam_cf_heir } }
+  title:h_china.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cf_heir } }
+ }
+ if = { limit = { exists = scope:mam_cf_heir } make_story_owner = scope:mam_cf_heir }
+ }
+ effect_group = { days = 30 triggered_effect = {
+  trigger = { always = yes }
+  effect = {
+   if = { limit = { var:mam_cf_pending = 1 }
+    if = { limit = { OR = { mam_revenue_fund_live_case_trigger = no AND = { mam_revenue_fund_earned_claim_trigger = no var:mam_cf_created <= { value = current_date subtract = 365 } } } }
+     mam_revenue_fund_close_effect = { RESULT = 4 }
+    }
+    else = { title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes } }
+   }
+   else_if = { limit = { var:mam_cf_closed <= { value = current_date subtract = 365 } } end_story = yes }
+  }
+ } }
+}

@@ -1,0 +1,52 @@
+﻿# Additive callbacks preserve vanilla task effects.
+
+tgp_minister_manage_talent_on_action = { on_actions = { mam_personnel_manage_talent_pulse mam_personnel_assignment_callback } }
+
+mam_personnel_manage_talent_pulse = {
+
+ effect = { scope:councillor ?= { if = { limit = { mam_personnel_manage_talent_trigger = yes }
+
+ top_liege.primary_title = { set_variable = { name = mam_ds_enabled value = 1 } }
+
+ } } }
+
+}
+
+# Royal Favor uses the Personnel task clone's independent on_monthly effect.
+
+# Both native tasks supply councillor_liege; no invented monthly engine pulse.
+
+mam_personnel_assignment_callback = {
+
+ effect = { scope:councillor_liege ?= { mam_personnel_assignment_maintenance_effect = yes } }
+
+}
+
+yearly_playable_pulse = { on_actions = { mam_personnel_assignment_yearly } }
+
+mam_personnel_assignment_yearly = {
+
+ trigger = { mam_can_oversee_personnel_trigger = yes }
+
+ effect = { mam_personnel_assignment_maintenance_effect = yes }
+
+}
+
+
+
+on_game_start_after_lobby = { on_actions = { mam_personnel_revamp_startup } }
+
+mam_personnel_revamp_startup = {
+
+ effect = { every_player = { top_liege = { mam_personnel_assignment_maintenance_effect = yes } } }
+
+}
+
+
+# No new decisions or notification spam: an autonomous Chancellor can initialize
+# within a quarter, then holds that policy for one year unless the office changes.
+quarterly_playable_pulse = { on_actions = { mam_personnel_ai_direction_pulse } }
+mam_personnel_ai_direction_pulse = {
+ trigger = { mam_can_oversee_personnel_trigger = yes }
+ effect = { cp:councillor_chancellor ?= { mam_personnel_ai_direction_effect = yes } }
+}

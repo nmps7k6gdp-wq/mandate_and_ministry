@@ -1,0 +1,296 @@
+{
+  "source_save": "test1.ck3",
+  "sha256": "3e6855e5ca260553c4e81ad570bc002ef69f434edfb18418d8b4f24d4e6dba05",
+  "game_date": "1069.2.26",
+  "save_modified": false,
+  "projects": [
+    {
+      "id": 0,
+      "type": "strengthen_capital",
+      "status": "in_progress",
+      "completed": false,
+      "founder": 29515,
+      "contributions": {
+        "materials": {
+          "contributor": 30749,
+          "funded": true
+        },
+        "workforce": {
+          "contributor": 29515,
+          "funded": true
+        },
+        "architects": {
+          "contributor": 30031,
+          "funded": true
+        },
+        "engineers": {
+          "contributor": 31318,
+          "funded": true
+        },
+        "sculptors": {
+          "contributor": 30029,
+          "funded": true
+        },
+        "forbidden_city": {
+          "contributor": 29776,
+          "funded": true
+        }
+      },
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "value": "30031"
+        },
+        "mam_pc_last_paid_date": {
+          "type": "value",
+          "value": 389632.0
+        },
+        "mam_pc_last_paid": {
+          "type": "value",
+          "value": 375.0
+        },
+        "mam_pc_last_key": {
+          "type": "value",
+          "value": 7.0
+        },
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "value": "30031"
+        },
+        "mam_pc_approved_on": {
+          "type": "value",
+          "value": 389631.0
+        },
+        "mam_pc_approver": {
+          "type": "char",
+          "value": "34419"
+        },
+        "mam_pc_attempt_after": {
+          "type": "value",
+          "value": 99.27371
+        },
+        "mam_pc_attempt_on": {
+          "type": "value",
+          "value": 389632.0
+        },
+        "mam_pc_attempt_before": {
+          "type": "value",
+          "value": 474.27371
+        },
+        "mam_pc_attempt_price": {
+          "type": "value",
+          "value": 375.0
+        },
+        "mam_pc_attempt_key": {
+          "type": "value",
+          "value": 7.0
+        },
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "value": "30031"
+        },
+        "mam_pc_native_key": {
+          "type": "value",
+          "value": 7.0
+        },
+        "mam_pc_level": {
+          "type": "value",
+          "value": 3.0
+        },
+        "mam_pc_ceiling": {
+          "type": "value",
+          "value": 3000.0
+        },
+        "mam_pc_spent": {
+          "type": "value",
+          "value": 2875.0
+        },
+        "mam_pc_budget": {
+          "type": "value",
+          "value": 125.0
+        }
+      },
+      "last_attempt_debit": 375.0
+    },
+    {
+      "id": 3,
+      "type": "grand_campaign_project",
+      "status": "in_progress",
+      "completed": false,
+      "founder": 34419,
+      "contributions": {
+        "attack_1": {
+          "contributor": 30031,
+          "funded": true
+        },
+        "attack_2": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_3": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_4": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_5": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_6": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_7": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_8": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_9": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_10": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_11": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_12": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_13": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_14": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_15": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_16": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_17": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_18": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_19": {
+          "contributor": 4294967295,
+          "funded": false
+        },
+        "attack_20": {
+          "contributor": 4294967295,
+          "funded": false
+        }
+      },
+      "variables": {
+        "mam_pc_blocked": {
+          "type": "value",
+          "value": 1.0
+        },
+        "mam_pc_last_paid_date": {
+          "type": "value",
+          "value": 390175.0
+        },
+        "mam_pc_last_paid": {
+          "type": "value",
+          "value": 250.0
+        },
+        "mam_pc_last_key": {
+          "type": "value",
+          "value": 65.0
+        },
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "value": "30031"
+        },
+        "grand_campaign_war": {
+          "type": "war",
+          "value": "16777258"
+        },
+        "mam_pc_attempt_after": {
+          "type": "value",
+          "value": 382.45519
+        },
+        "mam_pc_attempt_on": {
+          "type": "value",
+          "value": 390238.0
+        },
+        "mam_pc_attempt_before": {
+          "type": "value",
+          "value": 382.45519
+        },
+        "mam_pc_attempt_price": {
+          "type": "value",
+          "value": 250.0
+        },
+        "mam_pc_attempt_key": {
+          "type": "value",
+          "value": 68.0
+        },
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "value": "30031"
+        },
+        "mam_pc_approved_on": {
+          "type": "value",
+          "value": 390155.0
+        },
+        "mam_pc_approver": {
+          "type": "char",
+          "value": "34419"
+        },
+        "mam_pc_launch_authorized": {
+          "type": "value",
+          "value": 1.0
+        },
+        "mam_pc_level": {
+          "type": "value",
+          "value": 3.0
+        },
+        "mam_pc_ceiling": {
+          "type": "value",
+          "value": 750.0
+        },
+        "mam_pc_spent": {
+          "type": "value",
+          "value": 250.0
+        },
+        "mam_pc_budget": {
+          "type": "value",
+          "value": 500.0
+        },
+        "grand_campaign_target_kingdom": {
+          "type": "lt",
+          "value": "14626"
+        }
+      },
+      "linked_war": {
+        "id": 16777258,
+        "exists": true,
+        "type": "grand_campaign_kingdom_invasion_cb",
+        "attacker": "30031",
+        "defender": "37253",
+        "name": "1st Song's Grand Campaign"
+      },
+      "last_attempt_debit": 0.0
+    }
+  ]
+}

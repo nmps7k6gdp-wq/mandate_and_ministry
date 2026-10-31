@@ -1,0 +1,1 @@
+﻿# Reasons are selected in event descriptions to preserve event value scopes.

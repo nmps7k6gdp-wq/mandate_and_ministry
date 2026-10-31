@@ -1,0 +1,543 @@
+# Great-project scope. Only the project stores its shared unspent ceiling.
+mam_revenue_fund_init_project_order_effect = {
+ if = { limit = { NOT = { has_variable = mam_pc_budget } }
+  set_variable = { name = mam_pc_budget value = 0 }
+  set_variable = { name = mam_pc_spent value = 0 }
+  set_variable = { name = mam_pc_ceiling value = 0 }
+  set_variable = { name = mam_pc_level value = 0 }
+  set_variable = { name = mam_pc_mobilization_paid value = 0 }
+  set_variable = { name = mam_pc_launch_authorized value = 0 }
+ }
+ if = { limit = { has_variable = mam_pc_pending }
+  if = { limit = { NOT = { exists = var:mam_pc_pending } } remove_variable = mam_pc_pending }
+  else_if = { limit = { var:mam_pc_pending = { var:mam_cf_pending = 0 } } remove_variable = mam_pc_pending }
+ }
+}
+mam_revenue_fund_refresh_project_commitments_effect = {
+ title:h_china = { set_variable = { name = mam_pc_commitments value = 0 } }
+ every_great_project = { limit = { great_project_owner = title:h_china.holder has_variable = mam_pc_budget NOT = { has_variable = mam_pc_closed } }
+  save_scope_value_as = { name = mam_cf_project_commitment value = var:mam_pc_budget }
+  title:h_china = { change_variable = { name = mam_pc_commitments add = scope:mam_cf_project_commitment } }
+ }
+}
+# Character scope; all native contribution helpers receive the same scopes.
+mam_revenue_fund_bind_project_context_effect = {
+ scope:mam_cf_selected_project = {
+  save_scope_as = great_project
+  great_project_owner = { save_scope_as = owner }
+  great_project_founder ?= { save_scope_as = founder }
+  great_project_location = { save_scope_as = province }
+ }
+}
+# Character event root is the actual contributor. Discovery deliberately omits
+# the old cash/allowance guard; native affordability is rechecked after advance.
+mam_revenue_fund_find_project_invoice_effect = {
+ save_scope_as = mam_cf_contributor
+ clear_saved_scope = mam_cf_pick_project clear_saved_scope = mam_cf_pick_slot
+ save_scope_value_as = { name = mam_cf_pick_score value = 0 }
+ every_great_project = { limit = { great_project_owner = title:h_china.holder NOT = { has_variable = mam_pc_closed } }
+  mam_revenue_fund_init_project_order_effect = yes
+  save_scope_as = mam_cf_selected_project
+  scope:mam_cf_contributor = { mam_revenue_fund_bind_project_context_effect = yes }
+  every_contribution = { limit = { contribution_is_funded = no }
+   save_scope_as = mam_cf_contribution save_scope_as = contribution
+   scope:mam_cf_contributor = {
+    mam_revenue_fund_bind_invoice_effect = yes
+    if = { limit = {
+     scope:mam_cf_invoice_eligible = 1 scope:mam_cf_invoice_price > 0
+     trigger_if = { limit = { has_variable = mam_pc_wanted_project }
+      var:mam_pc_wanted_project = scope:mam_cf_selected_project
+      var:mam_pc_wanted_key = scope:mam_cf_invoice_key
+     }
+     OR = {
+      has_variable = mam_pc_wanted_project
+      AND = { is_ai = yes OR = {
+       scope:mam_cf_contribution = { contribution_is_required = yes }
+       AND = { scope:mam_cf_invoice_weight > 0 OR = {
+        NOT = { has_variable = mam_pc_next_optional } var:mam_pc_next_optional <= current_date
+       } }
+      } }
+      AND = { has_title = title:e_minister_grand_marshal
+       scope:mam_cf_selected_project = { mam_revenue_fund_project_launch_needed_trigger = yes }
+       scope:mam_cf_contribution = { contribution_id = attack_1 }
+      }
+     }
+    }
+     save_scope_value_as = { name = mam_cf_invoice_score value = { value = scope:mam_cf_invoice_weight min = 1 max = 500 } }
+     if = { limit = { scope:mam_cf_contribution = { contribution_is_required = yes } }
+      save_scope_value_as = { name = mam_cf_invoice_score value = { value = scope:mam_cf_invoice_score add = 1000 } }
+     }
+     if = { limit = { scope:mam_cf_selected_project = { great_project_type = grand_campaign_project }
+      scope:mam_cf_contribution = { contribution_id = attack_1 } }
+      save_scope_value_as = { name = mam_cf_invoice_score value = { value = scope:mam_cf_invoice_score add = 10000 } }
+     }
+     if = { limit = { scope:mam_cf_invoice_score > scope:mam_cf_pick_score }
+      scope:mam_cf_selected_project = { save_scope_as = mam_cf_pick_project }
+      scope:mam_cf_contribution = { save_scope_as = mam_cf_pick_slot }
+      save_scope_value_as = { name = mam_cf_pick_score value = scope:mam_cf_invoice_score }
+      save_scope_value_as = { name = mam_cf_pick_key value = scope:mam_cf_invoice_key }
+      save_scope_value_as = { name = mam_cf_pick_price value = scope:mam_cf_invoice_price }
+     }
+    }
+   }
+  }
+ }
+ if = { limit = { exists = scope:mam_cf_pick_project }
+  scope:mam_cf_pick_project = { save_scope_as = mam_cf_selected_project }
+  scope:mam_cf_pick_slot = { save_scope_as = mam_cf_contribution save_scope_as = contribution }
+  mam_revenue_fund_bind_project_context_effect = yes
+  mam_revenue_fund_bind_invoice_effect = yes
+ }
+}
+mam_revenue_fund_quote_project_budget_effect = {
+ save_scope_as = mam_cf_contributor
+ save_scope_value_as = { name = mam_cf_required_total value = 0 }
+ scope:mam_cf_selected_project = {
+  every_contribution = { limit = { contribution_is_required = yes contribution_is_funded = no }
+   save_scope_as = mam_cf_contribution save_scope_as = contribution
+   scope:mam_cf_contributor = { mam_revenue_fund_bind_invoice_effect = yes
+    if = { limit = { scope:mam_cf_invoice_eligible = 1 }
+     save_scope_value_as = { name = mam_cf_required_total value = { value = scope:mam_cf_required_total add = scope:mam_cf_invoice_price } }
+    }
+   }
+  }
+ }
+ save_scope_value_as = { name = mam_cf_budget_quote value = {
+  value = great_project_base_contribution_cost multiply = 2 add = scope:mam_cf_required_total
+  min = scope:mam_cf_pick_price min = scope:mam_cf_selected_project.var:mam_pc_budget
+ } }
+ save_scope_value_as = { name = mam_cf_mobilization_quote value = 0 }
+ if = { limit = { scope:mam_cf_selected_project = { mam_revenue_fund_project_launch_needed_trigger = yes }
+  has_title = title:e_minister_grand_marshal scope:mam_cf_selected_project.var:mam_pc_mobilization_paid = 0 }
+  save_scope_value_as = { name = mam_cf_mobilization_quote value = { value = major_treasury_value
+   subtract = { value = treasury subtract = primary_title.mam_revenue_fund_cash_target min = 0 } min = 0 } }
+  save_scope_value_as = { name = mam_cf_budget_quote value = { value = scope:mam_cf_budget_quote add = scope:mam_cf_mobilization_quote } }
+ }
+ scope:mam_cf_pick_slot = { save_scope_as = mam_cf_contribution save_scope_as = contribution }
+ mam_revenue_fund_bind_invoice_effect = yes
+}
+# K13 joins the existing actor-lease queue, but identity/deduplication belongs to
+# the project. It never writes the old title's mam_cf_case_9 allowance slot.
+mam_revenue_fund_open_project_budget_effect = {
+ save_scope_as = mam_cf_budget_requester
+ scope:mam_cf_selected_project = { mam_revenue_fund_init_project_order_effect = yes }
+ if = { limit = { mam_revenue_fund_invoice_needs_budget_trigger = yes
+  scope:mam_cf_selected_project = { NOT = { has_variable = mam_pc_pending }
+   OR = { NOT = { has_variable = mam_pc_retry_after } var:mam_pc_retry_after <= current_date } }
+ }
+  mam_revenue_fund_quote_project_budget_effect = yes
+  title:h_china.holder = { create_story = { type = mam_revenue_fund_story save_scope_as = mam_cf_created } }
+  if = { limit = { exists = scope:mam_cf_created }
+   title:h_china = { change_variable = { name = mam_cf_serial add = 1 }
+    add_to_variable_list = { name = mam_cf_cases target = scope:mam_cf_created } }
+   scope:mam_cf_selected_project = { set_variable = { name = mam_pc_pending value = scope:mam_cf_created } }
+   scope:mam_cf_created = {
+    set_variable = { name = mam_cf_kind value = 13 }
+    set_variable = { name = mam_cf_target value = title:h_china }
+    set_variable = { name = mam_cf_snapshot value = title:h_china.holder }
+    set_variable = { name = mam_cf_requester value = scope:mam_cf_budget_requester }
+    set_variable = { name = mam_pc_request_office value = scope:mam_cf_budget_requester.primary_title }
+    set_variable = { name = mam_cf_emperor value = title:h_china.holder }
+    set_variable = { name = mam_cf_revenue value = title:e_minister_of_revenue.holder }
+    set_variable = { name = mam_cf_project_instance value = scope:mam_cf_selected_project }
+    set_variable = { name = mam_cf_amount value = scope:mam_cf_budget_quote }
+    set_variable = { name = mam_cf_cost value = 0 }
+    set_variable = { name = mam_cf_headroom value = 0 }
+    set_variable = { name = mam_cf_mode value = 0 }
+    set_variable = { name = mam_cf_pending value = 1 }
+    set_variable = { name = mam_cf_stage value = 0 }
+    set_variable = { name = mam_cf_generation value = 0 }
+    set_variable = { name = mam_cf_serial value = title:h_china.var:mam_cf_serial }
+    set_variable = { name = mam_cf_created value = current_date }
+    set_variable = { name = mam_pc_minimum value = scope:mam_cf_pick_price }
+    set_variable = { name = mam_pc_mobilization_quote value = scope:mam_cf_mobilization_quote }
+    if = { limit = { scope:mam_cf_pick_slot = { contribution_is_required = yes } }
+     set_variable = { name = mam_pc_required_invoice value = 1 }
+    }
+    if = { limit = { scope:mam_cf_selected_project = { great_project_type = grand_campaign_project } }
+     set_variable = { name = mam_cf_explicit_imperial value = 1 }
+     set_variable = { name = mam_cf_stage value = 1 }
+     if = { limit = { scope:mam_cf_selected_project = {
+      mam_revenue_fund_project_launch_needed_trigger = yes var:mam_pc_launch_authorized = 0 } }
+      set_variable = { name = mam_pc_campaign_launch value = 1 }
+     }
+    }
+    else_if = { limit = { scope:mam_cf_budget_requester = { OR = {
+     mam_revenue_reserved_ministry_trigger = yes has_title = title:e_minister_of_revenue } } }
+     set_variable = { name = mam_cf_explicit_imperial value = 1 }
+    }
+   }
+   title:h_china.holder = { mam_revenue_fund_wake_effect = yes }
+   if = { limit = { is_ai = no }
+    send_interface_toast = { type = event_toast_effect_good title = mam_pc.budget_submitted
+     left_icon = root right_icon = title:e_minister_of_revenue.holder
+     custom_tooltip = mam_pc.budget_submitted_tt }
+   }
+  }
+ }
+ else_if = { limit = { is_ai = no } trigger_event = mam_fund.34 }
+}
+mam_revenue_fund_commit_project_budget_effect = {
+ mam_revenue_fund_refresh_totals_effect = yes
+ save_scope_as = mam_cf_budget_file
+ if = { limit = { mam_revenue_fund_live_case_trigger = yes mam_revenue_fund_project_request_covered_trigger = yes }
+  mam_revenue_fund_close_effect = { RESULT = 1 }
+  debug_log = "MAM_PROJECT_BUDGET: duplicate covered request closed without reapproval or payment"
+ }
+ else_if = { limit = { mam_revenue_fund_live_case_trigger = yes exists = var:mam_cf_authorized
+  var:mam_cf_amount >= var:mam_pc_minimum
+  var:mam_cf_project_instance = { var:mam_pc_pending = scope:mam_cf_budget_file }
+  var:mam_cf_amount <= { value = title:h_china.mam_revenue_fund_available add = var:mam_cf_project_instance.var:mam_pc_budget }
+  OR = {
+   var:mam_cf_authorized = title:h_china.holder
+   AND = { mam_revenue_fund_imperial_trigger = no exists = title:e_minister_chancellor.holder
+    var:mam_cf_authorized = title:e_minister_chancellor.holder title:e_minister_chancellor.holder = { mam_revenue_chancellor_trigger = yes } }
+   AND = { mam_revenue_fund_delegated_trigger = yes
+    var:mam_cf_authorized = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes } }
+  }
+ }
+  var:mam_cf_project_instance = {
+   set_variable = { name = mam_pc_budget value = scope:mam_cf_budget_file.var:mam_cf_amount }
+   set_variable = { name = mam_pc_ceiling value = { value = var:mam_pc_budget add = var:mam_pc_spent } }
+   set_variable = { name = mam_pc_approver value = scope:mam_cf_budget_file.var:mam_cf_authorized }
+   set_variable = { name = mam_pc_approved_on value = current_date }
+   if = { limit = { scope:mam_cf_budget_file.var:mam_cf_authorized = title:h_china.holder }
+    set_variable = { name = mam_pc_level value = 3 }
+   }
+   else_if = { limit = { scope:mam_cf_budget_file.var:mam_cf_authorized = title:e_minister_chancellor.holder }
+    set_variable = { name = mam_pc_level value = 2 }
+   }
+   else = { set_variable = { name = mam_pc_level value = 1 } }
+   if = { limit = { scope:mam_cf_budget_file = { has_variable = mam_pc_campaign_launch } }
+    set_variable = { name = mam_pc_launch_authorized value = 1 }
+    set_variable = { name = mam_pc_mobilization_reserved value = {
+     value = scope:mam_cf_budget_file.var:mam_pc_mobilization_quote
+     max = { value = var:mam_pc_budget subtract = scope:mam_cf_budget_file.var:mam_pc_minimum min = 0 }
+    } }
+   }
+   remove_variable = mam_pc_retry_after
+  }
+  mam_revenue_fund_close_effect = { RESULT = 1 }
+  debug_log = "MAM_PROJECT_BUDGET: approved institutionally; no cash transfer at approval"
+  mam_revenue_fund_notify_effect = yes
+  mam_revenue_fund_refresh_totals_effect = yes
+  @DISPATCH_MEMBERS@
+ }
+ else = {
+  mam_revenue_fund_close_effect = { RESULT = 3 } mam_revenue_fund_notify_effect = yes
+ }
+}
+# Native on_contribution_funded callback; contributor remains the actual office
+# holder. This is the proof of native execution, not a second treasury charge.
+mam_revenue_fund_native_invoice_receipt_effect = {
+ if = { limit = { primary_title = { has_variable = mam_pc_executing_project var:mam_pc_executing_project = scope:great_project } }
+  if = { limit = { primary_title = { var:mam_pc_executing_legacy = 1 } }
+   save_scope_value_as = { name = mam_cf_native_cost value = $COST$ }
+   primary_title = { change_variable = { name = mam_cf_project_cash subtract = scope:mam_cf_native_cost } }
+  }
+  save_scope_as = mam_cf_receipted_contributor
+  scope:great_project = {
+   set_variable = { name = mam_pc_native_actor value = scope:mam_cf_receipted_contributor }
+   set_variable = { name = mam_pc_native_key value = scope:mam_cf_receipted_contributor.primary_title.var:mam_pc_executing_key }
+  }
+ }
+ else_if = { limit = { primary_title = { has_variable = mam_cf_project_instance var:mam_cf_project_instance = scope:great_project has_variable = mam_cf_project_cash } }
+  save_scope_value_as = { name = mam_cf_native_cost value = $COST$ }
+  primary_title = { change_variable = { name = mam_cf_project_cash subtract = scope:mam_cf_native_cost } }
+ }
+}
+mam_revenue_fund_execute_project_invoice_effect = {
+ if = { limit = { mam_revenue_fund_project_invoice_actor_trigger = yes
+  OR = { mam_revenue_fund_invoice_budget_sufficient_trigger = yes mam_revenue_fund_legacy_invoice_available_trigger = yes } treasury >= 0
+  exists = scope:mam_cf_pick_slot
+  scope:mam_cf_pick_slot = { contribution_is_funded = no }
+ }
+  scope:mam_cf_pick_slot = { save_scope_as = mam_cf_contribution save_scope_as = contribution }
+  mam_revenue_fund_bind_project_context_effect = yes
+  mam_revenue_fund_bind_invoice_effect = yes
+  save_scope_value_as = { name = mam_cf_execute_price value = scope:mam_cf_invoice_price }
+  save_scope_value_as = { name = mam_cf_using_legacy value = 0 }
+  if = { limit = { mam_revenue_fund_legacy_invoice_available_trigger = yes }
+   save_scope_value_as = { name = mam_cf_using_legacy value = 1 }
+  }
+  save_scope_as = mam_cf_executing_contributor
+  if = { limit = { scope:mam_cf_invoice_eligible = 1 scope:mam_cf_execute_price > 0
+   scope:mam_cf_selected_project = { NOT = { has_variable = mam_pc_executing } }
+   OR = { scope:mam_cf_using_legacy = 1 mam_revenue_fund_invoice_budget_sufficient_trigger = yes }
+  }
+   scope:mam_cf_selected_project = {
+    set_variable = { name = mam_pc_executing value = scope:mam_cf_executing_contributor }
+    set_variable = { name = mam_pc_native_key value = 0 }
+    remove_variable = mam_pc_native_actor
+   }
+   scope:mam_cf_selected_project = { remove_variable = mam_pc_cash_shortfall }
+   mam_revenue_fund_release_mobilization_effect = yes
+   # Do not launch with an approved but unpaid mobilization provision.
+   if = { limit = { scope:mam_cf_selected_project = { OR = {
+    NOT = { has_variable = mam_pc_mobilization_reserved }
+    var:mam_pc_mobilization_reserved <= 0 var:mam_pc_mobilization_paid = 1
+   } } }
+   mam_revenue_fund_refresh_totals_effect = yes
+   save_scope_value_as = { name = mam_cf_invoice_before value = treasury }
+   save_scope_value_as = { name = mam_cf_advance value = 0 }
+   save_scope_value_as = { name = mam_cf_paid value = 0 }
+   save_scope_value_as = { name = mam_cf_uncertain value = 0 }
+   save_scope_value_as = { name = mam_cf_amount value = scope:mam_cf_execute_price }
+   save_scope_value_as = { name = mam_cf_floor value = {
+    value = title:e_minister_of_revenue.mam_revenue_fund_cash_target add = title:h_china.var:mam_cf_reserve
+    add = title:h_china.var:mam_cf_unfunded add = title:h_china.var:mam_pc_commitments
+    subtract = scope:mam_cf_selected_project.var:mam_pc_budget min = 0
+   } }
+   title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payer }
+   save_scope_as = mam_cf_payee
+   if = { limit = { scope:mam_cf_using_legacy = 1 }
+    save_scope_value_as = { name = mam_cf_paid value = scope:mam_cf_amount }
+   }
+   else_if = { limit = { this = scope:mam_cf_payer }
+    if = { limit = { treasury >= { value = scope:mam_cf_amount add = scope:mam_cf_floor } }
+     save_scope_value_as = { name = mam_cf_paid value = scope:mam_cf_amount }
+    }
+   }
+   else = {
+    mam_revenue_fund_transfer_effect = yes
+    save_scope_value_as = { name = mam_cf_advance value = scope:mam_cf_paid }
+   }
+   if = { limit = { scope:mam_cf_paid > 0 }
+    primary_title = {
+     set_variable = { name = mam_pc_executing_project value = scope:mam_cf_selected_project }
+     set_variable = { name = mam_pc_executing_legacy value = scope:mam_cf_using_legacy }
+     set_variable = { name = mam_pc_executing_key value = scope:mam_cf_invoice_key }
+    }
+    save_scope_value_as = { name = mam_cf_invoice_budget_move value = 0 }
+    if = { limit = { is_ai = yes }
+     save_scope_value_as = { name = mam_cf_invoice_budget_move value = {
+      value = scope:mam_cf_execute_price subtract = long_term_treasury min = 0 max = short_term_treasury min = 0
+     } }
+     if = { limit = { scope:mam_cf_invoice_budget_move > 0 }
+      move_budget_treasury = { treasury = scope:mam_cf_invoice_budget_move from = budget_short_term to = budget_long_term }
+     }
+    }
+    save_scope_value_as = { name = mam_cf_native_before value = treasury }
+    scope:mam_cf_selected_project = {
+     set_variable = { name = mam_pc_attempt_actor value = scope:mam_cf_executing_contributor }
+     set_variable = { name = mam_pc_attempt_key value = scope:mam_cf_invoice_key }
+     set_variable = { name = mam_pc_attempt_price value = scope:mam_cf_execute_price }
+     set_variable = { name = mam_pc_attempt_before value = scope:mam_cf_native_before }
+     set_variable = { name = mam_pc_attempt_on value = current_date }
+    }
+    # Use the engine's complete affordability/cooldown/eligibility checks only
+    # after the advance and execution token exist. Governors never use this token.
+    if = { limit = { can_fund_project_contribution = scope:mam_cf_pick_slot }
+     fund_great_project_contribution = { contribution = scope:mam_cf_pick_slot cost = yes check_can_contribute = yes }
+    }
+    primary_title = { remove_variable = mam_pc_executing_project remove_variable = mam_pc_executing_legacy remove_variable = mam_pc_executing_key }
+    save_scope_value_as = { name = mam_cf_native_after value = treasury }
+    scope:mam_cf_selected_project = { set_variable = { name = mam_pc_attempt_after value = scope:mam_cf_native_after } }
+    if = { limit = {
+     scope:mam_cf_pick_slot = { contribution_is_funded = yes }
+     scope:mam_cf_selected_project = { var:mam_pc_native_actor = scope:mam_cf_executing_contributor var:mam_pc_native_key = scope:mam_cf_invoice_key }
+     treasury <= { value = scope:mam_cf_native_before subtract = scope:mam_cf_execute_price add = 0.01 }
+    }
+     scope:mam_cf_selected_project = {
+      if = { limit = { var:mam_pc_budget >= scope:mam_cf_execute_price }
+       change_variable = { name = mam_pc_budget subtract = scope:mam_cf_execute_price }
+      }
+      change_variable = { name = mam_pc_spent add = scope:mam_cf_execute_price }
+      set_variable = { name = mam_pc_last_contributor value = scope:mam_cf_executing_contributor }
+      set_variable = { name = mam_pc_last_key value = scope:mam_cf_invoice_key }
+      set_variable = { name = mam_pc_last_paid value = scope:mam_cf_execute_price }
+      set_variable = { name = mam_pc_last_paid_date value = current_date }
+      remove_variable = mam_pc_blocked
+     }
+     if = { limit = { scope:mam_cf_pick_slot = { contribution_is_required = no } }
+      set_variable = { name = mam_pc_next_optional value = { value = current_date add = 30 } }
+     }
+     remove_variable = mam_pc_wanted_project remove_variable = mam_pc_wanted_key
+     mam_revenue_fund_record_invoice_effect = yes
+     if = { limit = { is_ai = no }
+      send_interface_toast = { type = event_toast_effect_good title = mam_pc.invoice_paid
+       left_icon = scope:mam_cf_executing_contributor.primary_title right_icon = scope:mam_cf_executing_contributor
+       custom_tooltip = mam_pc.invoice_paid_tt }
+     }
+    }
+    else = {
+     scope:mam_cf_selected_project = { set_variable = { name = mam_pc_blocked value = 1 } }
+     # A successful native pledge without matching readings must not be retried.
+     if = { limit = { scope:mam_cf_pick_slot = { contribution_is_funded = yes } }
+      primary_title = { set_variable = { name = mam_cf_payment_hold value = 1 } }
+      debug_log = "MAM_PROJECT_INVOICE: native slot funded but cash/receipt uncertain; account held; no retry"
+      if = { limit = { treasury > { value = scope:mam_cf_native_before subtract = scope:mam_cf_execute_price add = 0.01 } }
+       debug_log = "MAM_PROJECT_INVOICE: native treasury debit is below the quoted invoice price"
+      }
+      if = { limit = { scope:mam_cf_selected_project = { NOT = { has_variable = mam_pc_native_actor } } }
+       debug_log = "MAM_PROJECT_INVOICE: native callback actor proof missing"
+      }
+     }
+     else = {
+      if = { limit = { scope:mam_cf_invoice_budget_move > 0 }
+       move_budget_treasury = { treasury = scope:mam_cf_invoice_budget_move from = budget_long_term to = budget_short_term }
+      }
+      if = { limit = { scope:mam_cf_advance > 0 }
+      save_scope_as = mam_cf_payer
+      title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payee }
+      save_scope_value_as = { name = mam_cf_floor value = scope:mam_cf_invoice_before }
+      save_scope_value_as = { name = mam_cf_amount value = scope:mam_cf_advance }
+      mam_revenue_fund_transfer_effect = yes
+      if = { limit = { scope:mam_cf_paid < scope:mam_cf_advance }
+       primary_title = { set_variable = { name = mam_cf_payment_hold value = 1 } }
+       debug_log = "MAM_PROJECT_INVOICE: unused advance could not be fully reconciled; no retry"
+      }
+      }
+     }
+     set_variable = { name = mam_pc_retry_invoice value = { value = current_date add = 7 } }
+     if = { limit = { is_ai = no } trigger_event = mam_fund.34 }
+    }
+   }
+   else = {
+    scope:mam_cf_selected_project = { set_variable = { name = mam_pc_cash_shortfall value = 1 } }
+    set_variable = { name = mam_pc_retry_invoice value = { value = current_date add = 7 } }
+    if = { limit = { is_ai = no } trigger_event = mam_fund.34 }
+   }
+   }
+   else = {
+    scope:mam_cf_selected_project = { set_variable = { name = mam_pc_cash_shortfall value = 1 } }
+    set_variable = { name = mam_pc_retry_invoice value = { value = current_date add = 7 } }
+    if = { limit = { is_ai = no } trigger_event = mam_fund.34 }
+   }
+   scope:mam_cf_selected_project = { remove_variable = mam_pc_executing
+    if = { limit = { has_variable = mam_pc_closed } set_variable = { name = mam_pc_budget value = 0 } }
+   }
+   mam_revenue_fund_refresh_totals_effect = yes
+  }
+  else_if = { limit = { mam_revenue_fund_invoice_needs_budget_trigger = yes }
+   # Prices can change while a human launch window remains open. Seek an
+   # amendment instead of spending against the stale displayed budget.
+   mam_revenue_fund_open_project_budget_effect = yes
+  }
+ }
+}
+mam_revenue_fund_release_mobilization_effect = {
+ if = { limit = { has_title = title:e_minister_grand_marshal
+  scope:mam_cf_selected_project = { great_project_type = grand_campaign_project var:mam_pc_launch_authorized = 1
+   var:mam_pc_mobilization_paid = 0 has_variable = mam_pc_mobilization_reserved var:mam_pc_mobilization_reserved > 0
+   var:mam_pc_budget >= var:mam_pc_mobilization_reserved }
+ }
+  mam_revenue_fund_refresh_totals_effect = yes
+  save_scope_value_as = { name = mam_cf_amount value = scope:mam_cf_selected_project.var:mam_pc_mobilization_reserved }
+  save_scope_value_as = { name = mam_cf_floor value = {
+   value = title:e_minister_of_revenue.mam_revenue_fund_cash_target add = title:h_china.var:mam_cf_reserve
+   add = title:h_china.var:mam_cf_unfunded add = title:h_china.var:mam_pc_commitments
+   subtract = scope:mam_cf_selected_project.var:mam_pc_budget min = 0
+  } }
+  title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payer }
+  save_scope_as = mam_cf_payee
+  mam_revenue_fund_transfer_effect = yes
+  if = { limit = { scope:mam_cf_paid > 0 }
+   primary_title = {
+    set_variable = { name = mam_pc_mobilization_project value = scope:mam_cf_selected_project }
+    set_variable = { name = mam_pc_mobilization_amount value = scope:mam_cf_paid }
+    set_variable = { name = mam_pc_mobilization_until value = { value = current_date add = 90 } }
+   }
+   scope:mam_cf_selected_project = {
+    change_variable = { name = mam_pc_budget subtract = scope:mam_cf_paid }
+    change_variable = { name = mam_pc_spent add = scope:mam_cf_paid }
+    set_variable = { name = mam_pc_mobilization_paid value = 1 }
+   }
+  }
+ }
+}
+mam_revenue_fund_record_invoice_effect = {
+ title:h_china.holder = { create_story = { type = mam_revenue_project_receipt_story save_scope_as = mam_cf_invoice_receipt } }
+ if = { limit = { exists = scope:mam_cf_invoice_receipt }
+  scope:mam_cf_invoice_receipt = {
+   set_variable = { name = mam_pc_actor value = scope:mam_cf_executing_contributor }
+   set_variable = { name = mam_pc_actor_title value = scope:mam_cf_executing_contributor.primary_title }
+   set_variable = { name = mam_pc_project value = scope:mam_cf_selected_project }
+   set_variable = { name = mam_pc_key value = scope:mam_cf_invoice_key }
+   set_variable = { name = mam_pc_amount value = scope:mam_cf_execute_price }
+   set_variable = { name = mam_pc_prepaid_legacy value = scope:mam_cf_using_legacy }
+   set_variable = { name = mam_pc_date value = current_date }
+   if = { limit = { scope:mam_cf_selected_project = { has_variable = mam_pc_approver } }
+    set_variable = { name = mam_pc_approver value = scope:mam_cf_selected_project.var:mam_pc_approver }
+   }
+  }
+  title:h_china = { add_to_variable_list = { name = mam_pc_receipts target = scope:mam_cf_invoice_receipt } }
+ }
+}
+mam_revenue_fund_process_project_invoice_effect = {
+ if = { limit = { exists = scope:mam_cf_pick_project }
+  scope:mam_cf_pick_project = { save_scope_as = mam_cf_selected_project }
+  scope:mam_cf_pick_slot = { save_scope_as = mam_cf_contribution save_scope_as = contribution }
+  mam_revenue_fund_bind_project_context_effect = yes
+  mam_revenue_fund_bind_invoice_effect = yes
+  if = { limit = { mam_revenue_fund_project_invoice_actor_trigger = yes }
+   if = { limit = { scope:mam_cf_invoice_eligible = 1 scope:mam_cf_pick_slot = { contribution_is_funded = no }
+    OR = {
+     mam_revenue_fund_legacy_invoice_available_trigger = yes
+     mam_revenue_fund_invoice_budget_sufficient_trigger = yes
+    } }
+    if = { limit = { is_ai = no has_title = title:e_minister_grand_marshal
+     scope:mam_cf_selected_project = { mam_revenue_fund_project_launch_needed_trigger = yes }
+     scope:mam_cf_pick_slot = { contribution_id = attack_1 }
+    }
+     if = { limit = { OR = { NOT = { has_variable = mam_pc_launch_prompt }
+      var:mam_pc_launch_prompt != scope:mam_cf_selected_project } }
+      set_variable = { name = mam_pc_launch_prompt value = scope:mam_cf_selected_project }
+      trigger_event = mam_fund.35
+     }
+    }
+    else = { mam_revenue_fund_execute_project_invoice_effect = yes }
+   }
+   else = { mam_revenue_fund_open_project_budget_effect = yes }
+  }
+ }
+}
+# Existing project picker hands its selected instance to this one continuation.
+mam_revenue_fund_choose_invoice_effect = {
+ save_scope_as = mam_cf_contributor
+ clear_saved_scope = mam_cf_menu_slot_one clear_saved_scope = mam_cf_menu_slot_two clear_saved_scope = mam_cf_menu_slot_three
+ if = { limit = { NOT = { has_variable = mam_pc_menu_offset } } set_variable = { name = mam_pc_menu_offset value = 0 } }
+ mam_revenue_fund_bind_project_context_effect = yes
+ scope:mam_cf_selected_project = { mam_revenue_fund_init_project_order_effect = yes }
+ save_scope_value_as = { name = mam_cf_project_remaining value = scope:mam_cf_selected_project.var:mam_pc_budget }
+ save_scope_value_as = { name = mam_cf_project_spent value = scope:mam_cf_selected_project.var:mam_pc_spent }
+ @BUILD_INVOICE_PICKER@
+ if = { limit = { exists = scope:mam_cf_menu_slot_one }
+  trigger_event = mam_fund.32
+ }
+ else = { trigger_event = mam_fund.34 }
+}
+mam_revenue_fund_project_driver_effect = {
+ if = { limit = { mam_revenue_emperor_trigger = yes mam_revenue_fund_ready_trigger = yes
+  OR = { title:h_china = { NOT = { has_variable = mam_pc_next_scan } } title:h_china.var:mam_pc_next_scan <= current_date }
+ }
+  title:h_china = { set_variable = { name = mam_pc_next_scan value = { value = current_date add = 7 } } }
+  @DISPATCH_MEMBERS@
+ }
+}
+# Title scope, on project closure or a lost native project pointer. Repay only
+# actual unspent mobilization cash beyond the remaining operating requirements.
+mam_revenue_fund_return_mobilization_effect = {
+ if = { limit = { exists = holder has_variable = mam_pc_mobilization_amount }
+  save_scope_value_as = { name = mam_cf_mobilization_original value = var:mam_pc_mobilization_amount }
+  set_variable = { name = mam_pc_mobilization_amount value = 0 }
+  save_scope_value_as = { name = mam_cf_amount value = {
+   value = holder.treasury subtract = mam_revenue_fund_cash_target min = 0 max = scope:mam_cf_mobilization_original
+  } }
+  if = { limit = { exists = title:e_minister_of_revenue.holder }
+   holder = { save_scope_as = mam_cf_payer }
+   title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payee }
+   save_scope_value_as = { name = mam_cf_floor value = mam_revenue_fund_cash_target }
+   mam_revenue_fund_transfer_effect = yes
+  }
+  remove_variable = mam_pc_mobilization_amount remove_variable = mam_pc_mobilization_project remove_variable = mam_pc_mobilization_until
+ }
+}
+mam_revenue_fund_project_order_closed_effect = {
+ if = { limit = { has_variable = mam_pc_budget }
+ save_scope_as = mam_cf_closed_project
+ set_variable = { name = mam_pc_closed value = 1 }
+ if = { limit = { NOT = { has_variable = mam_pc_executing } } set_variable = { name = mam_pc_budget value = 0 } }
+ @RETURN_MOBILIZATION@
+ }
+}

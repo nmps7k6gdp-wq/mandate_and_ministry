@@ -1,0 +1,45 @@
+﻿namespace = mam_personnel_revamp
+mam_personnel_revamp.1 = {
+ type = character_event theme = merit title = mam_personnel_revamp.review_title desc = mam_personnel_revamp.review_desc
+ left_portrait = { character = scope:mam_review_official }
+ option = {
+ name = mam_personnel_revamp.endorse
+ trigger = { mam_personnel_manage_talent_trigger = yes scope:mam_review_official = { is_alive = yes is_landed = yes top_liege = root.top_liege
+ NOT = { has_character_modifier = mam_personnel_service_endorsement }
+ primary_title = { mam_service_evidence_trigger = yes mam_service_concern_value = 0 mam_service_improvement_value > 0 }
+ } }
+ custom_tooltip = mam_personnel_revamp.endorse_tt
+ hidden_effect = { scope:mam_review_official = { mam_update_one_dossier_effect = yes
+ if = { limit = { is_alive = yes top_liege = root.top_liege primary_title = { mam_service_evidence_trigger = yes mam_service_concern_value = 0 mam_service_improvement_value > 0 } }
+ set_variable = { name = mam_personnel_endorsement_realm value = top_liege.primary_title }
+ set_variable = { name = mam_personnel_endorsement_rank value = primary_title.tier }
+ add_character_modifier = { modifier = mam_personnel_service_endorsement years = 3 }
+ remove_character_modifier = mam_personnel_poor_service
+ } } }
+ }
+ option = { name = mam_personnel_revamp.record_concern
+ trigger = { mam_personnel_manage_talent_trigger = yes scope:mam_review_official = { is_alive = yes is_landed = yes top_liege = root.top_liege
+ NOT = { has_character_modifier = mam_personnel_poor_service }
+ primary_title = { mam_service_evidence_trigger = yes NOT = { has_variable = mam_ds_war_observed } mam_service_concern_value > 0 } } }
+ custom_tooltip = mam_personnel_revamp.concern_tt
+ if = { limit = { has_trait = compassionate } show_as_tooltip = { stress_impact = { compassionate = 10 } } }
+ hidden_effect = { scope:mam_review_official = {
+ mam_update_one_dossier_effect = yes
+ if = { limit = { is_alive = yes top_liege = root.top_liege primary_title = { mam_service_evidence_trigger = yes NOT = { has_variable = mam_ds_war_observed } mam_service_concern_value > 0 } }
+ set_variable = { name = mam_personnel_assessment_realm value = top_liege.primary_title }
+ add_character_modifier = { modifier = mam_personnel_poor_service years = 3 }
+ remove_character_modifier = mam_personnel_service_endorsement
+ root = { stress_impact = { compassionate = 10 } }
+ } } }
+ }
+ option = { name = mam_personnel_revamp.dossier
+ trigger = { mam_personnel_manage_talent_trigger = yes scope:mam_review_official = { is_alive = yes top_liege = root.top_liege } }
+ hidden_effect = { scope:mam_review_official = { save_scope_as = mam_dossier_governor } save_scope_value_as = { name = mam_dossier_return value = 0 } mam_prepare_dossier_report_effect = yes trigger_event = mam_personnel.0060 }
+ }
+ option = { name = mam_personnel_revamp.credentials
+ trigger = { mam_personnel_manage_talent_trigger = yes scope:mam_review_official = { is_alive = yes top_liege = root.top_liege } }
+ hidden_effect = { mam_resolve_register_authority_effect = yes scope:mam_review_official = { save_scope_as = mam_inspected }
+ save_scope_value_as = { name = mam_credentials_origin value = 0 } trigger_event = mam_personnel.0010 }
+ }
+ option = { name = mam_personnel_revamp.observe }
+}

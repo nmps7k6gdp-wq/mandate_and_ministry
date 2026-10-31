@@ -1,0 +1,44 @@
+﻿mam_mark_upper_ministry_candidate_interaction = {
+ category = interaction_category_ministry icon = scroll_scales
+ desc = mam_mark_upper_ministry_candidate_interaction_desc
+ common_interaction = yes auto_accept = yes ai_frequency = 0 interface_priority = 45
+ is_shown = {
+  scope:actor = { is_ai = no mam_ministry_upper_authority_trigger = yes }
+  scope:recipient = { is_alive = yes is_adult = yes this != scope:actor this != scope:actor.top_liege top_liege = scope:actor.top_liege }
+ }
+ is_valid = { scope:recipient = { OR = { tgp_can_be_a_minister_trigger = { COURT_OWNER = scope:actor } tgp_can_be_grand_marshal_trigger = { COURT_OWNER = scope:actor } } } }
+ on_accept = { scope:actor = { set_variable = { name = mam_marked_upper_ministry_candidate value = scope:recipient } } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_clear_upper_ministry_candidate_interaction = {
+ category = interaction_category_ministry icon = scroll_scales
+ desc = mam_clear_ministry_candidate_desc
+ common_interaction = yes auto_accept = yes ai_frequency = 0 interface_priority = 44
+ is_shown = {
+  scope:actor = { is_ai = no mam_ministry_upper_authority_trigger = yes exists = var:mam_marked_upper_ministry_candidate var:mam_marked_upper_ministry_candidate = scope:recipient }
+ }
+ on_accept = { scope:actor = { remove_variable = mam_marked_upper_ministry_candidate } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_mark_lower_ministry_candidate_interaction = {
+ category = interaction_category_ministry icon = scroll_scales
+ desc = mam_mark_lower_ministry_candidate_interaction_desc
+ common_interaction = yes auto_accept = yes ai_frequency = 0 interface_priority = 45
+ is_shown = {
+  scope:actor = { is_ai = no mam_ministry_lower_authority_trigger = yes }
+  scope:recipient = { is_alive = yes is_adult = yes this != scope:actor this != scope:actor.top_liege top_liege = scope:actor.top_liege }
+ }
+ is_valid = { scope:recipient = { tgp_can_be_a_minister_trigger = { COURT_OWNER = scope:actor.top_liege } NOT = { any_held_title = { mam_ministry_upper_office_trigger = yes } } } }
+ on_accept = { scope:actor = { set_variable = { name = mam_marked_lower_ministry_candidate value = scope:recipient } } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_clear_lower_ministry_candidate_interaction = {
+ category = interaction_category_ministry icon = scroll_scales
+ desc = mam_clear_ministry_candidate_desc
+ common_interaction = yes auto_accept = yes ai_frequency = 0 interface_priority = 44
+ is_shown = {
+  scope:actor = { is_ai = no mam_ministry_lower_authority_trigger = yes exists = var:mam_marked_lower_ministry_candidate var:mam_marked_lower_ministry_candidate = scope:recipient }
+ }
+ on_accept = { scope:actor = { remove_variable = mam_marked_lower_ministry_candidate } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

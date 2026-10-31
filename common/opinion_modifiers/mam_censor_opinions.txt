@@ -1,0 +1,6 @@
+﻿mam_cen_resentment = { opinion = -25 years = 5 stacking = no }
+mam_cen_fair_hearing = { opinion = 15 years = 3 stacking = no }
+mam_cen_defended_me = { opinion = 20 years = 5 stacking = no }
+mam_cen_abandoned_me = { opinion = -15 years = 3 stacking = no }
+mam_cen_exposed_abuse = { opinion = -35 years = 5 stacking = no }
+mam_cen_skillful_mediation = { opinion = 10 years = 3 stacking = no }

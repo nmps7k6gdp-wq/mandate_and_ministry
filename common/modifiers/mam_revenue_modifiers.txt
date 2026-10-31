@@ -1,0 +1,6 @@
+﻿mam_revenue_recovery_county_modifier = {
+ icon = stewardship_positive county_opinion_add = 10 monthly_county_control_growth_add = 0.2
+}
+mam_revenue_recovery_office_modifier = { icon = imperial_treasury_positive }
+mam_revenue_extra_remittance_modifier = { icon = imperial_treasury_negative }
+mam_revenue_development_funding_modifier = { icon = stewardship_positive }

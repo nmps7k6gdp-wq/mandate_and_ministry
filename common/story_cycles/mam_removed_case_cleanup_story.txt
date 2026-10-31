@@ -1,0 +1,13 @@
+﻿# One-shot termination of already saved records; no case runtime or creation.
+mam_cj_case_story = {
+ visible = no
+ on_setup = { end_story = yes }
+ on_owner_death = { end_story = yes }
+ effect_group = { days = 1 triggered_effect = { trigger = { always = yes } effect = { end_story = yes } } }
+}
+mam_cj_oversight_story = {
+ visible = no
+ on_setup = { end_story = yes }
+ on_owner_death = { end_story = yes }
+ effect_group = { days = 1 triggered_effect = { trigger = { always = yes } effect = { end_story = yes } } }
+}

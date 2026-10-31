@@ -1,0 +1,1 @@
+﻿mam_ministries = { sort_order = 190 gui_tags = { big_button } important_decision_group = no }

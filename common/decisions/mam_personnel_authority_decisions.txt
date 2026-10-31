@@ -1,0 +1,26 @@
+﻿mam_personnel_authority_decision = {
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+ decision_group_type = mam_ministries ai_check_interval = 0
+ desc = mam_personnel_authority_desc selection_tooltip = mam_personnel_authority_desc confirm_text = mam_personnel_authority_open
+ is_shown = { is_ai = no mam_can_oversee_personnel_trigger = yes }
+ effect = { if = { limit = { mam_can_oversee_personnel_trigger = yes } trigger_event = mam_personnel_authority.1 } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+
+mam_personnel_review_recommendation_decision = {
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+ decision_group_type = mam_ministries ai_check_interval = 0
+ desc = mam_personnel_review_recommendation_desc selection_tooltip = mam_personnel_review_recommendation_desc confirm_text = mam_personnel_authority_open
+ is_shown = { is_ai = no mam_can_oversee_personnel_trigger = yes any_owned_story = { story_type = mam_senior_appointment_story mam_senior_pending_trigger = yes has_variable = mam_senior_awaiting_confirmation } }
+ effect = { if = { limit = { mam_can_oversee_personnel_trigger = yes }
+ clear_saved_scope = mam_senior_file
+ every_owned_story = { limit = { story_type = mam_senior_appointment_story mam_senior_pending_trigger = yes has_variable = mam_senior_awaiting_confirmation }
+ if = { limit = { NOT = { exists = scope:mam_senior_file } } save_scope_as = mam_senior_file } }
+ if = { limit = { primary_title = { exists = var:mam_senior_imperial_open } }
+ primary_title.var:mam_senior_imperial_open = { save_scope_as = mam_senior_file }
+ trigger_event = mam_senior.2
+ }
+ else_if = { limit = { exists = scope:mam_senior_file } scope:mam_senior_file = { mam_senior_notify_confirmation_effect = yes } }
+ } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

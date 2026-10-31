@@ -1,0 +1,50 @@
+﻿# Story scope. Freeze notice data; these events do not reuse a live case lease.
+# add_to_list is deduplicated explicitly, so one player receives one result.
+mam_revenue_notify_effect = {
+ clear_saved_scope = mam_rv_outcome_revenue clear_saved_scope = mam_rv_outcome_payer
+ clear_saved_scope = mam_rv_outcome_recipient clear_saved_scope = mam_rv_outcome_decider
+ save_scope_as = mam_rv_outcome_file
+ var:mam_rv_subject = { save_scope_as = mam_rv_outcome_subject }
+ var:mam_rv_proposer ?= { save_scope_as = mam_rv_outcome_revenue }
+ var:mam_rv_donor_title.holder ?= { save_scope_as = mam_rv_outcome_payer }
+ var:mam_rv_recipient_title.holder ?= { save_scope_as = mam_rv_outcome_recipient }
+ root = { save_scope_as = mam_rv_outcome_decider }
+ save_scope_value_as = { name = mam_rv_outcome_status value = $STATUS$ }
+ save_scope_value_as = { name = mam_rv_outcome_kind value = var:mam_rv_kind }
+ save_scope_value_as = { name = mam_rv_outcome_amount value = var:mam_rv_amount }
+ save_scope_value_as = { name = mam_rv_outcome_budget value = 1 }
+ save_scope_value_as = { name = mam_rv_outcome_payment_state value = 0 }
+ save_scope_value_as = { name = mam_rv_outcome_before_donor value = 0 }
+ save_scope_value_as = { name = mam_rv_outcome_after_donor value = 0 }
+ save_scope_value_as = { name = mam_rv_outcome_before_recipient value = 0 }
+ save_scope_value_as = { name = mam_rv_outcome_after_recipient value = 0 }
+ save_scope_value_as = { name = mam_rv_outcome_debit value = 0 }
+ save_scope_value_as = { name = mam_rv_outcome_credit value = 0 }
+ if = { limit = { has_variable = mam_rv_payment_state }
+  save_scope_value_as = { name = mam_rv_outcome_payment_state value = var:mam_rv_payment_state }
+  var:mam_rv_paid_from ?= { save_scope_as = mam_rv_outcome_payer }
+  var:mam_rv_paid_to ?= { save_scope_as = mam_rv_outcome_recipient }
+ }
+ if = { limit = { has_variable = mam_rv_after_donor has_variable = mam_rv_after_recipient }
+  save_scope_value_as = { name = mam_rv_outcome_before_donor value = var:mam_rv_before_donor }
+  save_scope_value_as = { name = mam_rv_outcome_after_donor value = var:mam_rv_after_donor }
+  save_scope_value_as = { name = mam_rv_outcome_before_recipient value = var:mam_rv_before_recipient }
+  save_scope_value_as = { name = mam_rv_outcome_after_recipient value = var:mam_rv_after_recipient }
+  save_scope_value_as = { name = mam_rv_outcome_debit value = var:mam_rv_actual_debit }
+  save_scope_value_as = { name = mam_rv_outcome_credit value = var:mam_rv_actual_credit }
+ }
+
+ if = { limit = { has_variable = mam_rv_budget_level }
+  save_scope_value_as = { name = mam_rv_outcome_budget value = var:mam_rv_budget_level }
+ }
+ every_in_list = { list = mam_rv_notice_people remove_from_list = mam_rv_notice_people }
+ var:mam_rv_proposer ?= { mam_revenue_add_notice_person_effect = yes }
+ var:mam_rv_recipient_title.holder ?= { mam_revenue_add_notice_person_effect = yes }
+ # A refusal does not involve the proposed donor; no funds were taken.
+ if = { limit = { always = $PAID$ } var:mam_rv_donor_title.holder ?= { mam_revenue_add_notice_person_effect = yes } }
+ root = { mam_revenue_add_notice_person_effect = yes }
+ every_in_list = { list = mam_rv_notice_people trigger_event = { id = mam_revenue.20 days = 1 } }
+}
+mam_revenue_add_notice_person_effect = {
+ if = { limit = { is_alive = yes is_ai = no NOT = { is_in_list = mam_rv_notice_people } } add_to_list = mam_rv_notice_people }
+}

@@ -1,0 +1,1580 @@
+﻿mam_revenue_fund_invoice_eligible_1_trigger = {
+
+				custom_tooltip = {
+					text = great_project_contribution_must_be_province_owner_or_above
+					OR = {
+						this = scope:great_project.great_project_location.province_owner
+						is_liege_or_above_of = scope:great_project.great_project_location.province_owner
+						has_title = title:e_minister_of_war
+						has_title = title:e_minister_grand_marshal
+						has_title = title:e_minister_of_works
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_2_trigger = {
+
+				custom_tooltip = {
+					text = great_project_contribution_must_be_province_owner_or_above
+					OR = {
+						this = scope:great_project.great_project_location.province_owner
+						is_liege_or_above_of = scope:great_project.great_project_location.province_owner
+						has_title = title:e_minister_of_war
+						has_title = title:e_minister_grand_marshal
+						has_title = title:e_minister_of_works
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_3_trigger = {
+
+				custom_tooltip = {
+					text = great_project_contribution_must_be_province_owner_or_above
+					OR = {
+						this = scope:great_project.great_project_location.province_owner
+						is_liege_or_above_of = scope:great_project.great_project_location.province_owner
+						has_title = title:e_minister_of_war
+						has_title = title:e_minister_grand_marshal
+						has_title = title:e_minister_of_works
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_4_trigger = {
+
+				custom_tooltip = {
+					text = great_project_contribution_must_be_province_owner_or_above
+					OR = {
+						this = scope:great_project.great_project_location.province_owner
+						is_liege_or_above_of = scope:great_project.great_project_location.province_owner
+						has_title = title:e_minister_of_war
+						has_title = title:e_minister_grand_marshal
+						has_title = title:e_minister_of_works
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_5_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_6_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_7_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_8_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_9_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_10_trigger = {
+
+				scope:owner = {
+					capital_barony.title_province ?= {
+						NOT = { has_building = forbidden_city_01 }
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_11_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					has_title = title:e_minister_of_works
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_12_trigger = {
+
+				title:b_wulan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_13_trigger = {
+
+				title:b_fengan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_14_trigger = {
+
+				title:b_mingsha.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_15_trigger = {
+
+				title:b_yaode.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_16_trigger = {
+
+				title:b_huile.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_17_trigger = {
+
+				title:b_baojing.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_18_trigger = {
+
+				title:b_huaiyuan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_19_trigger = {
+
+				title:b_shengwei.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_20_trigger = {
+
+				title:b_hequ.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_21_trigger = {
+
+				title:b_helan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_22_trigger = {
+
+				title:b_dengkou.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_23_trigger = {
+
+				title:b_wuluhai.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_24_trigger = {
+
+				title:b_yongfeng.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_25_trigger = {
+
+				title:b_jiuyuan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_26_trigger = {
+
+				title:b_tiande.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_27_trigger = {
+
+				title:b_jincheng.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_28_trigger = {
+
+				title:b_huichuan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_29_trigger = {
+
+				title:b_huairong_2.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_30_trigger = {
+
+				title:b_pinggao.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_31_trigger = {
+
+				title:b_huaide.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_32_trigger = {
+
+				title:b_fangqu.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_33_trigger = {
+
+				title:b_huaian_2.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_34_trigger = {
+
+				title:b_luoyuan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_35_trigger = {
+
+				title:b_hengshan_3.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_36_trigger = {
+
+				title:b_wuyan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_37_trigger = {
+
+				title:b_ningshuo.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_38_trigger = {
+
+				title:b_longquan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_39_trigger = {
+
+				title:b_rulin.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_40_trigger = {
+
+				title:b_kaiguang.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_41_trigger = {
+
+				title:b_linzhou_yincheng.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_42_trigger = {
+
+				title:b_xiazhou_dejing_east.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_43_trigger = {
+
+				title:b_xuande.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_44_trigger = {
+
+				title:b_baishui.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_45_trigger = {
+
+				title:b_rouxuan.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_46_trigger = {
+
+				title:b_cirlxj_yangcheng.title_province = {
+					NOT = { has_building_or_higher = the_great_wall_04 }
+					province_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_47_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_48_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_49_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_50_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_51_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_52_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_53_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_54_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_55_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_56_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_57_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_58_trigger = {
+
+				custom_tooltip = {
+					text = great_wall_contributor_realm_tt
+					OR = {
+						top_liege = scope:owner
+						is_tributary_of = scope:owner
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_59_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_60_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_61_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_62_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_63_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_64_trigger = {
+
+				OR = {
+					custom_tooltip = {
+						text = you_are_owner_of_the_project
+						this = scope:owner
+					}
+					is_governor = yes
+				}
+				any_sub_realm_county = {
+					is_coastal_county = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_65_trigger = {
+
+				always = yes #it's the mandatory contribution
+			
+
+				has_title = title:e_minister_grand_marshal
+			
+}
+
+mam_revenue_fund_invoice_eligible_66_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_2
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 2 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_67_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_3
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 3 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_68_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_4
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 4 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_69_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_5
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 5 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_70_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_6
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 6 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_71_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_7
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 7 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_72_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_8
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 8 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_73_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_9
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 9 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_74_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_10
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 10 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_75_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_11
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 11 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_76_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_12
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 12 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_77_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_13
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 13 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_78_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_14
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 14 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_79_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_15
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 15 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_80_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_16
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 16 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_81_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_17
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 17 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_82_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_18
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 18 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_83_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_19
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 19 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_84_trigger = {
+
+				scope:great_project ?= {
+					exists = var:attack_20
+				}
+			
+
+				grand_campaign_valid_contributor_trigger = { ID = 20 }
+			
+}
+
+mam_revenue_fund_invoice_eligible_85_trigger = {
+
+			
+}
+
+mam_revenue_fund_invoice_eligible_86_trigger = {
+
+				culture = top_liege.culture
+			
+}
+
+mam_revenue_fund_invoice_eligible_87_trigger = {
+
+				culture = top_liege.culture
+			
+}
+
+mam_revenue_fund_invoice_eligible_88_trigger = {
+
+				culture = top_liege.culture
+			
+}
+
+mam_revenue_fund_invoice_eligible_89_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_90_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_91_trigger = {
+
+				is_governor = yes
+				custom_tooltip = {
+					text = great_project_is_near_capital_desc
+					capital_province ?= {
+						duchy = {
+							OR = {
+								NOT = { exists = scope:great_project } # safeguard for before the project is planned
+								this = scope:great_project.great_project_location.duchy
+								any_title_to_title_neighboring_duchy = { this = scope:great_project.great_project_location.duchy }
+							}
+						}
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_92_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_justice
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_93_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_justice
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					custom_tooltip = {
+						text = is_a_military_governor_desc
+						vassal_contract_has_flag = celestial_military_appointment
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_94_trigger = {
+
+			
+}
+
+mam_revenue_fund_invoice_eligible_95_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_justice
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					custom_tooltip = {
+						text = is_a_civilian_governor_desc
+						vassal_contract_has_flag = celestial_civil_appointment
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_96_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_war
+					# Grand Marshal missing on purpose here
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_97_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_war
+					has_title = title:e_minister_grand_marshal
+					AND = {
+						is_governor = yes
+						any_directly_owned_province = {
+							has_building_or_higher = military_academy_01
+						}
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_98_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_war
+					has_title = title:e_minister_grand_marshal
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_99_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_war
+					has_title = title:e_minister_grand_marshal
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_100_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_war
+					has_title = title:e_minister_grand_marshal
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+					OR = {
+						has_trait = military_engineer
+						has_trait = logistician
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_101_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_war
+					has_title = title:e_minister_grand_marshal
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_102_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_revenue
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_103_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_revenue
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+					title:e_minister_of_revenue.holder ?= {
+						treasury >= 1000
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_104_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_revenue
+					has_title = title:e_minister_of_rites
+					has_title = title:e_minister_censor
+					has_title = title:e_minister_of_justice
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_105_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_revenue
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_106_trigger = {
+
+				OR = {
+					has_title = title:h_china
+					has_title = title:e_minister_of_revenue
+					AND = {
+						is_diarch_of_target = top_liege
+						top_liege = {
+							has_diarchy_type = grand_secretariat
+						}
+					}
+					is_governor = yes
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_107_trigger = {
+
+			
+}
+
+mam_revenue_fund_invoice_eligible_108_trigger = {
+
+			
+}
+
+mam_revenue_fund_invoice_eligible_109_trigger = {
+
+			
+}
+
+mam_revenue_fund_invoice_eligible_110_trigger = {
+
+			
+}
+
+mam_revenue_fund_invoice_eligible_111_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_112_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_113_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+				tgp_natural_disaster_councillor_available_to_manage_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_114_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_115_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_116_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_117_trigger = {
+
+				scope:owner.top_liege = {
+					tgp_has_access_to_ministry_trigger = yes
+				}
+			
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+				tgp_is_any_minister = yes
+				custom_tooltip = {
+					text = minister_has_aidee_to_send_tt
+					any_court_position_holder = {
+						type = minister_bureaucrat_court_position
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_118_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_119_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+				custom_tooltip = {
+					text = natural_disaster_drainage_not_enough_soldiers_tt
+					current_military_strength >= natural_disaster_drainage_min_military_strength_value
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_120_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+				tgp_natural_disaster_councillor_available_to_manage_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_121_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_122_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_123_trigger = {
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+			
+}
+
+mam_revenue_fund_invoice_eligible_124_trigger = {
+
+				scope:owner.top_liege = {
+					tgp_has_access_to_ministry_trigger = yes
+				}
+			
+
+				tgp_natural_disaster_is_valid_contributor_trigger = yes
+				tgp_is_any_minister = yes
+				custom_tooltip = {
+					text = minister_has_aidee_to_send_tt
+					any_court_position_holder = {
+						type = minister_bureaucrat_court_position
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_125_trigger = {
+
+				is_at_war = no
+			
+}
+
+mam_revenue_fund_invoice_eligible_126_trigger = {
+
+				custom_tooltip = {
+					text = find_mason_character_tt
+					is_valid_cathedral_master_mason_contributor_trigger = {
+						STEWARDSHIP_THRESHOLD = high_skill_rating
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_127_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_128_trigger = {
+
+				is_valid_cathedral_facade_contributor_trigger = yes
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_doctrine = doctrine_pilgrimage_forbidden }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_129_trigger = {
+
+				piety_level >= 3
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_tenet = tenet_aniconism }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_130_trigger = {
+
+				OR = {
+					prestige_level >= 2
+					piety_level >= 3
+					primary_title.tier >= tier_kingdom
+				}
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_tenet = tenet_aniconism }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_131_trigger = {
+
+				NOT = {
+					scope:founder.rite = {
+						rite_has_tenet = tenet_aniconism
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_132_trigger = {
+
+				NOT = {
+					scope:founder.rite = {
+						rite_has_parameter = no_optional_cathedral_contributions
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_133_trigger = {
+
+				is_at_war = no
+			
+}
+
+mam_revenue_fund_invoice_eligible_134_trigger = {
+
+				custom_tooltip = {
+					text = find_mason_character_tier_2_tt
+					is_valid_cathedral_master_mason_contributor_trigger = {
+						STEWARDSHIP_THRESHOLD = very_high_skill_rating
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_135_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_136_trigger = {
+
+				is_valid_cathedral_facade_contributor_trigger = yes
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_doctrine = doctrine_pilgrimage_forbidden }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_137_trigger = {
+
+				piety_level >= 3
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_tenet = tenet_aniconism }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_138_trigger = {
+
+				OR = {
+					prestige_level >= 2
+					piety_level >= 3
+					primary_title.tier >= tier_kingdom
+				}
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_tenet = tenet_aniconism }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_139_trigger = {
+
+				NOT = {
+					scope:founder.rite = {
+						rite_has_tenet = tenet_aniconism
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_140_trigger = {
+
+				NOT = {
+					scope:founder.rite = {
+						rite_has_parameter = no_optional_cathedral_contributions
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_141_trigger = {
+
+				is_at_war = no
+			
+}
+
+mam_revenue_fund_invoice_eligible_142_trigger = {
+
+				custom_tooltip = {
+					text = find_mason_character_tier_3_tt
+					is_valid_cathedral_master_mason_contributor_trigger = {
+						STEWARDSHIP_THRESHOLD = extremely_high_skill_rating
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_143_trigger = {
+
+}
+
+mam_revenue_fund_invoice_eligible_144_trigger = {
+
+				is_valid_cathedral_facade_contributor_trigger = yes
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_doctrine = doctrine_pilgrimage_forbidden }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_145_trigger = {
+
+				piety_level >= 3
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_tenet = tenet_aniconism }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_146_trigger = {
+
+				OR = {
+					prestige_level >= 2
+					piety_level >= 3
+					primary_title.tier >= tier_kingdom
+				}
+			
+
+				NOT = {
+					scope:founder.rite = { rite_has_tenet = tenet_aniconism }
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_147_trigger = {
+
+				NOT = {
+					scope:founder.rite = {
+						rite_has_tenet = tenet_aniconism
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_148_trigger = {
+
+				NOT = {
+					scope:founder.rite = {
+						rite_has_parameter = no_optional_cathedral_contributions
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_149_trigger = {
+
+				custom_tooltip = {
+					text = pam_mass_rite_conversion_contributor_rite
+					trigger_if = {
+						limit = { exists = scope:great_project.var:target_rite }
+						rite = scope:great_project.var:target_rite
+					}
+					trigger_else = {
+						rite = scope:owner.rite
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_150_trigger = {
+
+				custom_tooltip = {
+					text = pam_mass_rite_conversion_contributor_rite
+					trigger_if = {
+						limit = { exists = scope:great_project.var:target_rite }
+						rite = scope:great_project.var:target_rite
+					}
+					trigger_else = {
+						rite = scope:owner.rite
+					}
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_151_trigger = {
+
+				custom_tooltip = {
+					text = pam_mass_rite_conversion_contributor_rite
+					trigger_if = {
+						limit = { exists = scope:great_project.var:target_rite }
+						rite = scope:great_project.var:target_rite
+					}
+					trigger_else = {
+						rite = scope:owner.rite
+					}
+				}
+				any_sub_realm_county = {
+					rite = scope:owner.rite
+				}
+			
+}
+
+mam_revenue_fund_invoice_eligible_152_trigger = {
+
+				custom_tooltip = {
+					text = pam_mass_rite_conversion_contributor_rite
+					trigger_if = {
+						limit = { exists = scope:great_project.var:target_rite }
+						rite = scope:great_project.var:target_rite
+					}
+					trigger_else = {
+						rite = scope:owner.rite
+					}
+				}
+			
+}

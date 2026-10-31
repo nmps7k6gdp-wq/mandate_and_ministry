@@ -1,0 +1,31 @@
+﻿# Only a minister's death arms a review. Native inheritance happens before the event.
+on_death = { on_actions = { mam_ministry_review_death } }
+mam_ministry_review_death = {
+ trigger = {
+  is_independent_ruler = no
+  top_liege = { mam_ministry_realm_emperor_trigger = yes }
+  any_held_title = { tgp_is_minister_title = yes }
+ }
+ effect = {
+  save_scope_as = mam_mr_deceased
+  top_liege = { save_scope_as = mam_mr_emperor }
+  every_held_title = { limit = { tgp_is_minister_title = yes }
+   set_variable = { name = mam_mr_death_pending value = 1 }
+   set_variable = { name = mam_mr_dead_holder value = scope:mam_mr_deceased }
+   set_variable = { name = mam_mr_death_realm value = title:h_china }
+  }
+  scope:mam_mr_emperor = { trigger_event = { id = mam_ministry.2 days = 2 } }
+  debug_log = "MAM_MINISTRY_REVIEW: minister death armed post-inheritance review"
+ }
+}
+# Also catch a delayed native handoff after an initially vacant/invalid succession.
+on_title_gain = { on_actions = { mam_ministry_review_title_gain } }
+mam_ministry_review_title_gain = {
+ trigger = { exists = scope:title scope:title = { tgp_is_minister_title = yes has_variable = mam_mr_death_pending } }
+ effect = { scope:title.var:mam_mr_death_realm.holder ?= { trigger_event = { id = mam_ministry.2 days = 1 } } }
+}
+quarterly_playable_pulse = { on_actions = { mam_ministry_review_maintenance } }
+mam_ministry_review_maintenance = {
+ trigger = { mam_ministry_realm_emperor_trigger = yes }
+ effect = { mam_ministry_review_scan_effect = yes }
+}

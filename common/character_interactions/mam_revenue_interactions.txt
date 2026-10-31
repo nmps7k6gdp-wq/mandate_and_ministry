@@ -1,0 +1,164 @@
+﻿# Native category and role-owned visibility; these interactions do not appoint anyone.
+mam_revenue_designate_recipient_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 60
+ desc = mam_revenue_designate_recipient_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_officer_trigger = yes is_ai = no } scope:recipient = { mam_revenue_recipient_trigger = yes this != scope:actor } }
+ on_accept = {
+  custom_tooltip = mam_revenue_designate_recipient_desc
+  hidden_effect = { scope:actor = {
+  set_variable = { name = mam_rv_designated_recipient value = scope:recipient.primary_title }
+  set_variable = { name = mam_rv_designated_until value = { value = current_date add = 90 } }
+ } 
+  }
+ }
+}
+mam_revenue_arrange_contribution_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 59
+ desc = mam_revenue_arrange_contribution_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_officer_trigger = yes is_ai = no exists = var:mam_rv_designated_recipient }
+  scope:recipient = { mam_revenue_ministry_trigger = yes }
+ }
+ is_valid = {
+  custom_tooltip = { text = mam_rv.can_arrange_tt
+  scope:actor = { var:mam_rv_designated_until >= current_date
+   var:mam_rv_designated_recipient.holder = { mam_revenue_recipient_trigger = yes this != scope:recipient }
+   var:mam_rv_designated_recipient = { NOT = { has_variable = mam_rv_funding_file } mam_revenue_aid_available_trigger = yes }
+  }
+  scope:recipient = { mam_revenue_contribution_capacity >= 50
+   primary_title = { trigger_if = { limit = { has_variable = mam_rv_donor_until } var:mam_rv_donor_until <= current_date } }
+  }
+ 
+  }
+ }
+ on_accept = {
+  custom_tooltip = mam_revenue_arrange_contribution_desc
+  hidden_effect = {
+  scope:actor.var:mam_rv_designated_recipient.holder = { save_scope_as = mam_rv_beneficiary }
+  scope:recipient = { mam_revenue_open_contribution_effect = yes }
+  title:h_china.holder = { mam_revenue_wake_effect = yes }
+ 
+  }
+ }
+}
+mam_revenue_review_budget_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 57
+ desc = mam_revenue_review_budget_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_officer_trigger = yes is_ai = no } scope:recipient = { mam_revenue_budget_office_trigger = yes } }
+ is_valid = {
+  custom_tooltip = { text = mam_rv.can_review_budget_tt scope:recipient.primary_title = { NOT = { has_variable = mam_rv_budget_file }
+  trigger_if = { limit = { has_variable = mam_rv_budget_review_until } var:mam_rv_budget_review_until <= current_date }
+ } 
+  }
+ }
+ on_accept = {
+  custom_tooltip = mam_revenue_review_budget_desc
+  hidden_effect = { scope:recipient = { mam_revenue_open_budget_effect = yes } title:h_china.holder = { mam_revenue_wake_effect = yes } 
+  }
+ }
+}
+mam_revenue_settle_province_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 56
+ desc = mam_revenue_settle_province_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_officer_trigger = yes is_ai = no } scope:recipient = { mam_revenue_province_trigger = yes } }
+ is_valid = {
+  custom_tooltip = { text = mam_rv.can_settle_tt scope:recipient.primary_title = { NOT = { has_variable = mam_rv_settlement_file } } 
+  }
+ }
+ on_accept = {
+  custom_tooltip = mam_revenue_settle_province_desc
+  hidden_effect = { scope:recipient = { mam_revenue_open_settlement_effect = yes } title:h_china.holder = { mam_revenue_wake_effect = yes } 
+  }
+ }
+}
+mam_revenue_petition_assistance_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 55
+ desc = mam_revenue_petition_assistance_desc common_interaction = yes auto_accept = yes
+ cost = { influence = medium_influence_value }
+ cooldown = { months = 6 }
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_province_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }
+ is_valid = {
+  custom_tooltip = { text = mam_rv.can_petition_tt scope:actor = {
+  NOT = { is_at_war_with = scope:recipient } is_at_war_with_liege = no
+  primary_title = { NOT = { has_variable = mam_rv_funding_file } mam_revenue_aid_available_trigger = yes
+   trigger_if = { limit = { has_variable = mam_rv_petition_until } var:mam_rv_petition_until <= current_date }
+  }
+  OR = { mam_revenue_needs_help_trigger = yes mam_revenue_has_project_trigger = yes mam_revenue_has_recovery_need_trigger = yes }
+ } 
+  }
+ }
+ send_options_exclusive = no
+ send_option = {
+  flag = hook localization = GENERIC_SPEND_A_HOOK
+  is_valid = { scope:actor = { has_usable_hook = scope:recipient } NOT = { scope:recipient = { has_hook = scope:actor } } }
+ }
+ send_option = {
+  flag = clear_debt localization = OPTION_CLEAR_DEBT
+  is_shown = { scope:actor = { treasury < 0 } }
+  is_valid = { title:h_china.holder = { treasury >= { value = scope:actor.treasury multiply = -1 add = mam_revenue_account_reserve } } }
+ }
+ on_accept = {
+  custom_tooltip = mam_revenue_petition_assistance_desc
+  hidden_effect = { mam_revenue_native_request_effect = yes 
+  }
+ }
+}
+mam_revenue_direct_priorities_interaction = {
+ category = interaction_category_ministry icon = scroll_scales interface_priority = 61
+ desc = mam_revenue_direct_priorities_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_priority_authority_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }
+ is_valid = {
+  custom_tooltip = { text = mam_rv.can_direct_tt title:h_china = { NOT = { has_variable = mam_rv_priority_file } } 
+  }
+ }
+ on_accept = {
+  custom_tooltip = mam_revenue_direct_priorities_desc
+  hidden_effect = { scope:actor = { mam_revenue_open_priority_effect = yes } title:h_china.holder = { mam_revenue_wake_effect = yes } 
+  }
+ }
+}
+mam_revenue_set_mandate_interaction = {
+ category = interaction_category_ministry icon = scroll_scales interface_priority = 62
+ desc = mam_revenue_set_mandate_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+ scope:actor = { mam_revenue_emperor_trigger = yes mam_revenue_authority_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }
+ is_valid = {
+  custom_tooltip = { text = mam_rv.can_mandate_tt title:h_china = { NOT = { has_variable = mam_rv_mandate_file } } 
+  }
+ }
+ on_accept = {
+  custom_tooltip = mam_revenue_set_mandate_desc
+  hidden_effect = { scope:actor = { mam_revenue_open_mandate_effect = yes } title:h_china.holder = { mam_revenue_wake_effect = yes } 
+  }
+ }
+}
+
+mam_revenue_appeal_budget_interaction = {
+ category = interaction_category_ministry icon = scroll_scales interface_priority = 58
+ desc = mam_revenue_appeal_budget_desc common_interaction = yes auto_accept = yes
+ is_shown = {
+ always = no # retired common-fund entry
+
+  scope:actor = { is_ai = no mam_revenue_can_appeal_trigger = yes }
+  scope:recipient = {
+   OR = { mam_revenue_emperor_trigger = yes mam_revenue_chancellor_trigger = yes }
+   this != scope:actor
+  }
+ }
+ is_valid = { custom_tooltip = { text = mam_rv.appeal_route_tt
+  scope:recipient = { mam_revenue_authority_trigger = yes }
+ } }
+ on_accept = { custom_tooltip = mam_rv.appeal_cut_tt hidden_effect = { scope:actor = { mam_revenue_open_appeal_effect = yes } } }
+}

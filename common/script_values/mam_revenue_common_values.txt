@@ -1,0 +1,94 @@
+﻿# Character values; all actual currency remains native treasury.
+mam_revenue_fund_observed_cost = {
+ value = monthly_character_treasury_income subtract = monthly_character_treasury_balance min = 0
+}
+mam_revenue_fund_headroom = {
+ value = 75
+ if = { limit = { title:h_china = { var:mam_cf_programme = 1 } } value = 25 }
+ if = { limit = { has_trait = generous } add = 25 }
+ if = { limit = { has_trait = greedy } subtract = 20 }
+ if = { limit = { has_trait = paranoid } subtract = 15 }
+ if = { limit = { has_trait = trusting } add = 15 }
+ if = { limit = { has_trait = diligent } add = 10 }
+ min = 25 max = 150
+}
+mam_revenue_fund_military_advance = {
+ value = major_treasury_value
+ # Native proactive debt aid is AI-disabled at 1,000 treasury or less.
+ if = { limit = { has_title = title:e_minister_of_war } min = 1200 }
+}
+# Title scope. Project cash is excluded from ordinary operations.
+mam_revenue_fund_target = {
+ value = mam_revenue_fund_service_cost multiply = 2 add = var:mam_cf_headroom add = var:mam_cf_special_target
+
+ if = { limit = { has_variable = mam_pc_mobilization_until var:mam_pc_mobilization_until > current_date }
+  add = var:mam_pc_mobilization_amount
+ }
+}
+mam_revenue_fund_cash_target = { value = mam_revenue_fund_target add = var:mam_cf_project_cash }
+mam_revenue_fund_available = {
+ value = 0
+ if = { limit = { exists = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes } }
+  value = title:e_minister_of_revenue.holder.treasury
+  subtract = title:e_minister_of_revenue.mam_revenue_fund_cash_target
+  subtract = title:h_china.var:mam_cf_reserve subtract = title:h_china.var:mam_cf_unfunded subtract = title:h_china.var:mam_pc_commitments
+  min = 0
+  if = { limit = { title:e_minister_of_revenue = { has_variable = mam_cf_payment_hold } } value = 0 }
+ }
+}
+mam_revenue_fund_queue_score = {
+ value = 1000000 subtract = var:mam_cf_serial
+ if = { limit = { var:mam_cf_kind = 2 var:mam_cf_target.holder = { mam_revenue_has_recovery_need_trigger = yes } } add = 2000000 }
+ if = { limit = { var:mam_cf_kind = 8 } add = 1000000 }
+
+ if = { limit = { has_variable = mam_pc_required_invoice } add = 1000000 }
+ if = { limit = { has_variable = mam_pc_campaign_launch } add = 3000000 }
+}
+mam_revenue_fund_support_weight = {
+ value = 80
+ if = { limit = { has_trait = generous } add = 25 }
+ if = { limit = { has_trait = trusting } add = 15 }
+ if = { limit = { has_trait = greedy } subtract = 20 }
+ if = { limit = { has_trait = paranoid } subtract = 20 }
+ if = { limit = { has_trait = lazy } subtract = 20 }
+ if = { limit = { has_trait = diligent } add = 15 }
+ if = { limit = { scope:mam_cf_file = { var:mam_cf_kind = 2 } has_trait = compassionate } add = 60 }
+ if = { limit = { has_trait = ambitious OR = {
+  is_close_or_extended_family_of = scope:mam_cf_subject has_relation_friend = scope:mam_cf_subject
+  is_in_same_movement_as = { TARGET = scope:mam_cf_subject }
+ } } add = 25 }
+ if = { limit = { has_trait = vengeful has_relation_rival = scope:mam_cf_subject } subtract = 50 }
+ if = { limit = { has_trait = just } add = 15 }
+ min = 10 max = 180
+}
+
+
+# Scripted-effect arguments must be atomic references, not inline value blocks.
+mam_revenue_fund_imperial_topup_quote = {
+ value = title:h_china.var:mam_cf_unfunded add = title:h_china.var:mam_cf_claims_due
+ add = title:e_minister_of_revenue.mam_revenue_fund_cash_target
+ subtract = title:e_minister_of_revenue.holder.treasury
+ min = 200 max = 1000 max = { value = treasury subtract = 500 min = 0 }
+}
+
+mam_revenue_fund_display_cash = {
+ value = 0 if = { limit = { exists = holder } value = holder.treasury }
+}
+mam_revenue_fund_display_target = {
+ value = 0 if = { limit = { has_variable = mam_cf_cost } value = mam_revenue_fund_target }
+}
+
+# Standing native bills cannot wait behind a discretionary allowance review.
+# Keep the approved cost record separate; observing a bill does not approve a
+# project, a new recruit purchase, or a greater discretionary allowance.
+mam_revenue_fund_service_cost = {
+ value = var:mam_cf_cost
+ if = { limit = { exists = holder } min = holder.mam_revenue_fund_observed_cost }
+}
+mam_revenue_fund_essential_target = {
+ value = mam_revenue_fund_service_cost multiply = 2 add = var:mam_cf_project_cash
+}
+mam_revenue_fund_shortfall = {
+ value = mam_revenue_fund_cash_target subtract = holder.treasury min = 0
+ max = { value = mam_revenue_fund_essential_target subtract = holder.treasury min = 0 add = var:mam_cf_remaining }
+}

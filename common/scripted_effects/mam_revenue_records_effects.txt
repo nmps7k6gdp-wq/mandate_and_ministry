@@ -1,0 +1,141 @@
+﻿# Caller binds subject title; all records are owned by the living Chinese emperor.
+# SLOT: funding/budget/settlement/annual/mandate/priority. SLOT_ID: 1..6.
+mam_revenue_create_file_effect = {
+ clear_saved_scope = mam_rv_created
+ if = { limit = { exists = scope:mam_rv_subject }
+  scope:mam_rv_subject = { if = { limit = { has_variable = mam_rv_$SLOT$_file OR = {
+   NOT = { exists = var:mam_rv_$SLOT$_file }
+   AND = { exists = var:mam_rv_$SLOT$_file var:mam_rv_$SLOT$_file = { mam_revenue_file_current_trigger = no } }
+  } } remove_variable = mam_rv_$SLOT$_file } }
+ }
+ if = { limit = { exists = scope:mam_rv_subject title:h_china.holder = { mam_revenue_emperor_trigger = yes }
+  scope:mam_rv_subject = { NOT = { has_variable = mam_rv_$SLOT$_file } }
+ }
+  title:h_china.holder = { create_story = { type = mam_revenue_case_story save_scope_as = mam_rv_created } }
+  # Tooltip simulation does not create a story or execute set_variable effects.
+  # Do not inspect a story until it actually exists.
+  if = { limit = { exists = scope:mam_rv_created }
+  title:h_china = {
+   if = { limit = { NOT = { has_variable = mam_rv_serial } } set_variable = { name = mam_rv_serial value = 0 } }
+   change_variable = { name = mam_rv_serial add = 1 }
+   add_to_variable_list = { name = mam_rv_files target = scope:mam_rv_created }
+  }
+  scope:mam_rv_created = {
+   set_variable = { name = mam_rv_subject value = scope:mam_rv_subject }
+   set_variable = { name = mam_rv_slot value = $SLOT_ID$ }
+   set_variable = { name = mam_rv_kind value = $KIND$ }
+   set_variable = { name = mam_rv_stage value = 0 }
+   set_variable = { name = mam_rv_pending value = 1 }
+   set_variable = { name = mam_rv_created value = current_date }
+   set_variable = { name = mam_rv_position value = title:h_china.var:mam_rv_serial }
+   set_variable = { name = mam_rv_generation value = 0 }
+   set_variable = { name = mam_rv_amount value = 100 }
+   set_variable = { name = mam_rv_urgency value = 20 }
+   set_variable = { name = mam_rv_reserved value = 1 }
+   set_variable = { name = mam_rv_donor_title value = title:h_china.holder.primary_title }
+   set_variable = { name = mam_rv_recipient_title value = scope:mam_rv_subject }
+   if = { limit = { exists = title:e_minister_of_revenue.holder } set_variable = { name = mam_rv_proposer value = title:e_minister_of_revenue.holder } }
+  }
+  scope:mam_rv_subject = { set_variable = { name = mam_rv_$SLOT$_file value = scope:mam_rv_created } }
+  debug_log = "MAM_REVENUE: created a deduplicated fiscal record"
+  }
+ }
+}
+mam_revenue_release_effect = {
+ save_scope_as = mam_rv_releasing
+ remove_variable = mam_rv_presented
+ var:mam_rv_actor ?= { if = { limit = { exists = var:mam_rv_open_file var:mam_rv_open_file = scope:mam_rv_releasing } remove_variable = mam_rv_open_file } }
+ remove_variable = mam_rv_actor
+ title:h_china.holder ?= { trigger_event = { id = mam_revenue.99 days = 2 } }
+}
+mam_revenue_clear_slot_effect = {
+ var:mam_rv_subject ?= { if = { limit = { exists = var:mam_rv_$SLOT$_file var:mam_rv_$SLOT$_file = scope:mam_rv_closing } remove_variable = mam_rv_$SLOT$_file } }
+}
+mam_revenue_close_effect = {
+ save_scope_as = mam_rv_closing
+ set_variable = { name = mam_rv_pending value = 0 }
+ set_variable = { name = mam_rv_closed value = current_date }
+ if = { limit = { var:mam_rv_slot = 1 } mam_revenue_clear_slot_effect = { SLOT = funding } }
+ else_if = { limit = { var:mam_rv_slot = 2 } mam_revenue_clear_slot_effect = { SLOT = budget } }
+ else_if = { limit = { var:mam_rv_slot = 3 } mam_revenue_clear_slot_effect = { SLOT = settlement } }
+ else_if = { limit = { var:mam_rv_slot = 4 } mam_revenue_clear_slot_effect = { SLOT = annual } }
+ else_if = { limit = { var:mam_rv_slot = 5 } mam_revenue_clear_slot_effect = { SLOT = mandate } }
+ else_if = { limit = { var:mam_rv_slot = 6 } mam_revenue_clear_slot_effect = { SLOT = priority } }
+ else_if = { limit = { var:mam_rv_slot = 7 } mam_revenue_clear_slot_effect = { SLOT = appeal } }
+ title:h_china = { remove_list_variable = { name = mam_rv_files target = scope:mam_rv_closing } }
+ mam_revenue_release_effect = yes
+ # Keep a short factual outcome record; no judicial runtime or indefinite story growth.
+}
+mam_revenue_snooze_effect = {
+ set_variable = { name = mam_rv_snooze value = { value = current_date add = 30 } }
+ mam_revenue_release_effect = yes
+}
+mam_revenue_bind_effect = {
+ clear_saved_scope = mam_rv_donor clear_saved_scope = mam_rv_recipient clear_saved_scope = mam_rv_revenue
+ clear_saved_scope = mam_rv_subject clear_saved_scope = mam_rv_project
+ scope:mam_rv_file = {
+  var:mam_rv_subject = { save_scope_as = mam_rv_subject }
+  var:mam_rv_donor_title.holder ?= { save_scope_as = mam_rv_donor }
+  var:mam_rv_recipient_title.holder ?= { save_scope_as = mam_rv_recipient }
+  var:mam_rv_project ?= { save_scope_as = mam_rv_project }
+  save_scope_value_as = { name = mam_rv_generation value = var:mam_rv_generation }
+  save_scope_value_as = { name = mam_rv_stage value = var:mam_rv_stage }
+  save_scope_value_as = { name = mam_rv_amount value = var:mam_rv_amount }
+  save_scope_value_as = { name = mam_rv_native_credit value = major_influence_value }
+  save_scope_value_as = { name = mam_rv_max_amount value = 0 }
+  save_scope_value_as = { name = mam_rv_donor_balance value = 0 }
+  save_scope_value_as = { name = mam_rv_donor_reserve value = 0 }
+  save_scope_value_as = { name = mam_rv_recipient_balance value = 0 }
+  var:mam_rv_donor_title.holder ?= { save_scope_value_as = { name = mam_rv_max_amount value = mam_revenue_contribution_capacity } }
+  var:mam_rv_donor_title.holder ?= {
+   save_scope_value_as = { name = mam_rv_donor_balance value = treasury }
+   save_scope_value_as = { name = mam_rv_donor_reserve value = mam_revenue_account_reserve }
+  }
+  var:mam_rv_recipient_title.holder ?= { save_scope_value_as = { name = mam_rv_recipient_balance value = treasury } }
+  save_scope_value_as = { name = mam_rv_debt_amount value = 0 }
+  var:mam_rv_recipient_title.holder ?= {
+   save_scope_value_as = { name = mam_rv_debt_amount value = { value = treasury multiply = -1 min = 0 ceiling = yes } }
+  }
+  save_scope_value_as = { name = mam_rv_half_amount value = { value = var:mam_rv_amount divide = 2 floor = yes min = 1 } }
+ }
+ title:e_minister_of_revenue.holder ?= { save_scope_as = mam_rv_revenue }
+ title:h_china.holder = { save_scope_as = mam_rv_emperor }
+ mam_revenue_find_donor_effect = yes
+}
+# Character scope, called by interactions/initiative. Recipient is this office.
+mam_revenue_open_aid_effect = {
+ if = { limit = { mam_revenue_recipient_trigger = yes primary_title = { mam_revenue_aid_available_trigger = yes } }
+  primary_title = { save_scope_as = mam_rv_subject }
+  mam_revenue_create_file_effect = { SLOT = funding SLOT_ID = 1 KIND = 1 }
+  if = { limit = { exists = scope:mam_rv_created }
+   scope:mam_rv_created = {
+    set_variable = { name = mam_rv_urgency value = var:mam_rv_subject.holder.mam_revenue_need_score }
+    if = { limit = { var:mam_rv_subject.holder = { treasury < 0 } }
+     set_variable = { name = mam_rv_amount value = { value = var:mam_rv_subject.holder.treasury multiply = -1 min = 50 max = 200 ceiling = yes } }
+    }
+   }
+  }
+ }
+}
+mam_revenue_open_settlement_effect = {
+ if = { limit = { mam_revenue_province_trigger = yes }
+  primary_title = { save_scope_as = mam_rv_subject }
+  mam_revenue_create_file_effect = { SLOT = settlement SLOT_ID = 3 KIND = 8 }
+ }
+}
+mam_revenue_open_budget_effect = {
+ if = { limit = { mam_revenue_budget_office_trigger = yes }
+  primary_title = { save_scope_as = mam_rv_subject }
+  mam_revenue_create_file_effect = { SLOT = budget SLOT_ID = 2 KIND = 4 }
+ }
+}
+mam_revenue_open_contribution_effect = {
+ if = { limit = { mam_revenue_ministry_trigger = yes exists = scope:mam_rv_beneficiary scope:mam_rv_beneficiary = { mam_revenue_recipient_trigger = yes this != prev } }
+  primary_title = { save_scope_as = mam_rv_source_title }
+  scope:mam_rv_beneficiary.primary_title = { save_scope_as = mam_rv_subject }
+  mam_revenue_create_file_effect = { SLOT = funding SLOT_ID = 1 KIND = 2 }
+  if = { limit = { exists = scope:mam_rv_created }
+   scope:mam_rv_created = { set_variable = { name = mam_rv_donor_title value = scope:mam_rv_source_title } }
+  }
+ }
+}

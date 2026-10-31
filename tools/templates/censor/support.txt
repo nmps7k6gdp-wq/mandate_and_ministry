@@ -1,0 +1,221 @@
+# This file contains separate source sections split by build_censor.py.
+@@ common/script_values/mam_censor_values.txt
+# Story-scoped, percentage chances. Skills alter discovery, never underlying truth.
+mam_censor_payment_detection_chance = {
+ value = 50
+ add = { value = var:mam_cen_censor.intrigue subtract = var:mam_cen_subject.intrigue multiply = 2 }
+ add = { value = var:mam_cen_censor.stewardship subtract = var:mam_cen_subject.stewardship multiply = 0.5 }
+ add = { value = var:mam_cen_censor.learning subtract = var:mam_cen_subject.learning multiply = 0.5 }
+ if = { limit = { var:mam_cen_censor = { has_trait = diligent } } add = 10 }
+ if = { limit = { var:mam_cen_censor = { has_trait = patient } } add = 5 }
+ if = { limit = { var:mam_cen_subject = { has_trait = deceitful } } subtract = 10 }
+ if = { limit = { var:mam_cen_subject = { has_trait = diligent } } subtract = 5 }
+ min = 10 max = 90
+}
+mam_censor_return_detection_chance = {
+ value = 60
+ add = { value = var:mam_cen_censor.intrigue subtract = var:mam_cen_subject.intrigue multiply = 1.25 }
+ add = { value = var:mam_cen_censor.stewardship subtract = var:mam_cen_subject.stewardship multiply = 1.25 }
+ add = { value = var:mam_cen_censor.learning subtract = var:mam_cen_subject.learning multiply = 0.5 }
+ if = { limit = { var:mam_cen_subject = { OR = { has_title = title:e_minister_of_war has_title = title:e_minister_grand_marshal } } }
+  add = { value = var:mam_cen_censor.martial subtract = var:mam_cen_subject.martial multiply = 0.75 }
+ }
+ if = { limit = { var:mam_cen_censor = { has_trait = diligent } } add = 10 }
+ if = { limit = { var:mam_cen_censor = { has_trait = patient } } add = 5 }
+ if = { limit = { var:mam_cen_subject = { has_trait = deceitful } } subtract = 10 }
+ min = 10 max = 90
+}
+mam_censor_justice_detection_chance = {
+ value = 50
+ if = { limit = { exists = var:mam_cen_reviewer }
+  add = { value = var:mam_cen_reviewer.learning subtract = var:mam_cen_subject.learning multiply = 1.5 }
+  add = { value = var:mam_cen_reviewer.stewardship subtract = var:mam_cen_subject.stewardship multiply = 1 }
+  add = { value = var:mam_cen_reviewer.intrigue subtract = var:mam_cen_subject.intrigue multiply = 0.5 }
+  if = { limit = { var:mam_cen_reviewer = { has_trait = diligent } } add = 10 }
+  if = { limit = { var:mam_cen_reviewer = { has_trait = patient } } add = 5 }
+ }
+ if = { limit = { var:mam_cen_subject = { has_trait = deceitful } } subtract = 10 }
+ min = 10 max = 90
+}
+mam_censor_witness_detection_chance = {
+ value = 50
+ if = { limit = { exists = var:mam_cen_connected }
+  add = { value = var:mam_cen_censor.intrigue subtract = var:mam_cen_connected.intrigue multiply = 1.5 }
+  add = { value = var:mam_cen_censor.learning subtract = var:mam_cen_connected.diplomacy multiply = 1 }
+  if = { limit = { var:mam_cen_connected = { has_trait = deceitful } } subtract = 10 }
+ }
+ if = { limit = { var:mam_cen_censor = { has_trait = diligent } } add = 10 }
+ min = 10 max = 90
+}
+mam_censor_target_weight = {
+ value = highest_held_title_tier multiply = 5
+ if = { limit = { tgp_is_any_minister = yes } add = 10 }
+ if = { limit = { has_variable = mam_bribes_accepted } add = 15 }
+ if = { limit = { has_relation_rival = scope:mam_cen_censor }
+  add = 10
+  if = { limit = { scope:mam_cen_censor = { has_trait = vengeful } } add = 80 }
+ }
+ if = { limit = { has_relation_friend = scope:mam_cen_censor }
+  subtract = 15
+  if = { limit = { scope:mam_cen_censor = { has_trait = just } } add = 15 }
+ }
+ if = { limit = { house ?= scope:mam_cen_censor.house }
+  subtract = 10
+  if = { limit = { scope:mam_cen_censor = { has_trait = arbitrary } } subtract = 25 }
+ }
+ min = 1
+}
+mam_censor_defender_weight = {
+ value = 10
+ add = diplomacy
+ if = { limit = { has_title = title:e_minister_chancellor } add = 30 }
+ if = { limit = { has_relation_friend = scope:mam_cen_subject } add = 100 }
+ if = { limit = { house ?= scope:mam_cen_subject.house } add = 60 }
+ if = { limit = { mam_censor_shared_bloc_trigger = { OTHER = scope:mam_cen_subject } } add = 35 }
+ if = { limit = { mam_censor_shared_faction_trigger = { OTHER = scope:mam_cen_subject } } add = 45 }
+ if = { limit = { has_trait = just scope:mam_cen_file.var:mam_cen_abuse = 1 } add = 25 }
+ if = { limit = { has_trait = compassionate scope:mam_cen_file.var:mam_cen_abuse = 1 } add = 25 }
+ min = 1
+}
+@@ common/story_cycles/mam_censor_inspection_story.txt
+mam_censor_inspection_story = {
+ visible = no on_setup = { }
+ on_owner_death = {
+  clear_saved_scope = mam_cen_heir
+  var:mam_cen_realm.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cen_heir } }
+  if = { limit = { NOT = { exists = scope:mam_cen_heir } }
+   var:mam_cen_realm.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cen_heir } }
+  }
+  if = { limit = { exists = scope:mam_cen_heir } make_story_owner = scope:mam_cen_heir }
+ }
+ effect_group = { days = 7 triggered_effect = {
+  trigger = { always = yes }
+  effect = {
+   if = { limit = { var:mam_cen_pending = 1 }
+    if = { limit = { mam_censor_live_trigger = yes } mam_censor_tick_effect = yes }
+    else = {
+     # An orphaned/de-indexed record must not live forever or sanction anyone.
+     set_variable = { name = mam_cen_pending value = 0 }
+     set_variable = { name = mam_cen_result value = 10 }
+     set_variable = { name = mam_cen_closed value = current_date }
+     change_variable = { name = mam_cen_serial add = 1 }
+    }
+   }
+   else_if = { limit = { has_variable = mam_cen_closed var:mam_cen_closed <= { value = current_date subtract = 3650 } }
+    end_story = yes
+   }
+  }
+ } }
+}
+@@ common/on_action/mam_censor_on_actions.txt
+on_game_start_after_lobby = { on_actions = { mam_censor_startup } }
+mam_censor_startup = { effect = {
+ every_independent_ruler = { limit = { mam_censor_emperor_trigger = yes }
+  mam_censor_intel_ensure_effect = yes
+  title:h_china.var:mam_cen_active ?= { mam_censor_tick_effect = yes }
+  mam_censor_initiative_effect = yes
+ }
+} }
+quarterly_playable_pulse = { on_actions = { mam_censor_quarterly } }
+mam_censor_quarterly = {
+ trigger = { mam_censor_emperor_trigger = yes }
+ effect = {
+  mam_censor_intel_ensure_effect = yes
+  title:h_china = { if = { limit = { exists = var:mam_cen_active var:mam_cen_active = { var:mam_cen_pending = 0 } } remove_variable = mam_cen_active } }
+  title:h_china.var:mam_cen_active ?= { mam_censor_tick_effect = yes }
+  mam_censor_initiative_effect = yes
+ }
+}
+on_title_gain = { on_actions = { mam_censor_office_gain } }
+mam_censor_office_gain = {
+ trigger = { exists = scope:title OR = { scope:title = title:e_minister_censor scope:title = title:h_china } }
+ effect = {
+  title:h_china.holder ?= { mam_censor_intel_ensure_effect = yes }
+  title:h_china.var:mam_cen_active ?= { mam_censor_tick_effect = yes }
+ }
+}
+@@ common/modifiers/mam_censor_modifiers.txt
+mam_cen_feared = { icon = intrigue_positive dread_baseline_add = 10 general_opinion = -10 }
+mam_cen_trusted = { icon = diplomacy_positive monthly_influence_mult = 0.1 general_opinion = 5 }
+mam_cen_censured = { icon = intrigue_negative monthly_influence_mult = -0.15 general_opinion = -5 }
+mam_cen_restrained = { icon = intrigue_negative monthly_influence_mult = -0.1 }
+mam_cen_protected = { icon = diplomacy_positive }
+mam_cen_reformed = { icon = diplomacy_positive stress_gain_mult = -0.1 }
+mam_cen_discredited = { icon = intrigue_negative monthly_influence_mult = -0.2 general_opinion = -10 }
+@@ common/opinion_modifiers/mam_censor_opinions.txt
+mam_cen_resentment = { opinion = -25 years = 5 stacking = no }
+mam_cen_fair_hearing = { opinion = 15 years = 3 stacking = no }
+mam_cen_defended_me = { opinion = 20 years = 5 stacking = no }
+mam_cen_abandoned_me = { opinion = -15 years = 3 stacking = no }
+mam_cen_exposed_abuse = { opinion = -35 years = 5 stacking = no }
+mam_cen_skillful_mediation = { opinion = 10 years = 3 stacking = no }
+@@ common/character_interactions/mam_censor_interactions.txt
+mam_censor_inspect_interaction = {
+ category = interaction_category_ministry icon = secret common_interaction = yes auto_accept = yes interface_priority = 55
+ desc = mam_censor_inspect_interaction_desc
+ is_shown = {
+  scope:actor = { OR = { mam_censor_officer_trigger = yes mam_censor_emperor_trigger = yes } }
+  scope:recipient = { mam_censor_subject_trigger = { EMPEROR = title:h_china.holder CENSOR = title:e_minister_censor.holder } }
+ }
+ is_valid_showing_failures_only = {
+  custom_tooltip = { text = mam_cen.only_one_tt title:h_china = { NOT = { exists = var:mam_cen_active } } }
+  custom_tooltip = { text = mam_cen.current_censor_tt title:e_minister_censor.holder = { mam_censor_officer_trigger = yes } }
+  custom_tooltip = { text = mam_cen.cooldown_tt scope:recipient = { NOT = { has_character_flag = mam_cen_recent_inspection } } }
+ }
+ on_accept = {
+  scope:recipient = { save_scope_as = mam_cen_subject }
+  scope:actor = { save_scope_as = mam_cen_originator mam_censor_start_effect = yes }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_censor_petition_interaction = {
+ category = interaction_category_ministry icon = scroll_scales common_interaction = yes auto_accept = yes interface_priority = 54
+ desc = mam_censor_petition_interaction_desc
+ is_shown = {
+  scope:recipient = { mam_censor_officer_trigger = yes }
+  scope:actor = { is_alive = yes is_adult = yes is_imprisoned = no
+   top_liege = title:h_china.holder this != scope:recipient
+   OR = { tgp_is_any_minister = yes is_governor_or_admin_count = yes }
+  }
+ }
+ is_valid_showing_failures_only = {
+  title:h_china = { exists = var:mam_cen_active var:mam_cen_active = {
+   mam_censor_live_trigger = yes var:mam_cen_stage < 7
+   NOT = { has_variable = mam_cen_petition_used }
+  } }
+ }
+ on_accept = {
+  scope:actor = { save_scope_as = mam_cen_petitioner }
+  title:h_china.var:mam_cen_active = {
+   if = { limit = { mam_censor_live_trigger = yes var:mam_cen_stage < 7 NOT = { has_variable = mam_cen_petition_used } }
+    set_variable = { name = mam_cen_petitioner value = scope:mam_cen_petitioner }
+    set_variable = { name = mam_cen_petition_used value = 1 }
+    if = { limit = { var:mam_cen_stage >= 3 } mam_censor_move_effect = { STAGE = 3 DAYS = 1 } }
+   }
+  }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+@@ common/decisions/mam_censor_decisions.txt
+mam_censor_begin_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_censor_begin_decision_desc selection_tooltip = mam_censor_begin_decision_desc confirm_text = mam_cen.begin_confirm
+ is_shown = { mam_censor_officer_trigger = yes is_ai = no }
+ is_valid = { title:h_china = { NOT = { exists = var:mam_cen_active } } }
+ effect = { mam_censor_agenda_effect = yes }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_censor_resume_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_censor_resume_decision_desc selection_tooltip = mam_censor_resume_decision_desc confirm_text = mam_cen.resume_confirm
+ is_shown = { is_ai = no title:h_china = { exists = var:mam_cen_active var:mam_cen_active = { exists = var:mam_cen_reviewer var:mam_cen_reviewer = root } } }
+ is_valid = { title:h_china.var:mam_cen_active = { exists = var:mam_cen_reviewer var:mam_cen_reviewer = root } }
+ effect = { title:h_china.var:mam_cen_active = {
+  if = { limit = { var:mam_cen_reviewer = root mam_censor_live_trigger = yes }
+   remove_variable = mam_cen_sent set_variable = { name = mam_cen_due value = current_date } mam_censor_tick_effect = yes
+  }
+ } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

@@ -1,0 +1,403 @@
+﻿# Current CK3 1.20 native types with bounded MAM additions.
+# The honor row is always visible; unearned honors are dimmed.
+types MAMExamHonors
+{
+type widget_palace_exam_status = widget {
+		size = { 60 60 }
+
+		datacontext = "[Character.MakeScope]"
+
+		tooltip = "MERIT_TOOLTIP_EXAMINATION_PASSED_PALACE_EXAM"
+		using = tooltip_se
+
+		icon = {
+			size = { 100% 100% }
+			visible = "[Not(GetScriptedGui('mam_exam_badge_any').IsValid(GuiScope.SetRoot(Character.MakeScope).End))]"
+			texture = "gfx/interface/icons/character_interactions/palace_examination.dds"
+			using = Animation_Glow_Pulse
+
+			modify_texture = {
+				visible = "[Not(HasPassedPalaceExamination(Character))]"
+				texture = "gfx/interface/colors/black.dds"
+				blend_mode = normal
+				alpha = 0.4
+			}
+
+			glow = {
+				visible = "[And(And(Not(HasPassedPalaceExamination(Character)), And(Character.IsMeritCapped, Character.CanImproveMeritRank)), Or(ObjectsEqual(GetPlayer, Character.GetWarden.Self), Character.IsLocalPlayer))]"
+				using = Color_Bright_Yellow
+				glow_radius = 5
+				using = Glow_Standard
+				alpha = 0.8
+			}
+		}
+
+		icon = {
+ size = { 100% 100% }
+ visible = "[GetScriptedGui('mam_exam_badge_honors').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+ texture = "gfx/interface/icons/mam_exam/palace_exam_champion.dds"
+ tooltip = "mam_exam.badge_honors_tt"
+ using = tooltip_se
+}
+		icon = {
+ size = { 100% 100% }
+ visible = "[GetScriptedGui('mam_exam_badge_champion').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+ texture = "gfx/interface/icons/mam_exam/palace_exam_champion1.dds"
+ tooltip = "mam_exam.badge_champion_tt"
+ using = tooltip_se
+}
+		icon = {
+ size = { 100% 100% }
+ visible = "[GetScriptedGui('mam_exam_badge_triple').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+ texture = "gfx/interface/icons/mam_exam/three_consecutive.dds"
+ tooltip = "mam_exam.badge_triple_tt"
+ using = tooltip_se
+}
+		passed_examination_icon = {
+			visible = "[HasPassedPalaceExamination(Character)]"
+
+			size = { 50% 50% }
+			parentanchor = bottom|right
+		}
+
+		# no failed stamp, you cannot fail palace exam
+	}
+type mam_exam_honors_row = vbox {
+ layoutpolicy_horizontal = expanding
+ spacing = 5
+ text_label_left = { layoutpolicy_horizontal = expanding text = "mam_exam.honors_heading" }
+ hbox = {
+  datacontext = "[Character.MakeScope]"
+  spacing = 50
+  widget = {
+   size = { 60 60 }
+   tooltip = "mam_exam.status_honors_tt"
+   using = tooltip_se
+   icon = {
+    size = { 100% 100% }
+    texture = "gfx/interface/icons/mam_exam/palace_exam_champion.dds"
+    enabled = "[GetScriptedGui('mam_exam_earned_honors').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+   }
+   passed_examination_icon = {
+    visible = "[GetScriptedGui('mam_exam_earned_honors').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+    size = { 50% 50% } parentanchor = bottom|right
+   }
+  }
+  widget = {
+   size = { 60 60 }
+   tooltip = "mam_exam.status_champion_tt"
+   using = tooltip_se
+   icon = {
+    size = { 100% 100% }
+    texture = "gfx/interface/icons/mam_exam/palace_exam_champion1.dds"
+    enabled = "[GetScriptedGui('mam_exam_earned_champion').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+   }
+   passed_examination_icon = {
+    visible = "[GetScriptedGui('mam_exam_earned_champion').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+    size = { 50% 50% } parentanchor = bottom|right
+   }
+  }
+  widget = {
+   size = { 60 60 }
+   tooltip = "mam_exam.status_triple_tt"
+   using = tooltip_se
+   icon = {
+    size = { 100% 100% }
+    texture = "gfx/interface/icons/mam_exam/three_consecutive.dds"
+    enabled = "[GetScriptedGui('mam_exam_earned_triple').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+   }
+   passed_examination_icon = {
+    visible = "[GetScriptedGui('mam_exam_earned_triple').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+    size = { 50% 50% } parentanchor = bottom|right
+   }
+  }
+ }
+}
+
+type merit_hud_tooltip = object_tooltip_pop_out {
+		datacontext = "[MeritItem.GetValueItem]"
+		datacontext = "[MeritItem.GetComplexBar]"
+		visible = "[Character.HasMerit]"
+
+		blockoverride "title_text"
+		{
+			text = "[GetMeritModifierByLevel( Character.GetMeritLevel ).GetName]"
+			default_format = "#T"
+		}
+
+		blockoverride "concept_link"
+		{
+			text = "[merit_level|E]"
+		}
+
+		blockoverride "subheading"
+		{
+			text_single = {
+				max_width = 400
+				layoutpolicy_horizontal = expanding
+
+				text = "[Character.GetCareerPathDesc]"
+				fonttintcolor = "[TooltipInfo.GetTintColor]"
+				using = Font_Size_Small
+				fontsize_min = 14
+				autoresize = yes
+				default_format = "#weak_glow"
+			}
+		}
+
+		blockoverride "header_additions"
+		{
+			widget = {
+				size = { 60 74 }
+
+				icon = {
+					size = { 64 64 }
+					parentanchor = center
+					position = { -8 0 }
+
+					texture = "[Character.GetMeritLevelTexture]"
+					frame = "[IntToFrameIndex( Character.GetMeritLevel )]"
+				}
+			}
+		}
+
+		blockoverride "main_description"
+		{
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin_right = 5
+				spacing = 16
+
+				### MERIT EFFECTS
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					### modifier effects
+					cooltip_paragraph = {
+						visible = "[Not( StringIsEmpty( GetMeritLevelEffects( Character.GetMeritLevel ) ) )]"
+						max_width = 500
+						text = "[GetMeritLevelEffects( Character.GetMeritLevel )]"
+					}
+
+					### Merit affecting Movement Power
+					cooltip_paragraph = {
+						visible = "[Character.ShouldShowMovementPower]"
+						max_width = 500
+						text = "MERIT_MOVEMENT_POWER"
+					}
+
+					### Merit enabling appointment
+					cooltip_paragraph = {
+						max_width = 500
+						name = "merit_appointment"
+						layoutpolicy_horizontal = expanding
+
+						text = "[GetMaxAppointmentRankDescription( 'merit', Character.GetMeritLevel )]"
+					}
+				}
+
+				text_label_left = {
+					layoutpolicy_horizontal = expanding
+
+					text = "MERIT_PROGRESS_HEADING"
+				}
+
+				### MERIT COMPLEX PROGRESS BAR
+				widget = {
+					layoutpolicy_horizontal = expanding
+					size = { 500 50 }
+
+					hbox_merit_complex_bar_progress = {
+						layoutpolicy_horizontal = expanding
+						margin_top = 30
+						margin_right = 16
+						margin_left = 5
+					}
+
+					hbox_complex_bar_levels = {
+						layoutpolicy_horizontal = expanding
+						position = { 0 -10 }
+
+						margin_right = 16
+
+						blockoverride "marker"
+						{
+							widget_level_marker = {
+								visible = "[And( GreaterThan_int32( ComplexBarItem.GetIndex, '(int32)0' ), LessThan_int32( PdxGuiWidget.GetIndexInDataModel, GetDataModelSize( ComplexBar.GetItems ) ) )]"
+								scale = 0.75
+
+								blockoverride "marker_size"
+								{
+									size = { 55 55 }
+								}
+
+								blockoverride "marker_size_inactive"
+								{
+									size = { 45 45 }
+								}
+
+								blockoverride "marker_addon" {
+									icon = {
+										texture = "gfx/interface/colors/white.dds"
+										using = Mask_Rough_Edges
+										position = { -4 42 }
+										size = { 8 23 }
+										alpha = 0.3
+
+										visible = "[GreaterThan_int32( PdxGuiWidget.GetIndexInDataModel, '(int32)0' )]"
+									}
+
+									widget = {
+										size = { 52 52 }
+										position = { -26 24 }
+										visible = "[EqualTo_int32( Add_int32( Character.GetMaxMeritLevelForCharacter, '(int32)1' ), PdxGuiWidget.GetIndexInDataModel )]"
+										tooltip = "MERIT_RANK_CAP_TT"
+
+										icon = {
+											size = { 100% 100% }
+											texture = "gfx/interface/window_legend_chronicle/pin_under_expected_legitimacy.dds"
+										}
+
+										icon_flat_standard_red = {
+											parentanchor = center
+											size = { 26 26 }
+											texture = "gfx/interface/icons/domicile_building/domicile_lock_wagons.dds"
+										}
+									}
+								}
+
+								blockoverride "visible_active"
+								{
+									visible = "[EqualTo_int32( MeritItem.GetCurrentLevel, ComplexBarItem.GetIndex )]"
+								}
+
+								blockoverride "level_inactive_style"
+								{
+									datacontext = "[ComplexBarItem]"
+									allow_outside = yes
+
+									datacontext_from_model = {
+										datamodel = "[MeritItem.GetLevels]"
+										index = "[PdxGuiWidget.GetIndexInDataModel]"
+									}
+
+									modify_texture = {
+										visible = "[GreaterThan_int32( ComplexBarItem.GetIndex, PlayerValueItem.GetMaxLevelIndex( Character.Self ) )]"
+										texture = "gfx/interface/colors/black.dds"
+										blend_mode = multiply
+										alpha = 0.1
+									}
+								}
+
+								blockoverride "visible_inactive"
+								{
+									visible = "[NotEqualTo_int32( MeritItem.GetCurrentLevel, ComplexBarItem.GetIndex )]"
+								}
+
+								blockoverride "marker_tooltip"
+								{
+									datacontext = "[ComplexBarItem]"
+
+									datacontext_from_model = {
+										datamodel = "[MeritItem.GetLevels]"
+										index = "[PdxGuiWidget.GetIndexInDataModel]"
+									}
+
+									tooltip = "MERIT_PROGRESSBAR_MARKER_TOOLTIP"
+									using = tooltip_se
+								}
+
+								blockoverride "marker_text"
+								{
+									text = "[GetMeritLevelShortNameNoTooltip( ComplexBarItem.GetIndex )]"
+								}
+							}
+						}
+					}
+				}
+
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+
+						### MERIT TOTAL
+						text_single = {
+							layoutpolicy_horizontal = expanding
+
+							text = "[Character.GetTotalMerit]"
+							align = nobaseline
+						}
+
+						### MERIT CAP
+						text_single = {
+							visible = "[PlayerValueItem.HasNonStandardLevel( Character.Self )]"
+							layoutpolicy_horizontal = expanding
+
+							text = "[PlayerValueItem.GetMaxLevel( Character.Self )]"
+							align = right|nobaseline
+							default_format = "#underline"
+
+							tooltip = "MAX_MERIT_RANK_BREAKDOWN_TOOLTIP"
+						}
+					}
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+
+						### MERIT BREAKDOWN WITH TOOLTIP
+						text_single = {
+							datacontext = "[PlayerValueItem.GetBalanceGained]"
+
+							text = "[Character.GetMeritBalanceBreakdown]"
+							align = nobaseline
+
+							tooltip_visible = "[ValueBreakdown.HasTooltip]"
+
+							tooltipwidget = {
+								widget_value_breakdown_tooltip = { }
+							}
+						}
+
+						expand = {}
+					}
+				}
+
+				### MERIT EXAMINATIONS
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 5
+
+					text_label_left = {
+						layoutpolicy_horizontal = expanding
+
+						text = "MERIT_TOOLTIP_COMPLETED_EXAMINATIONS"
+					}
+
+					hbox = {
+						datacontext = "[Character.MakeScope]"
+						spacing = 50
+
+						widget_childrens_exam_status = {}
+
+						widget_provincial_exam_status = {}
+
+						widget_metropolitan_exam_status = {}
+
+						widget_palace_exam_status = {}
+					}
+
+					mam_exam_honors_row = {}
+
+					text_single = {
+						layoutpolicy_horizontal = expanding
+
+						text = "MERIT_TOOLTIP_EXAMINATION_DISCLAIMER"
+						default_format = "#weak"
+					}
+				}
+			}
+		}
+	}
+}

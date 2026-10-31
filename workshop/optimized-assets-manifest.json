@@ -1,0 +1,53 @@
+{
+    "date":  "2026-10-30",
+    "method":  "Windows System.Drawing resize and PNG/JPEG encoding",
+    "original_cover_preserved":  true,
+    "steam_upload_verified":  false,
+    "assets":  [
+                   {
+                       "file":  "thumbnail.png",
+                       "source":  "thumbnail-original.png",
+                       "width":  512,
+                       "height":  512,
+                       "bytes":  631735,
+                       "source_bytes":  2807787,
+                       "sha256":  "ca495481d581c9c51e2124c1ff702dbdef6949e137a7556b1398d98d5175a804"
+                   },
+                   {
+                       "file":  "workshop/assets/workshop-banner.jpg",
+                       "source":  "workshop/assets/workshop-banner.png",
+                       "width":  1280,
+                       "height":  640,
+                       "bytes":  246239,
+                       "source_bytes":  2639646,
+                       "sha256":  "ea794faa17750e3a24d1280f30a0403483783d001d13c1b8ae36c67ebd92dd1e"
+                   },
+                   {
+                       "file":  "workshop/assets/divider-current-features.jpg",
+                       "source":  "workshop/assets/divider-current-features.png",
+                       "width":  1280,
+                       "height":  427,
+                       "bytes":  92756,
+                       "source_bytes":  2308749,
+                       "sha256":  "508147276427ee50a6b2a8f25a2ebc34287311dbbca85042e7ad2a59e25d16d1"
+                   },
+                   {
+                       "file":  "workshop/assets/divider-planned-features.jpg",
+                       "source":  "workshop/assets/divider-planned-features.png",
+                       "width":  1280,
+                       "height":  427,
+                       "bytes":  76706,
+                       "source_bytes":  1953347,
+                       "sha256":  "55de47ca7010be64c82e816225fa73652b1ec68c305302fbd168c8c3698594c3"
+                   },
+                   {
+                       "file":  "workshop/assets/divider-alpha-feedback.jpg",
+                       "source":  "workshop/assets/divider-alpha-feedback.png",
+                       "width":  1280,
+                       "height":  427,
+                       "bytes":  81532,
+                       "source_bytes":  2167577,
+                       "sha256":  "f53b3ef694cce57ce2cff978263d084f3f0608ffeec79dedfaa074339e2b00f4"
+                   }
+               ]
+}

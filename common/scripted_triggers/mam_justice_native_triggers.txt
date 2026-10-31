@@ -1,0 +1,151 @@
+﻿mam_justice_native_auto_1_trigger = {
+
+		# OR does not display properly here
+		trigger_if = {
+			limit = {
+				scope:puppet_or_actor = {
+					has_title = title:e_minister_of_justice
+				}
+			}
+			custom_description = {
+				text = you_are_the_minister_of_justice
+				scope:puppet_or_actor = {
+					has_title = title:e_minister_of_justice
+				}
+			}
+		}
+		trigger_else_if = {
+			limit = {
+				scope:recipient = {
+					is_landed = no
+					# Landless prelates: a cardinalate or clerical region cannot sustain the refusal war
+					OR = {
+						exists = clerical_elector_title
+						any_held_title = {
+							OR = {
+								is_noble_family_title = yes
+								has_clerical_region = yes
+							}
+						}
+					}
+				}
+			}
+			custom_description = {
+				text = noble_family_head_cannot_refuse_your_power
+				scope:recipient = {
+					is_landed = no
+					OR = {
+						exists = clerical_elector_title
+						any_held_title = {
+							OR = {
+								is_noble_family_title = yes
+								has_clerical_region = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_else = {
+			always = no
+		}
+	
+}
+
+mam_justice_native_auto_2_trigger = {
+always = yes
+}
+
+mam_justice_native_auto_3_trigger = {
+
+		scope:demand_conversion = no
+		scope:renounce_claims = no
+		scope:banish = no
+		scope:gain_hook = no
+		scope:take_vows = no
+		scope:recruit = no
+		scope:disfigure = no
+		scope:blind = no
+		scope:castrate = no
+		scope:demand_admin = no
+		scope:become_executioner = no
+		scope:change_prison = no
+		scope:make_puppet = no
+	
+}
+
+mam_justice_native_banish_trigger = {
+
+			trigger_if = {
+				limit = {
+					scope:actor = { is_ai = yes }
+				}
+				scope:recipient = {
+					OR = {
+						AND = {
+							is_playable_character = no
+							is_ruler = no
+							gold > scope:puppet_or_actor.gold
+							gold > scope:puppet_or_actor.medium_gold_value
+							scope:puppet_or_actor.ai_greed > low_negative_ai_value
+						}
+						AND = {
+							is_playable_character = no
+							is_ruler = no
+							gold > 0
+							scope:puppet_or_actor = {
+								has_banish_reason = scope:recipient
+							}
+						}
+						AND = {
+							is_playable_character = no
+							is_ruler = no
+							gold > 100
+							scope:puppet_or_actor.ai_greed >= high_positive_ai_value
+						}
+						AND = {
+							scope:puppet_or_actor = {
+								has_banish_reason = scope:recipient
+							}
+							scope:puppet_or_actor = {
+								opinion = {
+									target = scope:recipient
+									value <= medium_negative_opinion
+								}
+							}
+						}
+					}
+				}
+			}
+			trigger_if = {
+				limit = {
+					scope:recipient = {
+						is_playable_character = yes
+					}
+				}
+				scope:recipient = {
+					is_vassal_of = scope:puppet_or_actor
+				}
+			}
+			trigger_else = {
+				scope:recipient = {
+					is_courtier_of = scope:puppet_or_actor
+				}
+			}
+			custom_description = {
+				text = "release_banish_invalid_take_vows"
+				object = scope:recipient
+				scope:take_vows = no
+			}
+			scope:recruit = no #Should be impossible to have both but just in case
+			NOT = {
+				scope:recipient = {
+					is_spouse_of = scope:puppet_or_actor
+				}
+			}
+		
+}
+
+mam_justice_native_auto_4_trigger = {
+always = yes
+}

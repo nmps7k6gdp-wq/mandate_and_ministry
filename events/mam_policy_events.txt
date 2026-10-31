@@ -1,0 +1,40 @@
+﻿namespace = mam_personnel
+# Retired recruitment-law menu; old queued events resolve silently.
+mam_personnel.0050 = { type = character_event hidden = yes }
+mam_personnel.0051 = {
+ type = character_event title = mam_personnel.0051.t desc = mam_reason.overview theme = merit
+ left_portrait = { character = scope:mam_nominee }
+ option = { name = mam_transfer.cancel ai_chance = { base = 0 } }
+ option = {
+  name = mam_reason.professional
+  trigger = { mam_professional_reason_trigger = yes }
+  hidden_effect = { save_scope_value_as = { name = mam_reason value = 0 } trigger_event = mam_personnel.0030 }
+  ai_chance = { base = 70 modifier = { add = 30 scope:mam_minister = { has_trait = just } } modifier = { add = 30 scope:mam_minister = { has_trait = honest } } }
+ }
+ option = {
+  name = mam_reason.service
+  trigger = { mam_service_reason_trigger = yes }
+  hidden_effect = { save_scope_value_as = { name = mam_reason value = 1 } trigger_event = mam_personnel.0030 }
+  ai_chance = { base = 30 modifier = { add = 30 scope:mam_minister = { has_trait = diligent } } }
+ }
+ option = {
+  name = mam_reason.patronage
+  trigger = { mam_patronage_reason_trigger = yes }
+  hidden_effect = { save_scope_value_as = { name = mam_reason value = 2 } trigger_event = mam_personnel.0030 }
+  ai_chance = { base = 20 modifier = { add = 60 scope:mam_minister = { has_trait = ambitious } } modifier = { factor = 0 scope:mam_minister = { OR = { has_trait = just has_trait = honest } } } }
+ }
+}
+mam_personnel.0052 = {
+ type = character_event title = mam_personnel.0052.t theme = merit
+ left_portrait = { character = scope:mam_nominee }
+ desc = {
+  desc = mam_service.record
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_review_rating = 1 } desc = mam_service.good }
+   triggered_desc = { trigger = { scope:mam_review_rating = 2 } desc = mam_service.poor }
+   desc = mam_service.neutral
+  }
+ }
+ option = { name = mam_personnel.close ai_chance = { base = 100 } }
+}
+mam_personnel.0053 = { type = character_event hidden = yes immediate = { mam_review_service_effect = yes } }

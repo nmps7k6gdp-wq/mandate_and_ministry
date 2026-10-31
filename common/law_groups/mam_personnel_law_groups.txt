@@ -1,0 +1,5 @@
+﻿# Retired in dev.36 at user request. Inert keys exist only for loading/cleaning old saves.
+mam_recruitment_laws = {
+ cumulative = no flag = realm_law
+ can_have_group = { always = no } can_change_law_group = { always = no }
+}

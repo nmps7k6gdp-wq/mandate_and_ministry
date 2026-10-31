@@ -1,0 +1,1 @@
+﻿mam_jus_restrained = { icon = diplomacy_negative monthly_influence_mult = -0.1 general_opinion = -5 }

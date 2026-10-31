@@ -1,0 +1,24 @@
+{
+  "build": "0.4.0-alpha.20-dev.66",
+  "source_wiring_verified": true,
+  "scenarios": [
+    "overdue test2 adoption, duplicate same-day worker, no arrears replay",
+    "two years: 27 bounded settlements including day zero; quarterly recovery does not duplicate",
+    "35-day first adoption, bootstrap and weekly callback on same day",
+    "custodian vacancy pauses reconciliation and later recovery settles once",
+    "succession changes sovereign lease; old callbacks cannot advance it",
+    "documented recovery recreates one missing lease; repeated recovery remains safe",
+    "very old save settles current position once without historical catch-up transfers",
+    "reload retains existing due dates and diagnostic count"
+  ],
+  "engine_tested": false,
+  "interval": "existing 25-day due guard polled weekly; normally 28 days",
+  "protected_contracts": [
+    "no historical replay",
+    "no new payment timer",
+    "no approval bypass",
+    "fiscal law names retain saved IDs, level indices and effects",
+    "no cash or hold reset",
+    "current programme used for relief ranking"
+  ]
+}

@@ -1,0 +1,104 @@
+﻿MamRevenueFundProgramme = {
+ type = character
+ text = { trigger = { title:h_china.var:mam_cf_programme = 1 } localization_key = mam_cf.programme_reserves }
+ text = { trigger = { title:h_china.var:mam_cf_programme = 2 } localization_key = mam_cf.programme_recovery }
+ text = { localization_key = mam_cf.programme_balanced }
+}
+MamRevenueFundAuthority = {
+ type = character
+ text = { trigger = { title:h_china.holder = { has_realm_law = mam_revenue_authority_expanded } } localization_key = mam_revenue_authority_expanded }
+ text = { trigger = { title:h_china.holder = { has_realm_law = mam_revenue_authority_limited } } localization_key = mam_revenue_authority_limited }
+ text = { localization_key = mam_revenue_authority_reserved }
+}
+
+MamRevenueFundStatement = {
+ type = character
+ text = { trigger = { title:h_china = { has_variable = mam_cf_statement_date } }
+  localization_key = mam_cf.statement_done }
+ text = { localization_key = mam_cf.statement_none }
+}
+MamRevenueFundDepartment1 = {
+ type = character
+ text = { trigger = { title:e_minister_chancellor = { NOT = { exists = holder } } } localization_key = mam_cf.department_1_vacant }
+ text = { trigger = { title:e_minister_chancellor = { exists = holder holder.primary_title != title:e_minister_chancellor } } localization_key = mam_cf.department_1_shared }
+ text = { trigger = { title:e_minister_chancellor = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_1_unreviewed }
+ text = { localization_key = mam_cf.department_1 }
+}
+MamRevenueFundDepartment2 = {
+ type = character
+ text = { trigger = { title:e_minister_censor = { NOT = { exists = holder } } } localization_key = mam_cf.department_2_vacant }
+ text = { trigger = { title:e_minister_censor = { exists = holder holder.primary_title != title:e_minister_censor } } localization_key = mam_cf.department_2_shared }
+ text = { trigger = { title:e_minister_censor = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_2_unreviewed }
+ text = { localization_key = mam_cf.department_2 }
+}
+MamRevenueFundDepartment3 = {
+ type = character
+ text = { trigger = { title:e_minister_grand_marshal = { NOT = { exists = holder } } } localization_key = mam_cf.department_3_vacant }
+ text = { trigger = { title:e_minister_grand_marshal = { exists = holder holder.primary_title != title:e_minister_grand_marshal } } localization_key = mam_cf.department_3_shared }
+ text = { trigger = { title:e_minister_grand_marshal = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_3_unreviewed }
+ text = { localization_key = mam_cf.department_3 }
+}
+MamRevenueFundDepartment4 = {
+ type = character
+ text = { trigger = { title:e_minister_of_personnel = { NOT = { exists = holder } } } localization_key = mam_cf.department_4_vacant }
+ text = { trigger = { title:e_minister_of_personnel = { exists = holder holder.primary_title != title:e_minister_of_personnel } } localization_key = mam_cf.department_4_shared }
+ text = { trigger = { title:e_minister_of_personnel = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_4_unreviewed }
+ text = { localization_key = mam_cf.department_4 }
+}
+MamRevenueFundDepartment5 = {
+ type = character
+ text = { trigger = { title:e_minister_of_war = { NOT = { exists = holder } } } localization_key = mam_cf.department_5_vacant }
+ text = { trigger = { title:e_minister_of_war = { exists = holder holder.primary_title != title:e_minister_of_war } } localization_key = mam_cf.department_5_shared }
+ text = { trigger = { title:e_minister_of_war = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_5_unreviewed }
+ text = { localization_key = mam_cf.department_5 }
+}
+MamRevenueFundDepartment6 = {
+ type = character
+ text = { trigger = { title:e_minister_of_rites = { NOT = { exists = holder } } } localization_key = mam_cf.department_6_vacant }
+ text = { trigger = { title:e_minister_of_rites = { exists = holder holder.primary_title != title:e_minister_of_rites } } localization_key = mam_cf.department_6_shared }
+ text = { trigger = { title:e_minister_of_rites = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_6_unreviewed }
+ text = { localization_key = mam_cf.department_6 }
+}
+MamRevenueFundDepartment7 = {
+ type = character
+ text = { trigger = { title:e_minister_of_works = { NOT = { exists = holder } } } localization_key = mam_cf.department_7_vacant }
+ text = { trigger = { title:e_minister_of_works = { exists = holder holder.primary_title != title:e_minister_of_works } } localization_key = mam_cf.department_7_shared }
+ text = { trigger = { title:e_minister_of_works = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_7_unreviewed }
+ text = { localization_key = mam_cf.department_7 }
+}
+MamRevenueFundDepartment8 = {
+ type = character
+ text = { trigger = { title:e_minister_of_revenue = { NOT = { exists = holder } } } localization_key = mam_cf.department_8_vacant }
+ text = { trigger = { title:e_minister_of_revenue = { exists = holder holder.primary_title != title:e_minister_of_revenue } } localization_key = mam_cf.department_8_shared }
+ text = { trigger = { title:e_minister_of_revenue = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_8_unreviewed }
+ text = { localization_key = mam_cf.department_8 }
+}
+MamRevenueFundDepartment9 = {
+ type = character
+ text = { trigger = { title:e_minister_of_justice = { NOT = { exists = holder } } } localization_key = mam_cf.department_9_vacant }
+ text = { trigger = { title:e_minister_of_justice = { exists = holder holder.primary_title != title:e_minister_of_justice } } localization_key = mam_cf.department_9_shared }
+ text = { trigger = { title:e_minister_of_justice = { NOT = { has_variable = mam_cf_cost } } } localization_key = mam_cf.department_9_unreviewed }
+ text = { localization_key = mam_cf.department_9 }
+}
+
+MamRevenueFundGrantProject = {
+ type = character
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 1 } } localization_key = mam_cf.grant_name_1 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 2 } } localization_key = mam_cf.grant_name_2 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 3 } } localization_key = mam_cf.grant_name_3 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 4 } } localization_key = mam_cf.grant_name_4 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 5 } } localization_key = mam_cf.grant_name_5 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 6 } } localization_key = mam_cf.grant_name_6 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 7 } } localization_key = mam_cf.grant_name_7 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 8 } } localization_key = mam_cf.grant_name_8 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 9 } } localization_key = mam_cf.grant_name_9 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 10 } } localization_key = mam_cf.grant_name_10 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 11 } } localization_key = mam_cf.grant_name_11 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 12 } } localization_key = mam_cf.grant_name_12 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 13 } } localization_key = mam_cf.grant_name_13 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 14 } } localization_key = mam_cf.grant_name_14 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 15 } } localization_key = mam_cf.grant_name_15 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 16 } } localization_key = mam_cf.grant_name_16 }
+ text = { trigger = { primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_type = 17 } } localization_key = mam_cf.grant_name_17 }
+ text = { localization_key = mam_cf.grant_none }
+}

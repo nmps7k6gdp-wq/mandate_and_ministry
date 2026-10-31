@@ -1,0 +1,87 @@
+﻿# Title scope; only local event-chain evidence is captured.
+mam_capture_service_case_effect = {
+ save_scope_as = mam_service_case
+ save_scope_value_as = { name = mam_case_baseline value = var:mam_ds_started }
+ save_scope_value_as = { name = mam_case_serial value = var:mam_ds_serial }
+ save_scope_value_as = { name = mam_case_sample value = var:mam_ds_sampled }
+ save_scope_value_as = { name = mam_case_control value = var:mam_ds_control }
+ save_scope_value_as = { name = mam_case_development value = var:mam_ds_development }
+ save_scope_value_as = { name = mam_case_merit value = var:mam_ds_merit }
+ save_scope_value_as = { name = mam_case_recorded value = var:mam_rv_date }
+ save_scope_value_as = { name = mam_case_reason value = var:mam_rv_reason }
+ save_scope_value_as = { name = mam_case_control_delta value = { value = var:mam_ds_control subtract = var:mam_ds_baseline_control } }
+ save_scope_value_as = { name = mam_case_development_delta value = { value = var:mam_ds_development subtract = var:mam_ds_baseline_development } }
+ save_scope_value_as = { name = mam_case_merit_delta value = { value = var:mam_ds_merit subtract = var:mam_ds_baseline_merit } }
+}
+# Player minister. Recheck the screen's original evidence after a native refresh.
+mam_open_service_case_effect = {
+ scope:mam_dossier_governor ?= { mam_update_one_dossier_effect = yes }
+ if = { limit = { mam_service_case_open_trigger = yes }
+  scope:mam_dossier_governor = { save_scope_as = mam_incumbent }
+  scope:mam_dossier_title = { save_scope_as = mam_posting mam_capture_service_case_effect = yes }
+  save_scope_value_as = { name = mam_review_mode value = 0 }
+  mam_build_posting_review_effect = yes
+  trigger_event = mam_personnel.0020
+ }
+ else = { trigger_event = mam_personnel.0065 }
+}
+# Minister scope. Select at most one direct, clean posting using refreshed AI advice.
+# The existing three-year routine-review interval still bounds the entire attempt.
+mam_select_service_case_effect = {
+ clear_saved_scope = mam_service_case
+ clear_saved_scope = mam_posting
+ clear_saved_scope = mam_incumbent
+ clear_saved_scope = mam_inspected
+ scope:mam_emperor = {
+  if = { limit = { primary_title = { has_variable = mam_ds_enabled } }
+   mam_refresh_realm_dossiers_effect = yes
+   mam_ai_service_reviews_effect = yes
+   ordered_vassal = {
+    limit = {
+     mam_power_title_allowed_trigger = { TITLE = primary_title }
+    mam_supported_governor_trigger = yes
+     mam_clean_bundle_trigger = { TITLE = primary_title }
+     NOT = { has_character_flag = mam_recent_appointment }
+     primary_title = {
+      mam_service_case_record_trigger = yes
+      NOT = { mam_service_case_ai_cooldown_trigger = yes }
+     }
+    }
+    order_by = mam_service_case_priority_value
+    max = 1 check_range_bounds = no
+    save_scope_as = mam_incumbent
+    primary_title = {
+     save_scope_as = mam_posting
+     mam_capture_service_case_effect = yes
+     set_variable = { name = mam_case_ai_attempt_until value = { value = current_date add = 1095 } }
+    }
+   }
+  }
+ }
+ if = { limit = { exists = scope:mam_service_case }
+  scope:mam_emperor.primary_title = {
+   if = { limit = { NOT = { has_variable = mam_case_ai_selected } } set_variable = { name = mam_case_ai_selected value = 0 } }
+   change_variable = { name = mam_case_ai_selected add = 1 }
+  }
+ }
+}
+# Submitted cases are protected against repeat follow-ups even after rejection.
+mam_note_service_case_submission_effect = {
+ if = { limit = { exists = scope:mam_service_case }
+  scope:mam_service_case = {
+   set_variable = { name = mam_case_followup_until value = { value = current_date add = 1095 } }
+  }
+  scope:mam_emperor.primary_title = {
+   if = { limit = { NOT = { has_variable = mam_case_submitted } } set_variable = { name = mam_case_submitted value = 0 } }
+   change_variable = { name = mam_case_submitted add = 1 }
+  }
+ }
+}
+mam_note_service_case_success_effect = {
+ if = { limit = { exists = scope:mam_service_case scope:mam_posting.holder = scope:mam_nominee }
+  scope:mam_emperor.primary_title = {
+   if = { limit = { NOT = { has_variable = mam_case_completed } } set_variable = { name = mam_case_completed value = 0 } }
+   change_variable = { name = mam_case_completed add = 1 }
+  }
+ }
+}

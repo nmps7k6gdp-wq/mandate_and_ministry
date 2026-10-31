@@ -1,0 +1,40 @@
+﻿# Title scope. Public concern is independent of personality: 0 clear, 2 modest, 4 major.
+mam_service_concern_value = {
+ value = 0
+ if = { limit = { mam_service_major_concern_trigger = yes } add = 4 }
+ else_if = { limit = { mam_service_modest_concern_trigger = yes } add = 2 }
+}
+mam_service_improvement_value = {
+ value = 0
+ if = { limit = { var:mam_ds_control >= { value = var:mam_ds_baseline_control add = 5 } } add = 1 }
+ if = { limit = { var:mam_ds_development >= { value = var:mam_ds_baseline_development add = 0.5 } } add = 1 }
+ if = { limit = { var:mam_ds_merit > var:mam_ds_baseline_merit } add = 1 }
+}
+mam_service_praise_threshold_value = {
+ value = 2
+ if = { limit = { exists = scope:mam_srv_minister }
+  if = { limit = { scope:mam_srv_minister = { has_trait = generous } } subtract = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = just } } add = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = honest } } add = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = paranoid } } add = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = lazy } } add = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = ambitious }
+   holder = { exists = house house = scope:mam_srv_minister.house }
+  } subtract = 1 }
+ }
+ min = 1 max = 3
+}
+# A bounded scrutiny threshold, not an alteration of the governor's qualifications.
+mam_service_scrutiny_value = {
+ value = 2
+ if = { limit = { exists = scope:mam_srv_minister }
+  if = { limit = { scope:mam_srv_minister = { has_trait = diligent } } subtract = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = paranoid } } subtract = 1 }
+  if = { limit = { scope:mam_srv_minister = { has_trait = lazy } } add = 1 }
+  if = { limit = {
+   scope:mam_srv_minister = { has_trait = ambitious }
+   holder = { exists = house house = scope:mam_srv_minister.house }
+  } add = 1 }
+ }
+ min = 1 max = 3
+}

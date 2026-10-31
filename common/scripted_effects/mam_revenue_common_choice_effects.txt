@@ -1,0 +1,236 @@
+﻿mam_revenue_fund_recommend_effect = {
+ if = { limit = { mam_revenue_fund_actor_trigger = yes }
+  scope:mam_cf_file = {
+   if = { limit = { var:mam_cf_kind = 1 }
+    set_variable = { name = mam_cf_amount value = { value = var:mam_cf_cost subtract = var:mam_cf_target.var:mam_cf_cost
+     multiply = 3 add = var:mam_cf_headroom subtract = var:mam_cf_target.var:mam_cf_headroom min = 0 } }
+   }
+   if = { limit = { var:mam_cf_kind = 6 NOT = { exists = var:mam_cf_consent } }
+    set_variable = { name = mam_cf_stage value = 2 } mam_revenue_fund_release_effect = yes
+   }
+   else_if = { limit = { mam_revenue_fund_delegated_trigger = yes }
+    set_variable = { name = mam_cf_authorized value = root } mam_revenue_fund_commit_effect = yes
+   }
+   else = { set_variable = { name = mam_cf_stage value = 1 } mam_revenue_fund_release_effect = yes }
+  }
+ }
+}
+mam_revenue_fund_approve_effect = {
+ if = { limit = { mam_revenue_fund_actor_trigger = yes }
+  scope:mam_cf_file = {
+   set_variable = { name = mam_cf_authorized value = root }
+   mam_revenue_fund_commit_effect = yes
+  }
+ }
+}
+mam_revenue_fund_refuse_effect = {
+ if = { limit = { mam_revenue_fund_actor_trigger = yes }
+  if = { limit = { has_trait = compassionate scope:mam_cf_file.var:mam_cf_kind = 2
+   scope:mam_cf_subject = { mam_revenue_has_recovery_need_trigger = yes }
+   scope:mam_cf_max >= scope:mam_cf_quote
+  } add_stress = 15 }
+  scope:mam_cf_file = {
+   set_variable = { name = mam_cf_decider value = root }
+   # A materially reduced allocation can be appealed once by its holder.
+   if = { limit = { var:mam_cf_kind = 1 }
+    var:mam_cf_target = {
+     set_variable = { name = mam_cf_cut_before value = var:mam_cf_headroom }
+     set_variable = { name = mam_cf_cut_until value = { value = current_date add = 180 } }
+     set_variable = { name = mam_cf_cut_holder value = holder }
+     remove_variable = mam_cf_appeal_used
+     holder = { trigger_event = { id = mam_fund.97 days = 3 } }
+    }
+   }
+   if = { limit = { var:mam_cf_kind = 2 }
+    var:mam_cf_target = { set_variable = { name = mam_cf_relief_until value = { value = current_date add = 90 } } }
+   }
+   if = { limit = { var:mam_cf_kind = 6 }
+    var:mam_cf_target = { set_variable = { name = mam_cf_remit_until value = { value = current_date add = 90 } } }
+   }
+   mam_revenue_fund_close_effect = { RESULT = 2 }
+   mam_revenue_fund_notify_effect = yes
+  }
+ }
+}
+# Story scope. Authority and money are validated again at the actual payment.
+mam_revenue_fund_legacy_commit_effect = {
+ mam_revenue_fund_refresh_totals_effect = yes
+ save_scope_as = mam_cf_committing
+ mam_revenue_fund_validate_start_request_effect = yes
+ if = { limit = { scope:mam_cf_start_commit_valid = 0 }
+  set_variable = { name = mam_cf_start_request_obsolete value = 1 }
+  mam_revenue_fund_record_diagnostic_effect = { KEY = start_request_obsolete }
+  mam_revenue_fund_close_effect = { RESULT = 4 }
+  mam_revenue_fund_notify_effect = yes
+ }
+ else_if = { limit = { mam_revenue_fund_live_case_trigger = yes exists = var:mam_cf_authorized
+  exists = title:e_minister_of_revenue.holder
+  title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes }
+  trigger_if = { limit = { var:mam_cf_kind = 6 } var:mam_cf_consent = var:mam_cf_target.holder }
+  trigger_if = { limit = { OR = { var:mam_cf_kind = 3 var:mam_cf_kind = 9 } }
+   var:mam_cf_target = { var:mam_cf_project_cash = 0 }
+  }
+  trigger_if = { limit = { var:mam_cf_kind = 3 } exists = var:mam_cf_project_target.holder }
+  trigger_if = { limit = { var:mam_cf_kind = 9 }
+   exists = var:mam_cf_project_instance var:mam_cf_project_instance = { great_project_owner = { top_liege = title:h_china.holder } }
+  }
+  OR = {
+   var:mam_cf_authorized = title:h_china.holder
+   AND = { mam_revenue_fund_imperial_trigger = no var:mam_cf_authorized = title:e_minister_chancellor.holder
+    title:e_minister_chancellor.holder = { mam_revenue_chancellor_trigger = yes } }
+   AND = { mam_revenue_fund_delegated_trigger = yes var:mam_cf_authorized = title:e_minister_of_revenue.holder
+    title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes } }
+  }
+ }
+  if = { limit = { OR = { var:mam_cf_kind = 1 var:mam_cf_kind = 7 } }
+   var:mam_cf_target = {
+    if = { limit = { scope:mam_cf_committing.var:mam_cf_headroom < var:mam_cf_headroom }
+     set_variable = { name = mam_cf_cut_before value = var:mam_cf_headroom }
+     set_variable = { name = mam_cf_cut_until value = { value = current_date add = 180 } }
+     set_variable = { name = mam_cf_cut_holder value = holder }
+     remove_variable = mam_cf_appeal_used
+     holder = { trigger_event = { id = mam_fund.97 days = 3 } }
+     holder = { add_opinion = { target = scope:mam_cf_committing.var:mam_cf_authorized modifier = mam_revenue_fund_cut_opinion years = 2 } }
+    }
+    else_if = { limit = { scope:mam_cf_committing.var:mam_cf_headroom > var:mam_cf_headroom }
+     holder = { add_opinion = { target = scope:mam_cf_committing.var:mam_cf_authorized modifier = mam_revenue_fund_support_opinion years = 2 } }
+    }
+    # Approval records reported commitments and sets discretionary headroom.
+    set_variable = { name = mam_cf_cost value = scope:mam_cf_committing.var:mam_cf_cost }
+    set_variable = { name = mam_cf_headroom value = scope:mam_cf_committing.var:mam_cf_headroom }
+    set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom subtract = var:mam_cf_issued min = 0 } }
+    set_variable = { name = mam_cf_review_until value = { value = current_date add = 90 } }
+   }
+   mam_revenue_fund_close_effect = { RESULT = 1 } mam_revenue_fund_notify_effect = yes
+  }
+  else_if = { limit = { var:mam_cf_kind = 4 }
+   title:h_china = {
+    set_variable = { name = mam_cf_programme value = scope:mam_cf_committing.var:mam_cf_mode }
+    set_variable = { name = mam_cf_programme_until value = { value = current_date add = 365 } }
+    set_variable = { name = mam_cf_programme_approved value = holder }
+    if = { limit = { scope:mam_cf_committing.var:mam_cf_requester = holder } set_variable = { name = mam_cf_imperial_programme value = holder } }
+   }
+   mam_revenue_fund_close_effect = { RESULT = 1 } mam_revenue_fund_notify_effect = yes
+  }
+  else = {
+   clear_saved_scope = mam_cf_payer clear_saved_scope = mam_cf_payee
+   save_scope_value_as = { name = mam_cf_paid value = 0 }
+   if = { limit = { has_variable = mam_cf_clear_debt }
+    set_variable = { name = mam_cf_amount value = { value = var:mam_cf_amount
+     max = { value = var:mam_cf_target.holder.treasury multiply = -1 min = 0 } }
+    }
+   }
+   save_scope_value_as = { name = mam_cf_amount value = var:mam_cf_amount }
+   save_scope_value_as = { name = mam_cf_floor value = { value = title:e_minister_of_revenue.mam_revenue_fund_cash_target
+    add = title:h_china.var:mam_cf_reserve add = title:h_china.var:mam_cf_unfunded add = title:h_china.var:mam_pc_commitments } }
+   if = { limit = { var:mam_cf_kind = 2 title:h_china.var:mam_cf_programme = 2 }
+    save_scope_value_as = { name = mam_cf_floor value = { value = scope:mam_cf_floor subtract = 300 min = 0 } }
+   }
+   title:e_minister_of_revenue.holder ?= { save_scope_as = mam_cf_payer }
+   var:mam_cf_target.holder = { save_scope_as = mam_cf_payee }
+   if = { limit = { var:mam_cf_kind = 5 }
+    title:h_china.holder = { save_scope_as = mam_cf_payer }
+    title:e_minister_of_revenue.holder ?= { save_scope_as = mam_cf_payee }
+    save_scope_value_as = { name = mam_cf_floor value = 500 }
+   }
+   else_if = { limit = { var:mam_cf_kind = 6 }
+    var:mam_cf_target.holder = { save_scope_as = mam_cf_payer }
+    title:e_minister_of_revenue.holder ?= { save_scope_as = mam_cf_payee }
+    save_scope_value_as = { name = mam_cf_floor value = 200 }
+   }
+   # Custodian projects reserve real cash locally; there is no self-payment.
+   if = { limit = { OR = { var:mam_cf_kind = 3 var:mam_cf_kind = 9 var:mam_cf_kind = 12 }
+    var:mam_cf_target = title:e_minister_of_revenue
+    var:mam_cf_amount <= title:h_china.mam_revenue_fund_available
+   }
+    save_scope_value_as = { name = mam_cf_paid value = var:mam_cf_amount }
+   }
+   else_if = { limit = { exists = scope:mam_cf_payer exists = scope:mam_cf_payee }
+    mam_revenue_fund_transfer_effect = yes
+   }
+   if = { limit = { scope:mam_cf_paid > 0 }
+    set_variable = { name = mam_cf_paid_amount value = scope:mam_cf_paid }
+    set_variable = { name = mam_cf_paid_from value = scope:mam_cf_payer }
+    set_variable = { name = mam_cf_paid_to value = scope:mam_cf_payee }
+    set_variable = { name = mam_cf_paid_from_title value = scope:mam_cf_payer.primary_title }
+    set_variable = { name = mam_cf_paid_to_title value = scope:mam_cf_payee.primary_title }
+    if = { limit = { var:mam_cf_kind = 12 }
+     var:mam_cf_target = {
+      change_variable = { name = mam_cf_special_target add = scope:mam_cf_paid }
+      set_variable = { name = mam_cf_special_until value = { value = current_date add = 90 } }
+     }
+    }
+    else_if = { limit = { OR = { var:mam_cf_kind = 3 var:mam_cf_kind = 9 } }
+     var:mam_cf_target = {
+      change_variable = { name = mam_cf_project_cash add = scope:mam_cf_paid }
+      set_variable = { name = mam_cf_next_project_request value = { value = current_date add = 90 } }
+      set_variable = { name = mam_cf_project_until value = { value = current_date add = 365 } }
+      if = { limit = { scope:mam_cf_committing.var:mam_cf_kind = 3 }
+       set_variable = { name = mam_cf_project_type value = scope:mam_cf_committing.var:mam_cf_project_type }
+       set_variable = { name = mam_cf_project_target value = scope:mam_cf_committing.var:mam_cf_project_target }
+       remove_variable = mam_cf_project_instance
+      }
+      else = { set_variable = { name = mam_cf_project_instance value = scope:mam_cf_committing.var:mam_cf_project_instance } }
+     }
+    }
+    if = { limit = { var:mam_cf_kind = 2 }
+     var:mam_cf_target = { set_variable = { name = mam_cf_relief_until value = { value = current_date add = 365 } } }
+     var:mam_cf_target.holder = {
+      save_scope_as = mam_cf_recovery_office
+      add_character_modifier = { modifier = mam_revenue_recovery_office_modifier years = 1 }
+      every_sub_realm_county = { limit = { county_control < 60 holder.top_liege = title:h_china.holder
+       NOT = { holder = { mam_revenue_province_trigger = yes primary_title = { tier = tier_kingdom } this != scope:mam_cf_recovery_office } }
+       NOT = { holder = { any_liege_or_above = {
+        mam_revenue_province_trigger = yes primary_title = { tier = tier_kingdom }
+        this != scope:mam_cf_recovery_office is_vassal_or_below_of = scope:mam_cf_recovery_office
+       } } }
+      }
+       add_county_modifier = { modifier = mam_revenue_recovery_county_modifier years = 1 }
+      }
+     }
+    }
+    if = { limit = { var:mam_cf_kind = 6 }
+     var:mam_cf_target = { set_variable = { name = mam_cf_remit_until value = { value = current_date add = 365 } } }
+     var:mam_cf_target.holder = { add_opinion = { target = scope:mam_cf_committing.var:mam_cf_authorized modifier = mam_revenue_fund_levy_opinion years = 2 } }
+    }
+    else_if = { limit = { var:mam_cf_target != title:h_china }
+     var:mam_cf_target.holder = { add_opinion = { target = scope:mam_cf_committing.var:mam_cf_authorized modifier = mam_revenue_fund_support_opinion years = 2 } }
+    }
+
+    if = { limit = { var:mam_cf_kind = 3 }
+     mam_revenue_fund_record_diagnostic_effect = { KEY = start_advance_authorized }
+     var:mam_cf_target.holder = { mam_revenue_fund_prepare_project_budget_effect = yes trigger_event = { id = mam_fund.36 days = 1 } }
+    }
+    mam_revenue_fund_native_rewards_effect = yes
+    mam_revenue_fund_close_effect = { RESULT = 1 } mam_revenue_fund_notify_effect = yes
+   }
+   else = {
+    # Failed/uncertain payments close without success or an automatic repeat.
+    mam_revenue_fund_close_effect = { RESULT = 3 } mam_revenue_fund_notify_effect = yes
+   }
+  }
+ }
+ else = { mam_revenue_fund_release_effect = yes }
+}
+mam_revenue_fund_notify_effect = {
+ save_scope_as = mam_cf_outcome
+ var:mam_cf_requester ?= { if = { limit = { is_alive = yes is_ai = no }
+  scope:mam_cf_outcome = { save_scope_as = mam_cf_file }
+  mam_revenue_fund_bind_effect = yes
+  trigger_event = { id = mam_fund.20 days = 1 }
+ } }
+ var:mam_cf_authorized ?= { if = { limit = { is_alive = yes is_ai = no this != scope:mam_cf_outcome.var:mam_cf_requester scope:mam_cf_outcome.var:mam_cf_kind != 13 }
+  scope:mam_cf_outcome = { save_scope_as = mam_cf_file }
+  mam_revenue_fund_bind_effect = yes trigger_event = { id = mam_fund.20 days = 1 }
+ } }
+ var:mam_cf_decider ?= { if = { limit = { is_alive = yes is_ai = no this != scope:mam_cf_outcome.var:mam_cf_requester scope:mam_cf_outcome.var:mam_cf_kind != 13 }
+  scope:mam_cf_outcome = { save_scope_as = mam_cf_file }
+  mam_revenue_fund_bind_effect = yes trigger_event = { id = mam_fund.20 days = 1 }
+ } }
+}
+
+
+mam_revenue_fund_commit_effect = {
+ if = { limit = { var:mam_cf_kind = 13 } mam_revenue_fund_commit_project_budget_effect = yes }
+ else = { mam_revenue_fund_legacy_commit_effect = yes }
+}

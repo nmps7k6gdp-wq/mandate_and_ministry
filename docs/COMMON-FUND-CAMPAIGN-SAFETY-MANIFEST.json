@@ -1,0 +1,65 @@
+{
+  "records": [
+    {
+      "kind": "event",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\events\\dlc\\tgp\\tgp_china_ministry_events.txt",
+      "native_file_sha256": "dc54e6ef17c4a4ea403c2eb42d6049260990d1fcd5216f8d3bd6faf80f720486",
+      "definition": "tgp_china_ministry.0005",
+      "original_sha256": "fa02715052c4866e94895b4d0f5e752512b48d23ba6b16ad19348ae04605c6ae",
+      "output": "events/zz_mam_revenue_common_native_campaign_events.txt",
+      "patches": [
+        {
+          "old": "every_in_list = {\n\t\t\tlist = all_contributors\n\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tlist_size:titles_won >= list_size:titles_lost\n\t\t\t\t}\n\t\t\t\tcustom_tooltip = grand_campaign_movement_power_gain_tt\n\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\texists = var:grand_campaign_won\n\t\t\t\t\t}\n\t\t\t\t\tchange_variable = {\n\t\t\t\t\t\tname = grand_campaign_won\n\t\t\t\t\t\tadd = 100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\telse = {\n\t\t\t\t\tset_variable = {\n\t\t\t\t\t\tname = grand_campaign_won\n\t\t\t\t\t\tvalue = 100\n\t\t\t\t\t}\n\t\t\t\t}\n\t \t\t\tadd_merit_if_relevant_effect = {\n\t \t\t\t\tMERIT = monumental_merit_value\n\t \t\t\t}\n\t\t\t}\n\t\t\telse = {\n\t\t\t\tcustom_tooltip = grand_campaign_movement_power_loss_tt\n\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\texists = var:grand_campaign_lost\n\t\t\t\t\t}\n\t\t\t\t\tchange_variable = {\n\t\t\t\t\t\tname = grand_campaign_lost\n\t\t\t\t\t\tadd = -100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\telse = {\n\t\t\t\t\tset_variable = {\n\t\t\t\t\t\tname = grand_campaign_lost\n\t\t\t\t\t\tvalue = -100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}",
+          "new": "every_in_list = {\n limit = { is_alive = yes }\n\t\t\tlist = all_contributors\n\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tlist_size:titles_won >= list_size:titles_lost\n\t\t\t\t}\n\t\t\t\tcustom_tooltip = grand_campaign_movement_power_gain_tt\n\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\texists = var:grand_campaign_won\n\t\t\t\t\t}\n\t\t\t\t\tchange_variable = {\n\t\t\t\t\t\tname = grand_campaign_won\n\t\t\t\t\t\tadd = 100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\telse = {\n\t\t\t\t\tset_variable = {\n\t\t\t\t\t\tname = grand_campaign_won\n\t\t\t\t\t\tvalue = 100\n\t\t\t\t\t}\n\t\t\t\t}\n\t \t\t\tadd_merit_if_relevant_effect = {\n\t \t\t\t\tMERIT = monumental_merit_value\n\t \t\t\t}\n\t\t\t}\n\t\t\telse = {\n\t\t\t\tcustom_tooltip = grand_campaign_movement_power_loss_tt\n\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\texists = var:grand_campaign_lost\n\t\t\t\t\t}\n\t\t\t\t\tchange_variable = {\n\t\t\t\t\t\tname = grand_campaign_lost\n\t\t\t\t\t\tadd = -100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\telse = {\n\t\t\t\t\tset_variable = {\n\t\t\t\t\t\tname = grand_campaign_lost\n\t\t\t\t\t\tvalue = -100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}",
+          "reason": "Dead contributors cannot receive variable, Merit or movement rewards."
+        },
+        {
+          "old": "right_portrait = {\n\t\tcharacter = scope:war_leader\n\t\ttriggered_animation = {\n\t\t\ttrigger = { list_size:titles_won >= list_size:titles_lost }\n\t\t\tanimation = random_weapon_celebrate\n\t\t}\n\t\tanimation = shame\n\t}",
+          "new": "right_portrait = {\n trigger = { exists = scope:war_leader scope:war_leader ?= { is_alive = yes } }\n\t\tcharacter = scope:war_leader\n\t\ttriggered_animation = {\n\t\t\ttrigger = { list_size:titles_won >= list_size:titles_lost }\n\t\t\tanimation = random_weapon_celebrate\n\t\t}\n\t\tanimation = shame\n\t}",
+          "reason": "Keep the historical leader name without rendering a missing/dead reward recipient portrait."
+        },
+        {
+          "old": "scope:war_leader = {\n\t\t\t\ttgp_activate_catalyst_against_hegemon_effect = {\n\t\t\t\t\tHEGEMON = scope:owner\n\t\t\t\t\tCATALYST = catalyst_grand_campaign\n\t\t\t\t}\n\t \t\t\tadd_merit_if_relevant_effect = {\n\t \t\t\t\tMERIT = 1000\n\t \t\t\t}\n\t\t\t}",
+          "new": "scope:war_leader ?= { if = { limit = { is_alive = yes }\n\n\t\t\t\ttgp_activate_catalyst_against_hegemon_effect = {\n\t\t\t\t\tHEGEMON = scope:owner\n\t\t\t\t\tCATALYST = catalyst_grand_campaign\n\t\t\t\t}\n\t \t\t\tadd_merit_if_relevant_effect = {\n\t \t\t\t\tMERIT = 1000\n\t \t\t\t}\n\t\t\t\n} }",
+          "reason": "Personal leader rewards apply only to the actual living leader; never give a successor the deceased leader's credit."
+        },
+        {
+          "old": "scope:war_leader = {\n\t\t\t\ttgp_activate_catalyst_against_hegemon_effect = {\n\t\t\t\t\tHEGEMON = scope:owner\n\t\t\t\t\tCATALYST = catalyst_grand_campaign_lost\n\t\t\t\t}\n\t \t\t\tchange_influence = major_influence_loss\n\t\t\t}",
+          "new": "scope:war_leader ?= { if = { limit = { is_alive = yes }\n\n\t\t\t\ttgp_activate_catalyst_against_hegemon_effect = {\n\t\t\t\t\tHEGEMON = scope:owner\n\t\t\t\t\tCATALYST = catalyst_grand_campaign_lost\n\t\t\t\t}\n\t \t\t\tchange_influence = major_influence_loss\n\t\t\t\n} }",
+          "reason": "Personal leader rewards apply only to the actual living leader; never give a successor the deceased leader's credit."
+        }
+      ]
+    },
+    {
+      "kind": "cb",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\casus_belli_types\\10_tgp_china_wars.txt",
+      "native_file_sha256": "66d7bf8cd4323220486a988ba3172753db0282694bc19fd1bd88e2eaf620d45d",
+      "definition": "grand_campaign_kingdom_invasion_cb",
+      "original_sha256": "a9a8c85f3cf0a36f0225bad69b36a4530c5750f9fe309e9f65c699f954aae0ac",
+      "output": "common/casus_belli_types/zz_mam_revenue_common_native_campaign_cb.txt",
+      "patches": [
+        {
+          "old": "limit = {\n\t\t\t\t\t\tholder = {\n\t\t\t\t\t\t\tOR = {\n\t\t\t\t\t\t\t\tthis = scope:defender\n\t\t\t\t\t\t\t\ttarget_is_liege_or_above = scope:defender\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\ttop_overlord != scope:attacker.top_overlord\n\t\t\t\t\t\t}\n\t\t\t\t\t}",
+          "new": "limit = {\n exists = holder\n\t\t\t\t\t\tholder ?= {\n\t\t\t\t\t\t\tOR = {\n\t\t\t\t\t\t\t\tthis = scope:defender\n\t\t\t\t\t\t\t\ttarget_is_liege_or_above = scope:defender\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\ttop_overlord != scope:attacker.top_overlord\n\t\t\t\t\t\t}\n\t\t\t\t\t}",
+          "reason": "Skip titleless target entries before inspecting holder relationships during campaign declaration."
+        }
+      ]
+    },
+    {
+      "kind": "event",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\events\\dlc\\tgp\\tgp_china_ministry_events.txt",
+      "native_file_sha256": "dc54e6ef17c4a4ea403c2eb42d6049260990d1fcd5216f8d3bd6faf80f720486",
+      "definition": "tgp_china_ministry.0004",
+      "original_sha256": "c747a4c2bddbe30edb710ff151f1afb00eeb326df432ea72d1affc608964c279",
+      "output": "events/zz_mam_revenue_common_native_campaign_events.txt",
+      "patches": [
+        {
+          "old": "lower_center_portrait = scope:target_title.holder",
+          "new": "lower_center_portrait = { trigger = { exists = scope:target_title.holder } character = scope:target_title.holder }",
+          "reason": "A valid campaign can target a duchy without a title holder; omit its empty portrait."
+        }
+      ]
+    }
+  ],
+  "text_normalization": "UTF-8 BOM stripped, universal-newline text as used by the existing native parity verifiers; whole-file hashes use original bytes."
+}

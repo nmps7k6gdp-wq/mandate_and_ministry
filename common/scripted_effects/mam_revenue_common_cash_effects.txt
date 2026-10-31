@@ -1,0 +1,475 @@
+﻿# Title scope. Identity and operating authorisations persist with the office.
+mam_revenue_fund_init_office_effect = {
+ if = { limit = { NOT = { has_variable = mam_cf_cost } }
+  set_variable = { name = mam_cf_cost value = holder.mam_revenue_fund_observed_cost }
+  set_variable = { name = mam_cf_headroom value = 75 }
+  set_variable = { name = mam_cf_project_cash value = 0 }
+  set_variable = { name = mam_cf_special_target value = 0 }
+  set_variable = { name = mam_cf_period_end value = { value = current_date add = 90 } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } }
+  set_variable = { name = mam_cf_issued value = 0 }
+ }
+ if = { limit = { var:mam_cf_period_end <= current_date }
+  set_variable = { name = mam_cf_period_end value = { value = current_date add = 90 } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } }
+  set_variable = { name = mam_cf_issued value = 0 }
+ }
+ # Retire individual recipient-rate settings. The overall native budget is intact.
+ if = { limit = { has_variable = mam_cf_special_until var:mam_cf_special_until <= current_date }
+  set_variable = { name = mam_cf_special_target value = 0 } remove_variable = mam_cf_special_until
+ }
+ if = { limit = { holder = { mam_revenue_budget_office_trigger = yes
+  NOT = { vassal_contract_obligation_level:celestial_ministry_budget = 1 } } }
+  holder = { vassal_contract_set_obligation_level = { type = celestial_ministry_budget level = 1 } }
+ }
+ # Unspent project advances expire after one year; cash is returned by the sweep.
+ # An active native project is retained across succession until its grant expires.
+ if = { limit = { has_variable = mam_cf_project_until var:mam_cf_project_until <= current_date }
+  if = { limit = { var:mam_cf_project_cash > 0 }
+   mam_revenue_fund_record_diagnostic_effect = { KEY = project_advance_expired }
+  }
+  set_variable = { name = mam_cf_project_cash value = 0 }
+  remove_variable = mam_cf_project_type remove_variable = mam_cf_project_target
+  remove_variable = mam_cf_project_instance remove_variable = mam_cf_project_until
+ }
+
+ mam_revenue_fund_settle_return_effect = yes
+
+
+ if = { limit = { NOT = { has_variable = mam_cf_statement_collected } }
+  set_variable = { name = mam_cf_statement_collected value = 0 }
+  set_variable = { name = mam_cf_statement_received value = 0 }
+ }
+
+
+ # Existing saves retain spent advances; only the discretionary cap migrates.
+ if = { limit = { NOT = { has_variable = mam_cf_payroll_model } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom subtract = var:mam_cf_issued min = 0 max = var:mam_cf_remaining } }
+  set_variable = { name = mam_cf_payroll_model value = 1 }
+ }
+
+ holder = { mam_revenue_fund_prepare_project_budget_effect = yes }
+
+ if = { limit = { has_variable = mam_pc_mobilization_until var:mam_pc_mobilization_until <= current_date }
+  mam_revenue_fund_return_mobilization_effect = yes
+ }
+ if = { limit = { has_variable = mam_pc_mobilization_project NOT = { exists = var:mam_pc_mobilization_project } }
+  mam_revenue_fund_return_mobilization_effect = yes
+ }
+}
+mam_revenue_fund_start_effect = {
+ if = { limit = { mam_revenue_emperor_trigger = yes }
+  title:h_china = {
+   if = { limit = { NOT = { has_variable = mam_cf_active } }
+    set_variable = { name = mam_cf_active value = 1 }
+    set_variable = { name = mam_cf_bootstrap_until value = { value = current_date add = 35 } }
+    holder = { trigger_event = { id = mam_fund.99 days = 35 } }
+    set_variable = { name = mam_cf_programme value = 0 }
+    set_variable = { name = mam_cf_serial value = 0 }
+    set_variable = { name = mam_cf_reserve value = 200 }
+    set_variable = { name = mam_cf_unfunded value = 0 }
+    set_variable = { name = mam_cf_total_cost value = 0 }
+    set_variable = { name = mam_cf_receipt_count value = 0 }
+    # Pending dev.48 proposals cannot spend under the superseded authority.
+    every_in_list = { variable = mam_rv_files limit = { var:mam_rv_pending = 1 }
+     set_variable = { name = mam_rv_result value = 4 } mam_revenue_close_effect = yes
+    }
+    if = { limit = { holder = { NOR = {
+     has_realm_law = mam_revenue_authority_reserved has_realm_law = mam_revenue_authority_limited
+     has_realm_law = mam_revenue_authority_expanded } } }
+     holder = { add_realm_law_skip_effects = mam_revenue_authority_reserved }
+    }
+   }
+  }
+  title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+  if = { limit = { title:h_china = { NOT = { has_variable = mam_cf_bootstrap_done } var:mam_cf_bootstrap_until <= current_date } }
+  title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } set_variable = { name = mam_cf_cost value = { value = holder.mam_revenue_fund_observed_cost min = var:mam_cf_cost } }
+  set_variable = { name = mam_cf_remaining value = { value = var:mam_cf_headroom } } } }
+   title:h_china = { set_variable = { name = mam_cf_bootstrap_done value = 1 } remove_variable = mam_cf_next_month }
+  }
+  mam_revenue_fund_month_effect = yes
+  mam_revenue_fund_wake_effect = yes
+ }
+
+ mam_revenue_fund_ensure_payroll_effect = yes
+
+ mam_revenue_fund_project_driver_effect = yes
+}
+# All module transfers use this single native payment boundary. Bind payer,
+# payee, amount and protected floor first. Never transfer to oneself or retry an
+# uncertain debit. Both readings remain on the imperial title for save inspection.
+mam_revenue_fund_transfer_effect = {
+ save_scope_value_as = { name = mam_cf_paid value = 0 }
+ save_scope_value_as = { name = mam_cf_uncertain value = 0 }
+ if = { limit = {
+  exists = scope:mam_cf_payer exists = scope:mam_cf_payee scope:mam_cf_payer != scope:mam_cf_payee
+  scope:mam_cf_amount > 0 scope:mam_cf_payer = { has_treasury = yes top_liege = title:h_china.holder
+   treasury >= { value = scope:mam_cf_amount add = scope:mam_cf_floor }
+   primary_title = { NOT = { has_variable = mam_cf_payment_hold } }
+  }
+  scope:mam_cf_payee = { has_treasury = yes top_liege = title:h_china.holder
+   primary_title = { NOT = { has_variable = mam_cf_payment_hold } }
+  }
+ }
+  title:h_china = {
+   set_variable = { name = mam_cf_last_payer value = scope:mam_cf_payer }
+   set_variable = { name = mam_cf_last_payee value = scope:mam_cf_payee }
+   set_variable = { name = mam_cf_last_payer_title value = scope:mam_cf_payer.primary_title }
+   set_variable = { name = mam_cf_last_payee_title value = scope:mam_cf_payee.primary_title }
+   set_variable = { name = mam_cf_last_amount value = scope:mam_cf_amount }
+   set_variable = { name = mam_cf_before_payer value = scope:mam_cf_payer.treasury }
+   set_variable = { name = mam_cf_before_payee value = scope:mam_cf_payee.treasury }
+   set_variable = { name = mam_cf_receipt_state value = 1 }
+  }
+  scope:mam_cf_payer = { pay_short_term_treasury = { target = scope:mam_cf_payee treasury = scope:mam_cf_amount } }
+  title:h_china = {
+   set_variable = { name = mam_cf_after_payer value = scope:mam_cf_payer.treasury }
+   set_variable = { name = mam_cf_after_payee value = scope:mam_cf_payee.treasury }
+   set_variable = { name = mam_cf_debit value = { value = var:mam_cf_before_payer subtract = var:mam_cf_after_payer } }
+   set_variable = { name = mam_cf_credit value = { value = var:mam_cf_after_payee subtract = var:mam_cf_before_payee } }
+   if = { limit = {
+    var:mam_cf_debit > 0 var:mam_cf_credit > 0
+    var:mam_cf_debit >= { value = scope:mam_cf_amount subtract = 0.01 }
+    var:mam_cf_debit <= { value = scope:mam_cf_amount add = 0.01 }
+    var:mam_cf_credit >= { value = scope:mam_cf_amount subtract = 0.01 }
+    var:mam_cf_credit <= { value = scope:mam_cf_amount add = 0.01 }
+   }
+    set_variable = { name = mam_cf_receipt_state value = 2 }
+    change_variable = { name = mam_cf_receipt_count add = 1 }
+    save_scope_value_as = { name = mam_cf_paid value = scope:mam_cf_amount }
+   }
+   else = {
+    set_variable = { name = mam_cf_receipt_state value = 3 }
+    save_scope_value_as = { name = mam_cf_uncertain value = 1 }
+    scope:mam_cf_payer.primary_title = { set_variable = { name = mam_cf_payment_hold value = 1 } }
+    scope:mam_cf_payee.primary_title = { set_variable = { name = mam_cf_payment_hold value = 1 } }
+    debug_log = "MAM_COMMON_FUND: uncertain native debit/credit; affected accounts held; no retry"
+   }
+  }
+ }
+}
+# Title scope. Sweeps never include project earmarks or the operating target.
+mam_revenue_fund_sweep_effect = {
+ if = { limit = { this != title:e_minister_of_revenue holder.treasury > mam_revenue_fund_cash_target }
+  holder = { save_scope_as = mam_cf_payer }
+  title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payee }
+  save_scope_value_as = { name = mam_cf_floor value = mam_revenue_fund_cash_target }
+  save_scope_value_as = { name = mam_cf_amount value = { value = holder.treasury subtract = mam_revenue_fund_cash_target floor = yes min = 0 } }
+  
+  mam_revenue_fund_transfer_effect = yes
+  if = { limit = { title:h_china = { has_variable = mam_cf_recording_statement } scope:mam_cf_paid > 0 }
+   change_variable = { name = mam_cf_statement_collected add = scope:mam_cf_paid }
+   title:h_china = { change_variable = { name = mam_cf_statement_collected add = scope:mam_cf_paid } }
+  }
+
+ }
+}
+mam_revenue_fund_count_effect = {
+ save_scope_value_as = { name = mam_cf_service_cost value = mam_revenue_fund_service_cost }
+ title:h_china = { change_variable = { name = mam_cf_total_cost add = scope:mam_cf_service_cost } }
+ if = { limit = { this != title:e_minister_of_revenue }
+  save_scope_value_as = { name = mam_cf_shortfall value = mam_revenue_fund_shortfall }
+  title:h_china = { change_variable = { name = mam_cf_unfunded add = scope:mam_cf_shortfall } }
+ }
+}
+mam_revenue_fund_count_essential_effect = {
+ if = { limit = { this != title:e_minister_of_revenue }
+  save_scope_value_as = { name = mam_cf_essential_gap value = {
+   value = mam_revenue_fund_essential_target subtract = holder.treasury
+   min = 0
+  } }
+  title:h_china = { change_variable = { name = mam_cf_essential_due add = scope:mam_cf_essential_gap } }
+ }
+}
+# Two passes: protected salaries/standing armies before discretionary buffers.
+mam_revenue_fund_refill_effect = {
+ if = { limit = { this != title:e_minister_of_revenue }
+  save_scope_value_as = { name = mam_cf_goal value = mam_revenue_fund_essential_target }
+  save_scope_value_as = { name = mam_cf_floor value = title:e_minister_of_revenue.mam_revenue_fund_cash_target }
+  if = { limit = { always = $EXTRA$ }
+   save_scope_value_as = { name = mam_cf_goal value = mam_revenue_fund_cash_target }
+   save_scope_value_as = { name = mam_cf_floor value = { value = scope:mam_cf_floor add = title:h_china.var:mam_cf_reserve } }
+  }
+  save_scope_value_as = { name = mam_cf_amount value = {
+   value = scope:mam_cf_goal subtract = holder.treasury min = 0
+   max = { value = title:e_minister_of_revenue.holder.treasury subtract = scope:mam_cf_floor min = 0 }
+  } }
+  if = { limit = { always = $EXTRA$ }
+   save_scope_value_as = { name = mam_cf_amount value = { value = scope:mam_cf_amount max = var:mam_cf_remaining } }
+  }
+  else_if = { limit = { title:h_china.var:mam_cf_essential_due > 0 }
+   save_scope_value_as = { name = mam_cf_amount value = { value = scope:mam_cf_amount
+    max = { value = title:h_china.var:mam_cf_essential_cash
+     multiply = { value = scope:mam_cf_goal subtract = holder.treasury min = 0 }
+     divide = title:h_china.var:mam_cf_essential_due }
+   } }
+  }
+  holder = { save_scope_as = mam_cf_payee }
+  title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payer }
+  mam_revenue_fund_transfer_effect = yes
+  if = { limit = { always = $EXTRA$ }
+   change_variable = { name = mam_cf_remaining subtract = scope:mam_cf_paid }
+   change_variable = { name = mam_cf_issued add = scope:mam_cf_paid }
+  }
+  if = { limit = { title:h_china = { has_variable = mam_cf_recording_statement } scope:mam_cf_paid > 0 }
+   change_variable = { name = mam_cf_statement_received add = scope:mam_cf_paid }
+   title:h_china = { change_variable = { name = mam_cf_statement_advanced add = scope:mam_cf_paid } }
+  }
+  else_if = { limit = { scope:mam_cf_paid > 0 }
+   title:h_china = { change_variable = { name = mam_cf_interim_advances add = scope:mam_cf_paid } }
+  }
+ }
+}
+mam_revenue_fund_month_effect = {
+ if = { limit = { mam_revenue_emperor_trigger = yes mam_revenue_fund_ready_trigger = yes
+  OR = { title:h_china = { NOT = { has_variable = mam_cf_next_month } } title:h_china.var:mam_cf_next_month <= current_date }
+ }
+  title:h_china = { set_variable = { name = mam_cf_next_month value = { value = current_date add = 25 } } }
+  title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+  if = { limit = { exists = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes } }
+   
+ title:h_china = {
+  set_variable = { name = mam_cf_recording_statement value = 1 }
+  set_variable = { name = mam_cf_statement_collected value = 0 }
+  set_variable = { name = mam_cf_statement_advanced value = 0 }
+ set_variable = { name = mam_cf_interim_advances value = 0 }
+  set_variable = { name = mam_cf_statement_opening value = title:e_minister_of_revenue.holder.treasury }
+ }
+title:e_minister_chancellor = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_censor = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_grand_marshal = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_of_personnel = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_of_war = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_of_rites = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_of_works = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_of_revenue = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_of_justice = { set_variable = { name = mam_cf_statement_collected value = 0 } set_variable = { name = mam_cf_statement_received value = 0 } }
+title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_sweep_effect = yes } }
+   title:h_china = {
+    set_variable = { name = mam_cf_essential_due value = 0 }
+    set_variable = { name = mam_cf_essential_cash value = { value = title:e_minister_of_revenue.holder.treasury
+     subtract = title:e_minister_of_revenue.mam_revenue_fund_cash_target min = 0 } }
+   }
+   title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+   title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+   title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = yes } } }
+   
+ title:h_china = {
+  set_variable = { name = mam_cf_statement_closing value = title:e_minister_of_revenue.holder.treasury }
+  set_variable = { name = mam_cf_statement_date value = current_date }
+  mam_revenue_fund_record_diagnostic_effect = { KEY = reconciled }
+  remove_variable = mam_cf_recording_statement
+ }
+ mam_revenue_fund_refresh_totals_effect = yes
+
+   mam_revenue_fund_initiative_effect = yes
+  }
+  mam_revenue_fund_wake_effect = yes
+ }
+}
+mam_revenue_fund_refresh_totals_effect = {
+ title:h_china = {
+  set_variable = { name = mam_cf_total_cost value = 0 }
+  set_variable = { name = mam_cf_unfunded value = 0 }
+  set_variable = { name = mam_cf_essential_due value = 0 }
+  set_variable = { name = mam_cf_claims_due value = 0 }
+  every_in_list = { variable = mam_cf_cases limit = { var:mam_cf_pending = 1 mam_revenue_fund_earned_claim_trigger = yes }
+   save_scope_value_as = { name = mam_cf_liability value = var:mam_cf_amount }
+   title:h_china = { change_variable = { name = mam_cf_claims_due add = scope:mam_cf_liability } }
+  }
+ }
+ title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_effect = yes } }
+ title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+ title:h_china = {
+  set_variable = { name = mam_cf_reserve value = { value = var:mam_cf_total_cost multiply = 2 add = 200 } }
+  if = { limit = { var:mam_cf_programme = 1 } change_variable = { name = mam_cf_reserve add = 500 } }
+  if = { limit = { var:mam_cf_programme = 2 } change_variable = { name = mam_cf_reserve add = 300 } }
+  change_variable = { name = mam_cf_reserve add = var:mam_cf_claims_due }
+ }
+
+ mam_revenue_fund_refresh_project_commitments_effect = yes
+}
+
+mam_revenue_fund_ensure_payroll_effect = {
+ if = { limit = { mam_revenue_emperor_trigger = yes mam_revenue_fund_enabled_trigger = yes }
+  save_scope_as = mam_cf_payroll_sovereign
+  save_scope_value_as = { name = mam_cf_schedule_payroll value = 0 }
+  title:h_china = {
+   if = { limit = { NOT = { has_variable = mam_cf_interim_advances } }
+    set_variable = { name = mam_cf_interim_advances value = 0 }
+   }
+   if = { limit = { NOT = { has_variable = mam_cf_payroll_due } }
+    save_scope_value_as = { name = mam_cf_schedule_payroll value = 1 }
+   }
+   else_if = { limit = { NOT = { has_variable = mam_cf_payroll_owner } }
+    save_scope_value_as = { name = mam_cf_schedule_payroll value = 1 }
+   }
+   else_if = { limit = { var:mam_cf_payroll_due < current_date }
+    save_scope_value_as = { name = mam_cf_schedule_payroll value = 1 }
+   }
+   else_if = { limit = { var:mam_cf_payroll_owner != scope:mam_cf_payroll_sovereign }
+    save_scope_value_as = { name = mam_cf_schedule_payroll value = 1 }
+   }
+  }
+  if = { limit = { scope:mam_cf_schedule_payroll = 1 }
+   title:h_china = {
+    set_variable = { name = mam_cf_payroll_due value = { value = current_date add = 1 } }
+    set_variable = { name = mam_cf_payroll_owner value = scope:mam_cf_payroll_sovereign }
+   }
+   trigger_event = { id = mam_fund.95 days = 1 }
+  }
+ }
+}
+mam_revenue_fund_payroll_effect = {
+ if = { limit = { mam_revenue_emperor_trigger = yes mam_revenue_fund_enabled_trigger = yes
+  title:h_china = { has_variable = mam_cf_payroll_due var:mam_cf_payroll_due <= current_date }
+ }
+  # Dev.59: due monthly work uses the live weekly lease, never an
+  # undocumented monthly engine callback. Its own due gate prevents replay.
+  mam_revenue_fund_month_effect = yes
+  save_scope_as = mam_cf_payroll_sovereign
+  if = { limit = { mam_revenue_fund_ready_trigger = yes }
+title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_init_office_effect = yes } }
+   title:h_china = {
+    set_variable = { name = mam_cf_essential_due value = 0 }
+    set_variable = { name = mam_cf_essential_cash value = { value = title:e_minister_of_revenue.holder.treasury
+     subtract = title:e_minister_of_revenue.mam_revenue_fund_cash_target min = 0 } }
+   }
+title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_count_essential_effect = yes } }
+title:e_minister_chancellor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_censor = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_grand_marshal = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_personnel = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_war = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_rites = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_works = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_revenue = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+title:e_minister_of_justice = { if = { limit = { exists = holder holder = { mam_revenue_ministry_trigger = yes } } mam_revenue_fund_refill_effect = { EXTRA = no } } }
+   mam_revenue_fund_refresh_totals_effect = yes
+ mam_revenue_fund_project_driver_effect = yes
+  }
+  title:h_china = {
+   set_variable = { name = mam_cf_payroll_due value = { value = current_date add = 7 } }
+   set_variable = { name = mam_cf_payroll_owner value = scope:mam_cf_payroll_sovereign }
+  }
+  trigger_event = { id = mam_fund.95 days = 7 }
+ }
+}
+
+mam_revenue_fund_prepare_project_budget_effect = {
+ if = { limit = { is_ai = yes has_treasury = yes
+  primary_title = { has_variable = mam_cf_project_type var:mam_cf_project_cash > 0
+   NOT = { has_variable = mam_cf_payment_hold } }
+  treasury >= primary_title.var:mam_cf_project_cash
+ }
+  save_scope_value_as = { name = mam_cf_project_budget_before value = treasury }
+  save_scope_value_as = { name = mam_cf_project_budget_move value = {
+   value = primary_title.var:mam_cf_project_cash subtract = long_term_treasury min = 0 max = short_term_treasury
+  } }
+  if = { limit = { scope:mam_cf_project_budget_move > 0 }
+   move_budget_treasury = { treasury = scope:mam_cf_project_budget_move from = budget_short_term to = budget_long_term }
+   if = { limit = { OR = {
+    treasury < { value = scope:mam_cf_project_budget_before subtract = 0.01 }
+    treasury > { value = scope:mam_cf_project_budget_before add = 0.01 }
+   } }
+    debug_log = "MAM_COMMON_FUND: project budget preparation changed total treasury unexpectedly"
+   }
+  }
+ }
+}

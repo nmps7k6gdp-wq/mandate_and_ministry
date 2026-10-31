@@ -1,0 +1,13 @@
+﻿# Direction is an interaction with the responsible official, not another global decision.
+mam_personnel_direct_ministry_interaction = {
+ category = interaction_category_ministry icon = scroll_scales common_interaction = yes auto_accept = yes ai_frequency = 0 ai_targets = { ai_recipients = vassals }
+ desc = mam_personnel_direct_ministry_desc
+ is_shown = {
+ scope:actor = { mam_personnel_can_direct_trigger = yes }
+ scope:recipient = { mam_can_nominate_trigger = yes top_liege = scope:actor.top_liege }
+ }
+ on_accept = { scope:actor = { if = { limit = { mam_personnel_can_direct_trigger = yes scope:recipient = { mam_can_nominate_trigger = yes top_liege = scope:actor.top_liege } }
+ trigger_event = mam_personnel_direction.1
+ } } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

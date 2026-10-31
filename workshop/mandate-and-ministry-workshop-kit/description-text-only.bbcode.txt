@@ -1,0 +1,37 @@
+[h1]Mandate and Ministry[/h1]
+
+Mandate and Ministry expands CK3's Chinese imperial government, giving ministers more influence over appointments, public spending and the running of the empire.
+
+The aim is to make serving in government interesting in its own right. A capable minister can help the empire prosper, while an ambitious one can use their office to support allies and build influence. As emperor, you decide how much authority to delegate and when to intervene.
+
+[h1]Current Features[/h1]
+
+[b]Personnel and official careers[/b]
+The Ministry of Personnel selects candidates for supported kingdom and territorial empire governorships. Choose between promotions, transfers, newcomers and personal favorites. Qualifications, relationships, examination achievements and ministerial personality influence these choices. Manage Talent and Bestow Royal Favor give ministers ways to shape future careers.
+
+[b]Ministerial succession[/b]
+The Chancellor reviews successors to the six lower ministries. The emperor reviews the Chancellor, Censor and Grand Marshal. Confirm the inherited appointment or support an eligible alternative.
+
+[b]Examination honors[/b]
+Distinguished examination results receive visible badges, recognition and career benefits.
+
+[b]Revenue and the common fund[/b]
+Revenue holds shared funds for the nine departments. Ministries retain operating balances and seek funding for larger expenses, great projects and contributions to ongoing work. Imperial and provincial treasuries remain separate.
+
+[b]Imperial authority and spending priorities[/b]
+Fiscal laws determine how freely Revenue can act and which measures need higher approval. The Chancellor helps direct spending, while the emperor controls reserved matters and campaign launches. Appointment laws also let the emperor decide how much control to retain over senior nominations.
+
+[h1]Planned Features[/h1]
+
+Future development will give the remaining departments more distinct gameplay while keeping their systems connected. Censor and Justice are planned for a fresh, simpler design focused on oversight and accountability. Their custom investigation and trial gameplay is not currently included.
+
+Further work will improve AI behavior, financial balance, event presentation and compatibility as testing continues. Plans may change with feedback and engine limitations.
+
+[h1]Early Alpha & Feedback[/h1]
+
+[b]This is an early alpha. Bugs are expected.[/b]
+Personnel is the most established part of the mod. Revenue, shared funding and project automation are newer and still being tested. Please keep backup saves.
+
+If you find a bug, please report it. Include what happened, what you expected, any steps to reproduce it, and your active mod list. Screenshots, relevant logs and a save from before the issue are especially helpful.
+
+Feedback on confusing choices, unclear tooltips and things the AI fails to do is welcome too.

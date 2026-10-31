@@ -1,0 +1,90 @@
+{
+  "audited": "2026-10-31",
+  "purpose": "Native Justice comparison. No installed edits; hashes must not be refreshed to silence drift.",
+  "definitions": [
+    {
+      "source": "common/character_interactions/00_prison_interactions.txt",
+      "definition": "imprison_interaction",
+      "sha256": "70040a861b909cf8a7bd4aa8e0028bcff6596f261bd328dba58cedf7da228e48",
+      "line": 1
+    },
+    {
+      "source": "common/character_interactions/00_prison_interactions.txt",
+      "definition": "release_from_prison_interaction",
+      "sha256": "5e18113609a9bc0c1f1ac8117ef7fdc91cb59818ad7dc1a36afc8b9903f2107b",
+      "line": 4282
+    },
+    {
+      "source": "common/character_interactions/00_prison_interactions.txt",
+      "definition": "execute_prisoner_interaction",
+      "sha256": "8fa5cc33358e65186c546c5c6e31a04f5f2e15e65dc201abe6c0de1b8121c423",
+      "line": 6775
+    },
+    {
+      "source": "common/character_interactions/00_vassal_interactions.txt",
+      "definition": "pardon_interaction",
+      "sha256": "ecb469a1ea24faf4a04f3b2c692f241c6b4cecaa143cc2aa2b57de4e703a0f4f",
+      "line": 2673
+    },
+    {
+      "source": "events/scheme_events/scheme_critical_moments_events.txt",
+      "definition": "scheme_critical_moments.8071",
+      "sha256": "d072dc45df2e56a848bfea15a4cd0ae7d8ff450d3a1c5ffd055ac3c5fd468154",
+      "line": 9315
+    },
+    {
+      "source": "common/opinion_modifiers/00_crime_and_prison_opinions.txt",
+      "definition": "attempted_murder_opinion",
+      "sha256": "0541f4f22e62320e4e6480c32239618f281cd14cd8fbc5c1e154f0fcef3ddf00",
+      "line": 81
+    },
+    {
+      "source": "common/scripted_effects/00_prison_effects.txt",
+      "definition": "consume_all_criminal_reasons_effect",
+      "sha256": "724a9166bcd5041c3edaf7ddb80a06179f80c1b5f41bb507e6c4281240d19288",
+      "line": 2485
+    },
+    {
+      "source": "common/scripted_effects/00_prison_effects.txt",
+      "definition": "rightfully_imprison_character_effect",
+      "sha256": "710c1728d63bb30d4c19ba62530c561bebe7ce2d832b7be1982b8f7498cec35b",
+      "line": 2019
+    },
+    {
+      "source": "common/script_values/00_interaction_values.txt",
+      "definition": "pardon_interaction_influence_cost_value",
+      "sha256": "60bf0a76c22386d03daa514d593d14780dc57b637c878ef58f62ad58b4d2abb3",
+      "line": 1150
+    },
+    {
+      "source": "common/script_values/00_interaction_values.txt",
+      "definition": "pardon_interaction_treasury_cost_value",
+      "sha256": "8d7deb3f787c1f399a2b436c8730f54e6c795db00059273d6c6589b4008ad605",
+      "line": 1189
+    },
+    {
+      "source": "common/script_values/00_diarchy_values.txt",
+      "definition": "liege_diarchy_surcharge_interaction_imprison_interaction_value",
+      "sha256": "82bc07ce5549a557be6150326b5625bda601219d6cbad6d0e69acf32d1aab722",
+      "line": 2889
+    },
+    {
+      "source": "common/script_values/00_diarchy_values.txt",
+      "definition": "liege_diarchy_surcharge_interaction_execute_prisoner_interaction_value",
+      "sha256": "aeba8f8eeabf168eaec55915e3431c43a479259c0090b33c7a8cdbaf5f5b0efe",
+      "line": 2936
+    },
+    {
+      "source": "events/interaction_events/character_interaction_events.txt",
+      "definition": "char_interaction.0170",
+      "sha256": "7af6d1fd3771b212b5482330015cb1a951530cb36352edad4d43a78fa6004c18",
+      "line": 1273
+    },
+    {
+      "source": "common/scripted_effects/00_prison_effects.txt",
+      "definition": "execute_prisoner_effect",
+      "sha256": "5ecae0725dbbc4934bdd1745c6107858c57d53dbfe5da4524817c769757657d6",
+      "line": 413
+    }
+  ]
+}

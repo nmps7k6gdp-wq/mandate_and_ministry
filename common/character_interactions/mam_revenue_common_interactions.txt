@@ -1,0 +1,117 @@
+﻿mam_revenue_fund_review_operations_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_review_operations_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 3 }
+ is_shown = { scope:actor = { mam_revenue_authority_trigger = yes is_ai = no mam_revenue_fund_enabled_trigger = yes } scope:recipient = { mam_revenue_ministry_trigger = yes } }
+ is_valid = { custom_tooltip = { text = mam_cf.operations_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:recipient.primary_title = { NOT = { has_variable = mam_cf_case_1 } trigger_if = { limit = { has_variable = mam_cf_review_until } var:mam_cf_review_until <= current_date } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_review_operations_interaction_desc hidden_effect = { scope:recipient = { mam_revenue_fund_open_operations_effect = yes } if = { limit = { exists = scope:mam_cf_created scope:actor = { mam_revenue_officer_trigger = no } } scope:mam_cf_created = { set_variable = { name = mam_cf_stage value = 1 } } }
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+}
+mam_revenue_fund_request_operations_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_request_operations_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 3 }
+ is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes this != scope:actor } }
+ is_valid = { custom_tooltip = { text = mam_cf.operations_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:actor.primary_title = { NOT = { has_variable = mam_cf_case_1 } trigger_if = { limit = { has_variable = mam_cf_review_until } var:mam_cf_review_until <= current_date } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_request_operations_interaction_desc hidden_effect = { scope:actor = { mam_revenue_fund_open_operations_effect = yes }
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+}
+mam_revenue_fund_petition_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_petition_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 6 }
+ is_shown = { scope:actor = { mam_revenue_province_trigger = yes is_ai = no mam_revenue_fund_enabled_trigger = yes } scope:recipient = { mam_revenue_officer_trigger = yes } }
+ is_valid = { custom_tooltip = { text = mam_cf.petition_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:actor = { OR = { treasury < 0 mam_revenue_has_recovery_need_trigger = yes } primary_title = { NOT = { has_variable = mam_cf_case_2 } NOT = { has_variable = mam_cf_relief_until } } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_petition_interaction_desc hidden_effect = { 
+scope:actor = { mam_revenue_fund_open_relief_effect = yes }
+if = { limit = { exists = scope:mam_cf_created exists = scope:clear_debt scope:clear_debt = yes }
+ scope:mam_cf_created = {
+  set_variable = { name = mam_cf_amount value = { value = scope:actor.treasury multiply = -1 min = 1 ceiling = yes } }
+  set_variable = { name = mam_cf_native_petition value = 1 }
+  set_variable = { name = mam_cf_clear_debt value = 1 }
+  set_variable = { name = mam_cf_native_actor value = scope:actor }
+  set_variable = { name = mam_cf_native_credit value = scope:recipient }
+  set_variable = { name = mam_cf_native_credit_title value = scope:recipient.primary_title }
+ }
+}
+
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+
+ cost = { influence = medium_influence_value }
+ send_options_exclusive = no
+ send_option = {
+  flag = clear_debt localization = OPTION_CLEAR_DEBT
+  is_shown = { scope:actor = { treasury < 0 } }
+  is_valid = { scope:actor = { treasury < 0 } }
+ }
+ on_send = { }
+}
+mam_revenue_fund_remittance_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_remittance_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 3 }
+ is_shown = { scope:actor = { mam_revenue_officer_trigger = yes is_ai = no mam_revenue_fund_enabled_trigger = yes } scope:recipient = { mam_revenue_province_trigger = yes } }
+ is_valid = { custom_tooltip = { text = mam_cf.remittance_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:recipient = { treasury > 300 mam_revenue_has_recovery_need_trigger = no primary_title = { NOT = { has_variable = mam_cf_case_6 } NOT = { has_variable = mam_cf_remit_until } } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_remittance_interaction_desc hidden_effect = { scope:actor = { mam_revenue_fund_request_effect = { TARGET = scope:recipient.primary_title KIND = 6 AMOUNT = 100 } }
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+}
+mam_revenue_fund_project_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_project_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 1 }
+ is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no OR = { has_title = title:e_minister_of_works has_title = title:e_minister_of_rites has_title = title:e_minister_of_war has_title = title:e_minister_of_justice has_title = title:e_minister_of_revenue has_title = title:e_minister_grand_marshal } } scope:recipient = { is_landed = yes primary_title = { tier >= tier_kingdom } } }
+ is_valid = { custom_tooltip = { text = mam_cf.project_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.project_interval_tt scope:actor.primary_title = {
+ NOT = { has_variable = mam_cf_return_pending }
+ trigger_if = { limit = { has_variable = mam_cf_next_project_request } var:mam_cf_next_project_request <= current_date }
+ } }
+
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:actor.primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } } OR = { scope:recipient = { mam_revenue_province_trigger = yes } scope:actor = { has_title = title:e_minister_grand_marshal } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_project_interaction_desc hidden_effect = { scope:recipient.primary_title = { save_scope_as = mam_cf_site_title } scope:actor = { trigger_event = mam_fund.5 }
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+}
+mam_revenue_fund_appeal_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_appeal_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 1 }
+ is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no } scope:recipient = { OR = { mam_revenue_chancellor_trigger = yes mam_revenue_emperor_trigger = yes } this != scope:actor } }
+ is_valid = { custom_tooltip = { text = mam_cf.appeal_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:actor.primary_title = { has_variable = mam_cf_cut_until var:mam_cf_cut_until > current_date var:mam_cf_cut_holder = scope:actor NOT = { has_variable = mam_cf_appeal_used } NOT = { has_variable = mam_cf_case_7 } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_appeal_interaction_desc hidden_effect = { scope:actor = { mam_revenue_fund_open_appeal_effect = yes }
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+}
+mam_revenue_fund_supplement_interaction = {
+ category = interaction_category_ministry icon = icon_imperial_treasury interface_priority = 65
+ desc = mam_revenue_fund_supplement_interaction_desc common_interaction = yes auto_accept = yes
+ cooldown = { months = 3 }
+ is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }
+ is_valid = { custom_tooltip = { text = mam_cf.supplement_ready_tt custom_tooltip = { text = mam_cf.context_tt
+ custom_tooltip = { text = mam_cf.ready_tt mam_revenue_fund_ready_trigger = yes }
+ scope:actor.primary_title = { NOT = { has_variable = mam_cf_case_12 } NOT = { has_variable = mam_cf_special_until } } 
+} } }
+ on_accept = { custom_tooltip = mam_revenue_fund_supplement_interaction_desc hidden_effect = { scope:actor = { mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 12 AMOUNT = major_treasury_value } }
+  title:h_china.holder ?= { mam_revenue_fund_wake_effect = yes }
+ } }
+}

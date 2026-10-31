@@ -1,0 +1,455 @@
+﻿mam_revenue_fund_native_start_location_8_trigger = {
+
+		scope:province = {
+			custom_tooltip = {
+				text = great_project_type_construct_great_barracks_military_governor_duchy_capital
+				barony.county.holder ?= {
+					vassal_contract_has_flag = celestial_military_appointment # is held by a military governor
+				}
+				this = barony.holder.capital_barony.title_province # is their capital
+				duchy = {
+					title_capital_county.title_province = scope:province # is also the duchy capital
+				}
+			}
+			custom_tooltip = {
+				text = great_project_type_construct_great_barracks_does_not_already_have_barracks
+				NOT = {
+					has_building = celestial_great_barracks_01 # you can overwrite duchy buildings, but there's no point in doing it to the same one
+				}
+			}
+			trigger_if = {
+				limit = {
+					barony.county.holder = {
+						is_ai = no
+						this != root
+					}
+				}
+				custom_tooltip = {
+					text = great_project_type_construct_great_barracks_do_not_override_player_building
+					NOT = {
+						has_building_with_flag = duchy_building
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_9_trigger = {
+
+}
+
+mam_revenue_fund_native_start_location_10_trigger = {
+
+}
+
+mam_revenue_fund_native_start_location_11_trigger = {
+
+}
+
+mam_revenue_fund_native_start_location_12_trigger = {
+
+}
+
+mam_revenue_fund_native_start_location_13_trigger = {
+
+		scope:province = {
+			county = {
+				NOT = { has_county_modifier = tgp_grand_canal_modifier }
+			}
+			trigger_if = {
+				limit = {
+					geographical_region = dlc_tgp_grand_canal_1_region
+				}
+				root.top_liege = { completely_controls_region = dlc_tgp_grand_canal_1_region }
+			}
+			trigger_if = {
+				limit = {
+					geographical_region = dlc_tgp_grand_canal_2_region
+				}
+				root.top_liege = { completely_controls_region = dlc_tgp_grand_canal_2_region }
+			}
+			trigger_if = {
+				limit = {
+					geographical_region = dlc_tgp_grand_canal_3_region
+				}
+				root.top_liege = { completely_controls_region = dlc_tgp_grand_canal_3_region }
+			}
+			trigger_if = {
+				limit = {
+					geographical_region = dlc_tgp_grand_canal_4_region
+				}
+				root.top_liege = { completely_controls_region = dlc_tgp_grand_canal_4_region }
+			}
+		}
+	
+scope:province = { geographical_region = dlc_tgp_grand_canal_region }
+
+}
+
+mam_revenue_fund_native_start_location_1_trigger = {
+
+		scope:province.kingdom = {
+			any_in_de_jure_hierarchy = {
+				tier >= tier_county
+				holder ?= {
+					top_overlord != root.top_overlord
+				}
+			}
+		}
+		scope:province.county.holder.top_liege = {
+			NOT = {
+				is_at_war_with = root.top_liege
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_2_trigger = {
+
+		scope:province = {
+			county = {
+				custom_tooltip = {
+					text = not_same_culture_as_top_liege_desc
+					culture != root.top_liege.culture
+				}
+			}
+			root.top_liege = {
+				completely_controls = scope:province.duchy
+			}
+			custom_tooltip = {
+				text = GREAT_PROJECT_CAN_PLAN
+				NOT = {
+					duchy = {
+						any_in_de_jure_hierarchy = {
+							tier = tier_barony
+							title_province = {
+								any_great_project_in_province = {
+									great_project_type = minister_project_culture
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				scope:founder = {
+					is_ai = yes
+				}
+			}
+			scope:province.county.culture = {
+				NOT = {
+					has_same_culture_heritage = root.top_liege.culture
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_3_trigger = {
+
+		scope:province = {
+			is_county_capital = yes
+			root.top_liege = {
+				completely_controls = scope:province.duchy
+			}
+			duchy = {
+				title_capital_county = scope:province.county
+			}
+			custom_tooltip = {
+				text = GREAT_PROJECT_CAN_PLAN
+				NOT = {
+					duchy = {
+						any_in_de_jure_hierarchy = {
+							tier = tier_barony
+							title_province = {
+								any_great_project_in_province = {
+									great_project_type = minister_project_development
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_4_trigger = {
+
+		scope:province.duchy ?= {
+			custom_tooltip = {
+				text = has_low_control_or_county_corruption_desc
+				any_de_jure_county = {
+					OR = {
+						has_county_corruption_trigger = yes
+						county_control < 100
+					}
+				}
+			}
+		}
+		scope:province = {
+			custom_tooltip = {
+				text = GREAT_PROJECT_CAN_PLAN
+				NOT = {
+					duchy = {
+						any_in_de_jure_hierarchy = {
+							tier = tier_barony
+							title_province = {
+								any_great_project_in_province = {
+									great_project_type = minister_project_establish_control
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_5_trigger = {
+
+		scope:province = {
+			NOT = { has_province_modifier = tgp_minister_project_train_troops_modifier }
+			has_stationed_regiment = yes
+			county.holder ?= {
+				custom_tooltip = {
+				text = holder_has_military_appointment_tt
+					OR = {
+						vassal_contract_has_flag = celestial_military_appointment
+						vassal_contract_has_flag = meritocratic_military_appointment
+					}
+				}
+			}
+		}
+		scope:province = {
+			custom_tooltip = {
+				text = GREAT_PROJECT_CAN_PLAN
+				NOT = {
+					duchy = {
+						any_in_de_jure_hierarchy = {
+							tier = tier_barony
+							title_province = {
+								any_great_project_in_province = {
+									great_project_type = minister_project_train_troops
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_6_trigger = {
+
+		scope:province.duchy = {
+			any_de_jure_county = {
+				holder.top_liege = root.top_liege
+				NOT = { has_county_modifier = tgp_minister_project_conduct_census_modifier }
+			}
+		}
+		scope:province = {
+			custom_tooltip = {
+				text = GREAT_PROJECT_CAN_PLAN
+				NOT = {
+					duchy = {
+						any_in_de_jure_hierarchy = {
+							tier = tier_barony
+							title_province = {
+								any_great_project_in_province = {
+									great_project_type = minister_project_conduct_census
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_7_trigger = {
+
+		scope:province = {
+			county = {
+				custom_tooltip = {
+					text = not_same_faith_as_top_liege_desc
+					faith != root.top_liege.faith
+				}
+			}
+			root.top_liege = {
+				completely_controls = scope:province.duchy
+			}
+			custom_tooltip = {
+				text = GREAT_PROJECT_CAN_PLAN
+				NOT = {
+					duchy = {
+						any_in_de_jure_hierarchy = {
+							tier = tier_barony
+							title_province = {
+								any_great_project_in_province = {
+									great_project_type = minister_compel_religious_uniformity
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				scope:founder = {
+					is_ai = yes
+				}
+			}
+			scope:province.county.faith = {
+				faith_hostility_level = {
+					target = scope:founder.top_liege.faith
+					value >= faith_hostile_level
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_14_trigger = {
+
+		scope:province = {
+			trigger_if = {
+				limit = { root != faith.religious_head }
+				OR = {
+					barony_controller = { target_is_same_character_or_above = root }
+					county.clerical_region_title.holder ?= root
+				}
+			}
+			county = {
+				custom_tooltip = {
+					text = same_faith_holder_tt
+					holder.faith ?= root.faith
+				}
+			}
+			is_valid_cathedral_clerical_region_capital_trigger = yes
+			is_valid_cathedral_spot_in_province_trigger = yes # early-out
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_15_trigger = {
+
+		scope:province = {
+			trigger_if = {
+				limit = { root != faith.religious_head }
+				OR = {
+					barony_controller = { target_is_same_character_or_above = root }
+					county.clerical_region_title.holder ?= root
+				}
+			}
+			county = {
+				custom_tooltip = {
+					text = same_faith_holder_tt
+					holder.faith ?= root.faith
+				}
+			}
+			is_valid_cathedral_clerical_region_capital_trigger = yes
+			is_valid_cathedral_upgrade_spot_in_province_trigger = yes # early-out
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_16_trigger = {
+
+		scope:province = {
+			trigger_if = {
+				limit = { root != faith.religious_head }
+				OR = {
+					barony_controller = { target_is_same_character_or_above = root }
+					county.clerical_region_title.holder ?= root
+				}
+			}
+			county = {
+				custom_tooltip = {
+					text = same_faith_holder_tt
+					holder.faith ?= root.faith
+				}
+			}
+			is_valid_cathedral_clerical_region_capital_trigger = yes
+			is_valid_cathedral_tier_3_upgrade_spot_in_province_trigger = yes # early-out
+		}
+	
+}
+
+mam_revenue_fund_native_start_location_17_trigger = {
+
+		scope:province.county = {
+			holder.top_liege ?= {
+				custom_description = {
+					text = neither_at_war_or_truce
+					subject = scope:founder
+					object = this
+					NOR = {
+						has_truce = scope:founder
+						is_at_war_with = scope:founder
+					}
+				}
+			}
+			trigger_if = { # Unreformed faiths are always fair game, organized ones only during the Conversion phase
+				limit = {
+					NOT = { faith = { has_doctrine_parameter = unreformed } }
+				}
+				trigger_if = {
+					limit = {
+						scope:founder = {
+							any_character_situation = {
+								situation_type = the_christian_church
+							}
+						}
+					}
+					custom_tooltip = {
+						text = the_christian_church_mass_rite_conversion_decision_tt
+						pam_mass_rite_conversion_conversion_phase_trigger = yes
+					}
+				}
+				trigger_else = {
+					custom_tooltip = {
+						text = pam_mass_rite_conversion_target_unreformed_faith
+						always = no
+					}
+				}
+				custom_tooltip = {
+					text = pam_mass_rite_conversion_target_organized_faith
+					faith != scope:founder.faith
+				}
+			}
+		}
+		custom_tooltip = {
+			text = pam_mass_rite_conversion_already_targets_province
+			NOT = {
+				any_great_project = {
+					great_project_type = pam_mass_rite_conversion
+					any_in_list = {
+						variable = mass_converted_counties
+						this = scope:province.county
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				scope:founder = {
+					is_ai = yes
+				}
+			}
+			scope:province.county.faith = {
+				faith_hostility_level = {
+					target = scope:founder.faith
+					value >= faith_hostile_level
+				}
+			}
+		}
+	
+}

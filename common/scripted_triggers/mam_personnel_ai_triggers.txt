@@ -1,0 +1,6 @@
+﻿# Emperor scope; compare against a currently eligible professional nominee.
+mam_personnel_ai_weak_nomination_trigger = {
+ exists = scope:mam_senior_file.var:mam_senior_professional
+ scope:mam_senior_file.var:mam_senior_professional = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes }
+ scope:mam_senior_nominee.mam_public_suitability < { value = scope:mam_senior_file.var:mam_senior_professional.mam_public_suitability subtract = 5 }
+}

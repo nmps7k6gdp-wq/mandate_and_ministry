@@ -1,0 +1,11 @@
+﻿l_english:
+ mam_personnel_direct_ministry_interaction:0 "Personnel: Direct Ministry Priorities"
+ mam_personnel_direct_ministry_desc:0 "As emperor or Grand Chancellor, give Personnel a standing priority for senior nominations. Qualifications still apply; individual appointments do not require another approval."
+ mam_personnel_direction.title:0 "The Ministry's Course"
+ mam_personnel_direction.desc:0 "Every appointment shapes the administration. The Ministry of Personnel needs a clear direction: should it seek the strongest record of service, respect the established order, or trust its minister to weigh each case?"
+ mam_personnel_direction.professional:0 "Let proven ability guide the appointments."
+ mam_personnel_direction.continuity:0 "Respect the established appointment order."
+ mam_personnel_direction.discretion:0 "I will trust the minister's judgment."
+ mam_personnel_direction.professional_tt:0 "Personnel's AI gives more weight to professional candidates. An imperial instruction binds the Chancellor until withdrawn."
+ mam_personnel_direction.continuity_tt:0 "Personnel's AI gives more weight to the native appointment order. An imperial instruction binds the Chancellor until withdrawn."
+ mam_personnel_direction.discretion_tt:0 "Withdraw the standing priority. If chosen by the emperor, this also permits the Chancellor to direct routine Personnel priorities again."

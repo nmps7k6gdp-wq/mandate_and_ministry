@@ -1,0 +1,109 @@
+﻿# Existing native benefits are earned liabilities, not discretionary new grants.
+# Context is a situation (insurance) or great project (Census debt purge).
+mam_revenue_fund_create_claim_effect = {
+ clear_saved_scope = mam_cf_claim
+ save_scope_as = mam_cf_claimant
+ if = { limit = { mam_revenue_fund_enabled_trigger = yes has_treasury = yes
+  top_liege = title:h_china.holder exists = scope:mam_cf_claim_context
+ }
+  scope:mam_cf_claim_context = {
+   if = { limit = { NOT = { has_variable = mam_cf_context_serial } }
+    title:h_china = { change_variable = { name = mam_cf_serial add = 1 } }
+    set_variable = { name = mam_cf_context_serial value = title:h_china.var:mam_cf_serial }
+   }
+   save_scope_value_as = { name = mam_cf_context_serial value = var:mam_cf_context_serial }
+  }
+  
+   title:h_china.holder = { create_story = { type = mam_revenue_fund_story save_scope_as = mam_cf_claim } }
+   if = { limit = { exists = scope:mam_cf_claim }
+    title:h_china = {
+     change_variable = { name = mam_cf_serial add = 1 }
+     add_to_variable_list = { name = mam_cf_cases target = scope:mam_cf_claim }
+    }
+    scope:mam_cf_claim = {
+     set_variable = { name = mam_cf_target value = scope:mam_cf_claimant.primary_title }
+     set_variable = { name = mam_cf_snapshot value = scope:mam_cf_claimant }
+     set_variable = { name = mam_cf_requester value = scope:mam_cf_claimant }
+     set_variable = { name = mam_cf_emperor value = title:h_china.holder }
+     set_variable = { name = mam_cf_kind value = $KIND$ }
+     set_variable = { name = mam_cf_amount value = $AMOUNT$ }
+     set_variable = { name = mam_cf_pending value = 1 }
+     set_variable = { name = mam_cf_stage value = 0 }
+     set_variable = { name = mam_cf_generation value = 0 }
+     set_variable = { name = mam_cf_serial value = title:h_china.var:mam_cf_serial }
+     set_variable = { name = mam_cf_created value = current_date }
+     set_variable = { name = mam_cf_context_serial value = scope:mam_cf_context_serial }
+    }
+   }
+  
+ }
+}
+mam_revenue_fund_insurance_claim_effect = {
+ if = { limit = { any_sub_realm_county = {
+  has_county_modifier = tgp_minister_project_conduct_census_natural_disaster_insurance_modifier
+  any_county_situation = { this = scope:situation }
+  NOT = { has_variable = mam_cf_insurance_claim }
+ } }
+  scope:situation = { save_scope_as = mam_cf_claim_context }
+  mam_revenue_fund_create_claim_effect = { KIND = 10 AMOUNT = conduct_census_natural_disaster_payout_value }
+  if = { limit = { exists = scope:mam_cf_claim }
+   every_sub_realm_county = { limit = {
+    has_county_modifier = tgp_minister_project_conduct_census_natural_disaster_insurance_modifier
+    any_county_situation = { this = scope:situation }
+    NOT = { has_variable = mam_cf_insurance_claim }
+   }
+    set_variable = { name = mam_cf_insurance_claim value = scope:mam_cf_claim }
+    scope:mam_cf_claim = { add_to_variable_list = { name = mam_cf_claim_counties target = prev } }
+   }
+   scope:mam_cf_claim = { mam_revenue_fund_claim_commit_effect = yes }
+  }
+ }
+}
+mam_revenue_fund_debt_claim_effect = {
+ mam_revenue_fund_create_claim_effect = { KIND = 11 AMOUNT = 1000 }
+ if = { limit = { exists = scope:mam_cf_claim }
+  scope:mam_cf_claim = { mam_revenue_fund_claim_commit_effect = yes }
+ }
+}
+# A claim waits without an approval popup if funds are insufficient. It survives
+# imperial succession and has no one-year proposal expiry. The title remains
+# the beneficiary; no deceased minister's personal consent is reused.
+mam_revenue_fund_claim_commit_effect = {
+ save_scope_as = mam_cf_claim_paying
+ mam_revenue_fund_refresh_totals_effect = yes
+ if = { limit = { mam_revenue_fund_live_case_trigger = yes mam_revenue_fund_ready_trigger = yes
+  exists = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes }
+ }
+  title:e_minister_of_revenue.holder = { save_scope_as = mam_cf_payer }
+  var:mam_cf_target.holder = { save_scope_as = mam_cf_payee }
+  save_scope_value_as = { name = mam_cf_amount value = var:mam_cf_amount }
+  save_scope_value_as = { name = mam_cf_floor value = {
+   value = title:e_minister_of_revenue.mam_revenue_fund_cash_target add = title:h_china.var:mam_cf_essential_due
+  } }
+  mam_revenue_fund_transfer_effect = yes
+  if = { limit = { OR = { scope:mam_cf_paid > 0 scope:mam_cf_payer = scope:mam_cf_payee } }
+   set_variable = { name = mam_cf_paid_amount value = scope:mam_cf_paid }
+   if = { limit = { var:mam_cf_kind = 10 }
+    every_in_list = { variable = mam_cf_claim_counties limit = {
+     var:mam_cf_insurance_claim = scope:mam_cf_claim_paying holder.top_liege = title:h_china.holder
+    }
+     remove_county_modifier = tgp_minister_project_conduct_census_natural_disaster_insurance_modifier
+    }
+   }
+   else = { var:mam_cf_target.holder = {
+    add_character_modifier = { modifier = tgp_minister_project_conduct_census_purge_treasury_debt_modifier years = 5 }
+   } }
+   if = { limit = { scope:mam_cf_paid > 0 }
+    var:mam_cf_target.holder = { send_interface_toast = {
+     type = event_toast_effect_good title = mam_cf.earned_payment
+     left_icon = title:e_minister_of_revenue right_icon = scope:mam_cf_payee
+     custom_tooltip = mam_cf.earned_payment_tt
+    } }
+   }
+   mam_revenue_fund_close_effect = { RESULT = 1 }
+  }
+  else_if = { limit = { scope:mam_cf_uncertain = 1 }
+   mam_revenue_fund_close_effect = { RESULT = 3 }
+  }
+ }
+}

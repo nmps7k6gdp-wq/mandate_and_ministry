@@ -1,0 +1,27 @@
+﻿# Actor scope. Editing changes a draft only; consent is sought after confirmation.
+mam_revenue_begin_amount_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes is_ai = no scope:mam_rv_file.var:mam_rv_stage = 0 }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_amount_before_edit value = var:mam_rv_amount }
+   set_variable = { name = mam_rv_amount_return value = $RETURN$ }
+  }
+  trigger_event = mam_revenue.11
+ }
+}
+mam_revenue_adjust_amount_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes is_ai = no }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_amount value = { value = var:mam_rv_amount add = $DELTA$ min = 1 max = scope:mam_rv_max_amount } } }
+  trigger_event = mam_revenue.11
+ }
+}
+mam_revenue_finish_amount_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  if = { limit = { always = $CANCEL$ }
+   scope:mam_rv_file = { set_variable = { name = mam_rv_amount value = var:mam_rv_amount_before_edit } }
+  }
+  mam_revenue_bind_effect = yes
+  if = { limit = { scope:mam_rv_file.var:mam_rv_amount_return = 2 } trigger_event = mam_revenue.2 }
+  else_if = { limit = { scope:mam_rv_file.var:mam_rv_amount_return = 3 } trigger_event = mam_revenue.3 }
+  else = { trigger_event = mam_revenue.1 }
+ }
+}

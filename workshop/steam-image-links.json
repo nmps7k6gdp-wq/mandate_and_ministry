@@ -1,0 +1,73 @@
+{
+  "checked_date": "2026-10-30",
+  "published_changes": false,
+  "records": [
+    {
+      "publishedfileid": "3830332780",
+      "result": 1,
+      "title": "mam_workshop_banner",
+      "file_url": "https://images.steamusercontent.com/ugc/11912951898654461894/7BDC8177ACEC958F64F29D73CF57F57B09E18023/",
+      "preview_url": "https://images.steamusercontent.com/ugc/11912951898654461894/7BDC8177ACEC958F64F29D73CF57F57B09E18023/",
+      "file_size": "246239",
+      "visibility": 0,
+      "content_type": "image/jpeg",
+      "verified_bytes": 246239,
+      "sha256": "ea794faa17750e3a24d1280f30a0403483783d001d13c1b8ae36c67ebd92dd1e",
+      "matches_local_export": true
+    },
+    {
+      "publishedfileid": "3830332650",
+      "result": 1,
+      "title": "mam_current_features",
+      "file_url": "https://images.steamusercontent.com/ugc/12247898410312274620/1C8959AE0244DEA6B6E8A2A6BDD3244F4C85C39C/",
+      "preview_url": "https://images.steamusercontent.com/ugc/12247898410312274620/1C8959AE0244DEA6B6E8A2A6BDD3244F4C85C39C/",
+      "file_size": "92756",
+      "visibility": 0,
+      "content_type": "image/jpeg",
+      "verified_bytes": 92756,
+      "sha256": "508147276427ee50a6b2a8f25a2ebc34287311dbbca85042e7ad2a59e25d16d1",
+      "matches_local_export": true
+    },
+    {
+      "publishedfileid": "3830332342",
+      "result": 1,
+      "title": "mam_planned_features",
+      "file_url": "https://images.steamusercontent.com/ugc/16639486112659304918/354DCE53816270E8F77A6F3A39A9F0C35CCA504E/",
+      "preview_url": "https://images.steamusercontent.com/ugc/16639486112659304918/354DCE53816270E8F77A6F3A39A9F0C35CCA504E/",
+      "file_size": "76706",
+      "visibility": 0,
+      "content_type": "image/jpeg",
+      "verified_bytes": 76706,
+      "sha256": "55de47ca7010be64c82e816225fa73652b1ec68c305302fbd168c8c3698594c3",
+      "matches_local_export": true
+    },
+    {
+      "publishedfileid": "3830332063",
+      "result": 1,
+      "title": "mam_early_alpha",
+      "file_url": "https://images.steamusercontent.com/ugc/10512891442399418676/F473311938AAC1139210F4FD0D2BCE6DE58E5A3D/",
+      "preview_url": "https://images.steamusercontent.com/ugc/10512891442399418676/F473311938AAC1139210F4FD0D2BCE6DE58E5A3D/",
+      "file_size": null,
+      "visibility": null,
+      "metadata_source": "public artwork page image_src, fetched without authentication",
+      "content_type": "image/jpeg",
+      "verified_bytes": 81532,
+      "sha256": "f53b3ef694cce57ce2cff978263d084f3f0608ffeec79dedfaa074339e2b00f4",
+      "matches_local_export": true
+    },
+    {
+      "publishedfileid": "3830313941",
+      "result": 9,
+      "title": null,
+      "file_url": null,
+      "preview_url": null,
+      "file_size": null,
+      "visibility": null,
+      "page_reachable_without_authentication": true,
+      "page_title": "Steam Workshop::Mandate and Ministry",
+      "page_main_preview": "https://community.fastly.steamstatic.com/public/shared/images/sharedfiles/steam_workshop_default_image.png",
+      "uploaded_main_preview_verified": false
+    }
+  ],
+  "description_image_urls_verified": true
+}

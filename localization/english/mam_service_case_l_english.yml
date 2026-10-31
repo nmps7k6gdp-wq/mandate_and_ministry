@@ -1,0 +1,6 @@
+﻿l_english:
+ mam_case.open:0 "Review a successor for this service case"
+ mam_case.cooldown:0 "A service replacement case was recently submitted for this posting. Another service follow-up must wait three years from submission, including after rejection. Dossier inspection and advice remain available."
+ mam_personnel.0065.t:0 "Service Case: Review Required"
+ mam_case.changed:0 "The service case is no longer ready. Evidence, advice, officeholders, authority or appointment conditions changed. Inspect the refreshed dossier before proceeding. No appointment was made by this action."
+ mam_case.summary:0 "#bold Service review case#!\nThe minister recorded further-review advice for this incumbent. Mean control change: [mam_case_control_delta|1]; development: [mam_case_development_delta|1]; merit rank: [mam_case_merit_delta|0]. This supports examining a qualified replacement, not a finding of misconduct. Imperial approval and all appointment requirements still apply.\n\n"

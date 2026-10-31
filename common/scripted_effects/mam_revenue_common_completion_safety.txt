@@ -1,0 +1,76 @@
+﻿
+# Province scope. Follow the native Mandala/Cathedral remove-old/set-new pattern
+# only for known lower Wall levels. Never remove an unrelated great building.
+mam_revenue_fund_upgrade_wall_section_effect = {
+ save_scope_as = mam_cf_wall_site
+ if = { limit = { NOT = { has_building_or_higher = the_great_wall_04 } }
+  if = { limit = { has_building = the_great_wall_01 } remove_building = the_great_wall_01 }
+  if = { limit = { has_building = the_great_wall_02 } remove_building = the_great_wall_02 }
+  if = { limit = { has_building = the_great_wall_03 } remove_building = the_great_wall_03 }
+  if = { limit = { has_great_building = no }
+   set_great_building = the_great_wall_04
+   mam_revenue_fund_record_diagnostic_effect = { KEY = wall_section_upgraded }
+  }
+  else = {
+   mam_revenue_fund_record_diagnostic_effect = { KEY = wall_unrelated_building_preserved }
+   title:h_china.holder ?= { if = { limit = { is_ai = no }
+    send_interface_toast = { type = event_toast_effect_bad title = mam_pc.wall_conflict_title
+     left_icon = scope:mam_cf_wall_site right_icon = scope:mam_cf_wall_site
+     custom_tooltip = mam_pc.wall_conflict_tt
+    }
+   } }
+  }
+ }
+}
+# Project scope. Native campaigns may contain multiple wars. A missing old war
+# is a between-stage condition, not a reason to pay or declare another one.
+mam_revenue_fund_campaign_maintenance_effect = {
+ if = { limit = { great_project_type = grand_campaign_project
+  great_project_owner = title:h_china.holder NOT = { has_variable = mam_pc_closed }
+ }
+  clear_saved_scope = mam_cf_current_campaign_marshal
+  remove_variable = mam_pc_current_marshal
+  title:e_minister_grand_marshal.holder ?= {
+   if = { limit = { is_alive = yes top_liege = title:h_china.holder }
+    save_scope_as = mam_cf_current_campaign_marshal
+   }
+  }
+  if = { limit = { exists = scope:mam_cf_current_campaign_marshal }
+   set_variable = { name = mam_pc_current_marshal value = scope:mam_cf_current_campaign_marshal }
+  }
+  save_scope_value_as = { name = mam_cf_campaign_phase value = 2 }
+  if = { limit = { NOT = { has_variable = mam_pc_current_marshal } }
+   save_scope_value_as = { name = mam_cf_campaign_phase value = 3 }
+  }
+  if = { limit = { has_variable = grand_campaign_war }
+   if = { limit = { exists = var:grand_campaign_war }
+    save_scope_value_as = { name = mam_cf_campaign_phase value = 1 }
+   }
+  }
+  if = { limit = { scope:mam_cf_campaign_phase != 1
+   any_contribution = { contribution_id = attack_1 contribution_is_funded = yes }
+   mam_revenue_fund_campaign_objectives_met_trigger = yes
+  }
+   save_scope_as = mam_cf_completed_campaign
+   save_scope_as = great_project
+   great_project_owner = { save_scope_as = owner }
+   mam_revenue_fund_record_diagnostic_effect = { KEY = campaign_objectives_completed }
+   complete_great_project = scope:mam_cf_completed_campaign
+  }
+  else = {
+   if = { limit = { NOT = { has_variable = mam_pc_campaign_phase } }
+    set_variable = { name = mam_pc_campaign_phase value = 0 }
+   }
+   if = { limit = { var:mam_pc_campaign_phase != scope:mam_cf_campaign_phase }
+    set_variable = { name = mam_pc_campaign_phase value = scope:mam_cf_campaign_phase }
+    if = { limit = { scope:mam_cf_campaign_phase = 2 }
+     mam_revenue_fund_record_diagnostic_effect = { KEY = campaign_between_wars }
+    }
+    else_if = { limit = { scope:mam_cf_campaign_phase = 3 }
+     mam_revenue_fund_record_diagnostic_effect = { KEY = campaign_waiting_marshal }
+    }
+   }
+  }
+  clear_saved_scope = mam_cf_current_campaign_marshal
+ }
+}

@@ -1,0 +1,14 @@
+﻿on_game_start_after_lobby = { on_actions = { mam_justice_startup } }
+mam_justice_startup = { effect = { every_independent_ruler = { limit = { mam_justice_emperor_trigger = yes } mam_justice_ensure_effect = yes } } }
+quarterly_playable_pulse = { on_actions = { mam_justice_quarterly } }
+mam_justice_quarterly = { trigger = { mam_justice_emperor_trigger = yes } effect = { mam_justice_ensure_effect = yes } }
+on_title_gain = { on_actions = { mam_justice_office_gain } }
+mam_justice_office_gain = { trigger = { exists = scope:title OR = { scope:title = title:h_china scope:title = title:e_minister_of_justice } }
+ effect = { title:h_china.holder ?= { mam_justice_ensure_effect = yes } }
+}
+on_imprison = { on_actions = { mam_justice_custody_observed } }
+mam_justice_custody_observed = { effect = {
+ if = { limit = { exists = var:mam_jus_warrant_record }
+  var:mam_jus_warrant_record = { set_variable = { name = mam_jus_warrant_spent value = 1 } }
+ }
+} }

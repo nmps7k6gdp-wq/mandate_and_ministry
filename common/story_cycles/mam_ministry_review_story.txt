@@ -1,0 +1,15 @@
+﻿mam_ministry_review_story = {
+ visible = no on_setup = { }
+ on_owner_death = {
+  clear_saved_scope = mam_mr_next_owner
+  var:mam_mr_realm.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_mr_next_owner } }
+  if = { limit = { NOT = { exists = scope:mam_mr_next_owner } }
+   var:mam_mr_realm.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_mr_next_owner } }
+  }
+  if = { limit = { exists = scope:mam_mr_next_owner } make_story_owner = scope:mam_mr_next_owner }
+ }
+ effect_group = { days = 7 triggered_effect = {
+  trigger = { var:mam_mr_pending = 1 }
+  effect = { mam_ministry_review_tick_effect = yes }
+ } }
+}

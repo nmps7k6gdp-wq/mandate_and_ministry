@@ -1,0 +1,18 @@
+﻿# Candidate-initiated AI offers, checked at most yearly and limited by cooldown.
+mam_ai_offer_personnel_bribe_decision = {
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+ desc = mam_corrupt.offer_desc selection_tooltip = mam_corrupt.offer_desc confirm_text = mam_corrupt.offer_desc
+ decision_group_type = mam_ministries ai_check_interval = 12
+ is_shown = { is_ai = yes mam_can_offer_bribe_trigger = yes
+  OR = {
+   AND = { is_governor = yes primary_title = { tier = tier_duchy } has_trait = ambitious }
+   AND = { is_house_head = yes gold >= 300 }
+  }
+ }
+ is_valid = { mam_can_offer_bribe_trigger = yes }
+ effect = { hidden_effect = { mam_open_bribe_offer_effect = yes } }
+ ai_potential = { is_ai = yes is_adult = yes }
+ ai_will_do = { base = 0 modifier = { add = 25 has_trait = ambitious } modifier = { add = 25 has_trait = greedy }
+  modifier = { factor = 0 has_trait = honest } modifier = { factor = 0 has_trait = just }
+ }
+}

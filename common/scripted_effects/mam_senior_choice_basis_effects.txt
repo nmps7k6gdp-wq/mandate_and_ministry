@@ -1,0 +1,15 @@
+﻿mam_senior_choice_basis_tooltip_effect = {
+ if = { limit = { exists = $CANDIDATE$ }
+ $CANDIDATE$ = {
+ if = { limit = { mam_senior_source_actionable_trigger = no } custom_tooltip = mam_senior.block_source_tt }
+ if = { limit = { mam_senior_basis_paid_trigger = yes } custom_tooltip = mam_senior.basis_paid_tt }
+ if = { limit = { mam_senior_basis_family_trigger = yes } custom_tooltip = mam_senior.basis_family_tt }
+ if = { limit = { mam_personnel_shared_faction_trigger = yes } custom_tooltip = mam_senior.basis_native_faction_tt }
+ if = { limit = { mam_personnel_shared_bloc_trigger = yes } custom_tooltip = mam_senior.basis_house_bloc_tt }
+ if = { limit = { mam_political_client_trigger = yes } custom_tooltip = mam_senior.basis_client_tt }
+ if = { limit = { mam_senior_basis_friend_trigger = yes } custom_tooltip = mam_senior.basis_friend_tt }
+ if = { limit = { mam_senior_basis_trait_trigger = yes } custom_tooltip = mam_senior.basis_trait_tt }
+ if = { limit = { mam_senior_basis_weak_trigger = yes } custom_tooltip = mam_senior.basis_weak_tt }
+ }
+ }
+}

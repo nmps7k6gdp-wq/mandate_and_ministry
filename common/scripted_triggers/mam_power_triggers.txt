@@ -1,0 +1,57 @@
+﻿mam_can_change_personnel_powers_trigger = { always = no } # Law retired in dev.34.
+mam_can_change_jurisdiction_trigger = { always = no } # Law retired in dev.34.
+mam_can_change_discretion_trigger = { always = no } # Law retired in dev.34.
+# Applies to destination AND replacement for the surrendered source office.
+# County source replacement remains supported; county destinations are not added.
+mam_power_title_allowed_trigger = {
+ $TITLE$ = {
+  tier >= tier_county tier <= tier_kingdom
+  trigger_if = {
+   limit = { scope:mam_emperor = { has_realm_law = mam_jurisdiction_restricted } }
+   tier <= tier_duchy
+  }
+ }
+}
+# Candidate in the benchmark pool. The raw native adapter never calls discretion.
+mam_power_raw_candidate_trigger = {
+ this != scope:mam_incumbent
+ mam_eligible_for_office_trigger = { TITLE = scope:mam_power_target }
+ trigger_if = { limit = { scope:mam_power_replacements_only = 1 }
+  is_landed = no this != scope:mam_power_subject
+ }
+ trigger_else = {
+  trigger_if = { limit = { is_landed = yes }
+   mam_clean_source_bundle_trigger = { TITLE = primary_title }
+   mam_power_title_allowed_trigger = { TITLE = primary_title }
+   save_temporary_scope_as = mam_power_pool_subject
+   primary_title = { save_temporary_scope_as = mam_power_pool_source }
+   scope:mam_emperor = {
+    OR = {
+     any_courtier_or_guest = { mam_power_pool_replacement_trigger = yes }
+     any_vassal_or_below = {
+      OR = { mam_power_pool_replacement_trigger = yes any_courtier_or_guest = { mam_power_pool_replacement_trigger = yes } }
+     }
+    }
+   }
+  }
+ }
+}
+mam_power_pool_replacement_trigger = {
+ is_landed = no this != scope:mam_power_pool_subject this != scope:mam_incumbent
+ mam_eligible_for_office_trigger = { TITLE = scope:mam_power_pool_source }
+}
+# Candidate scope. Default/no law = ministerial choice. No score bypasses native gates.
+mam_power_destination_discretion_trigger = {
+ trigger_if = { limit = { scope:mam_emperor = { has_realm_law = mam_discretion_ranked } NOT = { mam_exception_for_candidate_trigger = { TITLE = scope:mam_posting } } }
+  exists = scope:mam_power_best_destination
+  scope:mam_power_context_title = scope:mam_posting
+  mam_public_suitability >= { value = scope:mam_power_best_destination.mam_public_suitability subtract = 5 }
+ }
+}
+mam_power_source_discretion_trigger = {
+ trigger_if = { limit = { scope:mam_emperor = { has_realm_law = mam_discretion_ranked } }
+  exists = scope:mam_power_best_source
+  scope:mam_power_context_source = scope:mam_source
+  mam_public_suitability >= { value = scope:mam_power_best_source.mam_public_suitability subtract = 5 }
+ }
+}

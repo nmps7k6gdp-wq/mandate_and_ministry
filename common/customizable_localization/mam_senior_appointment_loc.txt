@@ -1,0 +1,7 @@
+﻿MamSeniorAppointmentType = {
+ type = character
+ text = { trigger = { mam_senior_first_office_trigger = yes } localization_key = mam_senior.type_first }
+ text = { trigger = { mam_senior_lateral_trigger = yes } localization_key = mam_senior.type_lateral }
+ text = { trigger = { mam_senior_promotion_trigger = yes } localization_key = mam_senior.type_promotion }
+ text = { localization_key = mam_senior.type_unavailable }
+}

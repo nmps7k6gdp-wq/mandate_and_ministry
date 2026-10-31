@@ -1,0 +1,16 @@
+﻿# Hidden saved-law identifiers required by the unchanged Personnel law cleanup.
+# Retired in dev.34. Database keys remain only to load and clean up older saves.
+# No default, adoption, effects, costs or flags; these laws are absent from gameplay.
+mam_cj_review_laws = {
+ cumulative = no flag = realm_law
+ can_have_group = { always = no }
+ can_change_law_group = { always = no }
+}
+
+# Retired in dev.34. Database keys remain only to load and clean up older saves.
+# No default, adoption, effects, costs or flags; these laws are absent from gameplay.
+mam_ch_mandate_laws = {
+ cumulative = no flag = realm_law
+ can_have_group = { always = no }
+ can_change_law_group = { always = no }
+}

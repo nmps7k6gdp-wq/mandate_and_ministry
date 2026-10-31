@@ -1,0 +1,1373 @@
+{
+  "build": "dev.55",
+  "invoices": [
+    {
+      "key": 1,
+      "project": "construct_great_barracks",
+      "slot": "base_materials",
+      "price": "mam_revenue_fund_contribution_cost_construct_great_barracks_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_project_contribution_must_be_province_owner_or_above\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tthis = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\tis_liege_or_above_of = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\t\thas_title = title:e_minister_of_works\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "4f4665533df35a09177b9a0a285ef0657101bb1d6c0cca2ce54123d7a1568152"
+    },
+    {
+      "key": 2,
+      "project": "construct_great_barracks",
+      "slot": "fort_material",
+      "price": "mam_revenue_fund_contribution_cost_construct_great_barracks_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_project_contribution_must_be_province_owner_or_above\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tthis = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\tis_liege_or_above_of = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\t\thas_title = title:e_minister_of_works\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "fe94254d2802e1c18b6b4a03d5a8f4bc2150225d570f4919ad7a569ec95c2f2b"
+    },
+    {
+      "key": 3,
+      "project": "construct_great_barracks",
+      "slot": "work_force",
+      "price": "mam_revenue_fund_contribution_cost_construct_great_barracks_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_project_contribution_must_be_province_owner_or_above\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tthis = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\tis_liege_or_above_of = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\t\thas_title = title:e_minister_of_works\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "04cf388e48668f111b4dd283017d8b3e107157dbced734e3d4aeb9ce7df23f1d"
+    },
+    {
+      "key": 4,
+      "project": "construct_great_barracks",
+      "slot": "soldiers",
+      "price": "mam_revenue_fund_contribution_cost_construct_great_barracks_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_project_contribution_must_be_province_owner_or_above\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tthis = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\tis_liege_or_above_of = scope:great_project.great_project_location.province_owner\n\t\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\t\thas_title = title:e_minister_of_works\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "9996efb6c2d97b3b1bdb9e9f17890a21fb3321bd43fa12362f0a65aa8bf3aa66"
+    },
+    {
+      "key": 5,
+      "project": "strengthen_capital",
+      "slot": "materials",
+      "price": "mam_revenue_fund_contribution_cost_strengthen_capital_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "5c4648711f30ebb4a722b33cf9d2841ce5fa0610d4f12e6fb025aebc810b5946"
+    },
+    {
+      "key": 6,
+      "project": "strengthen_capital",
+      "slot": "workforce",
+      "price": "mam_revenue_fund_contribution_cost_strengthen_capital_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "4ce2e34c1d5e4397a66c45b318805c9487e58c2fd17a7ec8480d36281d011781"
+    },
+    {
+      "key": 7,
+      "project": "strengthen_capital",
+      "slot": "architects",
+      "price": "mam_revenue_fund_contribution_cost_strengthen_capital_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "779678758d11c1df366f1662b7468e936121498d65d1d3c80a0bf92d2df47c66"
+    },
+    {
+      "key": 8,
+      "project": "strengthen_capital",
+      "slot": "engineers",
+      "price": "mam_revenue_fund_contribution_cost_strengthen_capital_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "dac26f34c745adf408a3fcd4d9ffbe92056253332bf970e665f7750bcedd9d40"
+    },
+    {
+      "key": 9,
+      "project": "strengthen_capital",
+      "slot": "sculptors",
+      "price": "mam_revenue_fund_contribution_cost_strengthen_capital_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "52893f6bd6c305f9cc17db8a60bae0d17872a9594a87fb14e142d58fde408f94"
+    },
+    {
+      "key": 10,
+      "project": "strengthen_capital",
+      "slot": "forbidden_city",
+      "price": "mam_revenue_fund_contribution_cost_strengthen_capital_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tscope:owner = {\n\t\t\t\t\tcapital_barony.title_province ?= {\n\t\t\t\t\t\tNOT = { has_building = forbidden_city_01 }\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "f497c58651c7169f11e32b0d59ef3535c5564d20a1210a81394cddd27d32c071"
+    },
+    {
+      "key": 11,
+      "project": "great_wall",
+      "slot": "master_builder",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\thas_title = title:e_minister_of_works\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ffde9ecea79ef1998fcfa37b3b0be04d545e4855b39f1a20f03ef08a0fb6bba9"
+    },
+    {
+      "key": 12,
+      "project": "great_wall",
+      "slot": "walls_01",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_wulan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "3380b157ab542f012ba5e6a10d8448ecaaadd6bc05ab181ba533997c8c1a51ea"
+    },
+    {
+      "key": 13,
+      "project": "great_wall",
+      "slot": "walls_02",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_fengan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ce57f6b699171208bf528ca9551552cd523afddc053eaa10b9d52becfc2ceba6"
+    },
+    {
+      "key": 14,
+      "project": "great_wall",
+      "slot": "walls_03",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_mingsha.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "8d88e6bd8fb0be5ad5b736c23ec5d22e546ed5542fc4792f494dbeea3789d736"
+    },
+    {
+      "key": 15,
+      "project": "great_wall",
+      "slot": "walls_04",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_yaode.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "12407a7ca00c275d3d4a298fc33ed74e2165fe2641534eb5971ccd98df4bde2d"
+    },
+    {
+      "key": 16,
+      "project": "great_wall",
+      "slot": "walls_05",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_huile.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "d32a584e16bf7a797e955b17e3e76b8bf36f3e2bb808a9d58249cbbe2d7566f9"
+    },
+    {
+      "key": 17,
+      "project": "great_wall",
+      "slot": "walls_06",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_baojing.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "4c192319b5ba7df8f49f7161a524e5030a60c53a31a177b34d06482ebcdbf5d3"
+    },
+    {
+      "key": 18,
+      "project": "great_wall",
+      "slot": "walls_07",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_7",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_huaiyuan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "053466537a622513c5826f0d5b307311c4c2b2deadd8e2014616ebf47c622aff"
+    },
+    {
+      "key": 19,
+      "project": "great_wall",
+      "slot": "walls_08",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_8",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_shengwei.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "a8567cd11a7701f935eb95f78077d472f4d15fb3b675374c9a84ff074c03d7b0"
+    },
+    {
+      "key": 20,
+      "project": "great_wall",
+      "slot": "walls_09",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_9",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_hequ.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "354f9a4f5389be892e4ecff706e31363c3e7cc9f04aba5ed3f02bed4032cbe84"
+    },
+    {
+      "key": 21,
+      "project": "great_wall",
+      "slot": "walls_10",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_10",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_helan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "1d835ad8fdf0d28265f13b90354ed80191918bf9320ce7918ff21eb5debe3f6b"
+    },
+    {
+      "key": 22,
+      "project": "great_wall",
+      "slot": "walls_11",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_11",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_dengkou.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "c0aef3d5338dcbb3b644ad1a1d90f1d5f058e71683e9c699a4119c6b1c37add2"
+    },
+    {
+      "key": 23,
+      "project": "great_wall",
+      "slot": "walls_12",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_12",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_wuluhai.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b3995d3e416db45c343ca75810310c43a2dccbfe4c33454a2f14fea9c4f6d7a9"
+    },
+    {
+      "key": 24,
+      "project": "great_wall",
+      "slot": "walls_13",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_13",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_yongfeng.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ca66e46fd5517833bc6d3ac741f298dcccd3c43063396dd95e9dac0c52659798"
+    },
+    {
+      "key": 25,
+      "project": "great_wall",
+      "slot": "walls_14",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_14",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_jiuyuan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b3dcaa5abb71aa6e0d66433dac8c297b85e782b959f5934a73ab54d4a548a7bf"
+    },
+    {
+      "key": 26,
+      "project": "great_wall",
+      "slot": "walls_15",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_15",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_tiande.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "6b1ca8ad546cbfd47ec14fc3c333c3187c84fadfb411e332a2a4e3f5d1b62aae"
+    },
+    {
+      "key": 27,
+      "project": "great_wall",
+      "slot": "walls_16",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_16",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_jincheng.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "7950039b8c32f08979b43b953b59d884e3d0586dc49f416b3e7da8fe809ca943"
+    },
+    {
+      "key": 28,
+      "project": "great_wall",
+      "slot": "walls_17",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_17",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_huichuan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b9f140718a24b9372120a4a3e7e8584cdf0e336434710ebf3fb420ca63d318ce"
+    },
+    {
+      "key": 29,
+      "project": "great_wall",
+      "slot": "walls_18",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_18",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_huairong_2.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "35774578235be1d1d33b22b8ac0e88196c675a693348096000f28aac99d0aa50"
+    },
+    {
+      "key": 30,
+      "project": "great_wall",
+      "slot": "walls_19",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_19",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_pinggao.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "8e9dea7d1a65171bbe8a9770aac674e2ba71b0b82434c609ce529d177207b01c"
+    },
+    {
+      "key": 31,
+      "project": "great_wall",
+      "slot": "walls_20",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_20",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_huaide.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "7b3a91c38378dfab5065db4eb897ea3f69ebb0526a109494a3b3d91a418c21c2"
+    },
+    {
+      "key": 32,
+      "project": "great_wall",
+      "slot": "walls_21",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_21",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_fangqu.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "79b54a987e2add4aa83d0c2fb7dfaf4852c5584702f01137ea3579f843f8ba80"
+    },
+    {
+      "key": 33,
+      "project": "great_wall",
+      "slot": "walls_22",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_22",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_huaian_2.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "87d09f05439e2923ee974ce98b51e2e335bbc99cab152b3a49d4c1620ec61e27"
+    },
+    {
+      "key": 34,
+      "project": "great_wall",
+      "slot": "walls_23",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_23",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_luoyuan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "e6113986b8ac679d60f599081c0a10fe4d217244030bb993f6a862c22a53e6b1"
+    },
+    {
+      "key": 35,
+      "project": "great_wall",
+      "slot": "walls_24",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_24",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_hengshan_3.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "cb9e0d575ce20c9a40064e3e119319038812a2457151180fa3304ffe1bfc7341"
+    },
+    {
+      "key": 36,
+      "project": "great_wall",
+      "slot": "walls_25",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_25",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_wuyan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "95ce90efdb633acdbb9c234e5ff9ba833fcaee81bf398c8fc61291df6d7b0463"
+    },
+    {
+      "key": 37,
+      "project": "great_wall",
+      "slot": "walls_26",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_26",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_ningshuo.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "27dae0f2b0b81391887a3caeb98b69423d8e6316281c64928a83a75d26a72542"
+    },
+    {
+      "key": 38,
+      "project": "great_wall",
+      "slot": "walls_27",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_27",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_longquan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b9b2265662a6f28fdf5cddd369fc96d063fecd687a3ee6ab3f5319d10390797c"
+    },
+    {
+      "key": 39,
+      "project": "great_wall",
+      "slot": "walls_28",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_28",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_rulin.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "5927da7ca689d0b6b36b25aad67d0c4a5c177ea00b78f6884ac752097b6372b9"
+    },
+    {
+      "key": 40,
+      "project": "great_wall",
+      "slot": "walls_29",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_29",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_kaiguang.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "06561f68cd89aca801b117c2ece2aac63dcaa4890d86721740cbd11517168cfc"
+    },
+    {
+      "key": 41,
+      "project": "great_wall",
+      "slot": "walls_30",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_30",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_linzhou_yincheng.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "34ecb12c121db0b91d99e5fbefe9017b1ee2955e1deefd6c6897e05fa8ea058d"
+    },
+    {
+      "key": 42,
+      "project": "great_wall",
+      "slot": "walls_31",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_31",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_xiazhou_dejing_east.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "a6f864c36790a76a07dc6c7031c24bbe5d85e87385d20bf028c62be6db02d964"
+    },
+    {
+      "key": 43,
+      "project": "great_wall",
+      "slot": "walls_32",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_32",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_xuande.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ea94d0d0f3a7dc9e36cd1184be80a64b1b8fd14223e27508863aed9563faa00b"
+    },
+    {
+      "key": 44,
+      "project": "great_wall",
+      "slot": "walls_33",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_33",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_baishui.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "88da190f7e680d21ef79778e19553c0674cd3517d29f19b215de35f74406798f"
+    },
+    {
+      "key": 45,
+      "project": "great_wall",
+      "slot": "walls_34",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_34",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_rouxuan.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "de408896ada512b92c8736c4392c24c12fda3a2d81fc42670a0c3e386bb6902c"
+    },
+    {
+      "key": 46,
+      "project": "great_wall",
+      "slot": "walls_35",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_35",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\ttitle:b_cirlxj_yangcheng.title_province = {\n\t\t\t\t\tNOT = { has_building_or_higher = the_great_wall_04 }\n\t\t\t\t\tprovince_owner ?= { top_liege = scope:mam_cf_contributor.top_liege }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "4a30a68739a83a5003aafcccf1668e88c219f89cec3c48399bbb20d5811fc6e7"
+    },
+    {
+      "key": 47,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "materials",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "f1932c4a8b9a2e5de4edf30dc6d608321bf508efbe97dbf75b939e39b9c8dd67"
+    },
+    {
+      "key": 48,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "land_clearance",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "a67ffc83f29e4d5514b154df5ed8b5362eee2ad87fbbec8eab41ba2035c387ca"
+    },
+    {
+      "key": 49,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "engineers",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ef23cde644e6c1b80b2421faf266333ece5326d4dac6af425e6478d2a7816563"
+    },
+    {
+      "key": 50,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "logistics",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "50b542e56728dfe71bb1cd4fc7eacaedc2da1a466a8b616bbe2bcab097a692b3"
+    },
+    {
+      "key": 51,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "personnel_construction",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "bff9be96228f6bd41a5345199dc0233b7dad75e6ec39768051a89d3acc97f21f"
+    },
+    {
+      "key": 52,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "personnel_dig",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "4afd4028d473a0250e6e1eb9324507c5b3915895fd573d055303d31d56a12abb"
+    },
+    {
+      "key": 53,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "architects",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "d2cb446e84364a79bf54b496b04e4bc3669d01a2f175e49aaa8ff739c5942ed6"
+    },
+    {
+      "key": 54,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "slot": "fort_material",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_7",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b75dc158f3f4b8aa96dd4927bb412c018b3b8fac30ef2d76187786c856b619ae"
+    },
+    {
+      "key": 55,
+      "project": "great_wall_extend_to_liaodong",
+      "slot": "materials",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "f1932c4a8b9a2e5de4edf30dc6d608321bf508efbe97dbf75b939e39b9c8dd67"
+    },
+    {
+      "key": 56,
+      "project": "great_wall_extend_to_liaodong",
+      "slot": "workforce",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "a8f61898d6b0abc6dfafefe46d25f9375284dea63a1cfcd0292c33e68d559929"
+    },
+    {
+      "key": 57,
+      "project": "great_wall_extend_to_liaodong",
+      "slot": "logistics",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "50b542e56728dfe71bb1cd4fc7eacaedc2da1a466a8b616bbe2bcab097a692b3"
+    },
+    {
+      "key": 58,
+      "project": "great_wall_extend_to_liaodong",
+      "slot": "engineers",
+      "price": "mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_wall_contributor_realm_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\ttop_liege = scope:owner\n\t\t\t\t\t\tis_tributary_of = scope:owner\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ef23cde644e6c1b80b2421faf266333ece5326d4dac6af425e6478d2a7816563"
+    },
+    {
+      "key": 59,
+      "project": "grand_canals",
+      "slot": "materials",
+      "price": "mam_revenue_fund_contribution_cost_grand_canals_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "5523f6c446d291edbb59f8bcdfefeb6e5b981e9eb2c5beb534b7346c2b386949"
+    },
+    {
+      "key": 60,
+      "project": "grand_canals",
+      "slot": "logistics",
+      "price": "mam_revenue_fund_contribution_cost_grand_canals_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "138df43d14d55e520949213cd5abe1011a59b4c6e0b1455ac9ec34598a209cc7"
+    },
+    {
+      "key": 61,
+      "project": "grand_canals",
+      "slot": "personnel_construction",
+      "price": "mam_revenue_fund_contribution_cost_grand_canals_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "e5b4f75b3bec8e313e4a5c5c38e48aad09141a832e2c0d37c18ca65bf7257f10"
+    },
+    {
+      "key": 62,
+      "project": "grand_canals",
+      "slot": "personnel_dig",
+      "price": "mam_revenue_fund_contribution_cost_grand_canals_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "e7fba0b65e3023719d826f74bdae25fe9e1c5113deb1a089ebd5452068d59200"
+    },
+    {
+      "key": 63,
+      "project": "grand_canals",
+      "slot": "engineers",
+      "price": "mam_revenue_fund_contribution_cost_grand_canals_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "d9aa6d489597deb77be682f64c1457655bb5405c378d34264e47755325c4c962"
+    },
+    {
+      "key": 64,
+      "project": "grand_canals",
+      "slot": "dredging_boats",
+      "price": "mam_revenue_fund_contribution_cost_grand_canals_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = you_are_owner_of_the_project\n\t\t\t\t\t\tthis = scope:owner\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t\tany_sub_realm_county = {\n\t\t\t\t\tis_coastal_county = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "9c171afc616539f43131b899cb7cf6066c02d17f25e35c0966ffecd375ae183b"
+    },
+    {
+      "key": 65,
+      "project": "grand_campaign_project",
+      "slot": "attack_1",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\talways = yes #it's the mandatory contribution\n\t\t\t\n\n\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t",
+      "native_contribution_sha256": "c10f92a5d6140ee608bf343aa1e0a4879f4dbe0e67289e4068b8fd3f6a0371e3"
+    },
+    {
+      "key": 66,
+      "project": "grand_campaign_project",
+      "slot": "attack_2",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_2\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 2 }\n\t\t\t",
+      "native_contribution_sha256": "e6ce7ca3af1dd91ea10a9b3c9bb57819697bd2faae383d6cd487470e1542d46d"
+    },
+    {
+      "key": 67,
+      "project": "grand_campaign_project",
+      "slot": "attack_3",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_3\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 3 }\n\t\t\t",
+      "native_contribution_sha256": "37ef9f486b6929df1f97a6fc475954369544d1b5bd5da014ef5c34442664ffa7"
+    },
+    {
+      "key": 68,
+      "project": "grand_campaign_project",
+      "slot": "attack_4",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_4\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 4 }\n\t\t\t",
+      "native_contribution_sha256": "1055a83d6988cd1e87285986d7a779740489e8c9937a86d6cf2b5800e01d0f80"
+    },
+    {
+      "key": 69,
+      "project": "grand_campaign_project",
+      "slot": "attack_5",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_5\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 5 }\n\t\t\t",
+      "native_contribution_sha256": "51d448aa9a88932058f681378e7df649a819f02378c29a117f0dcc163cda434a"
+    },
+    {
+      "key": 70,
+      "project": "grand_campaign_project",
+      "slot": "attack_6",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_6\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 6 }\n\t\t\t",
+      "native_contribution_sha256": "83089e556aef6a9ce9f09067879c3de2bf59b3db7908b3af9708d6a0caf2b030"
+    },
+    {
+      "key": 71,
+      "project": "grand_campaign_project",
+      "slot": "attack_7",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_7\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 7 }\n\t\t\t",
+      "native_contribution_sha256": "331a63672363b3af7256ba96149d9c9b68148f0d7644810ff85c4831d2a73de3"
+    },
+    {
+      "key": 72,
+      "project": "grand_campaign_project",
+      "slot": "attack_8",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_7",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_8\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 8 }\n\t\t\t",
+      "native_contribution_sha256": "2f74eea67995bfe2831b319c32382da3211f44939e9eb3d35e6f14d28c13655c"
+    },
+    {
+      "key": 73,
+      "project": "grand_campaign_project",
+      "slot": "attack_9",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_8",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_9\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 9 }\n\t\t\t",
+      "native_contribution_sha256": "07a559545458b50d0339afadf5cd36758300d6f822f7eb9a70f055d3d460b32f"
+    },
+    {
+      "key": 74,
+      "project": "grand_campaign_project",
+      "slot": "attack_10",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_9",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_10\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 10 }\n\t\t\t",
+      "native_contribution_sha256": "96f040fb87a05c987a4df3c773d174e611c9572b8fdaf9a53fe45bfff7c236d1"
+    },
+    {
+      "key": 75,
+      "project": "grand_campaign_project",
+      "slot": "attack_11",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_10",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_11\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 11 }\n\t\t\t",
+      "native_contribution_sha256": "c2771c58315d465be501a86c94bdb2582c96d464f74fb621acd872ac52843907"
+    },
+    {
+      "key": 76,
+      "project": "grand_campaign_project",
+      "slot": "attack_12",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_11",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_12\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 12 }\n\t\t\t",
+      "native_contribution_sha256": "501e200c77239b30544eed834112b01768553e85967655e41bbc941f5025fa13"
+    },
+    {
+      "key": 77,
+      "project": "grand_campaign_project",
+      "slot": "attack_13",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_12",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_13\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 13 }\n\t\t\t",
+      "native_contribution_sha256": "cad08ef773d5af73fa8df959c139035ec47f8aa4e268ea6ce68064782e63c84c"
+    },
+    {
+      "key": 78,
+      "project": "grand_campaign_project",
+      "slot": "attack_14",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_13",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_14\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 14 }\n\t\t\t",
+      "native_contribution_sha256": "99dee18e07408fbcf81d13eedcaf4182572f3ae5a875c5489d9408c246a7fd25"
+    },
+    {
+      "key": 79,
+      "project": "grand_campaign_project",
+      "slot": "attack_15",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_14",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_15\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 15 }\n\t\t\t",
+      "native_contribution_sha256": "594813c6d71a012f2b112d82b00035136bf0eea0522c63ce61a43362e8a65309"
+    },
+    {
+      "key": 80,
+      "project": "grand_campaign_project",
+      "slot": "attack_16",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_15",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_16\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 16 }\n\t\t\t",
+      "native_contribution_sha256": "ba98e8d682fcce625950c809eec2410bd03e30be9eb50349d34672e3e6d244cd"
+    },
+    {
+      "key": 81,
+      "project": "grand_campaign_project",
+      "slot": "attack_17",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_16",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_17\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 17 }\n\t\t\t",
+      "native_contribution_sha256": "b6e382dd0e618e68389981477737efdfebcc79a04433c422826a5edcd29f8017"
+    },
+    {
+      "key": 82,
+      "project": "grand_campaign_project",
+      "slot": "attack_18",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_17",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_18\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 18 }\n\t\t\t",
+      "native_contribution_sha256": "f7de3c3afff3548e07ef7b1e76743e4e225dfbff8f655f32fd08865903b92ff4"
+    },
+    {
+      "key": 83,
+      "project": "grand_campaign_project",
+      "slot": "attack_19",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_18",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_19\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 19 }\n\t\t\t",
+      "native_contribution_sha256": "6d0da224d7ffc0c3c641b757de6ec904dc9675b428484d176c60bc34420fbd15"
+    },
+    {
+      "key": 84,
+      "project": "grand_campaign_project",
+      "slot": "attack_20",
+      "price": "mam_revenue_fund_contribution_cost_grand_campaign_project_19",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tscope:great_project ?= {\n\t\t\t\t\texists = var:attack_20\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tgrand_campaign_valid_contributor_trigger = { ID = 20 }\n\t\t\t",
+      "native_contribution_sha256": "49ec8a531f0c058247cf9ceff2ea7aa83545b74586fc2605a9ae0850cc75d08d"
+    },
+    {
+      "key": 85,
+      "project": "minister_project_culture",
+      "slot": "cultural_liason",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_culture_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t",
+      "native_contribution_sha256": "bb79a09d35163964bccd94025dfcc95a0d75574a17f90c0dce126d241d5594f5"
+    },
+    {
+      "key": 86,
+      "project": "minister_project_culture",
+      "slot": "send_inhabitants",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_culture_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tculture = top_liege.culture\n\t\t\t",
+      "native_contribution_sha256": "b731711d15f7272ae0e74436b81a62ebb94ced21603ff3d764336536cbffe53f"
+    },
+    {
+      "key": 87,
+      "project": "minister_project_culture",
+      "slot": "send_inhabitants_2",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_culture_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tculture = top_liege.culture\n\t\t\t",
+      "native_contribution_sha256": "eb5fd5e3bd4e7d9682def6de40a689424162f94174f49e2f8d3ed931dffc197e"
+    },
+    {
+      "key": 88,
+      "project": "minister_project_culture",
+      "slot": "send_inhabitants_3",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_culture_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tculture = top_liege.culture\n\t\t\t",
+      "native_contribution_sha256": "233f6a1a19d55912e662743e8a5b679d14963e2a2a9e623f3959157ef26b4336"
+    },
+    {
+      "key": 89,
+      "project": "minister_project_development",
+      "slot": "personnel",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_development_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "6021174ee63f9ea13e3e5324e78ce0eb220a4310ef26cb34b20da5bf0d68054a"
+    },
+    {
+      "key": 90,
+      "project": "minister_project_development",
+      "slot": "engineers",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_development_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "ef847a76eb3212b601769b9db316745cf1cfdc18b164dc22da247b171d79772c"
+    },
+    {
+      "key": 91,
+      "project": "minister_project_development",
+      "slot": "infrastructure",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_development_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_governor = yes\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_project_is_near_capital_desc\n\t\t\t\t\tcapital_province ?= {\n\t\t\t\t\t\tduchy = {\n\t\t\t\t\t\t\tOR = {\n\t\t\t\t\t\t\t\tNOT = { exists = scope:great_project } # safeguard for before the project is planned\n\t\t\t\t\t\t\t\tthis = scope:great_project.great_project_location.duchy\n\t\t\t\t\t\t\t\tany_title_to_title_neighboring_duchy = { this = scope:great_project.great_project_location.duchy }\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "22c2deea077505a3242a600e6e06762b31e2a6df8ab162796dda30e8e8da9009"
+    },
+    {
+      "key": 92,
+      "project": "minister_project_establish_control",
+      "slot": "city_guards",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_establish_control_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_justice\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "a9e78e929103a5eeb042cd80fbbfac5ca2d4162caf5e09c01a5e167e6bc039ae"
+    },
+    {
+      "key": 93,
+      "project": "minister_project_establish_control",
+      "slot": "highway_patrols",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_establish_control_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_justice\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = is_a_military_governor_desc\n\t\t\t\t\t\tvassal_contract_has_flag = celestial_military_appointment\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "2be6037e42b6b94656ab5a3c84ee80018e723887b62a022d523e2bd0caa78d61"
+    },
+    {
+      "key": 94,
+      "project": "minister_project_establish_control",
+      "slot": "administrators",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_establish_control_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t",
+      "native_contribution_sha256": "e8a089ad1cb6e4739d7e6aaed1e693c4713defa855615b563d929bf12089567e"
+    },
+    {
+      "key": 95,
+      "project": "minister_project_establish_control",
+      "slot": "court_magistrates",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_establish_control_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_justice\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = is_a_civilian_governor_desc\n\t\t\t\t\t\tvassal_contract_has_flag = celestial_civil_appointment\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "759431dfa03358038b782fbff26d34423b6536f420b43580cc0a498d9140894e"
+    },
+    {
+      "key": 96,
+      "project": "minister_project_train_troops",
+      "slot": "train_troops",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_train_troops_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\t# Grand Marshal missing on purpose here\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "e68adff6860f142b3d6c48c8a6e0b11d63b4844124fc447427639c6d60e5dec5"
+    },
+    {
+      "key": 97,
+      "project": "minister_project_train_troops",
+      "slot": "military_academy",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_train_troops_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_governor = yes\n\t\t\t\t\t\tany_directly_owned_province = {\n\t\t\t\t\t\t\thas_building_or_higher = military_academy_01\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "ea9691fff6cac9a69c89864276ae1aa3cbea0534f1f56c1ce9a6e38842182076"
+    },
+    {
+      "key": 98,
+      "project": "minister_project_train_troops",
+      "slot": "levy_bootcamp",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_train_troops_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "aee3c37219d227b7d425733b929cc6e85706708d2553c30fe77782e9b80c5a8b"
+    },
+    {
+      "key": 99,
+      "project": "minister_project_train_troops",
+      "slot": "equipment_check",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_train_troops_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "a2a1968709f1c08292b6b9a3b3ea9f5a5eaf59fe88456db792a41b884cbebbbd"
+    },
+    {
+      "key": 100,
+      "project": "minister_project_train_troops",
+      "slot": "siege_exercise",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_train_troops_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t\tOR = {\n\t\t\t\t\t\thas_trait = military_engineer\n\t\t\t\t\t\thas_trait = logistician\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "8d160f28b6ddfb0d3466e8dcc469a9d1bb40055bfe1ead665652167095b8ded1"
+    },
+    {
+      "key": 101,
+      "project": "minister_project_train_troops",
+      "slot": "natural_disaster_test",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_train_troops_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\thas_title = title:e_minister_grand_marshal\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "d6e1061d8b6d4dee9a08f45d0046013bf403c381bd114987608cfd12b28fe438"
+    },
+    {
+      "key": 102,
+      "project": "minister_project_conduct_census",
+      "slot": "conduct_census",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_conduct_census_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "36cba120c1ea923b4e496cbace42ad22a03a9f1a8b4fc5d6196fa316ae412a6c"
+    },
+    {
+      "key": 103,
+      "project": "minister_project_conduct_census",
+      "slot": "purge_treasury_debt",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_conduct_census_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t\ttitle:e_minister_of_revenue.holder ?= {\n\t\t\t\t\t\ttreasury >= 1000\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "5c9a9907af03cf157df9cf9a972605410fe13b46776f2a35e6dcbaad823e8896"
+    },
+    {
+      "key": 104,
+      "project": "minister_project_conduct_census",
+      "slot": "verify_passed_exams",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_conduct_census_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\t\thas_title = title:e_minister_of_rites\n\t\t\t\t\thas_title = title:e_minister_censor\n\t\t\t\t\thas_title = title:e_minister_of_justice\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "fb90d1dc32181c399e4ea866c3d148ef3dd1d78ec48a9d80973b738fa1dc838c"
+    },
+    {
+      "key": 105,
+      "project": "minister_project_conduct_census",
+      "slot": "fertility_effort",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_conduct_census_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "0d10c30b36bbc4c834c5163f116d217b1a89f5e7adf7f467dd348dd7ca5bcaa5"
+    },
+    {
+      "key": 106,
+      "project": "minister_project_conduct_census",
+      "slot": "natural_disaster_insurance",
+      "price": "mam_revenue_fund_contribution_cost_minister_project_conduct_census_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\thas_title = title:h_china\n\t\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_diarch_of_target = top_liege\n\t\t\t\t\t\ttop_liege = {\n\t\t\t\t\t\t\thas_diarchy_type = grand_secretariat\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tis_governor = yes\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "0a7144ea1397117b726be79d5d1f09dcf814d66dc4196f12fcd3f45b456e179a"
+    },
+    {
+      "key": 107,
+      "project": "minister_compel_religious_uniformity",
+      "slot": "religious_liason",
+      "price": "mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t",
+      "native_contribution_sha256": "6deaa77aa9f474f8d2192b0370aaa66df0cb306a48998024072012ef56795706"
+    },
+    {
+      "key": 108,
+      "project": "minister_compel_religious_uniformity",
+      "slot": "construct_new_shrines",
+      "price": "mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t",
+      "native_contribution_sha256": "69ae28c8ad59f2c80b8180b2b4c52cf2e042f3cb8f9979a9149aed6fca3d49db"
+    },
+    {
+      "key": 109,
+      "project": "minister_compel_religious_uniformity",
+      "slot": "investigate_improper_rites",
+      "price": "mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t",
+      "native_contribution_sha256": "64e43353269f604371fd41a25afc7c299215be2b400873d50e929487fd4c3f17"
+    },
+    {
+      "key": 110,
+      "project": "minister_compel_religious_uniformity",
+      "slot": "promote_faithful_relocation",
+      "price": "mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "native_eligibility": "\n\t\t\t",
+      "native_contribution_sha256": "7f33b854b9209103df6f32369ef026e826c9b74066270490e29557b3b3abb350"
+    },
+    {
+      "key": 111,
+      "project": "great_project_earthquake",
+      "slot": "recovery",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "9f934abb69a4ddd68091018080d09844f74c2c6eba8fc63981210bb8185bbfad"
+    },
+    {
+      "key": 112,
+      "project": "great_project_earthquake",
+      "slot": "cleanup",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "680657e829c3966845dbf9816d03765fa1f484835c81a7c10d551482c1645792"
+    },
+    {
+      "key": 113,
+      "project": "great_project_earthquake",
+      "slot": "reconstruction",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t\ttgp_natural_disaster_councillor_available_to_manage_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "dd0977d6d86867333490f71986794600fed21d8ff2786b93a5359cd3e93b9bfa"
+    },
+    {
+      "key": 114,
+      "project": "great_project_earthquake",
+      "slot": "resettlement",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "d399298996cc8f8e062df26aef9f7d6a8c9bc6511486b8c62ca991237899d95b"
+    },
+    {
+      "key": 115,
+      "project": "great_project_earthquake",
+      "slot": "aid",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "4eb802b534b8a8c291d0fcf7f5dfc25687012a3b5fcb4ab452f5962c5005fb7c"
+    },
+    {
+      "key": 116,
+      "project": "great_project_earthquake",
+      "slot": "memorial",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "caf7aa5ddd94b705281150f91a69bf80e2010d9b93324def64387ab0ed0d7c22"
+    },
+    {
+      "key": 117,
+      "project": "great_project_earthquake",
+      "slot": "minister_sends_aid",
+      "price": "mam_revenue_fund_contribution_cost_great_project_earthquake_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\tscope:owner.top_liege = {\n\t\t\t\t\ttgp_has_access_to_ministry_trigger = yes\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t\ttgp_is_any_minister = yes\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = minister_has_aidee_to_send_tt\n\t\t\t\t\tany_court_position_holder = {\n\t\t\t\t\t\ttype = minister_bureaucrat_court_position\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "9b3e96b9115a2c1960203c7725768f86647b95ff09dee11cd376281eb375ea4b"
+    },
+    {
+      "key": 118,
+      "project": "great_project_flood",
+      "slot": "recovery",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "1f6fd402c716bbf59fa10d6f1a4ed1f596ad685fa42ab65553cd8144f40d8730"
+    },
+    {
+      "key": 119,
+      "project": "great_project_flood",
+      "slot": "drainage",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = natural_disaster_drainage_not_enough_soldiers_tt\n\t\t\t\t\tcurrent_military_strength >= natural_disaster_drainage_min_military_strength_value\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "849a0b0fc613ca18834e842ee3869a25dd41c0ad08d485f7aa70ba70c6a96c4c"
+    },
+    {
+      "key": 120,
+      "project": "great_project_flood",
+      "slot": "reconstruction",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t\ttgp_natural_disaster_councillor_available_to_manage_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "dd0977d6d86867333490f71986794600fed21d8ff2786b93a5359cd3e93b9bfa"
+    },
+    {
+      "key": 121,
+      "project": "great_project_flood",
+      "slot": "resettlement",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "a6c4670c28935e985b5d15db827d2266b7158935b414c888ca963d3e458d6d25"
+    },
+    {
+      "key": 122,
+      "project": "great_project_flood",
+      "slot": "aid",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "4eb802b534b8a8c291d0fcf7f5dfc25687012a3b5fcb4ab452f5962c5005fb7c"
+    },
+    {
+      "key": 123,
+      "project": "great_project_flood",
+      "slot": "memorial",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t",
+      "native_contribution_sha256": "caf7aa5ddd94b705281150f91a69bf80e2010d9b93324def64387ab0ed0d7c22"
+    },
+    {
+      "key": 124,
+      "project": "great_project_flood",
+      "slot": "minister_sends_aid",
+      "price": "mam_revenue_fund_contribution_cost_great_project_flood_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_natural_disasters.txt",
+      "native_eligibility": "\n\t\t\t\tscope:owner.top_liege = {\n\t\t\t\t\ttgp_has_access_to_ministry_trigger = yes\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\ttgp_natural_disaster_is_valid_contributor_trigger = yes\n\t\t\t\ttgp_is_any_minister = yes\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = minister_has_aidee_to_send_tt\n\t\t\t\t\tany_court_position_holder = {\n\t\t\t\t\t\ttype = minister_bureaucrat_court_position\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b2b5a35f19dfe63d2abc2829bdf18824b82a74df8f1f259523719b6b5ea5b862"
+    },
+    {
+      "key": 125,
+      "project": "pam_cathedral_01",
+      "slot": "stone",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_at_war = no\n\t\t\t",
+      "native_contribution_sha256": "6b10f54d20b6ce1285fe4052314ed4c94262ec3e0e6d411581460c453ffec4d1"
+    },
+    {
+      "key": 126,
+      "project": "pam_cathedral_01",
+      "slot": "master_mason",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = find_mason_character_tt\n\t\t\t\t\tis_valid_cathedral_master_mason_contributor_trigger = {\n\t\t\t\t\t\tSTEWARDSHIP_THRESHOLD = high_skill_rating\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "8cddfec24df5bdc779bf1da4fd25089cd8e792eab46f7286028c3c6a7a631569"
+    },
+    {
+      "key": 127,
+      "project": "pam_cathedral_01",
+      "slot": "bells",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "b6d06bddc880845fdd94443ba06868121ad6067853131867a09ab2b96b8bd958"
+    },
+    {
+      "key": 128,
+      "project": "pam_cathedral_01",
+      "slot": "facade",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_valid_cathedral_facade_contributor_trigger = yes\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_doctrine = doctrine_pilgrimage_forbidden }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "56df56470b1d83855ab78b85154ca775f939d3f7030c1cfd23c8b41721381623"
+    },
+    {
+      "key": 129,
+      "project": "pam_cathedral_01",
+      "slot": "frescoes",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tpiety_level >= 3\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_tenet = tenet_aniconism }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "83194930b80bb1f0649fa28497754eee0afbbce652ba82dd53baffabbcbb5dea"
+    },
+    {
+      "key": 130,
+      "project": "pam_cathedral_01",
+      "slot": "stained_glass",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tprestige_level >= 2\n\t\t\t\t\tpiety_level >= 3\n\t\t\t\t\tprimary_title.tier >= tier_kingdom\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_tenet = tenet_aniconism }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "4a55ba3229d85cf587e265275d76f6f12a540be5918df8dbc3e29987669db330"
+    },
+    {
+      "key": 131,
+      "project": "pam_cathedral_01",
+      "slot": "north_chapel",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = {\n\t\t\t\t\t\trite_has_tenet = tenet_aniconism\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "03b2d7251cf64cd913840673c7f0723a8166cf90951a932e688424e2795e1c96"
+    },
+    {
+      "key": 132,
+      "project": "pam_cathedral_01",
+      "slot": "south_chapel",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_01_7",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = {\n\t\t\t\t\t\trite_has_parameter = no_optional_cathedral_contributions\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "d7c8c0bb0fd4ee8452b605308103755c9736f911aacba1b0e0c594126ec32469"
+    },
+    {
+      "key": 133,
+      "project": "pam_cathedral_02",
+      "slot": "stone",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_at_war = no\n\t\t\t",
+      "native_contribution_sha256": "24d245d666e1bfda6022b6adcfef4e64da66864c52accab04de51adcd7751152"
+    },
+    {
+      "key": 134,
+      "project": "pam_cathedral_02",
+      "slot": "master_mason",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = find_mason_character_tier_2_tt\n\t\t\t\t\tis_valid_cathedral_master_mason_contributor_trigger = {\n\t\t\t\t\t\tSTEWARDSHIP_THRESHOLD = very_high_skill_rating\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "7f8479df9576799f712f7042707b6849faa282d43e944c9f4cab3cd437617894"
+    },
+    {
+      "key": 135,
+      "project": "pam_cathedral_02",
+      "slot": "bells",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "b6d06bddc880845fdd94443ba06868121ad6067853131867a09ab2b96b8bd958"
+    },
+    {
+      "key": 136,
+      "project": "pam_cathedral_02",
+      "slot": "facade",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_valid_cathedral_facade_contributor_trigger = yes\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_doctrine = doctrine_pilgrimage_forbidden }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "e9d084e9ad4c8dabf9c2454acece2b214acfad089a66eee9d10825e7490166c5"
+    },
+    {
+      "key": 137,
+      "project": "pam_cathedral_02",
+      "slot": "frescoes",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tpiety_level >= 3\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_tenet = tenet_aniconism }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "7912251b48603cbfc4ccc920b19c03346b743d15982ec6fb78655ffcb7ed9346"
+    },
+    {
+      "key": 138,
+      "project": "pam_cathedral_02",
+      "slot": "stained_glass",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tprestige_level >= 2\n\t\t\t\t\tpiety_level >= 3\n\t\t\t\t\tprimary_title.tier >= tier_kingdom\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_tenet = tenet_aniconism }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "de5ba641edc10c1fcd5dde4b1170710f263524d9f0ff0261e3d23afd571e78c6"
+    },
+    {
+      "key": 139,
+      "project": "pam_cathedral_02",
+      "slot": "north_chapel",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = {\n\t\t\t\t\t\trite_has_tenet = tenet_aniconism\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "e71de741a7138cc99a946ddcc8fbb7276065b1ca59b2b992f04ee86c5bde1377"
+    },
+    {
+      "key": 140,
+      "project": "pam_cathedral_02",
+      "slot": "south_chapel",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_02_7",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = {\n\t\t\t\t\t\trite_has_parameter = no_optional_cathedral_contributions\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "1d92d878a5fa9def606941e23a982c6fb3946b44f0693cb0af073993e1a41fc5"
+    },
+    {
+      "key": 141,
+      "project": "pam_cathedral_03",
+      "slot": "stone",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_at_war = no\n\t\t\t",
+      "native_contribution_sha256": "18ad89eebb642d7d9a661df6b62313cf685b930a24db3e958f94d1c593a17509"
+    },
+    {
+      "key": 142,
+      "project": "pam_cathedral_03",
+      "slot": "master_mason",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = find_mason_character_tier_3_tt\n\t\t\t\t\tis_valid_cathedral_master_mason_contributor_trigger = {\n\t\t\t\t\t\tSTEWARDSHIP_THRESHOLD = extremely_high_skill_rating\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "740e5c5b1804a214b3eda1b197c027c6d06c2254d57f7c73c8f4640e7f884be8"
+    },
+    {
+      "key": 143,
+      "project": "pam_cathedral_03",
+      "slot": "bells",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "",
+      "native_contribution_sha256": "b6d06bddc880845fdd94443ba06868121ad6067853131867a09ab2b96b8bd958"
+    },
+    {
+      "key": 144,
+      "project": "pam_cathedral_03",
+      "slot": "facade",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tis_valid_cathedral_facade_contributor_trigger = yes\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_doctrine = doctrine_pilgrimage_forbidden }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "60f118e8efb72a65f1edacb370de1a52c5ad9b578ba3f6bbafa175168c71c9d4"
+    },
+    {
+      "key": 145,
+      "project": "pam_cathedral_03",
+      "slot": "frescoes",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_4",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tpiety_level >= 3\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_tenet = tenet_aniconism }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "58f62e6e518c861c1b5b195ca69d7672c3271ddbcc3b8b40b3bd47cef4088980"
+    },
+    {
+      "key": 146,
+      "project": "pam_cathedral_03",
+      "slot": "stained_glass",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_5",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tOR = {\n\t\t\t\t\tprestige_level >= 2\n\t\t\t\t\tpiety_level >= 3\n\t\t\t\t\tprimary_title.tier >= tier_kingdom\n\t\t\t\t}\n\t\t\t\n\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = { rite_has_tenet = tenet_aniconism }\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "b2526f0561cc1f1c3804df8873d65c2ee65e0cc31dfc91e59beb86d971183f65"
+    },
+    {
+      "key": 147,
+      "project": "pam_cathedral_03",
+      "slot": "north_chapel",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_6",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = {\n\t\t\t\t\t\trite_has_tenet = tenet_aniconism\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "abf351a5503bd4ef4a8105fde6b7f5c0969bfc90e1d88123677e0a70f814636d"
+    },
+    {
+      "key": 148,
+      "project": "pam_cathedral_03",
+      "slot": "south_chapel",
+      "price": "mam_revenue_fund_contribution_cost_pam_cathedral_03_7",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tNOT = {\n\t\t\t\t\tscope:founder.rite = {\n\t\t\t\t\t\trite_has_parameter = no_optional_cathedral_contributions\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "07a6af0c954afaaf38f057e6431afea26a2a74c9d6b95de1b14a9d5f7f04e123"
+    },
+    {
+      "key": 149,
+      "project": "pam_mass_rite_conversion",
+      "slot": "send_missionaries",
+      "price": "mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_0",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = pam_mass_rite_conversion_contributor_rite\n\t\t\t\t\ttrigger_if = {\n\t\t\t\t\t\tlimit = { exists = scope:great_project.var:target_rite }\n\t\t\t\t\t\trite = scope:great_project.var:target_rite\n\t\t\t\t\t}\n\t\t\t\t\ttrigger_else = {\n\t\t\t\t\t\trite = scope:owner.rite\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "2a34b5e08ded9dc5fc2a80694da7f766bb3541f2913f9a448ba4c02231271c74"
+    },
+    {
+      "key": 150,
+      "project": "pam_mass_rite_conversion",
+      "slot": "construct_new_shrines",
+      "price": "mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_1",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = pam_mass_rite_conversion_contributor_rite\n\t\t\t\t\ttrigger_if = {\n\t\t\t\t\t\tlimit = { exists = scope:great_project.var:target_rite }\n\t\t\t\t\t\trite = scope:great_project.var:target_rite\n\t\t\t\t\t}\n\t\t\t\t\ttrigger_else = {\n\t\t\t\t\t\trite = scope:owner.rite\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "4d2c10ac2aa98197e1daa478dbbece48915577ff210693fdf4177efdb73dd80e"
+    },
+    {
+      "key": 151,
+      "project": "pam_mass_rite_conversion",
+      "slot": "promote_faithful_relocation",
+      "price": "mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_2",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = pam_mass_rite_conversion_contributor_rite\n\t\t\t\t\ttrigger_if = {\n\t\t\t\t\t\tlimit = { exists = scope:great_project.var:target_rite }\n\t\t\t\t\t\trite = scope:great_project.var:target_rite\n\t\t\t\t\t}\n\t\t\t\t\ttrigger_else = {\n\t\t\t\t\t\trite = scope:owner.rite\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tany_sub_realm_county = {\n\t\t\t\t\trite = scope:owner.rite\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "f1c013236e498c0f320b66ace58fc5bc63b282e37c2aff93be7a89e4012af3b5"
+    },
+    {
+      "key": 152,
+      "project": "pam_mass_rite_conversion",
+      "slot": "integrate_existing_rituals",
+      "price": "mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_3",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "native_eligibility": "\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = pam_mass_rite_conversion_contributor_rite\n\t\t\t\t\ttrigger_if = {\n\t\t\t\t\t\tlimit = { exists = scope:great_project.var:target_rite }\n\t\t\t\t\t\trite = scope:great_project.var:target_rite\n\t\t\t\t\t}\n\t\t\t\t\ttrigger_else = {\n\t\t\t\t\t\trite = scope:owner.rite\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t",
+      "native_contribution_sha256": "da218ddb13f422a38eb95f2b16c78af6a3e417a5bc6953b96d81c582ab949c01"
+    }
+  ]
+}

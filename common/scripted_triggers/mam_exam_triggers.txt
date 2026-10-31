@@ -1,0 +1,32 @@
+﻿# Distinction never substitutes for a recorded pass. Legacy flags are read-only.
+mam_exam_palace_pass_trigger = {
+ OR = { has_character_flag = passed_palace_exam has_character_modifier = tgp_passed_palace_exam_modifier }
+}
+mam_exam_triple_first_trigger = {
+ mam_exam_palace_pass_trigger = yes
+ OR = { has_character_flag = mam_exam_triple_first has_character_flag = first_place_three_consecutive }
+}
+mam_exam_palace_first_trigger = {
+ mam_exam_palace_pass_trigger = yes
+ OR = { has_character_flag = mam_exam_palace_first has_character_flag = first_place_entrant1 }
+}
+mam_exam_palace_honors_trigger = {
+ mam_exam_palace_pass_trigger = yes
+ OR = { has_character_flag = mam_exam_palace_honors has_character_flag = first_place_entrant }
+}
+
+mam_exam_audience_valid_trigger = {
+ save_temporary_scope_as = mam_exam_audience_actor
+ is_alive = yes
+ has_title = title:h_china
+ exists = scope:mam_laureate
+ scope:mam_laureate = {
+  is_alive = yes this != scope:mam_exam_audience_actor
+  top_liege = scope:mam_exam_audience_actor
+  mam_exam_recognition_rank >= 2
+  OR = {
+   NOT = { has_variable = mam_exam_audience_done_rank }
+   AND = { has_variable = mam_exam_audience_done_rank mam_exam_recognition_rank > var:mam_exam_audience_done_rank }
+  }
+ }
+}

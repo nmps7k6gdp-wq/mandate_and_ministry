@@ -1,0 +1,74 @@
+﻿# Native project scopes remain owned/managed by their original departments.
+mam_revenue_bind_project_effect = {
+ clear_saved_scope = mam_rv_selected_project
+ if = { limit = { exists = scope:mam_rv_recipient }
+  random_great_project = { limit = {
+   great_project_owner = { top_liege = title:h_china.holder }
+   OR = { great_project_founder = scope:mam_rv_recipient
+    great_project_location.county.holder = { OR = { this = scope:mam_rv_recipient is_vassal_or_below_of = scope:mam_rv_recipient } }
+   }
+   OR = { great_project_type = minister_project_development great_project_type = minister_project_conduct_census
+    great_project_type = minister_project_establish_control great_project_type = great_project_earthquake great_project_type = great_project_flood }
+   trigger_if = { limit = { has_variable = mam_rv_project_funded_until } var:mam_rv_project_funded_until <= current_date }
+  } save_scope_as = mam_rv_selected_project }
+  if = { limit = { exists = scope:mam_rv_selected_project }
+   scope:mam_rv_file = { set_variable = { name = mam_rv_project value = scope:mam_rv_selected_project } }
+  }
+ }
+}
+# Transfer-funded recovery, not a fictitious tax reduction or automatic project completion.
+mam_revenue_apply_recovery_effect = {
+ save_scope_as = mam_rv_recovery_file
+ var:mam_rv_subject = {
+  set_variable = { name = mam_rv_settlement value = 2 }
+  set_variable = { name = mam_rv_settlement_until value = { value = current_date add = 365 } }
+ }
+ var:mam_rv_recipient_title.holder = {
+  add_character_modifier = { modifier = mam_revenue_recovery_office_modifier years = 1 }
+  every_sub_realm_county = { limit = {
+   county_control < 60 NOT = { has_county_modifier = mam_revenue_recovery_county_modifier }
+   holder.top_liege = title:h_china.holder
+   # Each county belongs to the nearest supported senior office. Nested kings
+   # are handled separately; an empire allowance cannot also cover their counties.
+   NOT = { holder = { mam_revenue_province_trigger = yes primary_title = { tier = tier_kingdom }
+    this != scope:mam_rv_recovery_file.var:mam_rv_recipient_title.holder } }
+   NOT = { holder = { any_liege_or_above = {
+    mam_revenue_province_trigger = yes primary_title = { tier = tier_kingdom }
+    this != scope:mam_rv_recovery_file.var:mam_rv_recipient_title.holder
+    is_vassal_or_below_of = scope:mam_rv_recovery_file.var:mam_rv_recipient_title.holder
+   } } }
+  }
+   add_county_modifier = { modifier = mam_revenue_recovery_county_modifier years = 1 }
+  }
+ }
+}
+# The native interaction's cost/cooldown are retained. Its accepted supported
+# branch opens one case instead of paying from the minister's departmental purse.
+mam_revenue_native_request_effect = {
+ if = { limit = { mam_revenue_native_request_trigger = yes }
+  if = { limit = { scope:actor = { mam_revenue_fund_member_trigger = yes } }
+   scope:actor = { mam_revenue_fund_request_effect = { TARGET = primary_title KIND = 12 AMOUNT = request_treasury_value } }
+   if = { limit = { exists = scope:mam_cf_created scope:recipient = title:h_china.holder }
+    scope:mam_cf_created = {
+     set_variable = { name = mam_cf_explicit_imperial value = 1 }
+     set_variable = { name = mam_cf_stage value = 1 }
+    }
+   }
+  }
+  else = { scope:actor = { mam_revenue_fund_open_relief_effect = yes } }
+  if = { limit = { exists = scope:mam_cf_created }
+   scope:mam_cf_created = {
+    set_variable = { name = mam_cf_native_petition value = 1 }
+    set_variable = { name = mam_cf_native_actor value = scope:actor }
+    set_variable = { name = mam_cf_native_credit value = scope:recipient }
+    set_variable = { name = mam_cf_native_credit_title value = scope:recipient.primary_title }
+    if = { limit = { exists = scope:hook scope:hook = yes } set_variable = { name = mam_cf_native_hook value = 1 } }
+    if = { limit = { exists = scope:clear_debt scope:clear_debt = yes }
+     set_variable = { name = mam_cf_clear_debt value = 1 }
+     set_variable = { name = mam_cf_amount value = { value = scope:actor.treasury multiply = -1 min = 1 ceiling = yes } }
+    }
+   }
+  }
+  title:h_china.holder = { mam_revenue_fund_wake_effect = yes }
+ }
+}

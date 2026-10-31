@@ -1,0 +1,51 @@
+﻿# A minister can contest one actual cut, within six months. This is not a second
+# independent budget review and cannot reverse a later contract edit.
+mam_revenue_offer_appeal_effect = {
+ save_scope_as = mam_rv_cut_file
+ if = { limit = { var:mam_rv_kind = 4 var:mam_rv_budget_level < var:mam_rv_budget_before }
+  var:mam_rv_subject = {
+   set_variable = { name = mam_rv_cut_record value = scope:mam_rv_cut_file }
+   set_variable = { name = mam_rv_cut_until value = { value = current_date add = 180 } }
+  }
+  # AI can act without a player opening the interaction. Its superior decides.
+  var:mam_rv_subject.holder = { if = { limit = { is_ai = yes OR = {
+   treasury < 200 monthly_character_treasury_balance < 0
+   has_trait = ambitious has_trait = arrogant has_trait = greedy
+  } } mam_revenue_open_appeal_effect = yes } }
+ }
+}
+mam_revenue_open_appeal_effect = {
+ if = { limit = { mam_revenue_can_appeal_trigger = yes }
+  primary_title = { save_scope_as = mam_rv_appeal_subject
+   var:mam_rv_cut_record = { save_scope_as = mam_rv_appeal_source }
+   save_scope_as = mam_rv_subject
+  }
+  mam_revenue_create_file_effect = { SLOT = appeal SLOT_ID = 7 KIND = 13 }
+  if = { limit = { exists = scope:mam_rv_created }
+   scope:mam_rv_appeal_source = { set_variable = { name = mam_rv_appeal_used value = 1 } }
+   scope:mam_rv_created = {
+    set_variable = { name = mam_rv_budget_before value = scope:mam_rv_appeal_source.var:mam_rv_budget_level }
+    set_variable = { name = mam_rv_budget_level value = scope:mam_rv_appeal_source.var:mam_rv_budget_before }
+    set_variable = { name = mam_rv_recipient_snapshot value = var:mam_rv_subject.holder }
+    set_variable = { name = mam_rv_cut_revenue value = scope:mam_rv_appeal_source.var:mam_rv_proposer }
+    set_variable = { name = mam_rv_urgency value = 45 }
+    set_variable = { name = mam_rv_stage value = 3 }
+    set_variable = { name = mam_rv_reserved value = 0 }
+    if = { limit = { OR = { mam_revenue_imperial_measure_trigger = yes scope:mam_rv_appeal_source.var:mam_rv_authorized = title:h_china.holder } }
+     set_variable = { name = mam_rv_reserved value = 1 }
+    }
+   }
+   title:h_china.holder = { mam_revenue_wake_effect = yes }
+  }
+ }
+}
+mam_revenue_reject_appeal_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes scope:mam_rv_file.var:mam_rv_kind = 13 }
+  scope:mam_rv_file = {
+   var:mam_rv_recipient_title.holder = { add_opinion = { target = root modifier = mam_revenue_appeal_rejected_opinion } }
+   set_variable = { name = mam_rv_result value = 2 }
+   mam_revenue_notify_effect = { STATUS = 2 PAID = no }
+   mam_revenue_close_effect = yes
+  }
+ }
+}

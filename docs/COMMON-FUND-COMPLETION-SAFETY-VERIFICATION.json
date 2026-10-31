@@ -1,0 +1,23 @@
+{
+  "build": "0.4.0-alpha.20-dev.61",
+  "engine_tested": false,
+  "native_pinned_definitions": 3,
+  "wall_completion_callbacks": 35,
+  "culture_callbacks": 4,
+  "campaign_readiness_callbacks": 20,
+  "campaign_lifecycle_scenarios": [
+    "test4_dead_founder_ended_war",
+    "current_marshal_missing",
+    "still_fighting",
+    "all_objectives_secured",
+    "empty_targets",
+    "partially_secured",
+    "unpaid_pledge"
+  ],
+  "thumbnail_original_bytes_preserved": true,
+  "thumbnail_upload_bytes": 631735,
+  "thumbnail_upload_dimensions": [
+    512,
+    512
+  ]
+}

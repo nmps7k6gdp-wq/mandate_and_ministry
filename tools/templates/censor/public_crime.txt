@@ -1,0 +1,220 @@
+# Public legal proceedings are leads, never automatic proof of the original act.
+@@ common/scripted_triggers/mam_censor_triggers.txt
+mam_censor_public_subject_trigger = {
+ is_alive = yes is_adult = yes this != title:h_china.holder top_liege = title:h_china.holder
+ primary_title = { tier >= tier_kingdom tier <= tier_empire is_noble_family_title = no }
+ OR = { tgp_is_any_minister = yes
+  AND = { government_has_flag = government_is_celestial is_governor_or_admin_count = yes
+   primary_title = { is_landless_type_title = no }
+  }
+ }
+}
+# Only a native public trait plus current lawful grounds triggers public polling.
+# Hidden secrets are NOT searched through any_secret or inferred from a warrant.
+mam_censor_public_trait_trigger = {
+ OR = { has_trait = murderer has_trait = denounced has_trait = excommunicated
+  has_any_criminal_trait_in_rite_trigger = { CHARACTER = this RITE = title:h_china.holder.rite }
+ }
+}
+# Character scope; no criminal reason is created or consumed by this adapter.
+mam_censor_public_ground_trigger = {
+ save_temporary_scope_as = mam_cen_reason_target
+ OR = {
+  title:h_china.holder = { has_imprisonment_reason = scope:mam_cen_reason_target }
+  AND = { exists = liege liege = { top_liege = title:h_china.holder has_imprisonment_reason = scope:mam_cen_reason_target } }
+ }
+}
+mam_censor_public_detention_trigger = {
+ is_imprisoned = yes exists = imprisoner
+ imprisoner = { top_liege = title:h_china.holder }
+ NOT = { is_at_war_with = imprisoner }
+}
+mam_censor_public_new_trigger = {
+ NOT = { has_variable = mam_cen_public_seen }
+}
+# Story scope. Verified current legal standing supports an administrative
+# fitness recommendation; it does not prove a particular alleged crime.
+mam_censor_public_fitness_trigger = {
+ has_variable = mam_cen_public_case has_variable = mam_cen_public_checked has_variable = mam_cen_public_ground_found
+ var:mam_cen_public_checked = 1
+ var:mam_cen_public_ground_found = 1
+ exists = var:mam_cen_subject
+ var:mam_cen_subject = { mam_censor_public_subject_trigger = yes mam_censor_public_ground_trigger = yes }
+}
+@@ common/scripted_effects/mam_censor_effects.txt
+# Sovereign context, bounded to one new public referral per weekly intake.
+mam_censor_public_poll_effect = {
+ if = { limit = { mam_censor_emperor_trigger = yes }
+  every_vassal_or_below = { limit = { mam_censor_public_subject_trigger = yes has_variable = mam_cen_public_seen
+   is_imprisoned = no mam_censor_public_ground_trigger = no
+  }
+   # A genuinely cleared episode may later acquire new grounds. Never reopen
+   # a pending inspection just because its arrest consumed the native reason.
+   if = { limit = { NOT = { exists = var:mam_cen_public_record } }
+    remove_variable = mam_cen_public_record remove_variable = mam_cen_public_seen
+   }
+   else_if = { limit = { var:mam_cen_public_record = { var:mam_cen_intel_pending = 0
+    trigger_if = { limit = { exists = var:mam_cen_inspection } var:mam_cen_inspection = { mam_censor_live_trigger = no } }
+   } }
+    remove_variable = mam_cen_public_record remove_variable = mam_cen_public_seen
+   }
+  }
+  if = { limit = { NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+   exists = title:e_minister_censor.holder
+  }
+   ordered_vassal_or_below = { limit = {
+    mam_censor_public_subject_trigger = yes mam_censor_public_new_trigger = yes
+    OR = { mam_censor_public_detention_trigger = yes
+     AND = { mam_censor_public_trait_trigger = yes mam_censor_public_ground_trigger = yes }
+    }
+   } order_by = mam_censor_public_priority max = 1 check_range_bounds = no
+    save_scope_as = mam_cen_public_target
+    if = { limit = { mam_censor_public_detention_trigger = yes }
+     save_scope_value_as = { name = mam_cen_public_kind value = 32 }
+     imprisoner = { save_scope_as = mam_cen_public_accuser }
+    }
+    else = {
+     save_scope_value_as = { name = mam_cen_public_kind value = 30 }
+     title:h_china.holder = { save_scope_as = mam_cen_public_accuser }
+     if = { limit = { NOT = { title:h_china.holder = { has_imprisonment_reason = scope:mam_cen_public_target } } }
+      liege = { save_scope_as = mam_cen_public_accuser }
+     }
+    }
+    mam_censor_public_capture_effect = yes
+   }
+  }
+ }
+}
+# Accused character context. Source is an actual current public status, an
+# explicit native-reason holder's referral, or the native on_imprison callback.
+mam_censor_public_capture_effect = {
+ save_scope_as = mam_cen_public_subject
+ if = { limit = {
+  mam_censor_public_subject_trigger = yes mam_censor_public_new_trigger = yes
+  exists = scope:mam_cen_public_accuser exists = scope:mam_cen_public_kind
+  exists = title:h_china.holder exists = title:e_minister_censor.holder
+  title:h_china.holder = { mam_censor_emperor_trigger = yes }
+  OR = {
+   AND = { scope:mam_cen_public_kind = 30 mam_censor_public_trait_trigger = yes mam_censor_public_ground_trigger = yes }
+   AND = { scope:mam_cen_public_kind = 31 scope:mam_cen_public_accuser = {
+    is_alive = yes is_imprisoned = no has_imprisonment_reason = scope:mam_cen_public_subject top_liege = title:h_china.holder
+   } }
+   AND = { scope:mam_cen_public_kind = 32 mam_censor_public_detention_trigger = yes
+    imprisoner = scope:mam_cen_public_accuser
+   }
+  }
+  NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+ }
+  clear_saved_scope = mam_cen_new_intel
+  title:h_china.holder = { create_story = { type = mam_censor_intelligence_lead_story save_scope_as = mam_cen_new_intel } }
+  if = { limit = { exists = scope:mam_cen_new_intel }
+   scope:mam_cen_new_intel = {
+    set_variable = { name = mam_cen_realm value = title:h_china }
+    set_variable = { name = mam_cen_suspect value = scope:mam_cen_public_subject }
+    set_variable = { name = mam_cen_discoverer value = scope:mam_cen_public_accuser }
+    set_variable = { name = mam_cen_public_accuser value = scope:mam_cen_public_accuser }
+    set_variable = { name = mam_cen_intel_kind value = scope:mam_cen_public_kind }
+    set_variable = { name = mam_cen_identified value = 1 }
+    mam_censor_intel_setup_effect = yes
+   }
+   set_variable = { name = mam_cen_public_record value = scope:mam_cen_new_intel }
+   set_variable = { name = mam_cen_public_seen value = 1 }
+   # Do not sanction an already resolved confidential murder again merely
+   # because the same public murderer status appeared after exposure.
+   if = { limit = { scope:mam_cen_public_kind = 30
+    has_trait = murderer exists = var:mam_cen_last_inspection
+    var:mam_cen_last_inspection = { has_variable = mam_cen_native_fact
+     var:mam_cen_native_fact = 6
+     OR = { has_variable = mam_cen_sanctioned exists = var:mam_cen_retired }
+    }
+   }
+    scope:mam_cen_new_intel = { mam_censor_intel_finish_effect = yes }
+   }
+   debug_log = "MAM_CENSOR_PUBLIC: senior criminal matter recorded; allegation is not proof"
+  }
+ }
+}
+# Story context; preserve both an independent discovery and a public charge.
+mam_censor_public_attach_effect = {
+ set_variable = { name = mam_cen_public_case value = scope:mam_cen_intel_lead }
+ set_variable = { name = mam_cen_public_kind value = scope:mam_cen_intel_lead.var:mam_cen_intel_kind }
+ set_variable = { name = mam_cen_public_accuser value = scope:mam_cen_intel_lead.var:mam_cen_public_accuser }
+ set_variable = { name = mam_cen_public_date value = scope:mam_cen_intel_lead.var:mam_cen_created }
+}
+# An assessment of current authority, never a random verdict of guilt.
+mam_censor_public_check_effect = {
+ set_variable = { name = mam_cen_public_checked value = 1 }
+ set_variable = { name = mam_cen_public_review_date value = current_date }
+ set_variable = { name = mam_cen_public_reviewer value = root }
+ if = { limit = { var:mam_cen_subject = { mam_censor_public_ground_trigger = yes } }
+  set_variable = { name = mam_cen_public_ground_found value = 1 }
+ }
+ else = { set_variable = { name = mam_cen_public_ground_found value = 0 } }
+ debug_log = "MAM_CENSOR_PUBLIC: current native grounds reviewed; no original-crime verdict"
+}
+mam_censor_public_bind_effect = {
+ clear_saved_scope = mam_cen_charge_accuser
+ var:mam_cen_public_accuser ?= { save_scope_as = mam_cen_charge_accuser }
+}
+@@ common/script_values/mam_censor_values.txt
+mam_censor_public_priority = {
+ value = 100
+ if = { limit = { has_trait = murderer } add = 100 }
+ if = { limit = { is_imprisoned = yes } add = 80 }
+ if = { limit = { primary_title = { tier = tier_empire } } add = 40 }
+}
+@@ common/on_action/mam_censor_on_actions.txt
+on_trait_gained = { on_actions = { mam_censor_public_trait_gained } }
+mam_censor_public_trait_gained = {
+ trigger = { exists = title:h_china.holder mam_censor_public_subject_trigger = yes
+  mam_censor_public_trait_trigger = yes mam_censor_public_ground_trigger = yes
+  mam_censor_public_new_trigger = yes
+ }
+ effect = {
+  title:h_china.holder = { mam_censor_public_poll_effect = yes }
+ }
+}
+on_imprison = { on_actions = { mam_censor_public_arrest } }
+mam_censor_public_arrest = {
+ trigger = { mam_censor_public_subject_trigger = yes mam_censor_public_detention_trigger = yes exists = scope:imprisoner
+  scope:imprisoner = { top_liege = title:h_china.holder }
+ }
+ effect = {
+  scope:imprisoner = { save_scope_as = mam_cen_public_accuser }
+  save_scope_value_as = { name = mam_cen_public_kind value = 32 }
+  mam_censor_public_capture_effect = yes
+ }
+}
+@@ common/character_interactions/mam_censor_interactions.txt
+mam_censor_refer_crime_interaction = {
+ category = interaction_category_ministry icon = secret common_interaction = yes auto_accept = yes interface_priority = 53
+ desc = mam_censor_refer_crime_interaction_desc
+ is_shown = {
+  exists = title:h_china.holder
+  scope:recipient = { mam_censor_public_subject_trigger = yes }
+  scope:actor = { is_alive = yes is_adult = yes is_imprisoned = no top_liege = title:h_china.holder
+   this != scope:recipient has_imprisonment_reason = scope:recipient
+   OR = { mam_censor_emperor_trigger = yes tgp_is_any_minister = yes this = scope:recipient.liege }
+  }
+ }
+ is_valid_showing_failures_only = {
+  custom_tooltip = { text = mam_cen.public_no_duplicate scope:recipient = { mam_censor_public_new_trigger = yes } }
+  custom_tooltip = { text = mam_cen.public_queue_room
+   NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+  }
+  exists = title:e_minister_censor.holder
+ }
+ on_accept = {
+  if = { limit = { scope:recipient = { mam_censor_public_subject_trigger = yes mam_censor_public_new_trigger = yes }
+   scope:actor = { is_alive = yes is_adult = yes is_imprisoned = no top_liege = title:h_china.holder
+    this != scope:recipient has_imprisonment_reason = scope:recipient
+    OR = { mam_censor_emperor_trigger = yes tgp_is_any_minister = yes this = scope:recipient.liege }
+   }
+  }
+   scope:actor = { save_scope_as = mam_cen_public_accuser }
+   save_scope_value_as = { name = mam_cen_public_kind value = 31 }
+   scope:recipient = { mam_censor_public_capture_effect = yes }
+  }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

@@ -1,0 +1,16 @@
+﻿on_game_start_after_lobby = { on_actions = { mam_revenue_fund_startup } }
+mam_revenue_fund_startup = { effect = {
+ every_independent_ruler = { limit = { mam_revenue_emperor_trigger = yes } mam_revenue_fund_start_effect = yes }
+} }
+# Keep the old custom action name for saved/reference compatibility.
+# The weekly realm lease performs due reconciliation; this native pulse repairs
+# a missing lease/custodian transition without bypassing its due-date guard.
+quarterly_playable_pulse = { on_actions = { mam_revenue_fund_monthly } }
+mam_revenue_fund_monthly = { trigger = { mam_revenue_emperor_trigger = yes }
+ effect = { mam_revenue_fund_start_effect = yes }
+}
+on_title_gain = { on_actions = { mam_revenue_fund_office_gain } }
+mam_revenue_fund_office_gain = {
+ trigger = { exists = scope:title OR = { scope:title = title:h_china scope:title = { tgp_is_minister_title = yes } } }
+ effect = { title:h_china.holder ?= { trigger_event = { id = mam_fund.99 days = 3 } } }
+}

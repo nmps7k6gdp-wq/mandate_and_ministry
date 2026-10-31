@@ -1,0 +1,20 @@
+﻿MamQualificationEvidence = {
+    type = character
+    text = {
+        trigger = { OR = { has_character_flag = passed_palace_exam has_character_modifier = tgp_passed_palace_exam_modifier } }
+        localization_key = mam_qualification_palace
+    }
+    text = {
+        trigger = { OR = { has_character_flag = passed_metropolitan_exam has_character_modifier = tgp_passed_metropolitan_exam_modifier } }
+        localization_key = mam_qualification_metropolitan
+    }
+    text = {
+        trigger = { mam_has_ordinary_provincial_evidence_trigger = yes }
+        localization_key = mam_qualification_provincial
+    }
+    text = {
+        trigger = { has_character_modifier = tgp_bypassed_provincial_exam_modifier }
+        localization_key = mam_qualification_bypass
+    }
+    text = { localization_key = mam_qualification_unknown }
+}

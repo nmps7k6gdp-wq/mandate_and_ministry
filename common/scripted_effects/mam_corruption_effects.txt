@@ -1,0 +1,145 @@
+﻿mam_open_bribe_offer_effect = {
+ if = { limit = { mam_can_offer_bribe_trigger = yes }
+  save_scope_as = mam_bribe_payer
+  add_character_flag = { flag = mam_bribe_offer_cooldown years = 2 }
+  top_liege.cp:minister_personnel = {
+   add_character_flag = { flag = mam_bribe_inbox_cooldown days = 180 }
+   set_variable = { name = mam_bribe_offer_sender value = scope:mam_bribe_payer days = 90 }
+   trigger_event = mam_personnel.0080
+  }
+ }
+}
+mam_accept_bribe_effect = {
+ if = { limit = { mam_bribe_offer_valid_trigger = yes }
+  save_scope_as = mam_paid_minister
+  remove_variable = mam_bribe_offer_sender
+  scope:mam_bribe_payer = {
+   remove_short_term_gold = 100
+   set_variable = { name = mam_bribe_sponsor value = scope:mam_paid_minister }
+   set_variable = { name = mam_bribe_until value = { value = current_date add = 1095 } }
+   set_variable = { name = mam_bribe_paid value = 100 }
+   set_variable = { name = mam_bribe_paid_date value = current_date }
+  }
+  stress_impact = { honest = 25 just = 25 }
+  add_gold = 100
+  set_variable = { name = mam_bribe_client value = scope:mam_bribe_payer }
+  if = { limit = { NOT = { has_variable = mam_bribes_accepted } } set_variable = { name = mam_bribes_accepted value = 0 } }
+  change_variable = { name = mam_bribes_accepted add = 1 }
+  top_liege = { create_story = { type = mam_personnel_patronage_story save_scope_as = mam_patronage_transaction } }
+ scope:mam_patronage_transaction = {
+ set_variable = { name = mam_patron_realm value = scope:mam_paid_minister.top_liege.primary_title }
+ set_variable = { name = mam_patron_minister value = scope:mam_paid_minister }
+ set_variable = { name = mam_patron_payer value = scope:mam_bribe_payer }
+ set_variable = { name = mam_patron_amount value = 100 }
+ set_variable = { name = mam_patron_date value = current_date }
+ }
+ scope:mam_bribe_payer = { set_variable = { name = mam_patronage_record value = scope:mam_patronage_transaction } }
+ mam_cj_record_payment_effect = yes
+  scope:mam_bribe_payer = { trigger_event = mam_personnel.0081 }
+ }
+}
+mam_refuse_bribe_effect = {
+ if = { limit = { has_variable = mam_bribe_offer_sender var:mam_bribe_offer_sender = scope:mam_bribe_payer }
+  remove_variable = mam_bribe_offer_sender
+  scope:mam_bribe_payer ?= { if = { limit = { is_alive = yes } trigger_event = mam_personnel.0082 } }
+ }
+}
+mam_report_bribe_effect = {
+ if = { limit = { mam_bribe_offer_valid_trigger = yes }
+  scope:mam_bribe_payer = {
+   set_variable = { name = mam_bribe_reported_date value = current_date }
+   set_variable = { name = mam_bribe_reported_by value = root }
+  }
+  top_liege.primary_title = {
+   if = { limit = { NOT = { has_variable = mam_reported_bribe_offers } } set_variable = { name = mam_reported_bribe_offers value = 0 } }
+   change_variable = { name = mam_reported_bribe_offers add = 1 }
+  }
+  mam_cj_record_offer_effect = yes
+  mam_refuse_bribe_effect = yes
+ }
+}
+mam_prepare_exception_petition_effect = {
+ if = { limit = { mam_may_petition_exception_trigger = yes }
+  scope:mam_inspected = { save_scope_as = mam_exception_candidate }
+  scope:mam_posting = { save_scope_as = mam_exception_posting }
+  mam_prepare_nomination_effect = yes
+ }
+}
+# Accepted private client may request a poorer/under-standard nomination. This
+# intentionally need not meet the AI's ordinary improvement heuristic. It still
+# passes native eligibility and obtains an explicit imperial exception if needed.
+mam_try_private_nominee_effect = {
+ clear_saved_scope = mam_private_ai_fallback
+ clear_saved_scope = mam_private_ai_client
+ scope:mam_inspected ?= { save_scope_as = mam_private_ai_fallback }
+ scope:mam_minister.var:mam_bribe_client ?= {
+  if = { limit = { mam_private_obligation_trigger = yes is_alive = yes top_liege = scope:mam_emperor }
+   save_scope_as = mam_private_ai_client
+  }
+ }
+ if = { limit = { exists = scope:mam_private_ai_client }
+ scope:mam_private_ai_client = { save_scope_as = mam_inspected }
+ mam_refresh_power_context_effect = { SUBJECT = scope:mam_inspected }
+ if = { limit = { mam_may_petition_exception_trigger = yes }
+  scope:mam_inspected = { save_scope_as = mam_exception_candidate }
+  scope:mam_posting = { save_scope_as = mam_exception_posting }
+ }
+ if = { limit = { NOT = { mam_nomination_ready_trigger = yes } }
+  clear_saved_scope = mam_exception_candidate clear_saved_scope = mam_exception_posting
+  clear_saved_scope = mam_inspected
+  scope:mam_private_ai_fallback ?= { save_scope_as = mam_inspected }
+  mam_refresh_power_context_effect = { SUBJECT = scope:mam_inspected }
+ }
+ }
+}
+# Posting holds a latest-request snapshot and count, not a complete case history.
+# Family ties are facts, not a guilty verdict. Payment is kept as private evidence.
+mam_record_appointment_evidence_effect = {
+ scope:mam_posting = {
+  set_variable = { name = mam_case_minister value = scope:mam_minister }
+  set_variable = { name = mam_case_nominee value = scope:mam_nominee }
+  set_variable = { name = mam_case_emperor value = scope:mam_emperor }
+  set_variable = { name = mam_case_filed value = current_date }
+  set_variable = { name = mam_case_generation value = scope:mam_generation }
+  set_variable = { name = mam_case_public_score value = scope:mam_nominee.mam_public_suitability }
+  set_variable = { name = mam_case_qualification value = scope:mam_nominee.mam_qualification_points }
+  set_variable = { name = mam_case_merit_rank value = scope:mam_nominee.merit_level }
+  set_variable = { name = mam_case_best_public_score value = scope:mam_power_display_best }
+  set_variable = { name = mam_case_ranked_law value = 0 }
+  set_variable = { name = mam_case_strict_exam_law value = 0 }
+  if = { limit = { scope:mam_emperor = { has_realm_law = mam_discretion_ranked } } set_variable = { name = mam_case_ranked_law value = 1 } }
+  if = { limit = { scope:mam_emperor = { has_realm_law = mam_recruitment_strict } } set_variable = { name = mam_case_strict_exam_law value = 1 } }
+  remove_variable = mam_case_source
+  remove_variable = mam_case_source_replacement
+  if = { limit = { exists = scope:mam_source } set_variable = { name = mam_case_source value = scope:mam_source } }
+  if = { limit = { exists = scope:mam_replacement } set_variable = { name = mam_case_source_replacement value = scope:mam_replacement } }
+  set_variable = { name = mam_case_outcome value = 0 }
+  set_variable = { name = mam_case_private_payment value = 0 }
+  set_variable = { name = mam_case_exception value = 0 }
+  set_variable = { name = mam_case_kin value = 0 }
+  set_variable = { name = mam_case_friend value = 0 }
+  set_variable = { name = mam_case_house value = 0 }
+  set_variable = { name = mam_case_political value = 0 }
+  if = { limit = { NOT = { has_variable = mam_case_filed_count } } set_variable = { name = mam_case_filed_count value = 0 } }
+  change_variable = { name = mam_case_filed_count add = 1 }
+  if = { limit = { scope:mam_nominee = { mam_exception_for_candidate_trigger = { TITLE = scope:mam_posting } } } set_variable = { name = mam_case_exception value = 1 } }
+  if = { limit = { scope:mam_nominee = { mam_private_obligation_trigger = yes } }
+   set_variable = { name = mam_case_private_payment value = scope:mam_nominee.var:mam_bribe_paid }
+  }
+  if = { limit = { scope:mam_nominee = { is_close_family_of = scope:mam_minister } } set_variable = { name = mam_case_kin value = 1 } }
+  if = { limit = { scope:mam_nominee = { has_relation_friend = scope:mam_minister } } set_variable = { name = mam_case_friend value = 1 } }
+  if = { limit = { scope:mam_nominee = { exists = house house = scope:mam_minister.house } } set_variable = { name = mam_case_house value = 1 } }
+  if = { limit = { scope:mam_nominee = { mam_political_client_trigger = yes } } set_variable = { name = mam_case_political value = 1 } }
+ }
+}
+mam_record_corruption_appointment_success_effect = {
+ if = { limit = { scope:mam_posting.holder = scope:mam_nominee scope:mam_posting.var:mam_case_generation = scope:mam_generation }
+  scope:mam_posting = { set_variable = { name = mam_case_outcome value = 1 } }
+  mam_cj_link_appointment_effect = yes
+  scope:mam_nominee = {
+   if = { limit = { mam_private_obligation_trigger = yes }
+    remove_variable = mam_bribe_until
+   }
+  }
+ }
+}

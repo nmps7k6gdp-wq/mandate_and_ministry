@@ -1,0 +1,5 @@
+﻿# Compatibility text for older dossiers; there is no active custom recruitment policy.
+MamRecruitmentStandard = {
+ type = character
+ text = { localization_key = mam_recruitment_native }
+}

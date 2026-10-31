@@ -1,0 +1,141 @@
+{
+  "build": "dev.57",
+  "projects": [
+    {
+      "type": 8,
+      "project": "construct_great_barracks",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = great_project_type_construct_great_barracks_military_governor_duchy_capital\n\t\t\t\tbarony.county.holder ?= {\n\t\t\t\t\tvassal_contract_has_flag = celestial_military_appointment # is held by a military governor\n\t\t\t\t}\n\t\t\t\tthis = barony.holder.capital_barony.title_province # is their capital\n\t\t\t\tduchy = {\n\t\t\t\t\ttitle_capital_county.title_province = scope:province # is also the duchy capital\n\t\t\t\t}\n\t\t\t}\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = great_project_type_construct_great_barracks_does_not_already_have_barracks\n\t\t\t\tNOT = {\n\t\t\t\t\thas_building = celestial_great_barracks_01 # you can overwrite duchy buildings, but there's no point in doing it to the same one\n\t\t\t\t}\n\t\t\t}\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tbarony.county.holder = {\n\t\t\t\t\t\tis_ai = no\n\t\t\t\t\t\tthis != root\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = great_project_type_construct_great_barracks_do_not_override_player_building\n\t\t\t\t\tNOT = {\n\t\t\t\t\t\thas_building_with_flag = duchy_building\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 9,
+      "project": "strengthen_capital",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "province_filter": null,
+      "filter_target": null,
+      "native_location": ""
+    },
+    {
+      "type": 10,
+      "project": "great_wall",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "province_filter": null,
+      "filter_target": null,
+      "native_location": ""
+    },
+    {
+      "type": 11,
+      "project": "great_wall_extend_to_shanhai_pass",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "province_filter": null,
+      "filter_target": null,
+      "native_location": ""
+    },
+    {
+      "type": 12,
+      "project": "great_wall_extend_to_liaodong",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "province_filter": null,
+      "filter_target": null,
+      "native_location": ""
+    },
+    {
+      "type": 13,
+      "project": "grand_canals",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_great_project_types.txt",
+      "province_filter": "geographical_region",
+      "filter_target": "dlc_tgp_grand_canal_region",
+      "native_location": "\n\t\tscope:province = {\n\t\t\tcounty = {\n\t\t\t\tNOT = { has_county_modifier = tgp_grand_canal_modifier }\n\t\t\t}\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tgeographical_region = dlc_tgp_grand_canal_1_region\n\t\t\t\t}\n\t\t\t\troot.top_liege = { completely_controls_region = dlc_tgp_grand_canal_1_region }\n\t\t\t}\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tgeographical_region = dlc_tgp_grand_canal_2_region\n\t\t\t\t}\n\t\t\t\troot.top_liege = { completely_controls_region = dlc_tgp_grand_canal_2_region }\n\t\t\t}\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tgeographical_region = dlc_tgp_grand_canal_3_region\n\t\t\t\t}\n\t\t\t\troot.top_liege = { completely_controls_region = dlc_tgp_grand_canal_3_region }\n\t\t\t}\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tgeographical_region = dlc_tgp_grand_canal_4_region\n\t\t\t\t}\n\t\t\t\troot.top_liege = { completely_controls_region = dlc_tgp_grand_canal_4_region }\n\t\t\t}\n\t\t}\n\t\nscope:province = { geographical_region = dlc_tgp_grand_canal_region }\n"
+    },
+    {
+      "type": 1,
+      "project": "grand_campaign_project",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_liege_border_outer",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province.kingdom = {\n\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\ttier >= tier_county\n\t\t\t\tholder ?= {\n\t\t\t\t\ttop_overlord != root.top_overlord\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tscope:province.county.holder.top_liege = {\n\t\t\tNOT = {\n\t\t\t\tis_at_war_with = root.top_liege\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 2,
+      "project": "minister_project_culture",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\tcounty = {\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = not_same_culture_as_top_liege_desc\n\t\t\t\t\tculture != root.top_liege.culture\n\t\t\t\t}\n\t\t\t}\n\t\t\troot.top_liege = {\n\t\t\t\tcompletely_controls = scope:province.duchy\n\t\t\t}\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = GREAT_PROJECT_CAN_PLAN\n\t\t\t\tNOT = {\n\t\t\t\t\tduchy = {\n\t\t\t\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\t\t\t\ttier = tier_barony\n\t\t\t\t\t\t\ttitle_province = {\n\t\t\t\t\t\t\t\tany_great_project_in_province = {\n\t\t\t\t\t\t\t\t\tgreat_project_type = minister_project_culture\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ttrigger_if = {\n\t\t\tlimit = {\n\t\t\t\tscope:founder = {\n\t\t\t\t\tis_ai = yes\n\t\t\t\t}\n\t\t\t}\n\t\t\tscope:province.county.culture = {\n\t\t\t\tNOT = {\n\t\t\t\t\thas_same_culture_heritage = root.top_liege.culture\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 3,
+      "project": "minister_project_development",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\tis_county_capital = yes\n\t\t\troot.top_liege = {\n\t\t\t\tcompletely_controls = scope:province.duchy\n\t\t\t}\n\t\t\tduchy = {\n\t\t\t\ttitle_capital_county = scope:province.county\n\t\t\t}\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = GREAT_PROJECT_CAN_PLAN\n\t\t\t\tNOT = {\n\t\t\t\t\tduchy = {\n\t\t\t\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\t\t\t\ttier = tier_barony\n\t\t\t\t\t\t\ttitle_province = {\n\t\t\t\t\t\t\t\tany_great_project_in_province = {\n\t\t\t\t\t\t\t\t\tgreat_project_type = minister_project_development\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 4,
+      "project": "minister_project_establish_control",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province.duchy ?= {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = has_low_control_or_county_corruption_desc\n\t\t\t\tany_de_jure_county = {\n\t\t\t\t\tOR = {\n\t\t\t\t\t\thas_county_corruption_trigger = yes\n\t\t\t\t\t\tcounty_control < 100\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tscope:province = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = GREAT_PROJECT_CAN_PLAN\n\t\t\t\tNOT = {\n\t\t\t\t\tduchy = {\n\t\t\t\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\t\t\t\ttier = tier_barony\n\t\t\t\t\t\t\ttitle_province = {\n\t\t\t\t\t\t\t\tany_great_project_in_province = {\n\t\t\t\t\t\t\t\t\tgreat_project_type = minister_project_establish_control\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 5,
+      "project": "minister_project_train_troops",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\tNOT = { has_province_modifier = tgp_minister_project_train_troops_modifier }\n\t\t\thas_stationed_regiment = yes\n\t\t\tcounty.holder ?= {\n\t\t\t\tcustom_tooltip = {\n\t\t\t\ttext = holder_has_military_appointment_tt\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tvassal_contract_has_flag = celestial_military_appointment\n\t\t\t\t\t\tvassal_contract_has_flag = meritocratic_military_appointment\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tscope:province = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = GREAT_PROJECT_CAN_PLAN\n\t\t\t\tNOT = {\n\t\t\t\t\tduchy = {\n\t\t\t\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\t\t\t\ttier = tier_barony\n\t\t\t\t\t\t\ttitle_province = {\n\t\t\t\t\t\t\t\tany_great_project_in_province = {\n\t\t\t\t\t\t\t\t\tgreat_project_type = minister_project_train_troops\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 6,
+      "project": "minister_project_conduct_census",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province.duchy = {\n\t\t\tany_de_jure_county = {\n\t\t\t\tholder.top_liege = root.top_liege\n\t\t\t\tNOT = { has_county_modifier = tgp_minister_project_conduct_census_modifier }\n\t\t\t}\n\t\t}\n\t\tscope:province = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = GREAT_PROJECT_CAN_PLAN\n\t\t\t\tNOT = {\n\t\t\t\t\tduchy = {\n\t\t\t\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\t\t\t\ttier = tier_barony\n\t\t\t\t\t\t\ttitle_province = {\n\t\t\t\t\t\t\t\tany_great_project_in_province = {\n\t\t\t\t\t\t\t\t\tgreat_project_type = minister_project_conduct_census\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 7,
+      "project": "minister_compel_religious_uniformity",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\00_ministry_projects.txt",
+      "province_filter": "top_realm",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\tcounty = {\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = not_same_faith_as_top_liege_desc\n\t\t\t\t\tfaith != root.top_liege.faith\n\t\t\t\t}\n\t\t\t}\n\t\t\troot.top_liege = {\n\t\t\t\tcompletely_controls = scope:province.duchy\n\t\t\t}\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = GREAT_PROJECT_CAN_PLAN\n\t\t\t\tNOT = {\n\t\t\t\t\tduchy = {\n\t\t\t\t\t\tany_in_de_jure_hierarchy = {\n\t\t\t\t\t\t\ttier = tier_barony\n\t\t\t\t\t\t\ttitle_province = {\n\t\t\t\t\t\t\t\tany_great_project_in_province = {\n\t\t\t\t\t\t\t\t\tgreat_project_type = minister_compel_religious_uniformity\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ttrigger_if = {\n\t\t\tlimit = {\n\t\t\t\tscope:founder = {\n\t\t\t\t\tis_ai = yes\n\t\t\t\t}\n\t\t\t}\n\t\t\tscope:province.county.faith = {\n\t\t\t\tfaith_hostility_level = {\n\t\t\t\t\ttarget = scope:founder.top_liege.faith\n\t\t\t\t\tvalue >= faith_hostile_level\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    },
+    {
+      "type": 14,
+      "project": "pam_cathedral_01",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "province_filter": "clerical_region_theocracy_capitals",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = { root != faith.religious_head }\n\t\t\t\tOR = {\n\t\t\t\t\tbarony_controller = { target_is_same_character_or_above = root }\n\t\t\t\t\tcounty.clerical_region_title.holder ?= root\n\t\t\t\t}\n\t\t\t}\n\t\t\tcounty = {\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = same_faith_holder_tt\n\t\t\t\t\tholder.faith ?= root.faith\n\t\t\t\t}\n\t\t\t}\n\t\t\tis_valid_cathedral_clerical_region_capital_trigger = yes\n\t\t\tis_valid_cathedral_spot_in_province_trigger = yes # early-out\n\t\t}\n\t"
+    },
+    {
+      "type": 15,
+      "project": "pam_cathedral_02",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "province_filter": "clerical_region_theocracy_capitals",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = { root != faith.religious_head }\n\t\t\t\tOR = {\n\t\t\t\t\tbarony_controller = { target_is_same_character_or_above = root }\n\t\t\t\t\tcounty.clerical_region_title.holder ?= root\n\t\t\t\t}\n\t\t\t}\n\t\t\tcounty = {\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = same_faith_holder_tt\n\t\t\t\t\tholder.faith ?= root.faith\n\t\t\t\t}\n\t\t\t}\n\t\t\tis_valid_cathedral_clerical_region_capital_trigger = yes\n\t\t\tis_valid_cathedral_upgrade_spot_in_province_trigger = yes # early-out\n\t\t}\n\t"
+    },
+    {
+      "type": 16,
+      "project": "pam_cathedral_03",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "province_filter": "clerical_region_theocracy_capitals",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province = {\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = { root != faith.religious_head }\n\t\t\t\tOR = {\n\t\t\t\t\tbarony_controller = { target_is_same_character_or_above = root }\n\t\t\t\t\tcounty.clerical_region_title.holder ?= root\n\t\t\t\t}\n\t\t\t}\n\t\t\tcounty = {\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = same_faith_holder_tt\n\t\t\t\t\tholder.faith ?= root.faith\n\t\t\t\t}\n\t\t\t}\n\t\t\tis_valid_cathedral_clerical_region_capital_trigger = yes\n\t\t\tis_valid_cathedral_tier_3_upgrade_spot_in_province_trigger = yes # early-out\n\t\t}\n\t"
+    },
+    {
+      "type": 17,
+      "project": "pam_mass_rite_conversion",
+      "native_source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\great_projects\\types\\01_pam_projects.txt",
+      "province_filter": "top_liege_border_outer",
+      "filter_target": null,
+      "native_location": "\n\t\tscope:province.county = {\n\t\t\tholder.top_liege ?= {\n\t\t\t\tcustom_description = {\n\t\t\t\t\ttext = neither_at_war_or_truce\n\t\t\t\t\tsubject = scope:founder\n\t\t\t\t\tobject = this\n\t\t\t\t\tNOR = {\n\t\t\t\t\t\thas_truce = scope:founder\n\t\t\t\t\t\tis_at_war_with = scope:founder\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\ttrigger_if = { # Unreformed faiths are always fair game, organized ones only during the Conversion phase\n\t\t\t\tlimit = {\n\t\t\t\t\tNOT = { faith = { has_doctrine_parameter = unreformed } }\n\t\t\t\t}\n\t\t\t\ttrigger_if = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\tscope:founder = {\n\t\t\t\t\t\t\tany_character_situation = {\n\t\t\t\t\t\t\t\tsituation_type = the_christian_church\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = the_christian_church_mass_rite_conversion_decision_tt\n\t\t\t\t\t\tpam_mass_rite_conversion_conversion_phase_trigger = yes\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttrigger_else = {\n\t\t\t\t\tcustom_tooltip = {\n\t\t\t\t\t\ttext = pam_mass_rite_conversion_target_unreformed_faith\n\t\t\t\t\t\talways = no\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcustom_tooltip = {\n\t\t\t\t\ttext = pam_mass_rite_conversion_target_organized_faith\n\t\t\t\t\tfaith != scope:founder.faith\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = pam_mass_rite_conversion_already_targets_province\n\t\t\tNOT = {\n\t\t\t\tany_great_project = {\n\t\t\t\t\tgreat_project_type = pam_mass_rite_conversion\n\t\t\t\t\tany_in_list = {\n\t\t\t\t\t\tvariable = mass_converted_counties\n\t\t\t\t\t\tthis = scope:province.county\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ttrigger_if = {\n\t\t\tlimit = {\n\t\t\t\tscope:founder = {\n\t\t\t\t\tis_ai = yes\n\t\t\t\t}\n\t\t\t}\n\t\t\tscope:province.county.faith = {\n\t\t\t\tfaith_hostility_level = {\n\t\t\t\t\ttarget = scope:founder.faith\n\t\t\t\t\tvalue >= faith_hostile_level\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"
+    }
+  ]
+}

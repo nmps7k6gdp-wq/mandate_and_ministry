@@ -1,0 +1,109 @@
+﻿mam_revenue_finish_review_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_result value = 3 } mam_revenue_close_effect = yes }
+ }
+}
+mam_revenue_defer_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes } scope:mam_rv_file = { mam_revenue_snooze_effect = yes } }
+}
+mam_revenue_budget_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes exists = scope:mam_rv_recipient scope:mam_rv_recipient = { mam_revenue_budget_office_trigger = yes } }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_budget_before value = var:mam_rv_subject.holder.mam_revenue_budget_level }
+   set_variable = { name = mam_rv_budget_level value = $LEVEL$ }
+   set_variable = { name = mam_rv_proposer value = root }
+   set_variable = { name = mam_rv_recipient_snapshot value = var:mam_rv_subject.holder }
+   set_variable = { name = mam_rv_reserved value = 0 }
+   if = { limit = { mam_revenue_imperial_measure_trigger = yes } set_variable = { name = mam_rv_reserved value = 1 } }
+   set_variable = { name = mam_rv_stage value = 3 } mam_revenue_release_effect = yes
+  }
+ }
+}
+mam_revenue_recovery_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes exists = scope:mam_rv_recipient scope:mam_rv_recipient = { mam_revenue_province_trigger = yes mam_revenue_has_recovery_need_trigger = yes } }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_kind value = 5 } }
+  mam_revenue_propose_payment_effect = { AMOUNT = scope:mam_rv_amount }
+ }
+}
+mam_revenue_development_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  mam_revenue_bind_project_effect = yes
+  if = { limit = { exists = scope:mam_rv_selected_project }
+   scope:mam_rv_file = { set_variable = { name = mam_rv_kind value = 6 } }
+   mam_revenue_propose_payment_effect = { AMOUNT = scope:mam_rv_amount }
+  }
+ }
+}
+mam_revenue_remittance_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes exists = scope:mam_rv_recipient scope:mam_rv_recipient = { mam_revenue_province_trigger = yes } }
+  scope:mam_rv_recipient = { save_scope_as = mam_rv_donor }
+  title:h_china.holder = { save_scope_as = mam_rv_recipient }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_kind value = 3 }
+   set_variable = { name = mam_rv_donor_title value = scope:mam_rv_donor.primary_title }
+   set_variable = { name = mam_rv_recipient_title value = scope:mam_rv_recipient.primary_title }
+  }
+  mam_revenue_propose_payment_effect = { AMOUNT = 100 }
+ }
+}
+mam_revenue_standard_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  scope:mam_rv_subject = { remove_variable = mam_rv_settlement remove_variable = mam_rv_settlement_until }
+  # Previous payments and donor/aid cooldowns are deliberately retained.
+  mam_revenue_finish_review_effect = yes
+ }
+}
+mam_revenue_return_choice_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_stage value = 0 } remove_variable = mam_rv_authorized
+   mam_revenue_notify_effect = { STATUS = 6 PAID = no }
+   mam_revenue_snooze_effect = yes
+  }
+ }
+}
+mam_revenue_preview_effect = {
+ custom_tooltip = mam_rv.public_money_tt
+ mam_revenue_payer_preview_effect = yes
+ if = { limit = { scope:mam_rv_file = { has_variable = mam_rv_native_request } }
+  custom_tooltip = mam_rv.native_credit_tt
+  if = { limit = { scope:mam_rv_file = { has_variable = mam_rv_native_hook } } custom_tooltip = mam_rv.native_hook_tt }
+  if = { limit = { scope:mam_rv_file = { has_variable = mam_rv_clear_debt } } custom_tooltip = mam_rv.debt_hook_tt }
+ }
+ if = { limit = { exists = scope:mam_rv_recipient scope:mam_rv_file.var:mam_rv_kind != 3 } custom_tooltip = mam_rv.gratitude_tt }
+ if = { limit = { has_trait = vengeful exists = scope:mam_rv_recipient scope:mam_rv_recipient = { has_relation_rival = root } scope:mam_rv_file.var:mam_rv_kind != 3 } custom_tooltip = mam_rv.vengeful_tt }
+ if = { limit = { scope:mam_rv_file.var:mam_rv_kind != 3 mam_revenue_personal_favour_trigger = yes }
+  if = { limit = { has_trait = just } custom_tooltip = mam_rv.just_favour_tt }
+  if = { limit = { has_trait = honest } custom_tooltip = mam_rv.honest_favour_tt }
+ }
+ if = { limit = { has_trait = compassionate scope:mam_rv_file = { has_variable = mam_rv_disputed } } custom_tooltip = mam_rv.compulsion_tt }
+}
+mam_revenue_refusal_preview_effect = {
+ if = { limit = { scope:mam_rv_file.var:mam_rv_slot = 1 } custom_tooltip = mam_rv.refuse_tt }
+ else = { custom_tooltip = mam_rv.no_measure_tt }
+ if = { limit = { scope:mam_rv_file.var:mam_rv_slot = 1 has_trait = compassionate exists = scope:mam_rv_recipient scope:mam_rv_recipient = { mam_revenue_need_score >= 100 }
+  title:h_china.holder = { treasury >= { value = mam_revenue_account_reserve add = scope:mam_rv_amount } }
+ } custom_tooltip = mam_rv.compassionate_refusal_tt }
+}
+mam_revenue_approval_preview_effect = {
+ if = { limit = { scope:mam_rv_file.var:mam_rv_kind = 4 }
+  if = { limit = { scope:mam_rv_file.var:mam_rv_budget_level = 0 } custom_tooltip = mam_rv.budget_low_tt }
+  else_if = { limit = { scope:mam_rv_file.var:mam_rv_budget_level = 2 } custom_tooltip = mam_rv.budget_high_tt }
+  else = { custom_tooltip = mam_rv.budget_medium_tt }
+ }
+ else = {
+  custom_tooltip = mam_rv.approval_tt
+  mam_revenue_preview_effect = yes
+  if = { limit = { scope:mam_rv_donor != scope:mam_rv_emperor } custom_tooltip = mam_rv.contribution_tt }
+  if = { limit = { scope:mam_rv_file = { has_variable = mam_rv_disputed } } custom_tooltip = mam_rv.dispute_tt }
+  if = { limit = { scope:mam_rv_file.var:mam_rv_kind = 5 } custom_tooltip = mam_rv.recovery_tt }
+  if = { limit = { scope:mam_rv_file.var:mam_rv_kind = 6 } custom_tooltip = mam_rv.development_tt }
+ }
+}
+
+mam_revenue_payer_preview_effect = {
+ if = { limit = { exists = scope:mam_rv_donor }
+  if = { limit = { scope:mam_rv_donor = title:h_china.holder } custom_tooltip = mam_rv.payer_imperial }
+  else_if = { limit = { scope:mam_rv_donor = title:e_minister_of_revenue.holder } custom_tooltip = mam_rv.payer_revenue }
+  else = { custom_tooltip = mam_rv.payer_other }
+ }
+}

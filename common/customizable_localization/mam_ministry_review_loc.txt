@@ -1,0 +1,11 @@
+﻿MamMinistryReviewBasis = {
+ type = character
+ text = { trigger = { mam_private_obligation_trigger = yes } localization_key = mam_mr.basis_paid }
+ text = { trigger = { mam_senior_basis_family_trigger = yes mam_ministry_review_weak_trigger = yes } localization_key = mam_mr.basis_nepotism }
+ text = { trigger = { mam_ministry_review_weak_trigger = yes } localization_key = mam_mr.basis_weak }
+ text = { trigger = { mam_senior_basis_family_trigger = yes } localization_key = mam_mr.basis_family }
+ text = { trigger = { mam_senior_basis_faction_trigger = yes } localization_key = mam_mr.basis_faction }
+ text = { trigger = { mam_senior_basis_friend_trigger = yes } localization_key = mam_mr.basis_friend }
+ text = { trigger = { mam_minister_preference > 0 } localization_key = mam_mr.basis_trait }
+ text = { localization_key = mam_mr.basis_qualified }
+}

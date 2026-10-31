@@ -1,0 +1,422 @@
+# Additive discovery adapter. No secret type, scheme or native reward override.
+@@ common/scripted_triggers/mam_censor_triggers.txt
+# An actual public office; the Censor can be referred only to the emperor.
+mam_censor_intel_subject_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no
+ this != title:h_china.holder top_liege = title:h_china.holder
+ OR = {
+  tgp_is_any_minister = yes
+  AND = { government_has_flag = government_is_celestial is_governor_or_admin_count = yes
+   primary_title = { tier >= tier_county tier <= tier_empire is_noble_family_title = no is_landless_type_title = no }
+  }
+ }
+}
+mam_censor_intel_secret_trigger = {
+ OR = {
+  AND = { secret_owner = title:e_minister_censor.holder scope:mam_cen_intel_reader = title:h_china.holder
+   NOT = { has_variable = mam_cen_intel_imperial_recorded } }
+  AND = { secret_owner != title:e_minister_censor.holder NOT = { has_variable = mam_cen_intel_recorded } }
+ }
+ OR = { secret_type = secret_siphoned_treasury secret_type = secret_embezzler
+  secret_type = secret_exam_cheater secret_type = secret_request_incursion
+  secret_type = secret_coup_plotter secret_type = secret_murder secret_type = secret_murder_attempt
+ }
+ secret_owner = { mam_censor_intel_subject_trigger = yes }
+}
+mam_censor_intel_live_trigger = {
+ has_variable = mam_cen_intel_pending var:mam_cen_intel_pending = 1
+ exists = var:mam_cen_realm.holder exists = var:mam_cen_suspect
+ var:mam_cen_realm.holder = { mam_censor_emperor_trigger = yes }
+ OR = { var:mam_cen_suspect = { mam_censor_intel_subject_trigger = yes }
+  AND = { var:mam_cen_intel_kind >= 30 var:mam_cen_suspect = { mam_censor_public_subject_trigger = yes } }
+ }
+ var:mam_cen_created > { value = current_date subtract = 730 }
+}
+mam_censor_intel_actor_trigger = {
+ exists = scope:mam_cen_intel_lead exists = scope:mam_cen_intel_token
+ is_alive = yes is_imprisoned = no
+ scope:mam_cen_intel_lead = {
+  mam_censor_intel_live_trigger = yes
+  var:mam_cen_serial = scope:mam_cen_intel_token
+  exists = var:mam_cen_reviewer var:mam_cen_reviewer = root
+  NOT = { has_variable = mam_cen_trace_due }
+  trigger_if = { limit = { var:mam_cen_suspect = title:e_minister_censor.holder }
+   root = { mam_censor_emperor_trigger = yes }
+  }
+  trigger_else = { root = { mam_censor_officer_trigger = yes } }
+ }
+ title:h_china = { NOT = { exists = var:mam_cen_active } }
+}
+mam_censor_intel_can_open_trigger = {
+ mam_censor_intel_actor_trigger = yes
+ scope:mam_cen_intel_lead.var:mam_cen_identified = 1
+}
+@@ common/script_values/mam_censor_values.txt
+# A tracing roll identifies the real plot author. It never chooses a random culprit.
+mam_censor_plot_trace_chance = {
+ value = 45
+ add = { value = scope:mam_cen_intel_reader.intrigue multiply = 2 }
+ add = scope:mam_cen_intel_reader.learning
+ subtract = { value = scope:mam_cen_hidden_suspect.intrigue multiply = 2 }
+ subtract = scope:mam_cen_hidden_suspect.diplomacy
+ if = { limit = { scope:mam_cen_intel_reader = { has_trait = diligent } } add = 10 }
+ if = { limit = { scope:mam_cen_intel_reader = { has_trait = patient } } add = 10 }
+ if = { limit = { scope:mam_cen_hidden_suspect = { has_trait = deceitful } } subtract = 10 }
+ min = 10 max = 90
+}
+@@ common/scripted_effects/mam_censor_effects.txt
+# Emperor context. A singleton story provides documented weekly polling, also
+# recovering existing known secrets on old saves. No world-wide secret scan.
+mam_censor_intel_ensure_effect = {
+ if = { limit = { mam_censor_emperor_trigger = yes }
+  if = { limit = { NOT = { title:h_china = { exists = var:mam_cen_intel_service } } }
+   clear_saved_scope = mam_cen_intel_service
+   create_story = { type = mam_censor_intelligence_service_story save_scope_as = mam_cen_intel_service }
+   if = { limit = { exists = scope:mam_cen_intel_service }
+    scope:mam_cen_intel_service = { set_variable = { name = mam_cen_realm value = title:h_china } }
+    title:h_china = { set_variable = { name = mam_cen_intel_service value = scope:mam_cen_intel_service } }
+   }
+  }
+  mam_censor_intel_poll_effect = yes
+ }
+}
+mam_censor_intel_poll_effect = {
+ if = { limit = { mam_censor_emperor_trigger = yes }
+  save_scope_as = mam_cen_emperor
+  # Closed/departed leads are removed from the live bounded queue; retained
+  # stories are immutable source snapshots, not a GUI or prosecution register.
+  title:h_china = {
+   every_in_list = { variable = mam_cen_intel_queue
+    if = { limit = { mam_censor_intel_live_trigger = no } mam_censor_intel_finish_effect = yes }
+   }
+  }
+  clear_saved_scope = mam_cen_intel_reader
+  mam_censor_public_poll_effect = yes
+  title:e_minister_censor.holder ?= { if = { limit = { mam_censor_officer_trigger = yes }
+   save_scope_as = mam_cen_intel_reader
+  } }
+  if = { limit = { exists = scope:mam_cen_intel_reader }
+   scope:mam_cen_intel_reader = { random_known_secret = {
+    limit = { mam_censor_intel_secret_trigger = yes is_known_by = scope:mam_cen_intel_reader
+     secret_owner != scope:mam_cen_intel_reader
+     NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+    }
+    mam_censor_intel_capture_secret_effect = yes
+   } }
+  }
+  # The Censor cannot bury a discovery the emperor independently knows.
+  save_scope_as = mam_cen_intel_reader
+  if = { limit = { exists = title:e_minister_censor.holder }
+   random_known_secret = { limit = {
+   mam_censor_intel_secret_trigger = yes is_known_by = scope:mam_cen_intel_reader
+   secret_owner = title:e_minister_censor.holder
+   NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+   } mam_censor_intel_capture_secret_effect = yes }
+  }
+  title:h_china = {
+   every_in_list = { variable = mam_cen_intel_queue limit = { var:mam_cen_intel_kind >= 30 } mam_censor_intel_tick_effect = yes }
+   every_in_list = { variable = mam_cen_intel_queue limit = { var:mam_cen_intel_kind < 30 } mam_censor_intel_tick_effect = yes }
+  }
+ }
+}
+# Secret scope. Copy facts while valid, then retain no Secret pointer.
+mam_censor_intel_capture_secret_effect = {
+ # Independently learning the same secret must not reopen a pending or already
+ # sanctioned report. A buried unsanctioned report can still reach the emperor.
+ if = { limit = { exists = var:mam_cen_intel_recorded
+  var:mam_cen_intel_recorded = {
+   OR = { var:mam_cen_intel_pending = 1
+    AND = { exists = var:mam_cen_inspection
+     var:mam_cen_inspection = { OR = { mam_censor_live_trigger = yes has_variable = mam_cen_sanctioned exists = var:mam_cen_retired } }
+    }
+   }
+  }
+ }
+  if = { limit = { scope:mam_cen_intel_reader = title:h_china.holder }
+   set_variable = { name = mam_cen_intel_imperial_recorded value = 1 }
+  }
+ }
+ else = {
+ clear_saved_scope = mam_cen_new_intel
+ title:h_china.holder = { create_story = { type = mam_censor_intelligence_lead_story save_scope_as = mam_cen_new_intel } }
+ if = { limit = { exists = scope:mam_cen_new_intel }
+  secret_owner = { save_scope_as = mam_cen_capture_suspect }
+  save_scope_value_as = { name = mam_cen_capture_kind value = 1 }
+  if = { limit = { secret_type = secret_embezzler } save_scope_value_as = { name = mam_cen_capture_kind value = 2 } }
+  else_if = { limit = { secret_type = secret_exam_cheater } save_scope_value_as = { name = mam_cen_capture_kind value = 3 } }
+  else_if = { limit = { secret_type = secret_request_incursion } save_scope_value_as = { name = mam_cen_capture_kind value = 4 } }
+  else_if = { limit = { secret_type = secret_coup_plotter } save_scope_value_as = { name = mam_cen_capture_kind value = 5 } }
+  else_if = { limit = { secret_type = secret_murder } save_scope_value_as = { name = mam_cen_capture_kind value = 6 } }
+  else_if = { limit = { secret_type = secret_murder_attempt } save_scope_value_as = { name = mam_cen_capture_kind value = 7 } }
+  scope:mam_cen_new_intel = {
+   set_variable = { name = mam_cen_realm value = title:h_china }
+   set_variable = { name = mam_cen_suspect value = scope:mam_cen_capture_suspect }
+   set_variable = { name = mam_cen_intel_kind value = scope:mam_cen_capture_kind }
+   set_variable = { name = mam_cen_discoverer value = scope:mam_cen_intel_reader }
+   set_variable = { name = mam_cen_identified value = 1 }
+   mam_censor_intel_setup_effect = yes
+  }
+  secret_target ?= { scope:mam_cen_new_intel = { set_variable = { name = mam_cen_victim value = prev } } }
+  # Mark only after a real institutional snapshot exists; do not edit truth,
+  # exposure, crime status or native on_discover/on_expose rewards.
+  set_variable = { name = mam_cen_intel_recorded value = scope:mam_cen_new_intel }
+  if = { limit = { scope:mam_cen_intel_reader = title:h_china.holder }
+   set_variable = { name = mam_cen_intel_imperial_recorded value = 1 }
+  }
+  debug_log = "MAM_CENSOR_INTEL: recorded an actually known official secret"
+ }
+ }
+}
+# Scheme context, additive native on_scheme_discovered callback. Discovery does
+# NOT identify the owner. Keep that hidden until a successful live tracing roll.
+mam_censor_intel_capture_plot_effect = {
+ if = { limit = { NOT = { has_variable = mam_cen_intel_recorded }
+  exists = title:h_china.holder exists = title:e_minister_censor.holder
+  title:h_china.holder = { mam_censor_emperor_trigger = yes }
+  title:e_minister_censor.holder = { mam_censor_officer_trigger = yes }
+  OR = { scheme_type = murder scheme_type = abduct scheme_type = celestial_siphon_treasury }
+  scheme_owner = { mam_censor_intel_subject_trigger = yes }
+  scheme_owner != title:e_minister_censor.holder
+  # Only the imperial court's own discovery stream is routed to its Censor.
+  OR = {
+   AND = { exists = scheme_target_character scheme_target_character = title:h_china.holder }
+   AND = { exists = scheme_target_character
+    scheme_target_character = { mam_censor_intel_subject_trigger = yes host = title:h_china.holder }
+   }
+   AND = { scheme_type = celestial_siphon_treasury exists = scheme_target_title scheme_target_title = title:h_china }
+  }
+  NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+ }
+  clear_saved_scope = mam_cen_new_intel
+  title:h_china.holder = { create_story = { type = mam_censor_intelligence_lead_story save_scope_as = mam_cen_new_intel } }
+  if = { limit = { exists = scope:mam_cen_new_intel }
+   scheme_owner = { save_scope_as = mam_cen_capture_suspect }
+   save_scope_value_as = { name = mam_cen_capture_kind value = 20 }
+   if = { limit = { scheme_type = abduct } save_scope_value_as = { name = mam_cen_capture_kind value = 21 } }
+   else_if = { limit = { scheme_type = celestial_siphon_treasury } save_scope_value_as = { name = mam_cen_capture_kind value = 22 } }
+   scope:mam_cen_new_intel = {
+    set_variable = { name = mam_cen_realm value = title:h_china }
+    set_variable = { name = mam_cen_suspect value = scope:mam_cen_capture_suspect }
+    set_variable = { name = mam_cen_intel_kind value = scope:mam_cen_capture_kind }
+    set_variable = { name = mam_cen_discoverer value = title:e_minister_censor.holder }
+    set_variable = { name = mam_cen_identified value = 0 }
+    mam_censor_intel_setup_effect = yes
+    save_scope_as = mam_cen_plot_record
+   }
+   scheme_target_character ?= { scope:mam_cen_new_intel = { set_variable = { name = mam_cen_victim value = prev } } }
+   set_variable = { name = mam_cen_intel_recorded value = scope:mam_cen_new_intel }
+   debug_log = "MAM_CENSOR_INTEL: imperial plot warning; author remains unidentified"
+  }
+ }
+}
+mam_censor_intel_setup_effect = {
+ set_variable = { name = mam_cen_discovery_office value = var:mam_cen_suspect.primary_title }
+ set_variable = { name = mam_cen_intel_pending value = 1 }
+ set_variable = { name = mam_cen_created value = current_date }
+ set_variable = { name = mam_cen_due value = current_date }
+ set_variable = { name = mam_cen_until value = current_date }
+ set_variable = { name = mam_cen_serial value = 0 }
+ var:mam_cen_realm = { add_to_variable_list = { name = mam_cen_intel_queue target = prev } }
+}
+mam_censor_intel_finish_effect = {
+ if = { limit = { has_variable = mam_cen_intel_pending var:mam_cen_intel_pending = 1 }
+  set_variable = { name = mam_cen_intel_pending value = 0 }
+  set_variable = { name = mam_cen_closed value = current_date }
+  change_variable = { name = mam_cen_serial add = 1 }
+ }
+ # Removal is idempotent even if recovery finds an already closed queue entry.
+ var:mam_cen_realm = {
+  remove_list_variable = { name = mam_cen_intel_queue target = prev }
+  if = { limit = { exists = var:mam_cen_intel_brief var:mam_cen_intel_brief = prev } remove_variable = mam_cen_intel_brief }
+ }
+}
+# Lead context. Only one intel brief OR inspection may be modal, never both.
+mam_censor_intel_tick_effect = {
+ if = { limit = { mam_censor_intel_live_trigger = no } mam_censor_intel_finish_effect = yes }
+ else = {
+  save_scope_as = mam_cen_intel_lead
+  if = { limit = { has_variable = mam_cen_trace_due var:mam_cen_trace_due <= current_date }
+   mam_censor_intel_resolve_trace_effect = yes
+  }
+  if = { limit = { NOT = { has_variable = mam_cen_trace_due }
+   var:mam_cen_identified = 1 exists = title:h_china.var:mam_cen_active
+   title:h_china.var:mam_cen_active = {
+    mam_censor_live_trigger = yes var:mam_cen_subject = scope:mam_cen_intel_lead.var:mam_cen_suspect
+    OR = {
+     AND = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 NOT = { has_variable = mam_cen_public_case } }
+     AND = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind < 30 NOT = { has_variable = mam_cen_intelligence } }
+    }
+    var:mam_cen_imperial_seen = 0
+    OR = { var:mam_cen_stage = 1 var:mam_cen_stage = 2 var:mam_cen_stage = 3 var:mam_cen_stage = 4 var:mam_cen_stage = 5 var:mam_cen_stage = 6 var:mam_cen_stage = 12 }
+   }
+  }
+   title:h_china.var:mam_cen_active = {
+    save_scope_as = mam_cen_file
+    mam_censor_intel_attach_effect = yes
+    # Re-hear a named new allegation; invalidate the old findings button.
+    mam_censor_move_effect = { STAGE = 2 DAYS = 7 }
+   }
+  }
+  else_if = { limit = {
+   var:mam_cen_intel_pending = 1 NOT = { has_variable = mam_cen_trace_due }
+   var:mam_cen_due <= current_date
+   title:h_china = { NOT = { exists = var:mam_cen_active }
+    OR = { NOT = { exists = var:mam_cen_intel_brief } var:mam_cen_intel_brief = scope:mam_cen_intel_lead }
+   }
+  }
+   clear_saved_scope = mam_cen_intel_reader
+   if = { limit = { var:mam_cen_suspect = title:e_minister_censor.holder var:mam_cen_identified = 1 }
+    var:mam_cen_realm.holder = { save_scope_as = mam_cen_intel_reader }
+   }
+   else = { title:e_minister_censor.holder ?= { if = { limit = { mam_censor_officer_trigger = yes } save_scope_as = mam_cen_intel_reader } } }
+   if = { limit = { exists = scope:mam_cen_intel_reader }
+    if = { limit = { OR = { NOT = { exists = var:mam_cen_reviewer } var:mam_cen_reviewer != scope:mam_cen_intel_reader } }
+     set_variable = { name = mam_cen_reviewer value = scope:mam_cen_intel_reader }
+     change_variable = { name = mam_cen_serial add = 1 } remove_variable = mam_cen_sent
+    }
+    if = { limit = { OR = { NOT = { has_variable = mam_cen_sent } var:mam_cen_until <= current_date } }
+     var:mam_cen_realm = { set_variable = { name = mam_cen_intel_brief value = scope:mam_cen_intel_lead } }
+     set_variable = { name = mam_cen_sent value = 1 }
+     set_variable = { name = mam_cen_until value = { value = current_date add = 90 } }
+     mam_censor_intel_bind_effect = yes
+     var:mam_cen_reviewer = { trigger_event = mam_censor.101 }
+    }
+   }
+  }
+ }
+}
+mam_censor_intel_bind_effect = {
+ save_scope_as = mam_cen_intel_lead
+ var:mam_cen_reviewer = { save_scope_as = mam_cen_intel_reader }
+ var:mam_cen_suspect = { save_scope_as = mam_cen_hidden_suspect }
+ clear_saved_scope = mam_cen_intel_subject
+ if = { limit = { var:mam_cen_identified = 1 } var:mam_cen_suspect = { save_scope_as = mam_cen_intel_subject } }
+ clear_saved_scope = mam_cen_intel_victim
+ var:mam_cen_victim ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cen_intel_victim } }
+ save_scope_value_as = { name = mam_cen_intel_token value = var:mam_cen_serial }
+ save_scope_value_as = { name = mam_cen_trace_chance value = mam_censor_plot_trace_chance }
+ mam_censor_public_bind_effect = yes
+}
+mam_censor_intel_defer_effect = {
+ change_variable = { name = mam_cen_serial add = 1 }
+ set_variable = { name = mam_cen_due value = { value = current_date add = 30 } }
+ remove_variable = mam_cen_sent
+ var:mam_cen_realm = { if = { limit = { var:mam_cen_intel_brief = prev } remove_variable = mam_cen_intel_brief } }
+}
+mam_censor_intel_trace_effect = {
+ mam_censor_intel_bind_effect = yes
+ set_variable = { name = mam_cen_tracer value = scope:mam_cen_intel_reader }
+ set_variable = { name = mam_cen_trace_due value = { value = current_date add = 7 } }
+ change_variable = { name = mam_cen_serial add = 1 }
+ remove_variable = mam_cen_sent
+ var:mam_cen_realm = { remove_variable = mam_cen_intel_brief }
+}
+mam_censor_intel_resolve_trace_effect = {
+ # Search only the saved author's live schemes by our own identity. Never
+ # dereference a long-lived Scheme pointer or recreate an ended conspiracy.
+ clear_saved_scope = mam_cen_live_plot
+ save_scope_as = mam_cen_intel_lead
+ var:mam_cen_suspect = { every_scheme = { limit = {
+  exists = var:mam_cen_intel_recorded var:mam_cen_intel_recorded = scope:mam_cen_intel_lead
+  is_scheme_exposed = yes
+ } save_scope_as = mam_cen_live_plot } }
+ if = { limit = { exists = scope:mam_cen_live_plot exists = var:mam_cen_tracer
+  var:mam_cen_tracer = title:e_minister_censor.holder var:mam_cen_tracer = { mam_censor_officer_trigger = yes }
+ }
+  var:mam_cen_tracer = { save_scope_as = mam_cen_intel_reader }
+  var:mam_cen_suspect = { save_scope_as = mam_cen_hidden_suspect }
+  save_scope_value_as = { name = mam_cen_trace_chance value = mam_censor_plot_trace_chance }
+  set_variable = { name = mam_cen_last_trace_chance value = scope:mam_cen_trace_chance }
+  random = { chance = { value = scope:mam_cen_trace_chance }
+   set_variable = { name = mam_cen_identified value = 1 }
+  }
+ }
+ # One attempt per real scheme. Failure/expiry yields no randomly named culprit.
+ set_variable = { name = mam_cen_trace_finished value = 1 }
+ remove_variable = mam_cen_trace_due
+ remove_variable = mam_cen_sent
+ set_variable = { name = mam_cen_due value = current_date }
+ debug_log = "MAM_CENSOR_INTEL: trace resolved against live plot; no fabricated suspect"
+}
+# Inspection story context; snapshot the allegation before its lead is archived.
+mam_censor_intel_attach_effect = {
+ if = { limit = { exists = scope:mam_cen_intel_lead
+  OR = {
+   AND = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 NOT = { has_variable = mam_cen_public_case } }
+   AND = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind < 30 NOT = { has_variable = mam_cen_intelligence } }
+  }
+  scope:mam_cen_intel_lead = { mam_censor_intel_live_trigger = yes var:mam_cen_identified = 1
+   var:mam_cen_suspect = scope:mam_cen_file.var:mam_cen_subject
+  }
+ }
+  if = { limit = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 }
+   mam_censor_public_attach_effect = yes
+  }
+  else = {
+   set_variable = { name = mam_cen_intelligence value = scope:mam_cen_intel_lead }
+   set_variable = { name = mam_cen_native_fact value = scope:mam_cen_intel_lead.var:mam_cen_intel_kind }
+   set_variable = { name = mam_cen_intel_date value = scope:mam_cen_intel_lead.var:mam_cen_created }
+   set_variable = { name = mam_cen_intel_witness value = scope:mam_cen_intel_lead.var:mam_cen_discoverer }
+  }
+  scope:mam_cen_intel_lead = {
+   set_variable = { name = mam_cen_inspection value = scope:mam_cen_file }
+   mam_censor_intel_finish_effect = yes
+  }
+  debug_log = "MAM_CENSOR_INTEL: real discovery attached to named official inspection"
+ }
+}
+mam_censor_intel_open_effect = {
+ scope:mam_cen_intel_lead = { var:mam_cen_suspect = { save_scope_as = mam_cen_subject } }
+ save_scope_as = mam_cen_originator
+ mam_censor_start_effect = yes
+}
+mam_censor_intel_inherit_effect = {
+ clear_saved_scope = mam_cen_intel_heir
+ var:mam_cen_realm.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cen_intel_heir } }
+ if = { limit = { NOT = { exists = scope:mam_cen_intel_heir } }
+  var:mam_cen_realm.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cen_intel_heir } }
+ }
+ if = { limit = { exists = scope:mam_cen_intel_heir } make_story_owner = scope:mam_cen_intel_heir }
+}
+@@ common/story_cycles/mam_censor_inspection_story.txt
+mam_censor_intelligence_service_story = {
+ visible = no on_setup = { }
+ on_owner_death = { mam_censor_intel_inherit_effect = yes }
+ effect_group = { days = 7 triggered_effect = { trigger = { always = yes } effect = {
+  if = { limit = { exists = var:mam_cen_realm.holder
+   var:mam_cen_realm = { exists = var:mam_cen_intel_service var:mam_cen_intel_service = prev }
+  } var:mam_cen_realm.holder = { mam_censor_intel_poll_effect = yes } }
+  else = { end_story = yes }
+ } } }
+}
+mam_censor_intelligence_lead_story = {
+ visible = no on_setup = { }
+ on_owner_death = { mam_censor_intel_inherit_effect = yes }
+ effect_group = { days = 7 triggered_effect = { trigger = { always = yes } effect = {
+  if = { limit = { var:mam_cen_intel_pending = 0 has_variable = mam_cen_closed
+   var:mam_cen_closed <= { value = current_date subtract = 3650 }
+  } end_story = yes }
+ } } }
+}
+@@ common/on_action/mam_censor_on_actions.txt
+on_scheme_discovered = { on_actions = { mam_censor_intel_plot_discovered } }
+mam_censor_intel_plot_discovered = { effect = { mam_censor_intel_capture_plot_effect = yes } }
+@@ common/modifiers/mam_censor_modifiers.txt
+mam_cen_guarded = { icon = intrigue_positive enemy_hostile_scheme_phase_duration_add = 5 }
+@@ common/decisions/mam_censor_decisions.txt
+mam_censor_intelligence_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_censor_intelligence_decision_desc selection_tooltip = mam_censor_intelligence_decision_desc confirm_text = mam_cen.intel_confirm
+ is_shown = { is_ai = no OR = { mam_censor_officer_trigger = yes mam_censor_emperor_trigger = yes }
+  exists = title:h_china.var:mam_cen_intel_brief
+  title:h_china.var:mam_cen_intel_brief ?= { mam_censor_intel_live_trigger = yes exists = var:mam_cen_reviewer var:mam_cen_reviewer = root }
+ }
+ is_valid = { title:h_china = { NOT = { exists = var:mam_cen_active } } }
+ effect = {
+  title:h_china.var:mam_cen_intel_brief ?= { if = { limit = { exists = var:mam_cen_reviewer var:mam_cen_reviewer = root }
+   remove_variable = mam_cen_sent mam_censor_intel_tick_effect = yes
+  } }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

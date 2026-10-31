@@ -1,0 +1,937 @@
+﻿namespace = mam_censor
+
+mam_censor.1 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.1_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public } desc = mam_cen.1_desc first_valid = { triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 } } triggered_desc = { trigger = { scope:mam_cen_file = { exists = var:mam_cen_originator var:mam_cen_originator = title:h_china.holder } } desc = mam_cen.imperial_request } }
+     option = { name = mam_cen.quiet
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.quiet_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_style value = 1 }mam_censor_move_effect = { STAGE = 2 DAYS = 7 } } }
+     }
+     ai_chance = { base = 65 modifier = { add = 60 has_trait = compassionate }modifier = { add = 60 has_trait = patient }modifier = { add = 30 has_trait = honest }modifier = { add = 35 has_trait = calm }modifier = { add = 25 has_trait = shy }  }
+    } option = { name = mam_cen.summon
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.summon_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_style value = 2 }mam_censor_move_effect = { STAGE = 2 DAYS = 7 } } }
+     }
+     ai_chance = { base = 75 modifier = { add = 60 has_trait = just }modifier = { add = 60 has_trait = diligent }modifier = { add = 40 has_trait = paranoid }  }
+    } option = { name = mam_cen.terror
+     trigger = { mam_censor_actor_trigger = yes NOT = { has_character_modifier = mam_cen_restrained } }
+     custom_tooltip = mam_cen.terror_tt
+     if = { limit = { mam_censor_actor_trigger = yes NOT = { has_character_modifier = mam_cen_restrained } }
+      stress_impact = { just = 20 honest = 15 compassionate = 20 }
+      hidden_effect = { mam_censor_record_abuse_effect = yes scope:mam_cen_file = { set_variable = { name = mam_cen_style value = 3 }mam_censor_move_effect = { STAGE = 2 DAYS = 7 } }scope:mam_cen_subject = { add_opinion = { target = root modifier = mam_cen_resentment } } }
+     }
+     ai_chance = { base = 10 modifier = { add = 110 has_trait = sadistic }modifier = { add = 65 has_trait = arbitrary }modifier = { add = 45 has_trait = vengeful }modifier = { add = 45 has_trait = callous } modifier = { factor = 0.05 OR = { has_trait = just has_trait = compassionate } }  }
+    } option = { name = mam_cen.decline
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.decline_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 14 } } }
+     }
+     ai_chance = { base = 8 modifier = { add = 45 has_trait = lazy }modifier = { add = 20 has_trait = craven }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.2 = {
+     type = letter_event sender = scope:mam_cen_censor opening = { desc = mam_cen.opening } title = mam_cen.2_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public } first_valid = { triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.2_public } desc = mam_cen.2_desc }  }
+     option = { name = mam_cen.cooperate
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.cooperate_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_response value = 1 }mam_censor_examine_effect = yes } }
+     }
+     ai_chance = { base = 85 modifier = { add = 100 has_trait = honest }modifier = { add = 60 has_trait = just }modifier = { add = 25 has_trait = craven } modifier = { add = 70 has_trait = craven scope:mam_cen_file.var:mam_cen_style = 3 } modifier = { add = 20 diplomacy >= 15 } }
+    } option = { name = mam_cen.contest
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.contest_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_response value = 2 }set_variable = { name = mam_cen_safeguards value = 1 }mam_censor_examine_effect = yes } }
+     }
+     ai_chance = { base = 35 modifier = { add = 40 has_trait = just }modifier = { add = 30 has_trait = arrogant } modifier = { add = 100 scope:mam_cen_file.var:mam_cen_abuse = 1 }  }
+    } option = { name = mam_cen.withhold
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.withhold_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      stress_impact = { honest = 20 just = 15 }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_response value = 3 }set_variable = { name = mam_cen_obstruction value = 1 }set_variable = { name = mam_cen_concealed value = 1 }mam_censor_examine_effect = yes } }
+     }
+     ai_chance = { base = 8 modifier = { add = 75 has_trait = deceitful }modifier = { add = 30 has_trait = arrogant } modifier = { factor = 0.05 OR = { has_trait = honest has_trait = just } } modifier = { add = 20 intrigue >= scope:mam_cen_censor.intrigue has_trait = deceitful } }
+    } option = { name = mam_cen.admit
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file.var:mam_cen_document = 1 }
+     custom_tooltip = mam_cen.admit_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file.var:mam_cen_document = 1 }
+      stress_impact = { arrogant = 15 }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_response value = 4 }set_variable = { name = mam_cen_admission value = 1 }set_variable = { name = mam_cen_proof value = 1 }mam_censor_move_effect = { STAGE = 3 DAYS = 14 } } }
+     }
+     ai_chance = { base = 15 modifier = { add = 70 has_trait = honest }modifier = { add = 35 has_trait = humble }modifier = { add = 20 has_trait = craven }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.3 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.3_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.3_desc first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } }
+     option = { name = mam_cen.back_inquiry
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.back_inquiry_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_backing value = 1 }mam_censor_move_effect = { STAGE = 4 DAYS = 14 } } }
+     }
+     ai_chance = { base = 55 modifier = { add = 60 has_trait = just }modifier = { add = 35 has_trait = diligent } modifier = { add = 40 scope:mam_cen_file.var:mam_cen_abuse = 0 }  }
+    } option = { name = mam_cen.defend
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.defend_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_backing value = -1 }set_variable = { name = mam_cen_defender value = root }mam_censor_move_effect = { STAGE = 4 DAYS = 14 } }scope:mam_cen_censor = { add_opinion = { target = root modifier = mam_cen_abandoned_me } } scope:mam_cen_subject = { add_opinion = { target = root modifier = mam_cen_defended_me } } }
+     }
+     ai_chance = { base = 25 modifier = { add = 35 has_trait = compassionate } modifier = { add = 100 has_relation_friend = scope:mam_cen_subject } modifier = { add = 70 house ?= scope:mam_cen_subject.house } modifier = { add = 45 mam_censor_shared_bloc_trigger = { OTHER = scope:mam_cen_subject } } modifier = { add = 50 mam_censor_shared_faction_trigger = { OTHER = scope:mam_cen_subject } } modifier = { add = 80 scope:mam_cen_file.var:mam_cen_abuse = 1 } modifier = { add = 25 diplomacy >= 15 } }
+    } option = { name = mam_cen.safeguards
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.safeguards_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_safeguards value = 1 }set_variable = { name = mam_cen_challenger value = root }mam_censor_move_effect = { STAGE = 4 DAYS = 14 } } }
+     }
+     ai_chance = { base = 30 modifier = { add = 45 has_trait = just }modifier = { add = 45 has_trait = compassionate } modifier = { add = 100 scope:mam_cen_file.var:mam_cen_abuse = 1 } modifier = { add = 25 learning >= 15 scope:mam_cen_file = { var:mam_cen_abuse = 1 } } }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.4 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.4_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.4_desc first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } }
+     option = { name = mam_cen.verify
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.verify_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_check_return_effect = yes mam_censor_move_effect = { STAGE = 6 DAYS = 21 } } }
+     }
+     ai_chance = { base = 70 modifier = { add = 55 has_trait = diligent }modifier = { add = 35 has_trait = patient }modifier = { add = 50 has_trait = paranoid } modifier = { add = 35 OR = { stewardship >= 15 learning >= 15 } } }
+    } option = { name = mam_cen.public_compare
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { has_variable = mam_cen_public_case NOT = { has_variable = mam_cen_public_checked } } }
+     custom_tooltip = mam_cen.public_compare_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { has_variable = mam_cen_public_case NOT = { has_variable = mam_cen_public_checked } } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_public_check_effect = yes mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 120 modifier = { add = 60 has_trait = just }modifier = { add = 60 has_trait = diligent }  }
+    } option = { name = mam_cen.consult
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { NOT = { has_variable = mam_cen_consulted } } }
+     custom_tooltip = mam_cen.consult_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { NOT = { has_variable = mam_cen_consulted } } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_move_effect = { STAGE = 5 DAYS = 14 } } }
+     }
+     ai_chance = { base = 35 modifier = { add = 55 has_trait = just }modifier = { add = 30 has_trait = humble } modifier = { add = 25 learning < 8 } }
+    } option = { name = mam_cen.connected
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file.var:mam_cen_document = 1 scope:mam_cen_file.var:mam_cen_connected_heard = 0 exists = scope:mam_cen_connected scope:mam_cen_connected = { is_alive = yes is_imprisoned = no top_liege = scope:mam_cen_emperor } }
+     custom_tooltip = mam_cen.connected_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file.var:mam_cen_document = 1 scope:mam_cen_file.var:mam_cen_connected_heard = 0 exists = scope:mam_cen_connected scope:mam_cen_connected = { is_alive = yes is_imprisoned = no top_liege = scope:mam_cen_emperor } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_move_effect = { STAGE = 8 DAYS = 14 } } }
+     }
+     ai_chance = { base = 50 modifier = { add = 50 has_trait = diligent }  }
+    } option = { name = mam_cen.coerce
+     trigger = { mam_censor_actor_trigger = yes NOT = { has_character_modifier = mam_cen_restrained } scope:mam_cen_file = { NOT = { has_variable = mam_cen_coerced } } }
+     custom_tooltip = mam_cen.coerce_tt
+     if = { limit = { mam_censor_actor_trigger = yes NOT = { has_character_modifier = mam_cen_restrained } scope:mam_cen_file = { NOT = { has_variable = mam_cen_coerced } } }
+      stress_impact = { just = 25 honest = 20 compassionate = 25 }
+      hidden_effect = { mam_censor_record_abuse_effect = yes scope:mam_cen_file = { set_variable = { name = mam_cen_coerced value = 1 }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 8 modifier = { add = 100 has_trait = sadistic }modifier = { add = 60 has_trait = arbitrary }modifier = { add = 35 has_trait = vengeful }modifier = { add = 50 has_trait = callous } modifier = { factor = 0.02 OR = { has_trait = just has_trait = compassionate } }  }
+    } option = { name = mam_cen.bargain
+     trigger = { mam_censor_actor_trigger = yes NOT = { has_character_modifier = mam_cen_restrained } scope:mam_cen_subject = { is_imprisoned = no } scope:mam_cen_file = { var:mam_cen_imperial_seen = 0 NOT = { has_variable = mam_cen_settlement_attempted } } NOT = { has_hook = scope:mam_cen_subject } }
+     custom_tooltip = mam_cen.bargain_tt
+     if = { limit = { mam_censor_actor_trigger = yes NOT = { has_character_modifier = mam_cen_restrained } scope:mam_cen_subject = { is_imprisoned = no } scope:mam_cen_file = { var:mam_cen_imperial_seen = 0 NOT = { has_variable = mam_cen_settlement_attempted } } NOT = { has_hook = scope:mam_cen_subject } }
+      stress_impact = { honest = 25 just = 25 }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_settlement_attempted value = 1 }set_variable = { name = mam_cen_bargainer value = root }mam_censor_move_effect = { STAGE = 11 DAYS = 7 } } }
+     }
+     ai_chance = { base = 5 modifier = { add = 60 has_trait = greedy }modifier = { add = 50 has_trait = deceitful } modifier = { factor = 0 OR = { has_trait = honest has_trait = just } }  }
+    }
+     option = { name = mam_cen.refer_justice_4
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_subject = { mam_justice_senior_trigger = yes NOT = { exists = var:mam_jus_case } } scope:mam_cen_file = { NOT = { has_variable = mam_cen_justice_referred } } NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } } }
+     custom_tooltip = mam_cen.refer_justice_4_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_subject = { mam_justice_senior_trigger = yes NOT = { exists = var:mam_jus_case } } scope:mam_cen_file = { NOT = { has_variable = mam_cen_justice_referred } } NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } } }
+      
+      hidden_effect = { mam_justice_from_censor_effect = yes scope:mam_cen_file = { if = { limit = { has_variable = mam_cen_justice_referred } mam_censor_move_effect = { STAGE = 4 DAYS = 7 } } } }
+     }
+     ai_chance = { base = 35 modifier = { add = 60 scope:mam_cen_file = { mam_censor_supported_trigger = yes } } modifier = { add = 40 has_trait = just }  }
+    } option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.5 = {
+     type = letter_event sender = scope:mam_cen_censor opening = { desc = mam_cen.opening } title = mam_cen.5_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.5_desc first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } }
+     option = { name = mam_cen.public_legal_check
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { has_variable = mam_cen_public_case } }
+     custom_tooltip = mam_cen.public_legal_check_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { has_variable = mam_cen_public_case } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_public_check_effect = yes set_variable = { name = mam_cen_consulted value = 1 }set_variable = { name = mam_cen_legal_reviewer value = root }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 140 modifier = { add = 80 has_trait = just }modifier = { add = 50 has_trait = diligent }  }
+    } option = { name = mam_cen.legal_check
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.legal_check_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_independent_check_effect = yes set_variable = { name = mam_cen_consulted value = 1 }set_variable = { name = mam_cen_legal_reviewer value = root }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 60 modifier = { add = 50 has_trait = diligent }modifier = { add = 35 has_trait = just } modifier = { add = 40 learning >= 15 }  }
+    } option = { name = mam_cen.legal_support
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+     custom_tooltip = mam_cen.legal_support_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_legal value = 1 }set_variable = { name = mam_cen_consulted value = 1 }set_variable = { name = mam_cen_legal_reviewer value = root }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 65 modifier = { add = 50 has_trait = just }modifier = { add = 30 has_trait = honest }  }
+    } option = { name = mam_cen.legal_caution
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.legal_caution_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_legal value = -1 }set_variable = { name = mam_cen_consulted value = 1 }set_variable = { name = mam_cen_legal_reviewer value = root }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 40 modifier = { add = 35 has_trait = just } modifier = { add = 100 scope:mam_cen_file = { mam_censor_supported_trigger = no } } modifier = { add = 70 scope:mam_cen_file = { var:mam_cen_abuse = 1 } }  }
+    } option = { name = mam_cen.legal_protect
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.legal_protect_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      if = { limit = { scope:mam_cen_file = { mam_censor_supported_trigger = yes } } stress_impact = { just = 15 } }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_legal value = -2 }set_variable = { name = mam_cen_consulted value = 1 }set_variable = { name = mam_cen_legal_reviewer value = root }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } }scope:mam_cen_subject = { add_opinion = { target = root modifier = mam_cen_defended_me } } }
+     }
+     ai_chance = { base = 8 modifier = { add = 120 has_relation_friend = scope:mam_cen_subject } modifier = { add = 80 house ?= scope:mam_cen_subject.house }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.6 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.6_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.6_desc first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } triggered_desc = { trigger = { exists = scope:mam_cen_abuser scope:mam_cen_abuser != root } desc = mam_cen.facts_inherited } }
+     option = { name = mam_cen.clear
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.clear_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      if = { limit = { scope:mam_cen_file = { mam_censor_supported_trigger = yes } } stress_impact = { just = 15 diligent = 10 } }
+      hidden_effect = { scope:mam_cen_subject = { add_opinion = { target = root modifier = mam_cen_fair_hearing } } scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 1 } } }
+     }
+     ai_chance = { base = 10 modifier = { add = 100 scope:mam_cen_file = { mam_censor_supported_trigger = no } } modifier = { add = 40 has_trait = honest }modifier = { add = 25 has_trait = compassionate }  }
+    } option = { name = mam_cen.correct
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } scope:mam_cen_file = { NOT = { has_variable = mam_cen_native_fact } } }
+     custom_tooltip = mam_cen.correct_tt if = { limit = { scope:mam_cen_file.var:mam_cen_abuse = 0
+         scope:mam_cen_file = { mam_censor_supported_trigger = yes }
+         OR = { AND = { mam_censor_officer_trigger = yes this != scope:mam_cen_subject }
+          scope:mam_cen_file = { exists = var:mam_cen_author var:mam_cen_author != var:mam_cen_subject var:mam_cen_author = { is_alive = yes } }
+         }
+        } custom_tooltip = mam_cen.trust_consequences }
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } scope:mam_cen_file = { NOT = { has_variable = mam_cen_native_fact } } }
+      
+      hidden_effect = { scope:mam_cen_subject = { add_character_modifier = { modifier = mam_cen_reformed years = 1 } add_opinion = { target = root modifier = mam_cen_fair_hearing } } scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }mam_censor_close_effect = { RESULT = 2 } } }
+     }
+     ai_chance = { base = 45 modifier = { add = 80 has_trait = compassionate }modifier = { add = 60 has_trait = forgiving }  }
+    } option = { name = mam_cen.censure
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+     mam_censor_censure_tooltip_effect = yes
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }mam_censor_censure_effect = yes mam_censor_close_effect = { RESULT = 3 } } }
+     }
+     ai_chance = { base = 50 modifier = { add = 40 has_trait = just }modifier = { add = 35 has_trait = wrathful } modifier = { factor = 0.5 has_trait = craven scope:mam_cen_file.var:mam_cen_backing = -1 }  }
+    } option = { name = mam_cen.public_censure
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_public_fitness_trigger = yes } scope:mam_cen_file = { mam_censor_supported_trigger = no } scope:mam_cen_subject = { NOT = { has_character_modifier = mam_cen_censured } } }
+     custom_tooltip = mam_cen.public_censure_tt mam_censor_censure_tooltip_effect = yes
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_public_fitness_trigger = yes } scope:mam_cen_file = { mam_censor_supported_trigger = no } scope:mam_cen_subject = { NOT = { has_character_modifier = mam_cen_censured } } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }set_variable = { name = mam_cen_public_censure value = 1 }mam_censor_censure_effect = yes mam_censor_close_effect = { RESULT = 3 } } }
+     }
+     ai_chance = { base = 55 modifier = { add = 35 has_trait = just }modifier = { add = 35 has_trait = wrathful }  }
+    } option = { name = mam_cen.impeach
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+     custom_tooltip = mam_cen.impeach_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }mam_censor_move_effect = { STAGE = 7 DAYS = 14 } } }
+     }
+     ai_chance = { base = 55 modifier = { add = 60 has_trait = ambitious }modifier = { add = 30 has_trait = diligent } modifier = { add = 60 scope:mam_cen_file.var:mam_cen_proof = 1 } modifier = { factor = 0.5 has_trait = just scope:mam_cen_file.var:mam_cen_legal < 0 } modifier = { factor = 0.6 has_trait = craven exists = scope:mam_cen_defender scope:mam_cen_defender = { diplomacy >= root.diplomacy } } }
+    } option = { name = mam_cen.remonstrate
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = no } }
+     custom_tooltip = mam_cen.remonstrate_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = no } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }set_variable = { name = mam_cen_remonstrance value = 1 }mam_censor_move_effect = { STAGE = 7 DAYS = 14 } } }
+     }
+     ai_chance = { base = 10 modifier = { add = 45 has_trait = ambitious }modifier = { add = 55 has_trait = vengeful }  }
+    } option = { name = mam_cen.misrepresent
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = no } NOT = { has_character_modifier = mam_cen_restrained } }
+     custom_tooltip = mam_cen.misrepresent_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = no } NOT = { has_character_modifier = mam_cen_restrained } }
+      stress_impact = { honest = 30 just = 30 compassionate = 15 }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }set_variable = { name = mam_cen_fabricator value = root }set_variable = { name = mam_cen_abuse value = 1 }set_variable = { name = mam_cen_abuser value = root }mam_censor_move_effect = { STAGE = 7 DAYS = 14 } } }
+     }
+     ai_chance = { base = 2 modifier = { add = 40 has_trait = deceitful }modifier = { add = 45 has_trait = vengeful }modifier = { add = 25 has_trait = arbitrary } modifier = { factor = 0 OR = { has_trait = honest has_trait = just } }  }
+    }
+     option = { name = mam_cen.refer_justice_6
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_subject = { mam_justice_senior_trigger = yes NOT = { exists = var:mam_jus_case } } scope:mam_cen_file = { NOT = { has_variable = mam_cen_justice_referred } } NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } } }
+     custom_tooltip = mam_cen.refer_justice_6_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_subject = { mam_justice_senior_trigger = yes NOT = { exists = var:mam_jus_case } } scope:mam_cen_file = { NOT = { has_variable = mam_cen_justice_referred } } NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } } }
+      
+      hidden_effect = { mam_justice_from_censor_effect = yes scope:mam_cen_file = { if = { limit = { has_variable = mam_cen_justice_referred } mam_censor_move_effect = { STAGE = 6 DAYS = 7 } } } }
+     }
+     ai_chance = { base = 35 modifier = { add = 60 scope:mam_cen_file = { mam_censor_supported_trigger = yes } } modifier = { add = 40 has_trait = just }  }
+    } option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.7 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.7_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { first_valid = { triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_recused } } desc = mam_cen.7_recused } desc = mam_cen.7_desc } first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_removal_blocked } } desc = mam_cen.facts_handoff } }
+     option = { name = mam_cen.public_imperial_check
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { has_variable = mam_cen_public_case NOT = { has_variable = mam_cen_public_checked } } }
+     custom_tooltip = mam_cen.public_imperial_check_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { has_variable = mam_cen_public_case NOT = { has_variable = mam_cen_public_checked } } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_public_check_effect = yes mam_censor_move_effect = { STAGE = 7 DAYS = 7 } } }
+     }
+     ai_chance = { base = 160 modifier = { add = 90 has_trait = just }modifier = { add = 60 has_trait = diligent }  }
+    } option = { name = mam_cen.imperial_censure
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+     mam_censor_censure_tooltip_effect = yes
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_censure_effect = yes mam_censor_close_effect = { RESULT = 4 } } }
+     }
+     ai_chance = { base = 70 modifier = { add = 50 has_trait = just } modifier = { add = 50 scope:mam_cen_file.var:mam_cen_proof = 1 } modifier = { factor = 0.4 has_relation_friend = scope:mam_cen_subject } modifier = { add = 25 exists = scope:mam_cen_author scope:mam_cen_author = { diplomacy >= 15 } } modifier = { add = 20 learning >= 15 scope:mam_cen_file = { mam_censor_supported_trigger = yes } } }
+    } option = { name = mam_cen.public_imperial_censure
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_public_fitness_trigger = yes } scope:mam_cen_file = { mam_censor_supported_trigger = no } scope:mam_cen_subject = { NOT = { has_character_modifier = mam_cen_censured } } }
+     custom_tooltip = mam_cen.public_imperial_censure_tt mam_censor_censure_tooltip_effect = yes
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_public_fitness_trigger = yes } scope:mam_cen_file = { mam_censor_supported_trigger = no } scope:mam_cen_subject = { NOT = { has_character_modifier = mam_cen_censured } } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_public_censure value = 1 }mam_censor_censure_effect = yes mam_censor_close_effect = { RESULT = 4 } } }
+     }
+     ai_chance = { base = 80 modifier = { add = 40 has_trait = just }  }
+    } option = { name = mam_cen.remove_official
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { NOT = { has_variable = mam_cen_removal_blocked } } scope:mam_cen_subject = { mam_censor_can_retire_trigger = { OFFICE = scope:mam_cen_file.var:mam_cen_office } } }
+     custom_tooltip = mam_cen.remove_official_tt if = { limit = { scope:mam_cen_file.var:mam_cen_abuse = 0
+         scope:mam_cen_file = { mam_censor_supported_trigger = yes }
+         OR = { AND = { mam_censor_officer_trigger = yes this != scope:mam_cen_subject }
+          scope:mam_cen_file = { exists = var:mam_cen_author var:mam_cen_author != var:mam_cen_subject var:mam_cen_author = { is_alive = yes } }
+         }
+        } custom_tooltip = mam_cen.trust_consequences }
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { NOT = { has_variable = mam_cen_removal_blocked } } scope:mam_cen_subject = { mam_censor_can_retire_trigger = { OFFICE = scope:mam_cen_file.var:mam_cen_office } } }
+      
+      hidden_effect = { save_scope_value_as = { name = mam_cen_removal_grounded value = 0 } if = { limit = { OR = { scope:mam_cen_file = { mam_censor_supported_trigger = yes } scope:mam_cen_file = { mam_censor_public_fitness_trigger = yes } } } save_scope_value_as = { name = mam_cen_removal_grounded value = 1 } } scope:mam_cen_subject = { mam_censor_retire_effect = { OFFICE = scope:mam_cen_file.var:mam_cen_office } } if = { limit = { scope:mam_cen_file = { exists = var:mam_cen_retired var:mam_cen_retired = scope:mam_cen_subject } } if = { limit = { scope:mam_cen_removal_grounded = 0 } add_tyranny = 10 } scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 5 } } } else = { scope:mam_cen_file = { set_variable = { name = mam_cen_removal_blocked value = 1 }mam_censor_move_effect = { STAGE = 7 DAYS = 7 } } } }
+     }
+     ai_chance = { base = 10 modifier = { add = 85 scope:mam_cen_file.var:mam_cen_proof = 1 } modifier = { add = 100 scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact >= 4 } } modifier = { add = 50 scope:mam_cen_file = { mam_censor_public_fitness_trigger = yes } } modifier = { add = 25 has_trait = arbitrary } modifier = { factor = 0.02 scope:mam_cen_file = { mam_censor_supported_trigger = no mam_censor_public_fitness_trigger = no } NOT = { has_trait = arbitrary } } modifier = { factor = 0.1 has_relation_friend = scope:mam_cen_subject } modifier = { add = 20 learning < 8 scope:mam_cen_file = { mam_censor_supported_trigger = no } exists = scope:mam_cen_author scope:mam_cen_author = { intrigue >= 15 } } }
+    } option = { name = mam_cen.protect
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.protect_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_subject = { add_character_modifier = { modifier = mam_cen_protected years = 3 } add_opinion = { target = root modifier = mam_cen_defended_me } } scope:mam_cen_file = { if = { limit = { has_variable = mam_cen_recused } mam_censor_close_effect = { RESULT = 6 } } else = { mam_censor_move_effect = { STAGE = 9 DAYS = 14 } } } }
+     }
+     ai_chance = { base = 35 modifier = { add = 100 has_relation_friend = scope:mam_cen_subject } modifier = { add = 60 house ?= scope:mam_cen_subject.house } modifier = { add = 80 scope:mam_cen_file = { mam_censor_supported_trigger = no } } modifier = { add = 35 scope:mam_cen_file.var:mam_cen_backing = -1 } modifier = { add = 35 scope:mam_cen_file.var:mam_cen_legal < 0 } modifier = { add = 30 has_trait = forgiving } modifier = { add = 30 scope:mam_cen_subject = { diplomacy >= 15 } } modifier = { add = 35 exists = scope:mam_cen_defender scope:mam_cen_defender = { diplomacy >= 15 } } }
+    } option = { name = mam_cen.rebuke
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { var:mam_cen_abuse = 1 } exists = scope:mam_cen_file.var:mam_cen_abuser scope:mam_cen_file.var:mam_cen_abuser = { is_alive = yes } }
+     custom_tooltip = mam_cen.rebuke_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { var:mam_cen_abuse = 1 } exists = scope:mam_cen_file.var:mam_cen_abuser scope:mam_cen_file.var:mam_cen_abuser = { is_alive = yes } }
+      
+      hidden_effect = { scope:mam_cen_file.var:mam_cen_abuser ?= { if = { limit = { is_alive = yes }
+              add_character_modifier = { modifier = mam_cen_discredited years = 3 }
+              add_character_modifier = { modifier = mam_cen_restrained years = 2 } change_influence = -75
+             } } scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 7 } } }
+     }
+     ai_chance = { base = 25 modifier = { add = 65 has_trait = just }modifier = { add = 45 has_trait = compassionate } modifier = { add = 80 scope:mam_cen_file = { has_variable = mam_cen_fabricator } } modifier = { add = 35 OR = { intrigue >= 15 learning >= 15 } scope:mam_cen_file = { has_variable = mam_cen_fabricator } } }
+    } option = { name = mam_cen.return
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { var:mam_cen_returned = 0 NOT = { has_variable = mam_cen_recused } } }
+     custom_tooltip = mam_cen.return_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { var:mam_cen_returned = 0 NOT = { has_variable = mam_cen_recused } } }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_returned value = 1 }mam_censor_move_effect = { STAGE = 4 DAYS = 30 } } }
+     }
+     ai_chance = { base = 15 modifier = { add = 35 has_trait = patient }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.8 = {
+     type = letter_event sender = scope:mam_cen_censor opening = { desc = mam_cen.opening } title = mam_cen.8_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.8_desc  }
+     option = { name = mam_cen.confirm_link
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.confirm_link_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_proof value = 1 }set_variable = { name = mam_cen_connected_heard value = 1 }set_variable = { name = mam_cen_testimony value = root }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 70 modifier = { add = 90 has_trait = honest }modifier = { add = 35 has_trait = craven }  }
+    } option = { name = mam_cen.deny_link
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.deny_link_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      stress_impact = { honest = 20 just = 10 }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_connected_heard value = 1 }set_variable = { name = mam_cen_denial value = root }mam_censor_test_denial_effect = yes mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 25 modifier = { add = 75 has_trait = deceitful } modifier = { factor = 0.05 has_trait = honest } modifier = { add = 25 intrigue >= scope:mam_cen_censor.intrigue has_trait = deceitful } }
+    } option = { name = mam_cen.link_protest
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.link_protest_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_connected_heard value = 1 }set_variable = { name = mam_cen_safeguards value = 1 }mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 15 modifier = { add = 100 scope:mam_cen_file = { var:mam_cen_abuse = 1 } } modifier = { add = 25 has_trait = brave }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.9 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.9_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.9_desc first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } }
+     option = { name = mam_cen.accept_answer
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.accept_answer_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 6 } } }
+     }
+     ai_chance = { base = 65 modifier = { add = 70 has_trait = content }modifier = { add = 50 has_trait = craven }modifier = { add = 25 has_trait = patient }  }
+    } option = { name = mam_cen.press
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.press_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }set_variable = { name = mam_cen_pressed value = 1 }mam_censor_move_effect = { STAGE = 10 DAYS = 14 } } }
+     }
+     ai_chance = { base = 20 modifier = { add = 70 has_trait = brave }modifier = { add = 70 has_trait = stubborn } modifier = { add = 50 scope:mam_cen_file.var:mam_cen_proof = 1 }  }
+    } option = { name = mam_cen.resign_offer
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.resign_offer_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_author value = root }set_variable = { name = mam_cen_resigner value = root }set_variable = { name = mam_cen_pressed value = 1 }mam_censor_move_effect = { STAGE = 10 DAYS = 14 } } }
+     }
+     ai_chance = { base = 5 modifier = { add = 35 has_trait = just }modifier = { add = 30 has_trait = honest }modifier = { add = 25 has_trait = stubborn } modifier = { factor = 0.1 scope:mam_cen_file = { mam_censor_supported_trigger = no } }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.10 = {
+     type = character_event theme = intrigue
+             left_portrait = { character = scope:mam_cen_subject animation = worry }
+             right_portrait = { trigger = { exists = scope:mam_cen_censor scope:mam_cen_censor = { is_alive = yes this != scope:mam_cen_subject } }
+              character = scope:mam_cen_censor animation = thinking } title = mam_cen.10_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.10_desc first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 } } desc = mam_cen.facts_judicial }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_proof = 1 } desc = mam_cen.facts_proof }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_return_exposed = 1 } desc = mam_cen.facts_return }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_obstruction = 1 } desc = mam_cen.facts_obstruction }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_receipt_seen } } desc = mam_cen.facts_receipt }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_document = 1 } desc = mam_cen.facts_payment_unproved }
+      desc = mam_cen.facts_no_proof
+     }
+     first_valid = {
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 1 } } desc = mam_cen.facts_intel_1 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 2 } } desc = mam_cen.facts_intel_2 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 3 } } desc = mam_cen.facts_intel_3 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 4 } } desc = mam_cen.facts_intel_4 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 5 } } desc = mam_cen.facts_intel_5 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 6 } } desc = mam_cen.facts_intel_6 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 7 } } desc = mam_cen.facts_intel_7 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 20 } } desc = mam_cen.facts_intel_20 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 21 } } desc = mam_cen.facts_intel_21 }
+triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_native_fact var:mam_cen_native_fact = 22 } } desc = mam_cen.facts_intel_22 }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_fabricator } } desc = mam_cen.facts_fabricated }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_coerced } } desc = mam_cen.facts_coercion }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_abuse = 1 } desc = mam_cen.facts_abuse }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_legal < 0 } desc = mam_cen.facts_legal_caution }
+      triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_backing = -1 } desc = mam_cen.facts_defense }
+      triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_safeguards } } desc = mam_cen.facts_safeguards }
+     } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } } desc = mam_cen.facts_public }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_case } exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_checked } } desc = mam_cen.facts_public_checked } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_censor_removal_blocked } } desc = mam_cen.facts_handoff } }
+     option = { name = mam_cen.yield
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+     mam_censor_censure_tooltip_effect = yes
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { mam_censor_supported_trigger = yes } }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_censure_effect = yes mam_censor_close_effect = { RESULT = 4 } } }
+     }
+     ai_chance = { base = 45 modifier = { add = 35 has_trait = just } modifier = { add = 70 scope:mam_cen_file.var:mam_cen_proof = 1 } modifier = { add = 25 exists = scope:mam_cen_author scope:mam_cen_author = { diplomacy >= 15 } } }
+    } option = { name = mam_cen.stand_firm
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.stand_firm_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file.var:mam_cen_author ?= { if = { limit = { is_alive = yes } add_opinion = { target = root modifier = mam_cen_abandoned_me } } } scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 6 } } }
+     }
+     ai_chance = { base = 50 modifier = { add = 60 has_trait = stubborn } modifier = { add = 70 has_relation_friend = scope:mam_cen_subject }  }
+    } option = { name = mam_cen.remove_censor
+     trigger = { mam_censor_actor_trigger = yes scope:mam_cen_file = { exists = var:mam_cen_author var:mam_cen_author = scope:mam_cen_censor NOT = { has_variable = mam_cen_censor_removal_blocked } } scope:mam_cen_censor = { mam_censor_can_retire_trigger = { OFFICE = title:e_minister_censor } } }
+     custom_tooltip = mam_cen.remove_censor_tt
+     if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_file = { exists = var:mam_cen_author var:mam_cen_author = scope:mam_cen_censor NOT = { has_variable = mam_cen_censor_removal_blocked } } scope:mam_cen_censor = { mam_censor_can_retire_trigger = { OFFICE = title:e_minister_censor } } }
+      
+      hidden_effect = { scope:mam_cen_censor = { mam_censor_retire_effect = { OFFICE = title:e_minister_censor } } if = { limit = { scope:mam_cen_file = { exists = var:mam_cen_retired var:mam_cen_retired = scope:mam_cen_censor } } scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 9 } } } else = { scope:mam_cen_file = { set_variable = { name = mam_cen_censor_removal_blocked value = 1 }mam_censor_move_effect = { STAGE = 10 DAYS = 7 } } } }
+     }
+     ai_chance = { base = 10 modifier = { add = 35 has_trait = arbitrary } modifier = { add = 65 scope:mam_cen_file = { has_variable = mam_cen_resigner } } modifier = { add = 50 scope:mam_cen_file = { var:mam_cen_abuse = 1 } }  }
+    } option = { name = mam_cen.mediate
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.mediate_tt if = { limit = { diplomacy >= 15 } custom_tooltip = mam_cen.mediation_skilled_tt }
+         else_if = { limit = { diplomacy < 8 } custom_tooltip = mam_cen.mediation_unskilled_tt }
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { mam_censor_mediation_effect = yes scope:mam_cen_file.var:mam_cen_author ?= { if = { limit = { is_alive = yes } add_character_modifier = { modifier = mam_cen_restrained years = 2 } } } scope:mam_cen_file = { mam_censor_close_effect = { RESULT = 12 } } }
+     }
+     ai_chance = { base = 30 modifier = { add = 45 has_trait = patient }modifier = { add = 35 has_trait = compassionate } modifier = { add = 40 diplomacy >= 15 } }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.11 = {
+     type = letter_event sender = scope:mam_cen_censor opening = { desc = mam_cen.opening } title = mam_cen.11_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.11_desc  }
+     option = { name = mam_cen.owe_favor
+     trigger = { mam_censor_actor_trigger = yes exists = scope:mam_cen_file.var:mam_cen_bargainer scope:mam_cen_file.var:mam_cen_bargainer = { mam_censor_officer_trigger = yes NOT = { has_hook = root } } }
+     custom_tooltip = mam_cen.owe_favor_tt
+     if = { limit = { mam_censor_actor_trigger = yes exists = scope:mam_cen_file.var:mam_cen_bargainer scope:mam_cen_file.var:mam_cen_bargainer = { mam_censor_officer_trigger = yes NOT = { has_hook = root } } }
+      stress_impact = { honest = 15 just = 15 }
+      hidden_effect = { scope:mam_cen_file.var:mam_cen_bargainer = { add_hook = { type = favor_hook target = root } } scope:mam_cen_file = { set_variable = { name = mam_cen_compromised value = 1 }mam_censor_close_effect = { RESULT = 11 } } }
+     }
+     ai_chance = { base = 25 modifier = { add = 60 has_trait = craven }modifier = { add = 35 has_trait = deceitful } modifier = { factor = 0.05 has_trait = just }  }
+    } option = { name = mam_cen.refuse_favor
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.refuse_favor_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { mam_censor_move_effect = { STAGE = 6 DAYS = 14 } } }
+     }
+     ai_chance = { base = 65 modifier = { add = 70 has_trait = just }modifier = { add = 35 has_trait = brave }  }
+    } option = { name = mam_cen.expose_demand
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.expose_demand_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_abuse value = 1 }set_variable = { name = mam_cen_abuser value = scope:mam_cen_file.var:mam_cen_bargainer }set_variable = { name = mam_cen_author value = root }set_variable = { name = mam_cen_reported_demand value = 1 }mam_censor_move_effect = { STAGE = 7 DAYS = 7 } } }
+     }
+     ai_chance = { base = 25 modifier = { add = 70 has_trait = just }modifier = { add = 55 has_trait = brave }  }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.12 = {
+     type = letter_event sender = scope:mam_cen_censor opening = { desc = mam_cen.opening } title = mam_cen.12_title
+     trigger = { mam_censor_actor_trigger = yes }
+     desc = { desc = mam_cen.12_desc triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_of_personnel } } desc = mam_cen.return_e_minister_of_personnel } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_of_revenue } } desc = mam_cen.return_e_minister_of_revenue } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_of_works } } desc = mam_cen.return_e_minister_of_works } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_of_war } } desc = mam_cen.return_e_minister_of_war } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_grand_marshal } } desc = mam_cen.return_e_minister_grand_marshal } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_of_rites } } desc = mam_cen.return_e_minister_of_rites } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_of_justice } } desc = mam_cen.return_e_minister_of_justice } triggered_desc = { trigger = { scope:mam_cen_subject = { has_title = title:e_minister_chancellor } } desc = mam_cen.return_e_minister_chancellor } }
+     option = { name = mam_cen.return_check
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.return_check_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_checked_reply value = 1 }mam_censor_move_effect = { STAGE = 3 DAYS = 28 } } }
+     }
+     ai_chance = { base = 70 modifier = { add = 80 has_trait = diligent }modifier = { add = 60 has_trait = honest }modifier = { add = 40 has_trait = patient }  }
+    } option = { name = mam_cen.return_limits
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.return_limits_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_limited_reply value = 1 }mam_censor_move_effect = { STAGE = 3 DAYS = 14 } } }
+     }
+     ai_chance = { base = 55 modifier = { add = 60 has_trait = honest }modifier = { add = 30 has_trait = humble }  }
+    } option = { name = mam_cen.return_false
+     trigger = { mam_censor_actor_trigger = yes  }
+     custom_tooltip = mam_cen.return_false_tt
+     if = { limit = { mam_censor_actor_trigger = yes  }
+      stress_impact = { honest = 25 just = 20 }
+      hidden_effect = { scope:mam_cen_file = { set_variable = { name = mam_cen_false_return value = 1 }set_variable = { name = mam_cen_false_return_date value = current_date }set_variable = { name = mam_cen_return_writer value = root }mam_censor_move_effect = { STAGE = 3 DAYS = 14 } } }
+     }
+     ai_chance = { base = 8 modifier = { add = 70 has_trait = deceitful }modifier = { add = 40 has_trait = lazy }modifier = { add = 25 has_trait = arrogant } modifier = { factor = 0 OR = { has_trait = honest has_trait = just } } modifier = { add = 20 stewardship >= 15 has_trait = deceitful } }
+    }
+     option = { name = mam_cen.stale trigger = { mam_censor_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.90 = { type = letter_event sender = scope:mam_cen_result_sender title = { first_valid = { triggered_desc = { trigger = { root != scope:mam_cen_censor root != scope:mam_cen_subject scope:mam_cen_file.var:mam_cen_result = 11 } desc = mam_cen.result_1_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 1 } desc = mam_cen.result_1_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 2 } desc = mam_cen.result_2_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 3 } desc = mam_cen.result_3_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 4 } desc = mam_cen.result_4_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 5 } desc = mam_cen.result_5_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 6 } desc = mam_cen.result_6_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 7 } desc = mam_cen.result_7_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 9 } desc = mam_cen.result_9_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 10 } desc = mam_cen.result_10_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 11 } desc = mam_cen.result_11_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 12 } desc = mam_cen.result_12_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 13 } desc = mam_cen.result_13_title } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 14 } desc = mam_cen.result_14_title } desc = mam_cen.result_title } }
+     opening = { desc = mam_cen.opening }
+     desc = { first_valid = { triggered_desc = { trigger = { root != scope:mam_cen_censor root != scope:mam_cen_subject scope:mam_cen_file.var:mam_cen_result = 11 } desc = mam_cen.result_private_public } triggered_desc = { trigger = { scope:mam_cen_file = { has_variable = mam_cen_public_censure } } desc = mam_cen.result_public_censure } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 1 } desc = mam_cen.result_1_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 2 } desc = mam_cen.result_2_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 3 } desc = mam_cen.result_3_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 4 } desc = mam_cen.result_4_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 5 } desc = mam_cen.result_5_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 6 } desc = mam_cen.result_6_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 7 } desc = mam_cen.result_7_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 9 } desc = mam_cen.result_9_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 10 } desc = mam_cen.result_10_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 11 } desc = mam_cen.result_11_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 12 } desc = mam_cen.result_12_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 13 } desc = mam_cen.result_13_desc } triggered_desc = { trigger = { scope:mam_cen_file.var:mam_cen_result = 14 } desc = mam_cen.result_14_desc } desc = mam_cen.result_unavailable } }
+     option = { name = mam_cen.received ai_chance = { base = 100 } }
+    }
+
+mam_censor.101 = {
+     type = character_event theme = intrigue title = mam_cen.intel_title
+     left_portrait = { trigger = { exists = scope:mam_cen_intel_subject scope:mam_cen_intel_subject = { is_alive = yes } }
+      character = scope:mam_cen_intel_subject animation = worry }
+     right_portrait = { trigger = { exists = scope:mam_cen_intel_victim scope:mam_cen_intel_victim = { is_alive = yes } }
+      character = scope:mam_cen_intel_victim animation = thinking }
+     trigger = { mam_censor_intel_actor_trigger = yes }
+     desc = {
+      first_valid = {
+       triggered_desc = { trigger = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 } desc = mam_cen.intel_public }
+       triggered_desc = { trigger = { scope:mam_cen_intel_lead.var:mam_cen_identified = 1 } desc = mam_cen.intel_known }
+       desc = mam_cen.intel_unknown
+      }
+      triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 1 } } desc = mam_cen.intel_kind_1 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 2 } } desc = mam_cen.intel_kind_2 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 3 } } desc = mam_cen.intel_kind_3 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 4 } } desc = mam_cen.intel_kind_4 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 5 } } desc = mam_cen.intel_kind_5 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 6 } } desc = mam_cen.intel_kind_6 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 7 } } desc = mam_cen.intel_kind_7 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 20 } } desc = mam_cen.intel_kind_20 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 21 } } desc = mam_cen.intel_kind_21 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind = 22 } } desc = mam_cen.intel_kind_22 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind = 30 } desc = mam_cen.intel_kind_30 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind = 31 } desc = mam_cen.intel_kind_31 }
+triggered_desc = { trigger = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind = 32 } desc = mam_cen.intel_kind_32 }
+      triggered_desc = { trigger = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 0 has_variable = mam_cen_trace_finished } } desc = mam_cen.intel_trace_failed }
+      triggered_desc = { trigger = { exists = scope:mam_cen_intel_victim } desc = mam_cen.intel_victim }
+      triggered_desc = { trigger = { scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 exists = scope:mam_cen_charge_accuser } desc = mam_cen.facts_public_source }
+     }
+     option = { name = mam_cen.intel_open trigger = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind < 30 }
+         custom_tooltip = mam_cen.intel_open_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind < 30 }  hidden_effect = { mam_censor_intel_open_effect = yes } }
+         ai_chance = { base = 100 modifier = { add = 80 has_trait = just } modifier = { add = 60 has_trait = diligent } modifier = { add = 30 has_trait = honest } }
+        }
+option = { name = mam_cen.public_open trigger = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 }
+         custom_tooltip = mam_cen.public_open_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 }  hidden_effect = { mam_censor_intel_open_effect = yes } }
+         ai_chance = { base = 150 modifier = { add = 100 has_trait = just } modifier = { add = 75 has_trait = diligent } modifier = { add = 50 has_trait = compassionate } }
+        }
+option = { name = mam_cen.intel_imperial_review trigger = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_emperor_trigger = yes }
+         custom_tooltip = mam_cen.intel_imperial_review_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_emperor_trigger = yes }  hidden_effect = { mam_censor_intel_open_effect = yes } }
+         ai_chance = { base = 120 modifier = { add = 80 has_trait = just } }
+        }
+option = { name = mam_cen.intel_memorial trigger = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind < 30 }
+         custom_tooltip = mam_cen.intel_memorial_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind < 30 }  hidden_effect = { scope:mam_cen_intel_lead = { set_variable = { name = mam_cen_urgent value = 1 } } mam_censor_intel_open_effect = yes } }
+         ai_chance = { base = 20 modifier = { add = 100 scope:mam_cen_intel_lead = { OR = { var:mam_cen_intel_kind = 4 var:mam_cen_intel_kind = 5 var:mam_cen_intel_kind >= 20 } } } modifier = { add = 80 has_trait = vengeful scope:mam_cen_intel_subject = { has_relation_rival = root } } modifier = { add = 45 has_trait = ambitious } }
+        }
+option = { name = mam_cen.public_memorial trigger = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 }
+         custom_tooltip = mam_cen.public_memorial_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes mam_censor_intel_can_open_trigger = yes mam_censor_officer_trigger = yes scope:mam_cen_intel_lead.var:mam_cen_intel_kind >= 30 }  hidden_effect = { scope:mam_cen_intel_lead = { set_variable = { name = mam_cen_urgent value = 1 } } mam_censor_intel_open_effect = yes } }
+         ai_chance = { base = 20 modifier = { add = 75 has_trait = ambitious } modifier = { add = 100 has_trait = vengeful scope:mam_cen_intel_subject = { has_relation_rival = root } } modifier = { factor = 0.3 has_trait = just } }
+        }
+option = { name = mam_cen.intel_trace trigger = { mam_censor_intel_actor_trigger = yes scope:mam_cen_intel_lead = { var:mam_cen_identified = 0 NOT = { has_variable = mam_cen_trace_finished } } mam_censor_officer_trigger = yes }
+         custom_tooltip = mam_cen.intel_trace_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes scope:mam_cen_intel_lead = { var:mam_cen_identified = 0 NOT = { has_variable = mam_cen_trace_finished } } mam_censor_officer_trigger = yes }  hidden_effect = { scope:mam_cen_intel_lead = { mam_censor_intel_trace_effect = yes } } }
+         ai_chance = { base = 100 modifier = { add = 70 has_trait = diligent } modifier = { add = 50 has_trait = paranoid } modifier = { factor = 0.2 has_trait = lazy } }
+        }
+option = { name = mam_cen.intel_guard trigger = { mam_censor_intel_actor_trigger = yes exists = scope:mam_cen_intel_victim scope:mam_cen_intel_victim = { is_alive = yes top_liege = title:h_china.holder } scope:mam_cen_intel_lead = { var:mam_cen_intel_kind >= 20 } }
+         custom_tooltip = mam_cen.intel_guard_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes exists = scope:mam_cen_intel_victim scope:mam_cen_intel_victim = { is_alive = yes top_liege = title:h_china.holder } scope:mam_cen_intel_lead = { var:mam_cen_intel_kind >= 20 } }  hidden_effect = { scope:mam_cen_intel_victim = { add_character_modifier = { modifier = mam_cen_guarded months = 6 } } scope:mam_cen_intel_lead = { mam_censor_intel_finish_effect = yes } } }
+         ai_chance = { base = 15 modifier = { add = 40 scope:mam_cen_intel_lead = { has_variable = mam_cen_trace_finished var:mam_cen_identified = 0 } } modifier = { add = 40 has_trait = compassionate } }
+        }
+option = { name = mam_cen.intel_hold trigger = { mam_censor_intel_actor_trigger = yes  }
+         custom_tooltip = mam_cen.intel_hold_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes  }  hidden_effect = { scope:mam_cen_intel_lead = { mam_censor_intel_defer_effect = yes } } }
+         ai_chance = { base = 5 modifier = { add = 30 has_trait = fickle } modifier = { add = 20 has_trait = lazy } }
+        }
+option = { name = mam_cen.intel_bury trigger = { mam_censor_intel_actor_trigger = yes  }
+         custom_tooltip = mam_cen.intel_bury_tt
+         if = { limit = { mam_censor_intel_actor_trigger = yes  } if = { limit = { scope:mam_cen_intel_lead = { var:mam_cen_identified = 1 var:mam_cen_intel_kind < 30 } } stress_impact = { just = 15 diligent = 10 } } hidden_effect = { scope:mam_cen_intel_lead = { mam_censor_intel_finish_effect = yes } } }
+         ai_chance = { base = 10 modifier = { add = 50 has_trait = craven } modifier = { add = 65 has_trait = arbitrary exists = scope:mam_cen_intel_subject scope:mam_cen_intel_subject = { has_relation_friend = root } } modifier = { add = 50 has_trait = deceitful exists = scope:mam_cen_intel_subject exists = scope:mam_cen_intel_subject.house scope:mam_cen_intel_subject.house = root.house } modifier = { add = 50 has_trait = ambitious exists = scope:mam_cen_intel_subject scope:mam_cen_intel_subject = { mam_censor_shared_faction_trigger = { OTHER = root } } } modifier = { factor = 0.05 has_trait = just } }
+        }
+     option = { name = mam_cen.stale trigger = { mam_censor_intel_actor_trigger = no } ai_chance = { base = 100 } }
+    }
+
+mam_censor.100 = { type = character_event theme = intrigue title = mam_cen.agenda_title desc = mam_cen.agenda_desc option = { name = mam_cen.agenda_1 trigger = { mam_censor_officer_trigger = yes exists = scope:mam_cen_pick_1 }
+          if = { limit = { mam_censor_officer_trigger = yes title:h_china = { NOT = { exists = var:mam_cen_active } }
+           scope:mam_cen_pick_1 = { mam_censor_subject_trigger = { EMPEROR = title:h_china.holder CENSOR = root } NOT = { has_character_flag = mam_cen_recent_inspection } } }
+           hidden_effect = { scope:mam_cen_pick_1 = { save_scope_as = mam_cen_subject } save_scope_as = mam_cen_originator mam_censor_start_effect = yes }
+          } ai_chance = { base = 0 } } option = { name = mam_cen.agenda_2 trigger = { mam_censor_officer_trigger = yes exists = scope:mam_cen_pick_2 }
+          if = { limit = { mam_censor_officer_trigger = yes title:h_china = { NOT = { exists = var:mam_cen_active } }
+           scope:mam_cen_pick_2 = { mam_censor_subject_trigger = { EMPEROR = title:h_china.holder CENSOR = root } NOT = { has_character_flag = mam_cen_recent_inspection } } }
+           hidden_effect = { scope:mam_cen_pick_2 = { save_scope_as = mam_cen_subject } save_scope_as = mam_cen_originator mam_censor_start_effect = yes }
+          } ai_chance = { base = 0 } } option = { name = mam_cen.agenda_3 trigger = { mam_censor_officer_trigger = yes exists = scope:mam_cen_pick_3 }
+          if = { limit = { mam_censor_officer_trigger = yes title:h_china = { NOT = { exists = var:mam_cen_active } }
+           scope:mam_cen_pick_3 = { mam_censor_subject_trigger = { EMPEROR = title:h_china.holder CENSOR = root } NOT = { has_character_flag = mam_cen_recent_inspection } } }
+           hidden_effect = { scope:mam_cen_pick_3 = { save_scope_as = mam_cen_subject } save_scope_as = mam_cen_originator mam_censor_start_effect = yes }
+          } ai_chance = { base = 0 } } option = { name = mam_cen.agenda_cancel ai_chance = { base = 100 } } }

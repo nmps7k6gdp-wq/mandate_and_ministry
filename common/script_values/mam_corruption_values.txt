@@ -1,0 +1,6 @@
+﻿# Private preference, never public qualification, native merit or office eligibility.
+mam_private_patronage_preference = {
+ value = 0
+ if = { limit = { mam_private_obligation_trigger = yes } add = 12 }
+ else_if = { limit = { mam_political_client_trigger = yes } add = 4 }
+}

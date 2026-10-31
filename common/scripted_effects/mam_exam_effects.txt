@@ -1,0 +1,92 @@
+﻿# Only native examination completion recorders call this mutation. Inspecting
+# credentials and ranking legacy records never awards retrospective currency.
+mam_apply_exam_career_reward_effect = {
+ save_scope_value_as = { name = mam_exam_merit_gain value = 0 }
+ if = { limit = { NOT = { has_variable = mam_exam_career_merit_paid } }
+  set_variable = { name = mam_exam_career_merit_paid value = 0 }
+ }
+ if = { limit = { mam_exam_career_merit_ceiling > var:mam_exam_career_merit_paid }
+  save_scope_value_as = { name = mam_exam_merit_gain value = { value = mam_exam_career_merit_ceiling subtract = var:mam_exam_career_merit_paid } }
+  change_merit = { value = mam_exam_career_merit_ceiling subtract = var:mam_exam_career_merit_paid }
+  set_variable = { name = mam_exam_career_merit_paid value = mam_exam_career_merit_ceiling }
+ }
+}
+# Character scope, AFTER native provincial entrant reward. The native winner
+# variable is already finalized before rewards; actual pass and cheating checks.
+mam_record_provincial_distinction_effect = {
+ if = { limit = {
+  exists = scope:activity
+  scope:activity = { has_activity_type = activity_local_examination exists = var:first_place_entrant }
+  this = scope:activity.var:first_place_entrant
+  mam_has_ordinary_provincial_evidence_trigger = yes
+  NOT = { has_variable = been_caught_cheating_longterm }
+  NOT = { has_variable = been_caught_cheating }
+ }
+  add_character_flag = mam_exam_provincial_first
+ }
+}
+# Called before native phase cleanup, after the host has pruned and selected
+# palace entrants, records the metropolitan winner. Phase-transition callbacks
+# need not expose the departing phase as current; use the finalized native subset
+# and an activity-local stamp instead. Preparation has no palace entrants.
+mam_record_metropolitan_distinction_effect = {
+ if = { limit = {
+  exists = scope:activity
+  scope:activity = {
+   has_activity_type = activity_imperial_examination
+   NOT = { has_variable = mam_exam_metropolitan_recorded }
+   any_guest_subset = { name = palace_entrants always = yes }
+  }
+ }
+  scope:activity = {
+   set_variable = { name = mam_exam_metropolitan_recorded value = 1 }
+   ordered_guest_subset = {
+    name = palace_entrants order_by = imperial_examination_score_value
+    position = 0 check_range_bounds = no
+    if = { limit = {
+     NOT = { has_variable = been_caught_cheating_longterm }
+     NOT = { has_variable = been_caught_cheating }
+    }
+     add_character_flag = mam_exam_metropolitan_first
+     if = { limit = { has_character_flag = mam_exam_provincial_first }
+      add_character_flag = mam_exam_first_two_stages
+     }
+    }
+   }
+  }
+ }
+}
+# AFTER native imperial entrant rewards. Use the native finalized placements,
+# which are assigned before every palace entrant's reward callback. Do not depend
+# on the phase-transition current-phase pointer or re-sort after native rewards.
+mam_record_palace_distinction_effect = {
+ if = { limit = {
+  exists = scope:activity
+  scope:activity = {
+   has_activity_type = activity_imperial_examination
+   exists = var:first_place_entrant
+  }
+  is_in_guest_subset = { name = palace_entrants }
+  mam_exam_palace_pass_trigger = yes
+  NOT = { has_variable = been_caught_cheating_longterm }
+  NOT = { has_variable = been_caught_cheating }
+ }
+  if = { limit = {
+   OR = {
+    this = scope:activity.var:first_place_entrant
+    AND = { exists = scope:activity.var:second_place_entrant this = scope:activity.var:second_place_entrant }
+    AND = { exists = scope:activity.var:third_place_entrant this = scope:activity.var:third_place_entrant }
+   }
+  }
+   add_character_flag = mam_exam_palace_honors
+  }
+  if = { limit = { this = scope:activity.var:first_place_entrant }
+   add_character_flag = mam_exam_palace_first
+   if = { limit = { has_character_flag = mam_exam_first_two_stages }
+    add_character_flag = mam_exam_triple_first
+   }
+  }
+  mam_apply_exam_career_reward_effect = yes
+  mam_award_exam_recognition_effect = yes
+ }
+}

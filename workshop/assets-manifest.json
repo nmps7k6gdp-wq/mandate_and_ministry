@@ -1,0 +1,36 @@
+{
+  "generated_with": "built-in image_gen",
+  "date": "2026-10-30",
+  "main_mod_image_used": false,
+  "steam_preview_verified": false,
+  "assets": [
+    {
+      "file": "assets/workshop-banner.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "c8b4288b5179bda4fc45c30b22ecf0092cb9089eb074a4a1604b7bdbb1dfcb72",
+      "copied_from": "C:\\Users\\atngu\\.codex\\generated_images\\01a1800a-e0dc-71f2-9d1e-136e498f42bd\\exec-a59c70da-b6ca-4788-b3ff-a6e6c9ac1cdd.png"
+    },
+    {
+      "file": "assets/divider-current-features.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "d388d2b3dbcd2a5be9c2fdbc44565f8e6701bba3a37407daea5bbab08f4884b0",
+      "copied_from": "C:\\Users\\atngu\\.codex\\generated_images\\01a1800a-e0dc-71f2-9d1e-136e498f42bd\\exec-9345d738-9000-4f91-b60d-0c3a62a8cd81.png"
+    },
+    {
+      "file": "assets/divider-planned-features.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "5957ace4734bcacf389093478aaa4ee1b8555f9d37e336c2596383a6f7198e7f",
+      "copied_from": "C:\\Users\\atngu\\.codex\\generated_images\\01a1800a-e0dc-71f2-9d1e-136e498f42bd\\exec-473181e7-c6fe-4107-833f-8388ed77dee4.png"
+    },
+    {
+      "file": "assets/divider-alpha-feedback.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "36d0143586ae8c438f729e16a2f7de4156c2acbca3fae5d46d979889c86b8273",
+      "copied_from": "C:\\Users\\atngu\\.codex\\generated_images\\01a1800a-e0dc-71f2-9d1e-136e498f42bd\\exec-cb1a9d44-bec1-471a-80a8-332e784e6de6.png"
+    }
+  ]
+}

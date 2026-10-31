@@ -1,0 +1,13 @@
+﻿
+# Callable from character/title/story context. Only counts actual effect paths;
+# this must never be used in a trigger, tooltip or affordability simulation.
+mam_revenue_fund_record_diagnostic_effect = {
+ title:h_china = {
+  if = { limit = { NOT = { has_variable = mam_cf_diag_$KEY$ } }
+   set_variable = { name = mam_cf_diag_$KEY$ value = 0 }
+  }
+  change_variable = { name = mam_cf_diag_$KEY$ add = 1 }
+  set_variable = { name = mam_cf_diag_last_$KEY$ value = current_date }
+ }
+ debug_log = "MAM_FUND_DIAG: $KEY$"
+}

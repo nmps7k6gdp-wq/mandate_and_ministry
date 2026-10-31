@@ -1,0 +1,22 @@
+﻿# Character scope. Safe to repeat; preserves the active appointment-confirmation laws.
+mam_remove_retired_ministry_laws_effect = {
+ if = { limit = { has_realm_law = mam_jurisdiction_full } remove_realm_law = mam_jurisdiction_full }
+ if = { limit = { has_realm_law = mam_jurisdiction_restricted } remove_realm_law = mam_jurisdiction_restricted }
+ if = { limit = { has_realm_law = mam_discretion_choice } remove_realm_law = mam_discretion_choice }
+ if = { limit = { has_realm_law = mam_discretion_ranked } remove_realm_law = mam_discretion_ranked }
+ if = { limit = { has_realm_law = mam_cj_review_delegated } remove_realm_law = mam_cj_review_delegated }
+ if = { limit = { has_realm_law = mam_cj_review_imperial } remove_realm_law = mam_cj_review_imperial }
+ if = { limit = { has_realm_law = mam_ch_mandate_limited } remove_realm_law = mam_ch_mandate_limited }
+ if = { limit = { has_realm_law = mam_ch_mandate_review } remove_realm_law = mam_ch_mandate_review }
+ if = { limit = { has_realm_law = mam_ch_mandate_coordinating } remove_realm_law = mam_ch_mandate_coordinating }
+ if = { limit = { has_realm_law = mam_recruitment_mixed } remove_realm_law = mam_recruitment_mixed }
+ if = { limit = { has_realm_law = mam_recruitment_preference } remove_realm_law = mam_recruitment_preference }
+ if = { limit = { has_realm_law = mam_recruitment_strict } remove_realm_law = mam_recruitment_strict }
+ primary_title ?= {
+  remove_variable = mam_jurisdiction_cooldown
+  remove_variable = mam_discretion_cooldown
+  remove_variable = mam_cj_review_cooldown
+  remove_variable = mam_ch_mandate_cooldown
+  remove_variable = mam_recruitment_cooldown
+ }
+}

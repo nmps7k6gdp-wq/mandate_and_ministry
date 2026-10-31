@@ -1,0 +1,141 @@
+﻿# Story scope: select the actual next actor. No approval is inferred from silence.
+mam_revenue_resolve_actor_effect = {
+ clear_saved_scope = mam_rv_next_actor
+ mam_revenue_refresh_file_effect = yes
+ if = { limit = { OR = {
+  var:mam_rv_kind = 10 var:mam_rv_kind = 11 var:mam_rv_kind = 13
+  AND = { exists = title:e_minister_of_revenue.holder title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes } }
+ } }
+
+ if = { limit = { var:mam_rv_kind = 12 title:h_china = { has_variable = mam_rv_imperial_priority } } set_variable = { name = mam_rv_reserved value = 1 } }
+ if = { limit = { var:mam_rv_stage = 3 mam_revenue_imperial_measure_trigger = yes } set_variable = { name = mam_rv_reserved value = 1 } }
+ if = { limit = { var:mam_rv_stage = 2 }
+  var:mam_rv_donor_title.holder ?= { if = { limit = { is_alive = yes is_imprisoned = no } save_scope_as = mam_rv_next_actor } }
+ }
+ else_if = { limit = { OR = { var:mam_rv_stage = 3 var:mam_rv_kind = 10 } }
+  if = { limit = { var:mam_rv_reserved = 0 exists = title:e_minister_chancellor.holder title:e_minister_chancellor.holder = { mam_revenue_chancellor_trigger = yes } }
+   title:e_minister_chancellor.holder = { save_scope_as = mam_rv_next_actor }
+  }
+  else = { title:h_china.holder ?= { if = { limit = { mam_revenue_authority_trigger = yes } save_scope_as = mam_rv_next_actor } } }
+ }
+ else_if = { limit = { var:mam_rv_kind = 11 }
+  if = { limit = { title:h_china = { has_variable = mam_rv_imperial_priority } }
+   title:h_china.holder = { if = { limit = { mam_revenue_authority_trigger = yes } save_scope_as = mam_rv_next_actor } }
+  }
+  else = { title:e_minister_chancellor.holder ?= { if = { limit = { mam_revenue_chancellor_trigger = yes } save_scope_as = mam_rv_next_actor } } }
+ }
+ else = { title:e_minister_of_revenue.holder ?= { if = { limit = { mam_revenue_officer_trigger = yes } save_scope_as = mam_rv_next_actor } } }
+
+ }
+}
+mam_revenue_case_tick_effect = {
+ if = { limit = { mam_revenue_file_current_trigger = no }
+  set_variable = { name = mam_rv_result value = 4 } mam_revenue_close_effect = yes
+ }
+ else = {
+  if = { limit = { exists = var:mam_rv_actor var:mam_rv_actor = { OR = { is_alive = no is_imprisoned = yes } } } mam_revenue_release_effect = yes }
+  mam_revenue_refresh_file_effect = yes
+  # Expire unanswered proposals, never auto-approve or impose an unapproved remission.
+  if = { limit = { var:mam_rv_created <= { value = current_date subtract = 365 } }
+   set_variable = { name = mam_rv_result value = 4 } mam_revenue_close_effect = yes
+  }
+  else = { title:h_china.holder ?= { trigger_event = { id = mam_revenue.99 days = 1 } } }
+ }
+}
+# Emperor scope. One lease per person, independent of Personnel queues.
+mam_revenue_wake_effect = {
+ # legacy common-fund guard
+ if = { limit = { title:h_china = { NOT = { has_variable = mam_cf_active } } }
+
+ if = { limit = { mam_revenue_emperor_trigger = yes }
+  title:h_china = {
+   # Resolve all actors before priority selection, including freshly created cases.
+   every_in_list = { variable = mam_rv_files limit = { mam_revenue_file_current_trigger = yes }
+    mam_revenue_resolve_actor_effect = yes
+    if = { limit = { exists = scope:mam_rv_next_actor }
+     set_variable = { name = mam_rv_next_actor value = scope:mam_rv_next_actor }
+     if = { limit = { exists = var:mam_rv_actor var:mam_rv_actor != scope:mam_rv_next_actor } mam_revenue_release_effect = yes }
+    }
+    else = { remove_variable = mam_rv_next_actor
+     if = { limit = { exists = var:mam_rv_actor } mam_revenue_release_effect = yes }
+    }
+   }
+   every_in_list = { variable = mam_rv_files limit = { mam_revenue_file_current_trigger = yes exists = var:mam_rv_next_actor }
+    var:mam_rv_next_actor = {
+     if = { limit = { exists = var:mam_rv_open_file var:mam_rv_open_file = { mam_revenue_file_current_trigger = no } } remove_variable = mam_rv_open_file }
+     if = { limit = { NOT = { has_variable = mam_rv_open_file } }
+      save_scope_as = mam_rv_queue_actor
+      clear_saved_scope = mam_rv_next_file
+      title:h_china = {
+       ordered_in_list = { variable = mam_rv_files limit = {
+        mam_revenue_file_current_trigger = yes NOT = { has_variable = mam_rv_actor }
+        trigger_if = { limit = { has_variable = mam_rv_snooze } var:mam_rv_snooze <= current_date }
+        exists = var:mam_rv_next_actor var:mam_rv_next_actor = scope:mam_rv_queue_actor
+       } order_by = mam_revenue_queue_score max = 1 check_range_bounds = no save_scope_as = mam_rv_next_file }
+      }
+      if = { limit = { exists = scope:mam_rv_next_file }
+       set_variable = { name = mam_rv_open_file value = scope:mam_rv_next_file }
+       scope:mam_rv_next_file = {
+        set_variable = { name = mam_rv_actor value = scope:mam_rv_queue_actor }
+        change_variable = { name = mam_rv_generation add = 1 }
+       }
+       trigger_event = { id = mam_revenue.90 days = 1 }
+      }
+     }
+    }
+   }
+  }
+ }
+
+ }
+}
+# Called by the hidden dispatcher, never from a stale event's inherited scopes.
+mam_revenue_dispatch_effect = {
+ if = { limit = { exists = var:mam_rv_open_file var:mam_rv_open_file = { mam_revenue_file_current_trigger = yes NOT = { has_variable = mam_rv_presented } } }
+  var:mam_rv_open_file = { save_scope_as = mam_rv_file }
+  mam_revenue_bind_effect = yes
+  if = { limit = { mam_revenue_actor_trigger = yes }
+   scope:mam_rv_file = { set_variable = { name = mam_rv_presented value = 1 } }
+   if = { limit = { scope:mam_rv_file = { var:mam_rv_stage = 2 } } trigger_event = mam_revenue.5 }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_stage = 3 } }
+    if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 13 } } trigger_event = mam_revenue.12 }
+    else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 12 } } trigger_event = mam_revenue.10 }
+    else = { trigger_event = mam_revenue.6 }
+   }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 2 } } trigger_event = mam_revenue.2 }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 8 } } trigger_event = mam_revenue.3 }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 4 } } trigger_event = mam_revenue.4 }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 9 } } trigger_event = mam_revenue.7 }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 10 } } trigger_event = mam_revenue.8 }
+   else_if = { limit = { scope:mam_rv_file = { var:mam_rv_kind = 11 } } trigger_event = mam_revenue.9 }
+   else = { trigger_event = mam_revenue.1 }
+  }
+  else = { scope:mam_rv_file = { mam_revenue_release_effect = yes } }
+ }
+}
+
+# Story scope, pure revalidation except lease release. Called before queue routing
+# and during monthly maintenance, so stale approvals do not reach a new holder.
+mam_revenue_refresh_file_effect = {
+ if = { limit = { var:mam_rv_kind != 13 var:mam_rv_stage > 0 OR = {
+  NOT = { exists = var:mam_rv_proposer } var:mam_rv_proposer != title:e_minister_of_revenue.holder
+  AND = { exists = var:mam_rv_donor_snapshot var:mam_rv_donor_title.holder != var:mam_rv_donor_snapshot }
+  AND = { exists = var:mam_rv_recipient_snapshot var:mam_rv_recipient_title.holder != var:mam_rv_recipient_snapshot }
+ } }
+  set_variable = { name = mam_rv_stage value = 0 }
+  remove_variable = mam_rv_authorized remove_variable = mam_rv_explicit_authorizer
+  remove_variable = mam_rv_donor_accepted remove_variable = mam_rv_disputed
+  remove_variable = mam_rv_donor_snapshot remove_variable = mam_rv_recipient_snapshot
+  if = { limit = { OR = { var:mam_rv_kind = 1 var:mam_rv_kind = 5 var:mam_rv_kind = 6 } }
+   set_variable = { name = mam_rv_donor_title value = title:h_china.holder.primary_title }
+  }
+  if = { limit = { var:mam_rv_kind = 3 }
+   set_variable = { name = mam_rv_kind value = 8 }
+   set_variable = { name = mam_rv_donor_title value = title:h_china.holder.primary_title }
+   set_variable = { name = mam_rv_recipient_title value = var:mam_rv_subject }
+  }
+  if = { limit = { var:mam_rv_kind = 12 } set_variable = { name = mam_rv_kind value = 9 } }
+  if = { limit = { exists = title:e_minister_of_revenue.holder } set_variable = { name = mam_rv_proposer value = title:e_minister_of_revenue.holder } }
+  mam_revenue_release_effect = yes
+ }
+}

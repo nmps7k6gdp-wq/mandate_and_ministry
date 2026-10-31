@@ -1,0 +1,346 @@
+﻿namespace = scheme_critical_moments
+scheme_critical_moments.8071 = {
+	type = character_event
+	title = scheme_critical_moments.8071.t
+	theme = fabricate_hook_scheme
+	desc = scheme_critical_moments.8071.desc
+	left_portrait = {
+		character = root
+		animation = scheme
+	}
+	right_portrait = {
+		character = scope:criminal
+		animation = eyeroll
+	}
+
+	trigger = {
+	}
+
+	immediate = {
+		scope:target_character = {
+			random_vassal_or_below = {
+				limit = {
+					is_imprisoned = no
+					liege = {
+						has_imprisonment_reason = prev
+					}
+				}
+				weight = {
+					base = 1
+					modifier = { # Prioritize powerful Vassals
+						add = 3
+						is_powerful_vassal_of = scope:target_character
+					}
+					modifier = { # Prioritize direct Vassals
+						add = 1
+						is_vassal_of = scope:target_character
+					}
+				}
+				save_scope_as = criminal
+				save_scope_as = character_to_hook # for reusing localization
+			}
+		}
+	}
+
+	#Imprison them yourself
+	option = {
+		name = scheme_critical_moments.8071.a
+		trigger = {
+mam_justice_native_gate_trigger = { ACTOR = root TARGET = scope:criminal ACTION = mam_justice_action_1 }
+
+			is_character_interaction_valid = {
+				recipient = scope:criminal
+				interaction = imprison_interaction
+			}
+		}
+		if = { limit = { mam_justice_native_commit_trigger = { ACTOR = root TARGET = scope:criminal ACTION = mam_justice_action_1 } }
+root = { save_scope_as = puppet_or_actor } scope:criminal = { save_scope_as = recipient } mam_justice_native_begin_effect = yes
+remove_short_term_treasury = minor_treasury_value
+		if = {
+			limit = {
+				government_has_flag = government_has_influence
+			}
+			change_influence = {
+				value = minor_influence_gain
+				multiply = scope:criminal.highest_held_title_tier
+			}
+		}
+		show_as_tooltip = {
+			imprison = {
+				target = scope:criminal
+				type = house_arrest
+			}
+		}
+		hidden_effect = {
+			rightfully_imprison_character_effect = {
+				TARGET = scope:criminal
+				IMPRISONER = root
+			}
+		}
+		scope:criminal.liege = {
+			consume_imprisonment_reasons = scope:criminal
+		}
+		scope:scheme = {
+			change_variable = {
+				name = secrets_found
+				add = 1
+			}
+		}
+		stress_and_fulfillment_impact = {
+			honest = medium_stress_impact_gain
+		}
+root = { save_scope_as = puppet_or_actor } scope:criminal = { save_scope_as = recipient } mam_justice_native_observed_effect = { ACTION = mam_justice_action_1 } mam_justice_native_end_effect = yes
+
+}
+		ai_chance = {
+			base = 100
+			modifier = {
+				has_dread_level_towards = {
+					target = scope:councillor_liege
+					level = 1
+				}
+				add = -50
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_trait = loyal
+					has_trait = honest
+					has_dread_level_towards = {
+						target = scope:councillor_liege
+						level = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				short_term_gold <= medium_gold_value
+			}
+		}
+	}
+
+	#Let the proper Liege imprison them
+	option = {
+		name = scheme_critical_moments.8071.b
+		trigger = {
+mam_justice_native_gate_trigger = { ACTOR = root TARGET = scope:criminal ACTION = mam_justice_action_1 }
+
+			scope:criminal.liege = {
+				is_character_interaction_valid = {
+					recipient = scope:criminal
+					interaction = imprison_interaction
+				}
+			}
+		}
+		if = { limit = { mam_justice_native_commit_trigger = { ACTOR = root TARGET = scope:criminal ACTION = mam_justice_action_1 } }
+scope:criminal.liege = { save_scope_as = puppet_or_actor } scope:criminal = { save_scope_as = recipient } mam_justice_native_begin_effect = yes
+show_as_tooltip = {
+			scope:criminal.liege = {
+				imprison = {
+					target = scope:criminal
+					type = house_arrest
+				}
+			}
+		}
+		hidden_effect = {
+			rightfully_imprison_character_effect = {
+				TARGET = scope:criminal
+				IMPRISONER = scope:criminal.liege
+			}
+		}
+		scope:criminal.liege = {
+			consume_imprisonment_reasons = scope:criminal
+		}
+		add_merit_if_relevant_effect = {
+			MERIT = minor_merit_value
+		}
+		scope:scheme = {
+			change_variable = {
+				name = secrets_found
+				add = 1
+			}
+		}
+		stress_and_fulfillment_impact = {
+			honest = medium_stress_impact_gain
+		}
+scope:criminal.liege = { save_scope_as = puppet_or_actor } scope:criminal = { save_scope_as = recipient } mam_justice_native_observed_effect = { ACTION = mam_justice_action_1 } mam_justice_native_end_effect = yes
+
+}
+		ai_chance = {
+			base = 20
+			modifier = {
+				is_in_same_movement_as = { TARGET = scope:councillor_liege }
+				add = 20
+			}
+		}
+	}
+
+	# Pardon them
+	option = {
+		name = scheme_critical_moments.8071.c
+		flavor = spymaster_task.0381.b.flavor
+		trigger = {
+mam_justice_native_gate_trigger = { ACTOR = root TARGET = scope:criminal ACTION = mam_justice_action_2 }
+
+			is_character_interaction_valid = {
+				recipient = scope:criminal
+				interaction = pardon_interaction
+			}
+		}
+		if = { limit = { mam_justice_native_commit_trigger = { ACTOR = root TARGET = scope:criminal ACTION = mam_justice_action_2 } }
+root = { save_scope_as = puppet_or_actor } scope:criminal = { save_scope_as = recipient } mam_justice_native_begin_effect = yes
+save_scope_as = actor # for loc
+		scope:criminal = {
+			save_scope_as = recipient # for loc
+			send_interface_toast = {
+				type = event_toast_effect_neutral
+				title = pardon_interaction_toast_title
+				desc = pardon_interaction_toast_minister
+				right_icon = scope:actor
+				if = {
+					limit = {
+						OR = {
+							scope:recipient.liege = {
+								has_extra_criminal_reason_against_trigger = {
+									CRIMINAL = scope:recipient
+								}
+							}
+							is_close_or_extended_family_of = scope:actor
+						}
+					}
+					scope:actor = {
+						change_strife_opinion = massive_strife_gain
+					}
+				}
+				scope:actor = {
+					if = {
+						limit = {
+							can_add_hook = {
+								target = scope:recipient
+								type = loyalty_hook
+							}
+						}
+						add_hook = {
+							type = loyalty_hook
+							target = scope:recipient
+						}
+					}
+				}
+				consume_all_criminal_reasons_effect = {
+					LIEGE = scope:recipient.liege
+					CRIMINAL = scope:recipient
+				}
+				situation:dynastic_cycle = {
+					if = {
+						limit = {
+							situation_top_has_catalyst = catalyst_minister_pardoned_known_criminal
+						}
+						trigger_situation_catalyst = {
+							catalyst = catalyst_minister_pardoned_known_criminal
+							character = root
+						}
+					}
+				}
+            }
+        }
+        hidden_effect = {
+			scope:recipient.liege = {
+				send_interface_toast = {
+					type = event_toast_effect_neutral
+					title = pardon_interaction_toast_title
+					desc = pardon_interaction_toast_minister_liege
+					right_icon = scope:actor
+					left_icon = scope:recipient
+					show_as_tooltip = {
+						if = {
+							limit = {
+								OR = {
+									has_extra_criminal_reason_against_trigger = {
+										CRIMINAL = scope:recipient
+									}
+									scope:recipient = {
+										is_close_or_extended_family_of = scope:actor
+									}
+								}
+							}
+							scope:actor = {
+								change_strife_opinion = massive_strife_gain
+							}
+						}
+						consume_all_criminal_reasons_effect = {
+							LIEGE = scope:recipient.liege
+							CRIMINAL = scope:recipient
+						}
+						situation:dynastic_cycle = {
+							if = {
+								limit = {
+									situation_top_has_catalyst = catalyst_minister_pardoned_known_criminal
+								}
+								trigger_situation_catalyst = {
+									catalyst = catalyst_minister_pardoned_known_criminal
+									character = root
+								}
+							}
+						}
+	            	}
+	            }
+	        }
+        }
+root = { save_scope_as = puppet_or_actor } scope:criminal = { save_scope_as = recipient } mam_justice_native_observed_effect = { ACTION = mam_justice_action_2 } mam_justice_native_end_effect = yes
+
+}
+		ai_chance = {
+			base = 5
+			modifier = {
+				is_in_same_movement_as = { TARGET = scope:character_to_hook }
+				add = 200
+			}
+			modifier = {
+				is_close_or_extended_family_of = scope:character_to_hook
+				add = 200
+			}
+			modifier = {
+				has_any_good_relationship_with_character_trigger = { CHARACTER = scope:character_to_hook }
+				add = 200
+			}
+		}
+	}
+
+	#don't do anything
+	option = {
+		name = scheme_critical_moments.8071.d
+		flavor = spymaster_task.0381.b.flavor
+		if = {
+			limit = {
+				scope:scheme = {
+					scheme_agent_charges < opportunity_cap_value
+				}
+			}
+			scope:scheme = {
+				change_opportunities = 1
+			}
+		}
+		if = {
+			limit = {
+				can_add_hook = {
+					target = scope:criminal
+					type = indebted_hook
+				}
+			}
+			add_hook = {
+				type = indebted_hook
+				target = scope:criminal
+			}
+		}
+		scope:criminal = {
+			add_opinion = {
+				target = root
+				modifier = grateful_opinion
+				opinion = 30
+			}
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+}

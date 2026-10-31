@@ -1,0 +1,2889 @@
+﻿mam_revenue_fund_start_cost_8 = { value = great_project_base_starting_cost }
+
+mam_revenue_fund_contribution_cost_construct_great_barracks_0 = {
+					value = great_project_base_contribution_cost
+					multiply = 4
+				}
+
+mam_revenue_fund_contribution_cost_construct_great_barracks_1 = {
+					value = great_project_base_contribution_cost
+					multiply = 4
+				}
+
+mam_revenue_fund_contribution_cost_construct_great_barracks_2 = {
+					value = great_project_base_contribution_cost
+					multiply = 2
+				}
+
+mam_revenue_fund_contribution_cost_construct_great_barracks_3 = {
+					value = great_project_base_contribution_cost
+					multiply = 2
+				}
+
+mam_revenue_fund_start_cost_9 = {
+			value = great_project_base_starting_cost
+			multiply = 2
+		}
+
+mam_revenue_fund_contribution_cost_strengthen_capital_0 = {
+					value = great_project_base_contribution_cost
+					multiply = 2
+				}
+
+mam_revenue_fund_contribution_cost_strengthen_capital_1 = {
+					value = great_project_base_contribution_cost
+					multiply = 2
+				}
+
+mam_revenue_fund_contribution_cost_strengthen_capital_2 = {
+					value = great_project_base_contribution_cost
+					multiply = 1.5
+				}
+
+mam_revenue_fund_contribution_cost_strengthen_capital_3 = {
+					value = great_project_base_contribution_cost
+					multiply = 1.5
+				}
+
+mam_revenue_fund_contribution_cost_strengthen_capital_4 = {
+					value = great_project_base_contribution_cost
+					multiply = 1.5
+				}
+
+mam_revenue_fund_contribution_cost_strengthen_capital_5 = {
+					value = great_project_base_contribution_cost
+					multiply = 3
+				}
+
+mam_revenue_fund_start_cost_10 = {
+			value = great_project_base_starting_cost
+			multiply = 0.3
+		}
+
+mam_revenue_fund_contribution_cost_great_wall_0 = {
+					value = great_project_base_contribution_cost
+					multiply = 2
+				}
+
+mam_revenue_fund_contribution_cost_great_wall_1 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_2 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_3 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_4 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_5 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_6 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_7 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_8 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_9 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_10 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_11 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_12 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_13 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_14 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_15 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_16 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_17 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_18 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_19 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_20 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_21 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_22 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_23 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_24 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_25 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_26 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_27 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_28 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_29 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_30 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_31 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_32 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_33 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_34 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_35 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_start_cost_11 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_0 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_1 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_2 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_3 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_4 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_5 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_6 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_7 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_start_cost_12 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_0 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_1 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_2 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_3 = { value = great_wall_treasury_cost_value }
+
+mam_revenue_fund_start_cost_13 = {
+			value = great_project_base_starting_cost
+			multiply = 1.5
+		}
+
+mam_revenue_fund_contribution_cost_grand_canals_0 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_canals_1 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_canals_2 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_canals_3 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_canals_4 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_canals_5 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_start_cost_1 = {
+			value = great_project_base_starting_cost
+			if = {
+				limit = {
+					has_title = title:h_china
+				}
+				multiply = 2
+			}
+		}
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_0 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_1 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_2 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_3 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_4 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_5 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_6 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_7 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_8 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_9 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_10 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_11 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_12 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_13 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_14 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_15 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_16 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_17 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_18 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_grand_campaign_project_19 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_start_cost_2 = {
+			value = great_project_base_starting_cost
+			multiply = 0.2
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				multiply = 0.5
+			}
+		}
+
+mam_revenue_fund_contribution_cost_minister_project_culture_0 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.5
+				}
+
+mam_revenue_fund_contribution_cost_minister_project_culture_1 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.25
+				}
+
+mam_revenue_fund_contribution_cost_minister_project_culture_2 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.25
+				}
+
+mam_revenue_fund_contribution_cost_minister_project_culture_3 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.25
+				}
+
+mam_revenue_fund_start_cost_3 = {
+			value = great_project_base_contribution_cost
+			multiply = 4
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				divide = 2
+			}
+		}
+
+mam_revenue_fund_contribution_cost_minister_project_development_0 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_development_1 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_development_2 = {
+					value = great_project_base_contribution_cost
+					multiply = 2
+				}
+
+mam_revenue_fund_start_cost_4 = {
+			value = great_project_base_starting_cost
+			multiply = 2
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				divide = 2
+			}
+		}
+
+mam_revenue_fund_contribution_cost_minister_project_establish_control_0 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_establish_control_1 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_establish_control_2 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_establish_control_3 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_start_cost_5 = {
+			value = great_project_base_starting_cost
+			multiply = 2
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				divide = 2
+			}
+		}
+
+mam_revenue_fund_contribution_cost_minister_project_train_troops_0 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_train_troops_1 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_train_troops_2 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_train_troops_3 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_train_troops_4 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_train_troops_5 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_start_cost_6 = {
+			value = great_project_base_starting_cost
+			multiply = 2
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				divide = 2
+			}
+		}
+
+mam_revenue_fund_contribution_cost_minister_project_conduct_census_0 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_conduct_census_1 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_conduct_census_2 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_conduct_census_3 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_contribution_cost_minister_project_conduct_census_4 = { value = great_project_base_contribution_cost }
+
+mam_revenue_fund_start_cost_7 = {
+			value = great_project_base_starting_cost
+			multiply = 0.2
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				multiply = 0.5
+			}
+		}
+
+mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_0 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.5
+				}
+
+mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_1 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.25
+				}
+
+mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_2 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.25
+				}
+
+mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_3 = {
+					value = great_project_base_contribution_cost
+					multiply = 0.25
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_0 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							add = 0.5
+							multiply = scope:great_project.var:situation.var:severity
+							desc = great_project_contribution_cost_situation_severity
+						}
+						# Innovation-based cost discounts
+						if = {
+							limit = { culture = { has_innovation = innovation_ledger } }
+							multiply = {
+								add = 0.9
+								desc = great_project_contribution_cost_innovation_ledger
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_seigneurialism } }
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_seigneurialism
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_1 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						# Innovation-based cost discounts
+						if = {
+							limit = { culture = { has_innovation = innovation_bannus } }
+							multiply = {
+								add = 0.95
+								desc = great_project_contribution_cost_innovation_bannus
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_elephantry } }
+							multiply = {
+								add = 0.9
+								desc = great_project_contribution_cost_innovation_elephantry
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_development_02 } }
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_development_02
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_cranes } }
+							multiply = 0.8
+							desc = great_project_contribution_cost_innovation_cranes
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_2 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							value = 1
+							add = {
+								add = 0.02
+								multiply = natural_disaster_realm_counties_total_development_contributions_cost_factor
+							}
+							desc = great_project_contribution_total_development_factor
+						}
+						multiply = { # +/- 10% per steward's Stewardship skill difference from medium_skill_rating
+							value = 1
+							add = {
+								add = medium_skill_rating
+								subtract = {
+									value = 0
+									if = {
+										limit = { exists = cp:minister_works }
+										add = cp:minister_works.stewardship
+									}
+									else_if = {
+										limit = { exists = cp:councillor_steward }
+										add = cp:councillor_steward.stewardship
+									}
+								}
+								multiply = 0.1
+							}
+							min = 0.5
+							max = 2
+							desc = natural_disaster_realm_counties_steward_stewardship_skill_cost_factor
+						}
+						# Innovation-based cost discounts
+						if = {
+							limit = { culture = { has_innovation = innovation_development_01 } }
+							multiply = {
+								add = 0.9
+								desc = great_project_contribution_cost_innovation_development_01
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_currency_02 } }
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_currency_02
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_currency_03 } }
+							multiply = {
+								add = 0.8
+								desc = great_project_contribution_cost_innovation_currency_03
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = fp3_innovation_mural_sextant } }
+							multiply = {
+								add = 0.75
+								desc = great_project_contribution_cost_innovation_fp3_innovation_mural_sextant
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_3 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							value = 1
+							add = {
+								add = 0.03
+								multiply = natural_disaster_realm_counties_total_development_contributions_cost_factor
+							}
+							desc = great_project_contribution_total_development_factor
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_4 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							add = 1
+							multiply = scope:great_project.var:situation.var:severity
+							desc = great_project_contribution_cost_situation_severity
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_5 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = {
+							add = natural_disaster_contributions_cost_treasury_value
+							multiply = 2
+							desc = great_project_contribution_cost_num_affected_realm_counties
+						}
+						add = natural_disaster_contributions_cost_base_discount
+						# Innovation-based cost discounts
+						if = { 
+							limit = { culture = { has_innovation = innovation_currency_03 } }
+							multiply = {
+								add = 0.9 
+								desc = great_project_contribution_cost_innovation_currency_03
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = innovation_cranes } } 
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_cranes
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = fp3_innovation_mural_sextant } } 
+							multiply = {
+								add = 0.8
+								desc = great_project_contribution_cost_innovation_fp3_innovation_mural_sextant
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_earthquake_6 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = {
+							add = natural_disaster_contributions_cost_treasury_value
+							multiply = 2
+							desc = great_project_contribution_cost_num_affected_realm_counties
+						}
+						add = natural_disaster_contributions_cost_base_discount
+						# Innovation-based cost discounts
+						if = { 
+							limit = { culture = { has_innovation = innovation_currency_03 } }
+							multiply = {
+								add = 0.9 
+								desc = great_project_contribution_cost_innovation_currency_03
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = innovation_cranes } } 
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_cranes
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = fp3_innovation_mural_sextant } } 
+							multiply = {
+								add = 0.8
+								desc = great_project_contribution_cost_innovation_fp3_innovation_mural_sextant
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_0 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							add = 0.5
+							multiply = scope:great_project.var:situation.var:severity
+							desc = great_project_contribution_cost_situation_severity
+						}
+						# Innovation-based cost discounts
+						if = {
+							limit = { culture = { has_innovation = innovation_ledger } }
+							multiply = {
+								add = 0.9
+								desc = great_project_contribution_cost_innovation_ledger
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_seigneurialism } }
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_seigneurialism
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_1 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						# Innovation-based cost discounts
+						if = {
+							limit = { culture = { has_innovation = innovation_manorialism } }
+							multiply = {
+								add = 0.9
+								desc = great_project_contribution_cost_innovation_manorialism
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_wierdijks } }
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_wierdijks
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_2 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							value = 1
+							add = {
+								add = 0.02
+								multiply = natural_disaster_realm_counties_total_development_contributions_cost_factor
+							}
+							desc = great_project_contribution_total_development_factor
+						}
+						multiply = { # +/- 10% per steward's Stewardship skill difference from medium_skill_rating
+							value = 1
+							add = {
+								add = medium_skill_rating
+								subtract = {
+									value = 0
+									if = {
+										limit = { exists = cp:minister_works }
+										add = cp:minister_works.stewardship
+									}
+									else_if = {
+										limit = { exists = cp:councillor_steward }
+										add = cp:councillor_steward.stewardship
+									}
+								}
+								multiply = 0.1
+							}
+							min = 0.5
+							max = 2
+							desc = natural_disaster_realm_counties_steward_stewardship_skill_cost_factor
+						}
+						# Innovation-based cost discounts
+						if = {
+							limit = { culture = { has_innovation = innovation_development_01 } }
+							multiply = {
+								add = 0.9
+								desc = great_project_contribution_cost_innovation_development_01
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_currency_02 } }
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_currency_02
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = innovation_currency_03 } }
+							multiply = {
+								add = 0.8
+								desc = great_project_contribution_cost_innovation_currency_03
+							}
+						}
+						if = {
+							limit = { culture = { has_innovation = fp3_innovation_mural_sextant } }
+							multiply = {
+								add = 0.75
+								desc = great_project_contribution_cost_innovation_fp3_innovation_mural_sextant
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_3 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							value = 1
+							add = {
+								add = 0.03
+								multiply = natural_disaster_realm_counties_total_development_contributions_cost_factor
+							}
+							desc = great_project_contribution_total_development_factor
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_4 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = natural_disaster_contributions_cost_treasury_value
+						add = natural_disaster_contributions_cost_base_discount
+						multiply = {
+							add = 1
+							multiply = scope:great_project.var:situation.var:severity
+							desc = great_project_contribution_cost_situation_severity
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_5 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = {
+							add = natural_disaster_contributions_cost_treasury_value
+							multiply = 2
+							desc = great_project_contribution_cost_num_affected_realm_counties
+						}
+						add = natural_disaster_contributions_cost_base_discount
+						# Innovation-based cost discounts
+						if = { 
+							limit = { culture = { has_innovation = innovation_currency_03 } }
+							multiply = {
+								add = 0.9 
+								desc = great_project_contribution_cost_innovation_currency_03
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = innovation_cranes } } 
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_cranes
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = fp3_innovation_mural_sextant } } 
+							multiply = {
+								add = 0.8
+								desc = great_project_contribution_cost_innovation_fp3_innovation_mural_sextant
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_great_project_flood_6 = {
+					value = 0
+					if = {
+						limit = { has_treasury = yes }
+						add = {
+							add = natural_disaster_contributions_cost_treasury_value
+							multiply = 2
+							desc = great_project_contribution_cost_num_affected_realm_counties
+						}
+						add = natural_disaster_contributions_cost_base_discount
+						# Innovation-based cost discounts
+						if = { 
+							limit = { culture = { has_innovation = innovation_currency_03 } }
+							multiply = {
+								add = 0.9 
+								desc = great_project_contribution_cost_innovation_currency_03
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = innovation_cranes } } 
+							multiply = {
+								add = 0.85
+								desc = great_project_contribution_cost_innovation_cranes
+							}
+						}
+						if = { 
+							limit = { culture = { has_innovation = fp3_innovation_mural_sextant } } 
+							multiply = {
+								add = 0.8
+								desc = great_project_contribution_cost_innovation_fp3_innovation_mural_sextant
+							}
+						}
+					}
+				}
+
+mam_revenue_fund_start_cost_14 = {
+			value = great_project_base_starting_cost
+			divide = 1.5
+			if = {
+				limit = {
+					culture = { has_cultural_parameter = cheaper_grand_cathedral_construction }
+				}
+				multiply = {
+					value = 0.85
+					desc = cathedral_discount_religious_patronage
+				}
+			}
+		}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_0 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 2
+						desc = great_project_base_contribution_cost_desc
+					}
+					#Quarries give stone discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_quarries_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_quarries_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_quarries_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_quarries_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_quarries_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_quarries_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_quarries_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_quarries_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_1 = {
+					value = {
+						value = great_project_base_contribution_cost
+						desc = great_project_base_contribution_cost_desc
+					}
+					#guilds give mason discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_guild_halls_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_guild_halls_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_guild_halls_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_guild_halls_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_guild_halls_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_guild_halls_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_guild_halls_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_guild_halls_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_2 = {
+					value = {
+						value = great_project_base_contribution_cost
+						desc = great_project_base_contribution_cost_desc
+					}
+					#smiths give bells discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_smiths_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_smiths_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_smiths_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_smiths_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_smiths_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_smiths_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_smiths_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_smiths_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_3 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 1.5
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_4 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.33
+						desc = great_project_base_contribution_cost_desc
+					}
+					#scriptorium give frescoes discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.3
+							desc = cathedral_discount_scriptorium_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.35
+							desc = cathedral_discount_scriptorium_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_scriptorium_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_scriptorium_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_scriptorium_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_scriptorium_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_scriptorium_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_scriptorium_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_5 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.5
+						desc = great_project_base_contribution_cost_desc
+					}
+					#guild halls give stained glass discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_guild_halls_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_guild_halls_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_guild_halls_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_guild_halls_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_guild_halls_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_guild_halls_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_guild_halls_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_guild_halls_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_6 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.5
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_01_7 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.5
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_start_cost_15 = {
+			value = cathedral_tier_2_starting_cost_value
+			if = {
+				limit = {
+					culture = { has_cultural_parameter = cheaper_grand_cathedral_construction }
+				}
+				multiply = {
+					value = 0.85
+					desc = cathedral_discount_religious_patronage
+				}
+			}
+		}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_0 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 3
+						desc = great_project_base_contribution_cost_desc
+					}
+					#Quarries give stone discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_quarries_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_quarries_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_quarries_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_quarries_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_quarries_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_quarries_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_quarries_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_quarries_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_1 = {
+					value = {
+						value = great_project_base_contribution_cost
+						desc = great_project_base_contribution_cost_desc
+					}
+					#guilds give mason discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_guild_halls_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_guild_halls_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_guild_halls_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_guild_halls_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_guild_halls_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_guild_halls_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_guild_halls_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_guild_halls_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_2 = {
+					value = {
+						value = great_project_base_contribution_cost
+						desc = great_project_base_contribution_cost_desc
+					}
+					#smiths give bells discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_smiths_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_smiths_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_smiths_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_smiths_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_smiths_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_smiths_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_smiths_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_smiths_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_3 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 2.25
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_4 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.75
+						desc = great_project_base_contribution_cost_desc
+					}
+					#scriptorium give frescoes discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.3
+							desc = cathedral_discount_scriptorium_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.35
+							desc = cathedral_discount_scriptorium_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_scriptorium_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_scriptorium_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_scriptorium_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_scriptorium_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_scriptorium_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_scriptorium_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_5 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.75
+						desc = great_project_base_contribution_cost_desc
+					}
+					#guild halls give stained glass discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_guild_halls_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_guild_halls_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_guild_halls_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_guild_halls_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_guild_halls_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_guild_halls_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_guild_halls_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_guild_halls_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_6 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.75
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_02_7 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 0.75
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_start_cost_16 = {
+			value = cathedral_tier_3_starting_cost_value
+			if = {
+				limit = {
+					culture = { has_cultural_parameter = cheaper_grand_cathedral_construction }
+				}
+				multiply = {
+					value = 0.85
+					desc = cathedral_discount_religious_patronage
+				}
+			}
+		}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_0 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 4.5
+						desc = great_project_base_contribution_cost_desc
+					}
+					#Quarries give stone discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_quarries_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_quarries_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_quarries_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_quarries_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_quarries_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_quarries_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_quarries_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = quarries_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_quarries_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_1 = {
+					value = {
+						value = great_project_base_contribution_cost
+						desc = great_project_base_contribution_cost_desc
+					}
+					#guilds give mason discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_guild_halls_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_guild_halls_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_guild_halls_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_guild_halls_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_guild_halls_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_guild_halls_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_guild_halls_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_guild_halls_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_2 = {
+					value = {
+						value = great_project_base_contribution_cost
+						desc = great_project_base_contribution_cost_desc
+					}
+					#smiths give bells discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_smiths_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_smiths_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_smiths_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_smiths_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_smiths_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_smiths_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_smiths_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = smiths_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_smiths_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_3 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 3.375
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_4 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 1.125
+						desc = great_project_base_contribution_cost_desc
+					}
+					#scriptorium give frescoes discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.3
+							desc = cathedral_discount_scriptorium_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.35
+							desc = cathedral_discount_scriptorium_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_scriptorium_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_scriptorium_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_scriptorium_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_scriptorium_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_scriptorium_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = scriptorium_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_scriptorium_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_5 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 1.125
+						desc = great_project_base_contribution_cost_desc
+					}
+					#guild halls give stained glass discount
+					if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_08
+								}
+							}
+						}
+						multiply = {
+							add = 0.4
+							desc = cathedral_discount_guild_halls_8
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_07
+								}
+							}
+						}
+						multiply = {
+							add = 0.45
+							desc = cathedral_discount_guild_halls_7
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_06
+								}
+							}
+						}
+						multiply = {
+							add = 0.5
+							desc = cathedral_discount_guild_halls_6
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_05
+								}
+							}
+						}
+						multiply = {
+							add = 0.55
+							desc = cathedral_discount_guild_halls_5
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_04
+								}
+							}
+						}
+						multiply = {
+							add = 0.6
+							desc = cathedral_discount_guild_halls_4
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_03
+								}
+							}
+						}
+						multiply = {
+							add = 0.65
+							desc = cathedral_discount_guild_halls_3
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_02
+								}
+							}
+						}
+						multiply = {
+							add = 0.7
+							desc = cathedral_discount_guild_halls_2
+						}
+					}
+					else_if = {
+						limit = {
+							any_held_title = {
+								tier = tier_county
+								any_county_province = {
+									has_building_or_higher = guild_halls_01
+								}
+							}
+						}
+						multiply = {
+							add = 0.75
+							desc = cathedral_discount_guild_halls_1
+						}
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_6 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 1.125
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_cathedral_03_7 = {
+					value = {
+						value = great_project_base_contribution_cost
+						multiply = 1.125
+						desc = great_project_base_contribution_cost_desc
+					}
+				}
+
+mam_revenue_fund_start_cost_17 = {
+			value = great_project_base_starting_cost
+			multiply = 0.2
+			if = {
+				limit = {
+					is_councillor = yes
+				}
+				multiply = 0.5
+			}
+			if = { # Cheaper during the Conversion phase
+				limit = {
+					pam_mass_rite_conversion_conversion_phase_trigger = yes
+				}
+				multiply = 0.65
+			}
+			if = {
+				limit = { has_variable = no_great_project_cost }
+				multiply = 0
+			}
+		}
+
+mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_0 = {
+					add = {
+						value = pam_mass_rite_send_missionaries_value
+						desc = BASE
+					}
+					multiply = {
+						add = 1
+						scope:province ?= {
+							duchy = {
+								every_de_jure_county = {
+									limit = {
+										trigger_if = {
+											limit = { exists = scope:great_project.var:target_rite }
+											rite != scope:great_project.var:target_rite
+										}
+										trigger_else = {
+											rite != scope:owner.rite
+										}
+									}
+									add = 1
+								}
+							}
+						}
+						desc = pam_mass_rite_send_missionaries_value_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_1 = {
+					value = {
+						add = pam_mass_rite_construct_new_shrines_value
+						desc = BASE
+					}
+					multiply = {
+						add = 1
+						scope:province ?= {
+							duchy = {
+								every_de_jure_county = {
+									limit = {
+										trigger_if = {
+											limit = { exists = scope:great_project.var:target_rite }
+											rite != scope:great_project.var:target_rite
+										}
+										trigger_else = {
+											rite != scope:owner.rite
+										}
+									}
+									add = 1
+								}
+							}
+						}
+						desc = pam_mass_rite_construct_new_shrines_value_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_2 = {
+					value = {
+						add = pam_mass_rite_promote_faithful_relocation_value
+						desc = BASE
+					}
+					multiply = {
+						add = 1
+						scope:province ?= {
+							duchy = {
+								every_de_jure_county = {
+									limit = {
+										trigger_if = {
+											limit = { exists = scope:great_project.var:target_rite }
+											rite != scope:great_project.var:target_rite
+										}
+										trigger_else = {
+											rite != scope:owner.rite
+										}
+									}
+									add = 1
+								}
+							}
+						}
+						desc = pam_mass_rite_promote_faithful_relocation_value_desc
+					}
+				}
+
+mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_3 = {
+					value = {
+						add = pam_mass_rite_integrate_existing_rituals_value
+						desc = BASE
+					}
+					multiply = {
+						add = 1
+						scope:province ?= {
+							duchy = {
+								every_de_jure_county = {
+									limit = {
+										trigger_if = {
+											limit = { exists = scope:great_project.var:target_rite }
+											rite != scope:great_project.var:target_rite
+										}
+										trigger_else = {
+											rite != scope:owner.rite
+										}
+									}
+									add = 1
+								}
+							}
+						}
+						desc = pam_mass_rite_integrate_existing_rituals_value_desc
+					}
+					if = {
+						limit = {
+							has_variable = pam_theocratic_ruler_events_0014_mass_conversion_discount
+						}
+						multiply = {
+							add = 0
+							desc = pam_theocratic_ruler_events_0014_mass_conversion_discount_desc
+						}
+					}
+				}

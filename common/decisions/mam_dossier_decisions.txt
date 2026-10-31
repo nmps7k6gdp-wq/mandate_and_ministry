@@ -1,0 +1,20 @@
+﻿mam_enable_dossiers_decision = {
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+ desc = mam_enable_dossiers_decision_desc selection_tooltip = mam_enable_dossiers_decision_desc
+ confirm_text = mam_enable_dossiers_decision_confirm decision_group_type = mam_ministries
+ ai_check_interval = 0
+ is_shown = { always = no # Service observation follows Manage Talent.
+ is_ai = no mam_dossier_can_read_trigger = yes top_liege.primary_title = { NOT = { has_variable = mam_ds_enabled } } }
+ effect = { hidden_effect = { trigger_event = mam_personnel.0064 } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_disable_dossiers_decision = {
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+ desc = mam_disable_dossiers_decision_desc selection_tooltip = mam_disable_dossiers_decision_desc
+ confirm_text = mam_disable_dossiers_decision_confirm decision_group_type = mam_ministries
+ ai_check_interval = 0
+ is_shown = { always = no # Service observation follows Manage Talent.
+ is_ai = no mam_dossier_can_read_trigger = yes top_liege.primary_title = { has_variable = mam_ds_enabled } }
+ effect = { hidden_effect = { mam_disable_dossiers_effect = yes } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

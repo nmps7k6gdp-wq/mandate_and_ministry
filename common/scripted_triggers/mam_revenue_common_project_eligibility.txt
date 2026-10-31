@@ -1,0 +1,1012 @@
+﻿mam_revenue_fund_eligible_project_8 = {
+
+		has_tgp_dlc_trigger = yes
+		government_has_flag = government_is_celestial
+		OR = {
+			AND = {
+				is_independent_ruler = yes
+				highest_held_title_tier >= tier_empire
+			}
+			has_title = title:e_minister_of_war
+			has_title = title:e_minister_grand_marshal
+			has_title = title:e_minister_of_works
+		}
+		NOT = { is_planning_great_project = construct_great_barracks }
+	
+
+		# You/your liege/the minister have not already planned this project
+		NOT = {
+			top_liege = {
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					is_planning_great_project = construct_great_barracks
+				}
+			}
+		}
+		culture ?= { has_innovation = innovation_barracks }
+	
+}
+
+mam_revenue_fund_eligible_project_9 = {
+
+		has_tgp_dlc_trigger = yes
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_works
+		}
+		NOR = {
+			is_planning_great_project = strengthen_capital
+			custom_tooltip = {
+				text = only_single_great_project_type_allowed
+				any_great_project = {
+					great_project_type = strengthen_capital
+				}
+			}
+		}
+		NOT = {
+			any_sub_realm_county = {
+				has_county_modifier = tgp_strengthen_capital_modifier
+			}
+		}
+		trigger_if = {
+			limit = {
+				exists = situation:dynastic_cycle.var:gp_strengthen_capital_cooldown
+			}
+			house != situation:dynastic_cycle.var:gp_strengthen_capital_cooldown
+		}
+	
+
+		OR = {
+			is_independent_ruler = yes
+			has_title = title:e_minister_of_works
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_10 = {
+
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_works
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+		NOT = { is_planning_great_project = great_wall } # Only expand it once at a time
+		top_liege = {
+			any_realm_county = { # You need to have a valid section to upgrade
+				any_county_province = {
+					has_holding = yes
+					OR = {
+						has_building = the_great_wall_01
+						has_building = the_great_wall_02
+						has_building = the_great_wall_03
+					}
+				}
+			}
+		}
+	
+
+		NOR = {
+			is_planning_great_project = great_wall
+			custom_tooltip = {
+				text = only_single_great_project_type_allowed
+				any_great_project = {
+					great_project_type = great_wall
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_11 = {
+
+		# The wall has not already been built
+		NOT = { has_global_variable = great_wall_extend_to_shanhai_pass_complete }
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_works
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+		# Project becomes visible once you own at least one of the relevant counties
+		top_liege = {
+			any_realm_county = {
+				OR = {
+					this = title:c_guizhou_2
+					this = title:c_tanzhou_2
+					this = title:c_jizhou_1
+					this = title:c_pinzhou
+				}
+			}
+		}
+		# And you are not already planning this project
+		NOT = { is_planning_great_project = great_wall_extend_to_shanhai_pass }
+	
+
+		NOR = {
+			is_planning_great_project = great_wall_extend_to_shanhai_pass
+			custom_tooltip = {
+				text = only_single_great_project_type_allowed
+				any_great_project = {
+					great_project_type = great_wall_extend_to_shanhai_pass
+				}
+			}
+		}
+		# All baronies have a holding and the relevant area is completely controlled
+		title:b_jinshan_2.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_yanle.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_zunhua.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_yuyang.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_shicheng_2.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_anxi_2.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_lulong.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_12 = {
+
+		# The wall has not already been built
+		NOT = { has_global_variable = great_wall_extend_to_liaodong_complete }
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_works
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+		# Project becomes visible once you own at least one of the relevant counties
+		top_liege = {
+			any_realm_county = {
+				OR = {
+					this = title:c_pinzhou
+					this = title:c_lnj_liaoxi
+					this = title:c_lnj_liaoxibei
+					this = title:c_LIAO_chaoyang
+					this = title:c_woye
+					this = title:c_LIAO_liaozhou
+					this = title:c_LIAO_wuzhou
+					this = title:c_LIAO_yinzhou
+					this = title:c_LIAO_guidezhou
+					this = title:c_LIAO_diezhou
+					this = title:c_uiju
+				}
+			}
+		}
+		# And you are not already planning this project
+		NOT = { is_planning_great_project = great_wall_extend_to_liaodong }
+	
+
+		NOR = {
+			is_planning_great_project = great_wall_extend_to_liaodong
+			custom_tooltip = {
+				text = only_single_great_project_type_allowed
+				any_great_project = {
+					great_project_type = great_wall_extend_to_liaodong
+				}
+			}
+		}
+		# All baronies have a holding and the relevant area is completely controlled
+		title:b_anxi_2.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_cirlzj_longtan.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_cirlzj_yuhejing.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Liping.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Chaoyang.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Wuanzhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Chengzhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Suizhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Weizhou2.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Yuanzhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Shuangzhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Qizhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Fuzhou2.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_FIC_Liao_Huangcaocun.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Guidezhou.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Fengcheng.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Liao_Dandong.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Goryeo_Bukgye_Uiju.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+		title:b_Goryeo_Bukgye_Cheolju.title_province = {
+			save_temporary_scope_as = great_wall_extend_province
+			custom_tooltip = {
+				text = great_wall_extend_to_top_liege_of_province
+				has_holding = yes
+				province_owner ?= { top_liege = root.top_liege }
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_13 = {
+
+		has_tgp_dlc_trigger = yes
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_works
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+		# All canals have yet to be built
+		any_county_in_region = {
+			region = dlc_tgp_grand_canal_region
+			holder.top_liege = root.top_liege
+			NOT = { has_county_modifier = tgp_grand_canal_modifier }
+		}
+	
+
+		NOR = {
+			is_planning_great_project = grand_canals
+			custom_tooltip = {
+				text = only_single_great_project_type_allowed
+				any_great_project = {
+					great_project_type = grand_canals
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_1 = {
+
+		has_tgp_dlc_trigger = yes
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_grand_marshal
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+	
+
+		#there can only be one Grand Campaign!
+		NOR = {
+			is_planning_great_project = grand_campaign_project
+			custom_tooltip = {
+				text = only_single_great_project_type_allowed
+				any_great_project = {
+					great_project_type = grand_campaign_project
+				}
+			}
+		}
+		# If you are the hegemon, you must have a grand marshal appointed
+		trigger_if = {
+			limit = {
+				has_title = title:h_china
+			}
+			custom_tooltip = {
+				text = you_have_a_grand_marshal_desc
+				exists = cp:minister_grand_marshal
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_2 = {
+
+		has_tgp_dlc_trigger = yes
+		# You are the hegemon or the relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_rites
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+		trigger_if = { # The AI should not plan more of these projects than there are valid characters to start them
+			limit = {
+				is_ai = yes
+			}
+			NOT = {
+				any_great_project = {
+					count >= 2
+					great_project_type = minister_project_culture
+				}
+			}
+		}
+	
+
+		# You/your liege/the minister have not already planned this project
+		trigger_if = {
+			limit = { # When in the advancement phase, we allow everyone with access to do this simultaneously
+				situation:dynastic_cycle ?= {
+					situation_current_phase = situation_dynastic_cycle_phase_stability_advancement
+				}
+			}
+			NOT = { is_planning_great_project = minister_project_culture }
+		}
+		trigger_else = { # Otherwise, only a single project at a time
+			NOR = {
+				is_planning_great_project = minister_project_culture
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					any_great_project = {
+						great_project_type = minister_project_culture
+					}
+				}
+			}
+		}
+		# If you are the hegemon, you must have a minister of works appointed
+		trigger_if = {
+			limit = {
+				has_title = title:h_china
+			}
+			custom_tooltip = {
+				text = you_have_a_minister_of_rites_desc
+				exists = cp:councillor_court_chaplain
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_3 = {
+
+		has_tgp_dlc_trigger = yes
+		government_has_mechanic = administrative
+		# You are the hegemon / emperor or the relevant minister / diarch
+		OR = {
+			this = top_liege
+			has_title = title:e_minister_of_works
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					OR = {
+						has_diarchy_type = grand_secretariat
+						has_diarchy_type = co_emperorship
+					}
+				}
+			}
+		}
+	
+
+		# You/your liege/the minister have not already planned this project
+		NOT = {
+			top_liege = {
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					is_planning_great_project = minister_project_development
+				}
+			}
+		}
+		# If you are the hegemon, you must have a minister of works appointed
+		trigger_if = {
+			limit = {
+				has_title = title:h_china
+			}
+			custom_tooltip = {
+				text = you_have_a_minister_of_works_desc
+				exists = cp:minister_works
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_4 = {
+
+		has_tgp_dlc_trigger = yes
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_justice
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+	
+
+		# You/your liege/the minister have not already planned this project
+		trigger_if = {
+			limit = { # When in a stable phase, we allow everyone with access to do this simultaneously
+				situation:dynastic_cycle ?= {
+					OR = {
+						situation_current_phase = situation_dynastic_cycle_phase_stability_expansion
+						situation_current_phase = situation_dynastic_cycle_phase_stability_advancement
+					}
+				}
+			}
+			NOT = { is_planning_great_project = minister_project_establish_control }
+		}
+		trigger_else = { # Otherwise, only a single project at a time
+			NOR = {
+				is_planning_great_project = minister_project_establish_control
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					any_great_project = {
+						great_project_type = minister_project_establish_control
+					}
+				}
+			}
+		}
+		# There are valid counties in the realm
+		any_realm_county = {
+			custom_tooltip = {
+				text = has_low_control_or_county_corruption_desc
+				OR = {
+					has_county_corruption_trigger = yes
+					county_control < 100
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_5 = {
+
+		has_tgp_dlc_trigger = yes
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_war
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+	
+
+		# You/your liege/the minister have not already planned this project
+		trigger_if = {
+			limit = { # When in a stable phase, we allow everyone with access to do this simultaneously
+				situation:dynastic_cycle ?= {
+					OR = {
+						situation_current_phase = situation_dynastic_cycle_phase_stability_expansion
+						situation_current_phase = situation_dynastic_cycle_phase_instability_conquest
+					}
+				}
+			}
+			NOT = { is_planning_great_project = minister_project_train_troops }
+		}
+		trigger_else = { # Otherwise, only a single project at a time
+			NOR = {
+				is_planning_great_project = minister_project_train_troops
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					any_great_project = {
+						great_project_type = minister_project_train_troops
+					}
+				}
+			}
+		}
+		# There are valid counties in the realm
+		any_realm_county = {
+			any_county_province = {
+				has_stationed_regiment = yes
+				NOT = { has_province_modifier = tgp_minister_project_train_troops_modifier }
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_6 = {
+
+		has_tgp_dlc_trigger = yes
+		# You are the hegemon or a relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_revenue
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+				}
+			}
+		}
+	
+
+		# You/your liege/the minister have not already planned this project
+		trigger_if = {
+			limit = { # When in a stable phase, we allow everyone with access to do this simultaneously
+				situation:dynastic_cycle ?= {
+					OR = {
+						situation_current_phase = situation_dynastic_cycle_phase_stability_expansion
+						situation_current_phase = situation_dynastic_cycle_phase_instability_conquest
+					}
+				}
+			}
+			NOT = { is_planning_great_project = minister_project_conduct_census }
+		}
+		trigger_else = { # Otherwise, only a single project at a time
+			NOR = {
+				is_planning_great_project = minister_project_conduct_census
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					any_great_project = {
+						great_project_type = minister_project_conduct_census
+					}
+				}
+			}
+		}
+		# There are valid counties in the realm
+		any_realm_county = {
+			NOT = { has_county_modifier = tgp_minister_project_conduct_census_modifier }
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_7 = {
+
+		has_tgp_dlc_trigger = yes
+		# You are the hegemon or the relevant minister
+		OR = {
+			has_title = title:h_china
+			has_title = title:e_minister_of_rites
+			AND = {
+				is_diarch_of_target = top_liege
+				top_liege = {
+					has_diarchy_type = grand_secretariat
+					}
+			}
+		}
+		trigger_if = { # The AI should not plan more of these projects than there are valid characters to start them
+			limit = {
+				is_ai = yes
+			}
+			NOT = {
+				any_great_project = {
+					count >= 2
+					great_project_type = minister_compel_religious_uniformity
+				}
+			}
+		}
+	
+
+		# You/your liege/the minister have not already planned this project
+		trigger_if = {
+			limit = { # When in the advancement phase, we allow everyone with access to do this simultaneously
+				situation:dynastic_cycle ?= {
+					situation_current_phase = situation_dynastic_cycle_phase_stability_advancement
+				}
+			}
+			NOT = { is_planning_great_project = minister_compel_religious_uniformity }
+		}
+		trigger_else = { # Otherwise, only a single project at a time
+			NOR = {
+				is_planning_great_project = minister_compel_religious_uniformity
+				custom_tooltip = {
+					text = only_single_great_project_type_allowed
+					any_great_project = {
+						great_project_type = minister_compel_religious_uniformity
+					}
+				}
+			}
+		}
+		# If you are the hegemon, you must have a minister of works appointed
+		trigger_if = {
+			limit = {
+				has_title = title:h_china
+			}
+			custom_tooltip = {
+				text = you_have_a_minister_of_rites_desc
+				exists = cp:councillor_court_chaplain
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_14 = {
+
+		pam_cathedral_project_requirements_trigger = yes
+		trigger_if = { # The AI should not have more than a handful of new cathedrals rising at the same time
+			limit = {
+				is_ai = yes
+			}
+			NOT = {
+				any_great_project = {
+					count >= 3
+					great_project_type = pam_cathedral_01
+				}
+			}
+		}
+	
+
+		NOT = {
+			custom_tooltip = {
+				text = not_planning_great_project_type
+				is_planning_great_project = pam_cathedral_01
+			}
+		}
+		#secular rulers can only build inside their realm
+		trigger_if = {
+			limit = {
+				root = {
+					NOT = { faith.religious_head ?= this }
+					is_clergy = no
+				}
+			}
+			piety_level >= 2
+			cp:councillor_court_chaplain ?= {
+				opinion = {
+					target = root
+					value > 0
+				}
+			}
+			custom_tooltip = {
+				text = valid_cathedral_spot_in_sub_realm_tt
+				any_sub_realm_county = {
+					any_county_province = {
+						is_valid_cathedral_spot_in_province_trigger = yes
+					}
+				}
+			}
+			NOT = {
+				has_trait = excommunicated
+			}
+		}
+		trigger_else = {
+			faith = {
+				any_faith_ruler = {
+					highest_held_title_tier >= tier_county
+					custom_tooltip = {
+						text = valid_cathedral_spot_in_realm_tt
+						any_realm_province = {
+							is_valid_cathedral_spot_in_province_trigger = yes
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_15 = {
+
+		pam_cathedral_project_requirements_trigger = yes
+		has_accessible_cathedral_tier_2_upgrade_site_trigger = yes
+	
+
+		NOT = {
+			custom_tooltip = {
+				text = not_planning_great_project_type
+				is_planning_great_project = pam_cathedral_02
+			}
+		}
+		culture = {
+			has_innovation = innovation_manorialism
+		}
+		#secular rulers can only build inside their realm
+		trigger_if = {
+			limit = {
+				root = {
+					NOT = { faith.religious_head ?= this }
+					is_clergy = no
+				}
+			}
+			piety_level >= 2
+			cp:councillor_court_chaplain ?= {
+				opinion = {
+					target = root
+					value > 0
+				}
+			}
+			custom_tooltip = {
+				text = valid_cathedral_upgrade_spot_in_sub_realm_tt
+				any_sub_realm_county = {
+					any_county_province = {
+						is_valid_cathedral_upgrade_spot_in_province_trigger = yes
+					}
+				}
+			}
+			NOT = {
+				has_trait = excommunicated
+			}
+		}
+		trigger_else = {
+			faith = {
+				any_faith_ruler = {
+					highest_held_title_tier >= tier_county
+					custom_tooltip = {
+						text = valid_cathedral_upgrade_spot_in_realm_tt
+						any_realm_province = {
+							is_valid_cathedral_upgrade_spot_in_province_trigger = yes
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_16 = {
+
+		pam_cathedral_project_requirements_trigger = yes
+		has_accessible_cathedral_tier_3_upgrade_site_trigger = yes
+	
+
+		NOT = {
+			custom_tooltip = {
+				text = not_planning_great_project_type
+				is_planning_great_project = pam_cathedral_03
+			}
+		}
+		culture = {
+			has_innovation = innovation_manorialism
+			has_innovation = innovation_development_03
+		}
+		#secular rulers can only build inside their realm
+		trigger_if = {
+			limit = {
+				root = {
+					NOT = { faith.religious_head ?= this }
+					is_clergy = no
+				}
+			}
+			piety_level >= 2
+			cp:councillor_court_chaplain ?= {
+				opinion = {
+					target = root
+					value > 0
+				}
+			}
+			custom_tooltip = {
+				text = valid_cathedral_tier_3_upgrade_spot_in_sub_realm_tt
+				any_sub_realm_county = {
+					any_county_province = {
+						is_valid_cathedral_tier_3_upgrade_spot_in_province_trigger = yes
+					}
+				}
+			}
+			NOT = {
+				has_trait = excommunicated
+			}
+		}
+		trigger_else = {
+			faith = {
+				any_faith_ruler = {
+					highest_held_title_tier >= tier_county
+					custom_tooltip = {
+						text = valid_cathedral_tier_3_upgrade_spot_in_realm_tt
+						any_realm_province = {
+							is_valid_cathedral_tier_3_upgrade_spot_in_province_trigger = yes
+						}
+					}
+				}
+			}
+		}
+	
+}
+
+mam_revenue_fund_eligible_project_17 = {
+
+		pam_mass_rite_conversion_requirements_trigger = yes
+		trigger_if = { # The AI should not plan more of these projects than there are valid characters to start them
+			limit = {
+				is_ai = yes
+			}
+			is_clergy = yes
+			NOT = {
+				any_great_project = {
+					count >= 1
+					great_project_type = pam_mass_rite_conversion
+				}
+			}
+		}
+	
+
+		#there can only be one Mass Conversion per character
+		NOT = {
+			is_planning_great_project = pam_mass_rite_conversion
+		}
+		faith = top_liege.faith
+		is_at_war = no
+		custom_tooltip = {
+			text = pam_mass_rite_conversion_founder_clergy_tt
+			OR = {
+				pam_is_investiture_clergy_trigger = yes
+				trigger_if = {
+					limit = {
+						is_ai = no
+					}
+					OR = {
+						puppet:theological_agent_puppet ?= { pam_is_archbishop_or_higher_trigger = yes }
+						puppet:external_theological_agent_puppet ?= { pam_is_archbishop_or_higher_trigger = yes }
+					}
+				}
+				trigger_else = {
+					always = no
+				}
+			}
+		}
+	
+}

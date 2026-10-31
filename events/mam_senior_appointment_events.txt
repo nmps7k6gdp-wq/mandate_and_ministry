@@ -1,0 +1,508 @@
+﻿namespace = mam_senior
+
+mam_senior.1 = {
+
+ type = character_event theme = merit title = mam_senior.title
+ left_portrait = { trigger = { exists = scope:mam_senior_portrait_a } character = scope:mam_senior_portrait_a animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_senior_portrait_b } character = scope:mam_senior_portrait_b animation = thinking }
+ desc = mam_senior.narrative
+
+
+ trigger = { mam_senior_actor_trigger = yes }
+
+ option = { name = { text = { desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_paid_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_paid }
+ desc = mam_senior.button_default_fallback_basis_paid
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_nepotism_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_nepotism }
+ desc = mam_senior.button_default_fallback_basis_nepotism
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_weak_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_weak }
+ desc = mam_senior.button_default_fallback_basis_weak
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_family_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_family }
+ desc = mam_senior.button_default_fallback_basis_family
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_faction_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_faction }
+ desc = mam_senior.button_default_fallback_basis_faction
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_friend_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_friend }
+ desc = mam_senior.button_default_fallback_basis_friend
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_basis_trait_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_trait }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_trait }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_trait }
+ desc = mam_senior.button_default_fallback_basis_trait
+} } }
+desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_default_lateral_basis_ordinary }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_default_promotion_basis_ordinary }
+ triggered_desc = { trigger = { exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_default_first_basis_ordinary }
+ desc = mam_senior.button_default_fallback_basis_ordinary
+} }
+} } } }
+
+ trigger = { exists = scope:mam_senior_default mam_senior_actor_trigger = yes trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_choice_trigger = yes } }  trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_default != scope:mam_senior_marked } trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_source_actionable_trigger = yes } }}
+custom_tooltip = mam_senior.default_tt
+
+ mam_senior_choice_basis_tooltip_effect = { CANDIDATE = scope:mam_senior_default }
+ mam_senior_choice_consequences_tooltip_effect = { CANDIDATE = scope:mam_senior_default PERSONAL = no }
+ hidden_effect = { mam_senior_schedule_nomination_effect = { CANDIDATE = scope:mam_senior_default PERSONAL = 0 } }
+
+ ai_chance = { base = 70
+
+ modifier = { add = 150 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 2 } } modifier = { add = 40 has_trait = content } modifier = { add = 30 has_trait = shy } modifier = { add = 100 has_trait = lazy } modifier = { add = 70 has_trait = just } modifier = { add = 50 has_trait = impatient }
+
+ }
+
+ }
+
+ option = { name = { text = { desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_paid_trigger = yes } } } desc = mam_senior.button_lateral_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_nepotism_trigger = yes } } } desc = mam_senior.button_lateral_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_weak_trigger = yes } } } desc = mam_senior.button_lateral_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_family_trigger = yes } } } desc = mam_senior.button_lateral_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_faction_trigger = yes } } } desc = mam_senior.button_lateral_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_friend_trigger = yes } } } desc = mam_senior.button_lateral_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_basis_trait_trigger = yes } } } desc = mam_senior.button_lateral_basis_trait }
+desc = mam_senior.button_lateral_basis_ordinary
+} } } }
+ trigger = { exists = scope:mam_senior_lateral mam_senior_actor_trigger = yes trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_choice_trigger = yes } }  trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_source_actionable_trigger = yes } }}
+ show_as_unavailable = {
+ exists = scope:mam_senior_lateral
+ trigger_if = { limit = { exists = scope:mam_senior_lateral } mam_senior_actor_trigger = yes }
+ }
+ custom_tooltip = mam_senior.lateral_tt
+mam_senior_choice_basis_tooltip_effect = { CANDIDATE = scope:mam_senior_lateral }
+ mam_senior_choice_consequences_tooltip_effect = { CANDIDATE = scope:mam_senior_lateral PERSONAL = no }
+ hidden_effect = { mam_senior_schedule_nomination_effect = { CANDIDATE = scope:mam_senior_lateral PERSONAL = 0 } }
+ ai_chance = { base = 60
+ modifier = { add = 150 has_trait = diligent }
+ modifier = { add = 150 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 1 } }
+ modifier = { factor = 0.5 mam_personnel_ai_professional_options = 2 }
+ modifier = { factor = 0.333 mam_personnel_ai_professional_options = 3 }
+ }
+ }
+ option = { name = { text = { desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_paid_trigger = yes } } } desc = mam_senior.button_promotion_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_nepotism_trigger = yes } } } desc = mam_senior.button_promotion_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_weak_trigger = yes } } } desc = mam_senior.button_promotion_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_family_trigger = yes } } } desc = mam_senior.button_promotion_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_faction_trigger = yes } } } desc = mam_senior.button_promotion_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_friend_trigger = yes } } } desc = mam_senior.button_promotion_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_basis_trait_trigger = yes } } } desc = mam_senior.button_promotion_basis_trait }
+desc = mam_senior.button_promotion_basis_ordinary
+} } } }
+ trigger = { exists = scope:mam_senior_promotion mam_senior_actor_trigger = yes trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_choice_trigger = yes } }  trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_source_actionable_trigger = yes } }}
+ custom_tooltip = mam_senior.promotion_tt
+mam_senior_choice_basis_tooltip_effect = { CANDIDATE = scope:mam_senior_promotion }
+ mam_senior_choice_consequences_tooltip_effect = { CANDIDATE = scope:mam_senior_promotion PERSONAL = no }
+ hidden_effect = { mam_senior_schedule_nomination_effect = { CANDIDATE = scope:mam_senior_promotion PERSONAL = 0 } }
+ ai_chance = { base = 60
+ modifier = { add = 150 has_trait = diligent }
+ modifier = { add = 150 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 1 } }
+ modifier = { factor = 0.5 mam_personnel_ai_professional_options = 2 }
+ modifier = { factor = 0.333 mam_personnel_ai_professional_options = 3 }
+ }
+ }
+ option = { name = { text = { desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_paid_trigger = yes } } } desc = mam_senior.button_first_office_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_nepotism_trigger = yes } } } desc = mam_senior.button_first_office_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_weak_trigger = yes } } } desc = mam_senior.button_first_office_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_family_trigger = yes } } } desc = mam_senior.button_first_office_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_faction_trigger = yes } } } desc = mam_senior.button_first_office_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_friend_trigger = yes } } } desc = mam_senior.button_first_office_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_basis_trait_trigger = yes } } } desc = mam_senior.button_first_office_basis_trait }
+desc = mam_senior.button_first_office_basis_ordinary
+} } } }
+ trigger = { exists = scope:mam_senior_first_office mam_senior_actor_trigger = yes trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_choice_trigger = yes } }  trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_source_actionable_trigger = yes } }}
+ custom_tooltip = mam_senior.first_office_tt
+mam_senior_choice_basis_tooltip_effect = { CANDIDATE = scope:mam_senior_first_office }
+ mam_senior_choice_consequences_tooltip_effect = { CANDIDATE = scope:mam_senior_first_office PERSONAL = no }
+ hidden_effect = { mam_senior_schedule_nomination_effect = { CANDIDATE = scope:mam_senior_first_office PERSONAL = 0 } }
+ ai_chance = { base = 60
+ modifier = { add = 150 has_trait = diligent }
+ modifier = { add = 150 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 1 } }
+ modifier = { factor = 0.5 mam_personnel_ai_professional_options = 2 }
+ modifier = { factor = 0.333 mam_personnel_ai_professional_options = 3 }
+ }
+ }
+
+ option = { name = { text = { desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_paid_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_paid }
+ desc = mam_senior.button_preferred_fallback_basis_paid
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_nepotism_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_nepotism }
+ desc = mam_senior.button_preferred_fallback_basis_nepotism
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_weak_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_weak }
+ desc = mam_senior.button_preferred_fallback_basis_weak
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_family_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_family }
+ desc = mam_senior.button_preferred_fallback_basis_family
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_faction_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_faction }
+ desc = mam_senior.button_preferred_fallback_basis_faction
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_friend_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_friend }
+ desc = mam_senior.button_preferred_fallback_basis_friend
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_basis_trait_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_trait }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_trait }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_trait }
+ desc = mam_senior.button_preferred_fallback_basis_trait
+} } }
+desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_preferred_lateral_basis_ordinary }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_preferred_promotion_basis_ordinary }
+ triggered_desc = { trigger = { exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_preferred_first_basis_ordinary }
+ desc = mam_senior.button_preferred_fallback_basis_ordinary
+} }
+} } } }
+
+ trigger = { exists = scope:mam_senior_preferred mam_senior_actor_trigger = yes trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_choice_trigger = yes } } trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_preferred != scope:mam_senior_default } trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_preferred != scope:mam_senior_lateral } trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_preferred != scope:mam_senior_promotion } trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_preferred != scope:mam_senior_first_office }  trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_preferred != scope:mam_senior_marked } trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_source_actionable_trigger = yes } }}
+custom_tooltip = mam_senior.preferred_tt
+
+ mam_senior_choice_basis_tooltip_effect = { CANDIDATE = scope:mam_senior_preferred }
+ mam_senior_choice_consequences_tooltip_effect = { CANDIDATE = scope:mam_senior_preferred PERSONAL = yes }
+ hidden_effect = { mam_senior_schedule_nomination_effect = { CANDIDATE = scope:mam_senior_preferred PERSONAL = 1 } }
+
+ ai_chance = { base = 20
+
+ modifier = { add = 40 has_trait = deceitful scope:mam_senior_preferred = { OR = { mam_senior_basis_paid_trigger = yes mam_senior_basis_faction_trigger = yes mam_senior_basis_friend_trigger = yes } } }
+ modifier = { add = 100 has_trait = ambitious scope:mam_senior_preferred = { OR = { mam_senior_basis_family_trigger = yes mam_senior_basis_faction_trigger = yes } } }
+ modifier = { add = 80 has_trait = arbitrary }
+ modifier = { add = 70 has_trait = greedy scope:mam_senior_preferred = { mam_senior_basis_paid_trigger = yes } }
+ modifier = { factor = 0.15 OR = { has_trait = just has_trait = honest } scope:mam_senior_preferred = { mam_senior_basis_weak_trigger = yes } }
+ modifier = { factor = 0.25 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 1 } scope:mam_senior_preferred = { mam_senior_basis_weak_trigger = yes } }
+ modifier = { factor = 0.15 has_trait = vengeful scope:mam_senior_preferred = { has_relation_rival = root } }
+
+ }
+
+ }
+
+ option = { name = { text = { desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_paid_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_paid }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_paid }
+ desc = mam_senior.button_marked_fallback_basis_paid
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_nepotism_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_nepotism }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_nepotism }
+ desc = mam_senior.button_marked_fallback_basis_nepotism
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_weak_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_weak }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_weak }
+ desc = mam_senior.button_marked_fallback_basis_weak
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_family_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_family }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_family }
+ desc = mam_senior.button_marked_fallback_basis_family
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_faction_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_faction }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_faction }
+ desc = mam_senior.button_marked_fallback_basis_faction
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_friend_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_friend }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_friend }
+ desc = mam_senior.button_marked_fallback_basis_friend
+} } }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_basis_trait_trigger = yes } } } desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_trait }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_trait }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_trait }
+ desc = mam_senior.button_marked_fallback_basis_trait
+} } }
+desc = { first_valid = {
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_lateral_trigger = yes } } } desc = mam_senior.button_marked_lateral_basis_ordinary }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_promotion_trigger = yes } } } desc = mam_senior.button_marked_promotion_basis_ordinary }
+ triggered_desc = { trigger = { exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_first_office_trigger = yes } } } desc = mam_senior.button_marked_first_basis_ordinary }
+ desc = mam_senior.button_marked_fallback_basis_ordinary
+} }
+} } } }
+
+ trigger = { exists = scope:mam_senior_marked mam_senior_actor_trigger = yes
+ trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes } } }
+ show_as_unavailable = { exists = scope:mam_senior_marked mam_senior_actor_trigger = yes }
+
+custom_tooltip = mam_senior.marked_tt
+
+ mam_senior_choice_basis_tooltip_effect = { CANDIDATE = scope:mam_senior_marked }
+ mam_senior_choice_consequences_tooltip_effect = { CANDIDATE = scope:mam_senior_marked PERSONAL = yes }
+ hidden_effect = { mam_senior_schedule_nomination_effect = { CANDIDATE = scope:mam_senior_marked PERSONAL = 1 } }
+
+ ai_chance = { base = 20
+ modifier = { add = 50 exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 150 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 2 } exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 70 has_trait = just exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 100 has_trait = lazy exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 40 has_trait = content exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 30 has_trait = shy exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 50 has_trait = impatient exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default }
+ modifier = { add = 80 has_trait = arbitrary }
+ modifier = { add = 100 has_trait = ambitious scope:mam_senior_marked = { OR = { mam_senior_basis_family_trigger = yes mam_senior_basis_faction_trigger = yes } } }
+ modifier = { add = 50 has_trait = diligent scope:mam_senior_marked = { mam_senior_basis_weak_trigger = no } }
+ modifier = { add = 50 top_liege.primary_title = { has_variable = mam_personnel_priority var:mam_personnel_priority = 1 } scope:mam_senior_marked = { mam_senior_basis_weak_trigger = no } }
+ modifier = { factor = 0.15 OR = { has_trait = just has_trait = honest } NOT = { AND = { exists = scope:mam_senior_default scope:mam_senior_marked = scope:mam_senior_default } } scope:mam_senior_marked = { mam_senior_basis_weak_trigger = yes } }
+ modifier = { factor = 0.15 has_trait = vengeful scope:mam_senior_marked = { has_relation_rival = root } }
+ }
+
+ }
+
+
+
+ option = { name = mam_senior.later
+
+ hidden_effect = { scope:mam_senior_file = {
+
+ set_variable = { name = mam_senior_snooze value = { value = current_date add = 30 } }
+
+ mam_senior_release_queue_effect = yes
+
+ } }
+
+ ai_chance = { base = 0 }
+
+ }
+
+}
+
+mam_senior.2 = {
+
+ type = character_event theme = merit title = mam_senior.confirmation_title desc = mam_senior.confirmation_desc
+ left_portrait = { character = scope:mam_senior_confirmation_presenter animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_senior_nominee scope:mam_senior_nominee = { is_alive = yes } }
+  character = scope:mam_senior_nominee animation = thinking
+ }
+
+ trigger = { mam_senior_confirmation_actor_trigger = yes }
+
+ immediate = {
+
+ save_scope_as = mam_emperor
+ # The current Personnel minister presents the papers; the emperor is the fallback.
+ save_scope_as = mam_senior_confirmation_presenter
+ cp:minister_personnel ?= { if = { limit = { mam_can_nominate_trigger = yes }
+  save_scope_as = mam_senior_confirmation_presenter
+ } }
+
+ scope:mam_senior_file.var:mam_senior_title = { save_scope_as = mam_posting }
+
+ scope:mam_senior_file.var:mam_senior_recommended = { save_scope_as = mam_senior_nominee }
+
+ }
+
+ option = { name = mam_senior.approve
+ show_as_unavailable = { mam_senior_confirmation_actor_trigger = yes }
+ mam_senior_imperial_approval_preview_effect = yes
+
+
+ trigger = { mam_senior_confirmation_actor_trigger = yes scope:mam_senior_nominee = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes }
+
+ scope:mam_senior_file.var:mam_senior_recommended = scope:mam_senior_nominee }
+
+ hidden_effect = { if = { limit = { is_ai = yes } debug_log = "MAM_PERSONNEL_AI: emperor selected approval" } trigger_event = mam_senior.8 }
+ ai_chance = { base = 100
+  modifier = { add = 30 OR = { has_trait = trusting has_trait = content has_trait = lazy } }
+  modifier = { factor = 0.2 OR = { has_trait = just has_trait = honest has_trait = diligent } mam_personnel_ai_weak_nomination_trigger = yes }
+  modifier = { factor = 0.25 has_trait = vengeful scope:mam_senior_nominee = { has_relation_rival = root } }
+  modifier = { add = 25 scope:mam_senior_nominee = { OR = { is_close_family_of = root has_relation_friend = root } } }
+ }
+
+
+ }
+
+ option = { name = mam_senior.return
+ custom_tooltip = mam_senior.imperial_return_tt
+
+ trigger = { mam_senior_confirmation_actor_trigger = yes }
+
+ hidden_effect = { if = { limit = { is_ai = yes } debug_log = "MAM_PERSONNEL_AI: emperor returned a nomination" } scope:mam_senior_file = { mam_senior_return_effect = yes } }
+ ai_chance = { base = 10
+  modifier = { add = 50 OR = { has_trait = just has_trait = honest has_trait = diligent } mam_personnel_ai_weak_nomination_trigger = yes }
+  modifier = { add = 40 has_trait = vengeful scope:mam_senior_nominee = { has_relation_rival = root } }
+ }
+
+
+ }
+
+ option = { name = mam_senior.confirmation_later
+  custom_tooltip = mam_senior.imperial_later_tt
+  ai_chance = { base = 0 }
+ }
+
+}
+
+mam_senior.3 = {
+ type = character_event hidden = yes
+ # Read the authoritative lease rather than inherited scopes from another death/capture.
+ trigger = {
+  mam_can_nominate_trigger = yes
+  save_temporary_scope_as = mam_dispatch_actor
+  top_liege.primary_title = {
+   exists = var:mam_senior_open_file
+   var:mam_senior_open_actor = scope:mam_dispatch_actor
+   NOT = { has_variable = mam_senior_open_presented }
+   var:mam_senior_open_file = { mam_senior_pending_trigger = yes NOT = { has_variable = mam_senior_awaiting_confirmation } }
+  }
+ }
+ immediate = { hidden_effect = {
+ top_liege.primary_title = {
+  set_variable = { name = mam_senior_open_presented value = 1 }
+  var:mam_senior_open_file = { save_scope_as = mam_senior_file }
+ }
+ scope:mam_senior_file = { mam_senior_refresh_effect = yes }
+
+ clear_saved_scope = mam_senior_default clear_saved_scope = mam_senior_professional
+
+ clear_saved_scope = mam_senior_preferred clear_saved_scope = mam_senior_marked
+ clear_saved_scope = mam_senior_lateral clear_saved_scope = mam_senior_promotion clear_saved_scope = mam_senior_first_office
+
+ scope:mam_senior_file.var:mam_senior_realm.holder = { save_scope_as = mam_emperor }
+
+ scope:mam_senior_file.var:mam_senior_title = { save_scope_as = mam_posting }
+
+ scope:mam_senior_file.var:mam_senior_default ?= { save_scope_as = mam_senior_default }
+
+ scope:mam_senior_file.var:mam_senior_professional ?= { save_scope_as = mam_senior_professional }
+
+ scope:mam_senior_file.var:mam_senior_preferred ?= { save_scope_as = mam_senior_preferred }
+
+ scope:mam_senior_file.var:mam_senior_marked ?= { save_scope_as = mam_senior_marked }
+ scope:mam_senior_file.var:mam_senior_lateral ?= { save_scope_as = mam_senior_lateral }
+ scope:mam_senior_file.var:mam_senior_promotion ?= { save_scope_as = mam_senior_promotion }
+ scope:mam_senior_file.var:mam_senior_first_office ?= { save_scope_as = mam_senior_first_office }
+
+ 
+ clear_saved_scope = mam_senior_portrait_a clear_saved_scope = mam_senior_portrait_b
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_a } exists = scope:mam_senior_default trigger_if = { limit = { exists = scope:mam_senior_default } scope:mam_senior_default = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_default = { save_scope_as = mam_senior_portrait_a } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_a } exists = scope:mam_senior_lateral trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_lateral = { save_scope_as = mam_senior_portrait_a } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_a } exists = scope:mam_senior_promotion trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_promotion = { save_scope_as = mam_senior_portrait_a } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_a } exists = scope:mam_senior_first_office trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_first_office = { save_scope_as = mam_senior_portrait_a } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_a } exists = scope:mam_senior_preferred trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_preferred = { save_scope_as = mam_senior_portrait_a } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_a } exists = scope:mam_senior_marked trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_marked = { save_scope_as = mam_senior_portrait_a } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_b } exists = scope:mam_senior_promotion exists = scope:mam_senior_portrait_a scope:mam_senior_promotion != scope:mam_senior_portrait_a trigger_if = { limit = { exists = scope:mam_senior_promotion } scope:mam_senior_promotion = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_promotion = { save_scope_as = mam_senior_portrait_b } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_b } exists = scope:mam_senior_first_office exists = scope:mam_senior_portrait_a scope:mam_senior_first_office != scope:mam_senior_portrait_a trigger_if = { limit = { exists = scope:mam_senior_first_office } scope:mam_senior_first_office = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_first_office = { save_scope_as = mam_senior_portrait_b } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_b } exists = scope:mam_senior_lateral exists = scope:mam_senior_portrait_a scope:mam_senior_lateral != scope:mam_senior_portrait_a trigger_if = { limit = { exists = scope:mam_senior_lateral } scope:mam_senior_lateral = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_lateral = { save_scope_as = mam_senior_portrait_b } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_b } exists = scope:mam_senior_preferred exists = scope:mam_senior_portrait_a scope:mam_senior_preferred != scope:mam_senior_portrait_a trigger_if = { limit = { exists = scope:mam_senior_preferred } scope:mam_senior_preferred = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_preferred = { save_scope_as = mam_senior_portrait_b } }
+ if = { limit = { NOT = { exists = scope:mam_senior_portrait_b } exists = scope:mam_senior_marked exists = scope:mam_senior_portrait_a scope:mam_senior_marked != scope:mam_senior_portrait_a trigger_if = { limit = { exists = scope:mam_senior_marked } scope:mam_senior_marked = { mam_senior_choice_trigger = yes } } }
+ scope:mam_senior_marked = { save_scope_as = mam_senior_portrait_b } }
+ trigger_event = mam_senior.1
+ } }
+}
+
+mam_senior.5 = {
+ type = character_event theme = merit title = mam_senior.no_candidates_title desc = mam_senior.no_candidates_desc
+ trigger = { mam_can_nominate_trigger = yes exists = scope:mam_posting }
+ option = { name = mam_senior.no_candidates_accept }
+}
+
+mam_senior.7 = {
+ type = character_event hidden = yes
+ trigger = { mam_senior_actor_trigger = yes exists = scope:mam_selected_nominee }
+ immediate = { hidden_effect = {
+ mam_senior_propose_effect = { CANDIDATE = scope:mam_selected_nominee PERSONAL = scope:mam_selected_personal }
+ } }
+}
+
+mam_senior.8 = {
+ type = character_event hidden = yes
+ trigger = { mam_senior_confirmation_actor_trigger = yes exists = scope:mam_senior_nominee
+ scope:mam_senior_file.var:mam_senior_recommended = scope:mam_senior_nominee }
+ immediate = { hidden_effect = {
+
+
+ scope:mam_senior_file = {
+
+ set_variable = { name = mam_senior_approved value = scope:mam_senior_nominee }
+
+ clear_saved_scope = mam_senior_actor
+
+ var:mam_senior_recommender ?= { if = { limit = { mam_can_nominate_trigger = yes } save_scope_as = mam_senior_actor } }
+
+ save_scope_value_as = { name = mam_senior_personal_choice value = var:mam_senior_personal_recommendation }
+
+ mam_senior_commit_effect = yes
+
+ if = { limit = { mam_senior_pending_trigger = yes } mam_senior_return_effect = yes }
+
+ }
+
+ 
+ } }
+}
+
+# Fresh minister context; never reuse a completed file's actor/candidate references.
+mam_senior.9 = {
+ type = character_event hidden = yes
+ trigger = { mam_can_nominate_trigger = yes }
+ immediate = { mam_senior_queue_effect = yes }
+}
+# Imperial confirmations advance when the previous recommendation is resolved.
+mam_senior.10 = {
+ type = character_event hidden = yes
+ trigger = { mam_can_oversee_personnel_trigger = yes }
+ immediate = { every_owned_story = {
+  limit = { story_type = mam_senior_appointment_story mam_senior_pending_trigger = yes has_variable = mam_senior_awaiting_confirmation }
+  mam_senior_notify_confirmation_effect = yes
+ } }
+}

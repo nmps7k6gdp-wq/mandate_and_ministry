@@ -1,0 +1,1044 @@
+﻿celestial_give_treasury_interaction = {
+	icon = icon_imperial_treasury
+	category = interaction_category_vassal
+	send_name = celestial_give_treasury_interaction_send_name
+	desc = celestial_give_treasury_interaction_desc
+	notification_text = celestial_give_treasury_interaction_recipient_desc
+	common_interaction = no
+
+	filter_tags = { dynastic_cycle }
+
+	interface_priority = 62
+
+	is_available = {
+		has_treasury = yes
+		trigger_if = {
+			limit = { is_ai = yes }
+			treasury > 1000 # Let's make sure the AI don't spend their treasury needlessly
+			is_adult = yes
+		}
+	}
+
+	is_shown = {
+		scope:recipient = {
+			has_treasury = yes
+			this != scope:actor
+			top_liege ?= scope:actor.top_liege
+		}
+	}
+
+	is_valid = {
+	}
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			treasury >= give_treasury_value
+			NOT = { is_at_war_with = scope:recipient }
+		}
+	
+# MAM COMMON FUND bridge
+custom_tooltip = { text = mam_cf.native_payment_guard_tt
+ scope:actor = { mam_revenue_fund_member_trigger = no }
+ scope:recipient = { mam_revenue_fund_member_trigger = no }
+}
+}
+
+	is_highlighted = { # Highlight the interaction if they have a very small treasury
+		scope:recipient = {
+			treasury < 50
+		}
+	}
+
+	highlighted_reason = HIGHLIGHTED_GIVE_TREASURY
+
+	auto_accept = {
+		custom_description = {
+			text = auto_accept_interaction_ai
+			object = scope:recipient
+			scope:recipient = {
+				is_ai = yes
+			}
+		}
+	}
+
+	on_auto_accept = {
+		scope:recipient = {
+			# When recipient is AI, let's figure out if they would be greatful - But we want to keep the overall chance fairly small
+			random = {
+				chance = {
+					value = 0
+					if = { # They REALLY need the extra treasury
+						limit = {
+							treasury < 0
+						}
+						add = 20
+					}
+					else_if = { # They need the extra treasury
+						limit = {
+							treasury < 50
+						}
+						add = 12
+					}
+					else_if = { # The contribution would still be nice
+						limit = {
+							treasury < 100
+						}
+						add = 5
+					}
+					if = {
+						limit = {
+							has_trait = humble
+						}
+						add = 8
+					}
+					if = {
+						limit = {
+							has_trait = just
+						}
+						add = 6
+					}
+					if = {
+						limit = {
+							has_trait = generous
+						}
+						add = 6
+					}
+					if = {
+						limit = {
+							has_trait = trusting
+						}
+						add = 5
+					}
+				}
+				modifier = { # The top liege does not give gifts back
+					factor = 0
+					this = top_liege
+				}
+
+				# If true, provide actor with a reward
+				scope:actor = {
+					trigger_event = {
+						id = tgp_interaction_event.0001
+						days = { 30 60 }
+					}
+				}
+			}
+		}
+	}
+
+	on_accept = {
+ if = { limit = {
+ scope:actor = { mam_revenue_fund_member_trigger = no }
+ scope:recipient = { mam_revenue_fund_member_trigger = no }
+ }
+
+		scope:actor = {
+			# Let the player know they won't get additional opinion
+			if = {
+				limit = {
+					scope:recipient = {
+						has_opinion_modifier = {
+							target = scope:actor
+							modifier = treasury_gift_opinion
+						}
+					}
+				}
+				custom_tooltip = ALREADY_SENT_TREASURY_WARNING
+			}
+			send_interface_toast = {
+				type = event_toast_effect_good
+				title = celestial_give_treasury_interaction
+				right_icon = scope:recipient
+
+				# Transfer treasury amount
+				pay_short_term_treasury = {
+					target = scope:recipient
+					treasury = give_treasury_value
+				}
+
+				# Advancement movement members get merit when in the advancement phase
+				if = {
+					limit = {
+						top_participant_group:dynastic_cycle ?= {
+							has_participant_group_parameter = dynastic_cycle_send_treasury_for_merit
+						}
+					}
+					change_merit = medium_merit_value
+				}
+
+				if = {
+					limit = { government_has_flag = government_has_influence }
+					change_influence = medium_influence_value
+				}
+
+				scope:recipient = {
+					# They will like actor for it
+					add_opinion = {
+						target = scope:actor
+						modifier = treasury_gift_opinion
+						opinion = 20
+					}
+				}
+			}
+		}
+	
+ }
+}
+
+	on_decline = {
+	}
+
+	ai_frequency_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 60
+		kingdom = 60
+		empire = 60
+		hegemony = 60
+	}
+
+	ai_targets = {
+		ai_recipients = vassals
+	}
+	ai_targets = {
+		ai_recipients = situation_participant_group
+		parameter = dynastic_cycle
+		max = 20
+	}
+
+	ai_will_do = {
+		base = 0
+
+		# Opinion
+		opinion_modifier = {
+			opinion_target = scope:recipient
+			multiplier = -0.25
+		}
+
+		# Personality
+		modifier = {
+			add = -30
+			has_trait = greedy
+		}
+		modifier = {
+			add = -20
+			has_trait = ambitious
+		}
+		modifier = {
+			add = 10
+			has_trait = trusting
+		}
+		modifier = {
+			add = 15
+			has_trait = generous
+		}
+
+		# Support your fellow movement members
+		modifier = {
+			factor = {
+				value = 1.5
+				if = {
+					limit = {
+						is_in_pro_hegemon_or_hegemon_movement = yes
+					}
+					multiply = 1.5
+				}
+			}
+			is_in_same_movement_as = { TARGET = scope:recipient }
+		}
+
+		# Slight preference to do this towards players
+		modifier = {
+			factor = 1.5
+			scope:recipient = {
+				is_ai = no
+			}
+		}
+
+		# Don't support bad relations
+		modifier = {
+			factor = 0
+			OR = {
+				has_relation_rival = scope:recipient
+				has_relation_nemesis = scope:recipient
+			}
+		}
+
+		# Don't support characters who doesn't need it
+		modifier = {
+			factor = 0
+			scope:recipient = {
+				treasury > 150
+			}
+		}
+
+		# Avoid sending treasury multiple times
+		modifier = {
+			factor = 0
+			scope:recipient = {
+				has_opinion_modifier = {
+					target = scope:actor
+					modifier = treasury_gift_opinion
+				}
+			}
+		}
+	}
+
+	ai_accept = {
+		base = 100
+	}
+}
+
+celestial_demand_treasury_interaction = {
+	icon = icon_imperial_treasury
+	category = interaction_category_vassal
+	send_name = celestial_demand_treasury_interaction_send_name
+	desc = celestial_demand_treasury_interaction_desc
+	notification_text = celestial_demand_treasury_interaction_recipient_desc
+	common_interaction = no
+	filter_tags = { celestial_ministry dynastic_cycle }
+
+	interface_priority = 61
+
+	cooldown = { years = 2 }
+	cooldown_against_recipient = { years = 10 }
+
+	is_available = {
+		has_treasury = yes
+		trigger_if = {
+			limit = { is_ai = yes }
+			is_adult = yes
+			treasury < 100 # Don't bother unless your treasury is low
+		}
+	}
+
+	is_shown = {
+		scope:recipient = {
+			has_treasury = yes
+			this != scope:actor
+			trigger_if = {
+				limit = {
+					vassal_contract_has_flag = celestial_military_appointment
+					title:e_minister_of_war.holder ?= scope:actor
+				}
+				top_liege = scope:actor.top_liege
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = { vassal_contract_has_flag = celestial_military_appointment }
+					title:e_minister_of_revenue.holder ?= scope:actor
+				}
+				top_liege = scope:actor.top_liege
+			}
+			trigger_else = {
+				is_vassal_or_below_of = scope:actor
+			}
+		}
+	}
+
+	is_valid = {
+	}
+
+	is_valid_showing_failures_only = {
+		scope:recipient = {
+			treasury > 100
+			NOT = {
+				is_at_war_with = scope:actor
+			}
+		}
+	
+# MAM COMMON FUND bridge
+custom_tooltip = { text = mam_cf.native_payment_guard_tt
+ scope:actor = { mam_revenue_fund_member_trigger = no }
+ scope:recipient = { mam_revenue_fund_member_trigger = no }
+}
+}
+
+	cost = {
+		influence = {
+			add = {
+				value = minor_influence_value
+				desc = BASE
+			}
+			if = {
+				limit = {
+					scope:recipient.merit_level > 0
+				}
+				add = {
+					value = miniscule_influence_value
+					multiply = {
+						value = scope:recipient.merit_level
+					}
+					desc = recipient_merit_level_desc
+				}
+			}
+		}
+	}
+
+	is_highlighted = { # Highlight the interaction if they have A LOT in their treasury
+		scope:recipient = {
+			treasury > 1000
+		}
+	}
+
+	highlighted_reason = HIGHLIGHTED_DEMAND_TREASURY
+
+	on_accept = {
+ if = { limit = {
+ scope:actor = { mam_revenue_fund_member_trigger = no }
+ scope:recipient = { mam_revenue_fund_member_trigger = no }
+ }
+
+		# Save the recipients current treasury, to make sure it doesn't change
+		save_scope_value_as = {
+			name = recipient_treasury_amount
+			value = { # We take half their treasury, up to a maximum based on tier
+				value = scope:recipient.treasury
+				multiply = 0.5
+				max = {
+					value = 400
+					multiply = scope:recipient.primary_title.tier
+				}
+			}
+		}
+		scope:actor = {
+			send_interface_toast = {
+				type = event_toast_effect_good
+				title = celestial_demand_treasury_interaction
+				right_icon = scope:recipient
+
+				scope:recipient = {
+					# Pay half the treasury to actor
+					pay_short_term_treasury = {
+						target = scope:actor
+						treasury = scope:recipient_treasury_amount
+					}
+				}
+			}
+		}
+	
+ }
+}
+
+	on_decline = {
+		scope:actor = {
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				add_opinion = {
+					target = scope:recipient
+					modifier = refusal_opinion
+					opinion = -25
+				}
+			}
+			send_interface_toast = {
+				type = event_toast_effect_bad
+				title = celestial_demand_treasury_interaction
+				right_icon = scope:recipient
+				custom_tooltip = celestial_demand_treasury_interaction_declined_desc
+			}
+		}
+		scope:recipient = {
+			# Declining will cost influence - Scaling on the difference in merit level
+			change_influence = {
+				value = medium_influence_loss
+				if = {
+					limit = {
+						scope:recipient.merit_level < scope:actor.merit_level
+					}
+					add = {
+						value = minor_influence_loss
+						multiply = {
+							value = scope:actor.merit_level
+							subtract = scope:recipient.merit_level
+						}
+						desc = recipient_merit_level_desc
+					}
+				}
+			}
+		}
+	}
+
+	ai_frequency_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 12
+		kingdom = 12
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_targets = {
+		ai_recipients = vassals
+	}
+
+	ai_will_do = {
+		base = 0
+
+		# Opinion
+		opinion_modifier = {
+			opinion_target = scope:recipient
+			multiplier = -0.5
+		}
+
+		# Personality
+		modifier = {
+			add = 25
+			has_trait = greedy
+		}
+		modifier = {
+			add = 25
+			has_trait = ambitious
+		}
+		modifier = {
+			add = 15
+			has_trait = impatient
+		}
+		modifier = {
+			add = 10
+			has_trait = brave
+		}
+		modifier = {
+			add = 10
+			has_trait = arbitrary
+		}
+		modifier = {
+			add = -10
+			has_trait = content
+		}
+		modifier = {
+			add = -20
+			has_trait = just
+		}
+		modifier = {
+			add = -30
+			has_trait = generous
+		}
+
+		# Don't do it towards elders or disciples
+		modifier = {
+			factor = 0
+			OR = {
+				has_relation_disciple = scope:recipient
+				has_relation_elder = scope:recipient
+			}
+		}
+
+		# Don't do it towards fellow movement members
+		modifier = {
+			factor = 0
+			is_in_same_movement_as = { TARGET = scope:recipient }
+		}
+
+		# Only do this towards players if they are disliked
+		modifier = {
+			factor = 0
+			scope:recipient = {
+				is_ai = no
+				reverse_opinion = {
+					target = scope:actor
+					value >= 0
+				}
+			}
+		}
+	}
+
+	ai_accept = {
+		base = 0
+
+		# Opinion
+		opinion_modifier = {
+			opinion_target = scope:actor
+			who = scope:recipient
+			multiplier = 0.5
+		}
+
+		# Traits
+		modifier = {
+			add = 100
+			has_trait = loyal
+			desc = INTERACTION_LOYAL
+		}
+		modifier = {
+			add = 20
+			has_trait = trusting
+			desc = INTERACTION_TRUSTING
+		}
+		modifier = {
+			add = 10
+			has_trait = diligent
+			desc = INTERACTION_DILIGENT
+		}
+		modifier = {
+			add = 5
+			has_trait = craven
+			desc = INTERACTION_CRAVEN
+		}
+		modifier = {
+			add = -10
+			has_trait = paranoid
+			desc = INTERACTION_PARANOID
+		}
+		modifier = {
+			add = -10
+			has_trait = just
+			desc = INTERACTION_JUST
+		}
+		modifier = {
+			add = -20
+			has_trait = greedy
+			desc = INTERACTION_GREEDY
+		}
+		modifier = {
+			add = -50
+			has_trait = disloyal
+			desc = INTERACTION_DISLOYAL
+		}
+
+		# Relations to actor
+		modifier = {
+			scope:actor = {
+				has_relation_friend = scope:recipient
+			}
+			add = 25
+			desc = AI_YOUR_FRIEND
+		}
+		modifier = {
+			scope:actor = {
+				has_relation_rival = scope:recipient
+				NOT = { has_relation_nemesis = scope:recipient }
+			}
+			add = -50
+			desc = AI_YOUR_RIVAL
+		}
+		modifier = {
+			scope:actor = {
+				has_relation_nemesis = scope:recipient
+			}
+			add = -100
+			desc = offer_vassalization_interaction_aibehavior_nemesis_tt
+		}
+		modifier = {
+			has_relation_disciple = scope:actor
+			add = 10
+			desc = AI_YOUR_ELDER
+		}
+		modifier = {
+			has_relation_elder = scope:actor
+			add = 15
+			desc = AI_YOUR_DISCIPLE
+		}
+
+		# You have high merit
+		modifier = {
+			scope:actor.merit_level > scope:recipient.merit_level
+			title:h_china ?= { holder != scope:actor } # Don't check the hegemon
+			add = {
+				value = 10
+				multiply = {
+					value = scope:actor.merit_level
+					subtract = scope:recipient.merit_level
+				}
+			}
+			desc = actor_higher_merit_level_desc
+		}
+
+		# Your merit level is lower
+		modifier = {
+			scope:actor.merit_level < scope:recipient.merit_level
+			title:h_china ?= { holder != scope:actor } # Don't check the hegemon
+			add = {
+				value = -10
+				multiply = {
+					value = scope:recipient.merit_level
+					subtract = scope:actor.merit_level
+				}
+			}
+			desc = recipient_higher_merit_level_desc
+		}
+
+		# Dread
+		modifier = {
+			has_dread_level_towards = {
+				target = scope:actor
+				level = 1
+			}
+			add = intimidated_reason_value
+			desc = INTIMIDATED_REASON
+		}
+		modifier = {
+			has_dread_level_towards = {
+				target = scope:actor
+				level = 2
+			}
+			add = cowed_reason_value
+			desc = COWED_REASON
+		}
+		modifier = {
+			scope:actor = {
+				has_title = title:e_minister_of_revenue
+			}
+			add = 10
+			desc = MINISTER_OF_REVENUE_REASON
+		}
+		modifier = {
+			scope:actor = {
+				has_title = title:e_minister_of_war
+			}
+			add = 10
+			desc = MINISTER_OF_WAR_REASON
+		}
+		modifier = {
+			scope:actor = scope:recipient.top_liege
+			add = 10
+			desc = TOP_LIEGE_REASON
+		}
+	}
+}
+
+pay_treasury_debt_interaction = {
+	icon = icon_imperial_treasury
+	category = interaction_category_vassal
+	common_interaction = no
+	interface_priority = 65
+	desc = pay_treasury_debt_interaction_desc
+	notification_text = pay_treasury_debt_interaction_notification
+
+	is_available = {
+		has_treasury = yes
+		trigger_if = {
+			limit = { is_ai = yes }
+			treasury > 1000 # Let's make sure the AI don't spend their treasury needlessly
+			is_adult = yes
+		}
+	}
+
+	is_shown = {
+		scope:actor = {
+			OR = {
+				has_title = title:e_minister_of_war
+				has_title = title:e_minister_of_revenue
+				this = scope:recipient.top_liege
+			}
+		}
+		scope:recipient = {
+			top_liege ?= scope:actor.top_liege
+			has_treasury = yes
+			trigger_if = {
+				limit = {
+					title:e_minister_of_revenue.holder ?= scope:actor
+					NOT = { vassal_contract_has_flag = celestial_military_appointment }
+				}
+			}
+			trigger_else_if = {
+				limit = {
+					title:e_minister_of_war.holder ?= scope:actor
+					vassal_contract_has_flag = celestial_military_appointment
+				}
+			}
+			trigger_else = {
+				top_liege = scope:actor
+			}
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:recipient = { treasury <= 0 }
+		scope:actor = {
+			treasury >= {
+				value = scope:recipient.treasury
+				multiply = -1
+			}
+		}
+	
+# MAM COMMON FUND bridge
+custom_tooltip = { text = mam_cf.native_payment_guard_tt
+ scope:actor = { OR = { mam_revenue_fund_member_trigger = no primary_title = title:e_minister_of_war } }
+ scope:recipient = { mam_revenue_fund_member_trigger = no }
+}
+}
+
+	is_highlighted = {
+		scope:actor = {
+			is_character_interaction_potentially_accepted = {
+				recipient = scope:recipient
+				interaction = pay_treasury_debt_interaction
+			}
+		}
+	}
+
+	can_send = {
+		custom_tooltip = {
+			text = HAS_NO_OPTION_SELECTED
+			OR = {
+				scope:strong_hook = yes
+				scope:weak_hook = yes
+				scope:kindness = yes
+			}
+		}
+	}
+	#request strong hook
+	send_option = {
+		flag = strong_hook
+		localization = pay_treasury_debt_interaction_request_strong_hook
+	}
+	#request weak hook
+	send_option = {
+		flag = weak_hook
+		localization = pay_treasury_debt_interaction_request_weak_hook
+	}
+	# just out of kindness
+	send_option = {
+		flag = kindness
+		localization = pay_treasury_debt_interaction_request_kindness
+		is_shown = {
+			scope:actor = { 
+				OR = {
+					has_trait = generous
+					has_trait = compassionate
+				} 
+			}
+		}
+	}
+
+	send_options_exclusive = yes
+
+	on_accept = {
+ if = { limit = {
+ scope:actor = { OR = { mam_revenue_fund_member_trigger = no primary_title = title:e_minister_of_war } }
+ scope:recipient = { mam_revenue_fund_member_trigger = no }
+ }
+
+		scope:actor = {
+			pay_short_term_treasury	= {
+				target = scope:recipient
+				treasury = {
+					value = scope:recipient.treasury
+					multiply = -1
+				}
+			}
+			if = {
+				limit = {
+					scope:strong_hook = yes
+				}
+				add_hook = {
+					type = strong_indebted_hook
+					target = scope:recipient
+				}
+			}
+			if = {
+				limit = {
+					scope:weak_hook = yes
+				}
+				add_hook = {
+					type = indebted_hook
+					target = scope:recipient
+				}
+			}
+			if = {
+				limit = {
+					scope:kindness = yes
+				}
+				scope:recipient = {
+					progress_towards_friend_effect = {
+						REASON = friend_paid_debt
+						CHARACTER = scope:actor
+						OPINION = default_friend_opinion
+					}
+				}
+			}
+			change_influence = major_influence_value
+		}
+		situation:dynastic_cycle ?= {
+			if = {
+				limit = {
+					situation_top_has_catalyst = catalyst_cleared_treasury_debt
+					any_situation_participant = {
+						this = scope:recipient
+					}
+				}
+				trigger_situation_catalyst = {
+					catalyst = catalyst_cleared_treasury_debt
+					character = scope:actor
+				}
+			}
+		}
+	
+ }
+}
+
+	ai_accept = {
+		base = 20
+		# Don't want to give hooks to rivals
+ 		house_relation_ai_accept_modifiers = { # House Relations
+ 			HOUSE_1_MEMBER = scope:actor
+ 			HOUSE_2_MEMBER = scope:recipient
+ 			MULTIPLIER = 1
+ 		}
+		modifier = { # Rivalry modifier.
+			desc = offer_vassalization_interaction_aibehavior_rival_tt
+			trigger = {
+				scope:recipient = {
+					has_relation_rival = scope:actor
+					NOT = { has_relation_nemesis = scope:actor }
+				}
+			}
+			add = -10
+		}
+		modifier = { # Nemesis modifier.
+			desc = offer_vassalization_interaction_aibehavior_nemesis_tt
+			trigger = {
+				scope:recipient = {
+					has_relation_nemesis = scope:actor
+				}
+			}
+			add = -50
+		}
+		## Debt is a great motivator for acceptance
+		### Is slightly in debt.
+		modifier = {
+			add = 10
+			OR = {
+				debt_level = 1
+				treasury_debt_level = 1
+			}
+			desc = PT_AI_IS_IN_DEBT
+		}
+		### Is one year in debt.
+		modifier = {
+			add = 25
+			OR = {
+				debt_level = 2
+				treasury_debt_level = 2
+			}
+			desc = PT_AI_IS_IN_DEBT
+		}
+		### Is two years in debt.
+		modifier = {
+			add = 40
+			OR = {
+				debt_level = 3
+				treasury_debt_level = 3
+			}
+			desc = PT_AI_IS_IN_DEBT
+		}
+		### Is three years in debt.
+		modifier = {
+			add = 60
+			OR = {
+				debt_level = 4
+				treasury_debt_level = 4
+			}
+			desc = PT_AI_IS_IN_DEBT
+		}
+		### Is four years in debt.
+		modifier = {
+			add = 100
+			OR = {
+				debt_level = 5
+				treasury_debt_level = 5
+			}
+			desc = PT_AI_IS_IN_DEBT
+		}
+		### Is over five years in debt.
+		modifier = {
+			add = 200
+			OR = {
+				debt_level >= 6
+				treasury_debt_level >= 6
+			}
+			desc = PT_AI_IS_IN_DEBT
+		}
+		# Are you asking for a strong hook?
+		modifier = {
+			trigger = {
+				scope:strong_hook ?= yes
+			}
+			add = -50
+			desc = ASKING_FOR_STRONG_HOOK_ACCEPTANCE_TT
+		}
+		# Are you asking for a weak hook?
+		modifier = {
+			trigger = {
+				scope:weak_hook ?= yes
+			}
+			add = -25
+			desc = ASKING_FOR_WEAK_HOOK_ACCEPTANCE_TT
+		}
+	}
+
+	ai_frequency_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 36
+		hegemony = 0
+	}
+
+	ai_targets = {
+		ai_recipients = peer_vassals
+	}
+	ai_targets = {
+		ai_recipients = situation_participant_group
+		parameter = dynastic_cycle
+		max = 20
+	}
+
+	ai_will_do = {
+		base = 30
+
+		# Personality
+		modifier = {
+			add = -30
+			has_trait = greedy
+		}
+		modifier = {
+			add = -20
+			has_trait = ambitious
+		}
+		modifier = {
+			add = 10
+			has_trait = trusting
+		}
+		modifier = {
+			add = 15
+			has_trait = generous
+		}
+
+		# Support your fellow movement members
+		modifier = {
+			add = 100
+			is_in_same_movement_as = { TARGET = scope:recipient }
+		}
+
+		# Slight preference to do this towards players
+		modifier = {
+			add = 30
+			scope:recipient = {
+				is_ai = no
+			}
+		}
+
+		# Don't support bad relations
+		modifier = {
+			factor = 0
+			OR = {
+				has_relation_rival = scope:recipient
+				has_relation_nemesis = scope:recipient
+			}
+		}
+
+		# Avoid sending treasury multiple times
+		modifier = {
+			factor = 0
+			scope:recipient = {
+				has_opinion_modifier = {
+					target = scope:actor
+					modifier = treasury_gift_opinion
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+﻿mam_jus_imperial_warrant = { opinion = -25 imprisonment_reason = yes years = 3 stacking = no }
+mam_jus_grateful = { opinion = 20 years = 5 stacking = no }
+mam_jus_resentment = { opinion = -25 years = 5 stacking = no }
+mam_jus_advocated = { opinion = 20 years = 3 stacking = no }
+mam_jus_defied = { opinion = -20 years = 5 stacking = no }

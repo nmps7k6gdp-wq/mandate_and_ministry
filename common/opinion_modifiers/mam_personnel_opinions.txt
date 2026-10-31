@@ -1,0 +1,3 @@
+﻿mam_sponsored_appointment = { opinion = 10 years = 5 stacking = no }
+mam_sound_recommendation = { opinion = 10 years = 3 stacking = no }
+mam_weak_recommendation = { opinion = -10 years = 3 stacking = no }

@@ -1,0 +1,947 @@
+{
+  "save": {
+    "name": "test2.ck3",
+    "bytes": 30171136,
+    "sha256": "a1278d3a371ec82ed56cc8453d6a973bc7c434b51cafa15a7cc8beed6776182c"
+  },
+  "game_date": "1098.10.14",
+  "day_number": 401056,
+  "save_modified": false,
+  "log_files": [
+    {
+      "name": "debug.log",
+      "bytes": 21111604,
+      "sha256": "d6c24657ceb951c6160eca99b1798af75ad9cd1bc06e997b17a60fd8225f3eae"
+    },
+    {
+      "name": "error.log",
+      "bytes": 3814032,
+      "sha256": "42b1ce7c74b1f45bf4f3100871aed788ff5a7edd1dd784344b13b2bc38968efb"
+    },
+    {
+      "name": "eventstats.csv",
+      "bytes": 682065,
+      "sha256": "1e6bcbec04cc634455cdbe2d0356cbc6747bdf44b772176a4b7eb9b7b89da958"
+    }
+  ],
+  "fiscal_laws": {
+    "reserved": 1,
+    "limited": 0,
+    "expanded": 0
+  },
+  "statement_age_days": 67.0,
+  "titles": {
+    "h_china": {
+      "id": 14022,
+      "holder": 37986,
+      "treasury": 3809.37754,
+      "variables": {
+        "mam_cf_programme_approved": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_programme_until": 401358.0,
+        "mam_pc_next_scan": 401059.0,
+        "mam_cf_next_review": 401079.0,
+        "mam_pc_commitments": 375.0,
+        "mam_cf_claims_due": 0.0,
+        "mam_cf_statement_date": 400989.0,
+        "mam_cf_statement_closing": 43058.81896,
+        "mam_cf_essential_cash": 41781.20564,
+        "mam_cf_essential_due": 0.0,
+        "mam_cf_credit": 1200.0,
+        "mam_cf_debit": 1200.0,
+        "mam_cf_after_payee": 1284.59775,
+        "mam_cf_after_payer": 41875.49839,
+        "mam_cf_receipt_state": 2.0,
+        "mam_cf_before_payee": 84.59775,
+        "mam_cf_before_payer": 43075.49839,
+        "mam_cf_last_amount": 1200.0,
+        "mam_cf_last_payee_title": {
+          "type": "lt",
+          "identity": "15769"
+        },
+        "mam_cf_last_payer_title": {
+          "type": "lt",
+          "identity": "15767"
+        },
+        "mam_cf_last_payee": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_last_payer": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_statement_opening": 39191.81896,
+        "mam_cf_statement_advanced": 0.0,
+        "mam_cf_statement_collected": 3867.0,
+        "mam_cf_next_month": 401014.0,
+        "mam_cf_bootstrap_done": 1.0,
+        "mam_cf_payroll_owner": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_payroll_due": 401059.0,
+        "mam_cf_interim_advances": 0.0,
+        "mam_cf_receipt_count": 208.0,
+        "mam_cf_total_cost": 127.23894,
+        "mam_cf_unfunded": 0.0,
+        "mam_cf_reserve": 754.47788,
+        "mam_cf_serial": 55.0,
+        "mam_cf_programme": 2.0,
+        "mam_cf_bootstrap_until": 389382.0,
+        "mam_cf_active": 1.0
+      }
+    },
+    "e_minister_chancellor": {
+      "id": 15763,
+      "holder": 31760,
+      "treasury": 166.3453,
+      "variables": {
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 169.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_censor": {
+      "id": 15764,
+      "holder": 34344,
+      "treasury": 109.8418,
+      "variables": {
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 450.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_grand_marshal": {
+      "id": 15765,
+      "holder": 37616,
+      "treasury": 83.32452,
+      "variables": {
+        "mam_cf_appeal_used": 1.0,
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_cf_cut_until": 398408.0,
+        "mam_cf_cut_before": 75.0,
+        "mam_cf_review_until": 398322.0,
+        "mam_cf_start_on": 392182.0,
+        "mam_cf_start_after": 92.02295,
+        "mam_cf_start_price": 500.0,
+        "mam_cf_start_before": 592.02295,
+        "mam_cf_start_retry": 392189.0,
+        "mam_cf_next_project_request": 392271.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 124.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 25.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 25.0,
+        "mam_cf_cost": 14.59477
+      }
+    },
+    "e_minister_of_personnel": {
+      "id": 15766,
+      "holder": 39258,
+      "treasury": 666.32151,
+      "variables": {
+        "mam_cf_review_until": 392268.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 142.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 2.20625
+      }
+    },
+    "e_minister_of_revenue": {
+      "id": 15767,
+      "holder": 34515,
+      "treasury": 41908.85725,
+      "variables": {
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_cut_until": 401172.0,
+        "mam_cf_cut_before": 75.0,
+        "mam_cf_review_until": 401082.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 0.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 25.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 25.0,
+        "mam_cf_cost": 42.98609
+      }
+    },
+    "e_minister_of_rites": {
+      "id": 15768,
+      "holder": 36763,
+      "treasury": 123.10263,
+      "variables": {
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "30428"
+        },
+        "mam_cf_cut_until": 394740.0,
+        "mam_cf_cut_before": 75.0,
+        "mam_cf_review_until": 398570.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 168.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 2.1875
+      }
+    },
+    "e_minister_of_war": {
+      "id": 15769,
+      "holder": 35091,
+      "treasury": 1358.21489,
+      "variables": {
+        "mam_cf_special_until": 401085.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 1340.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 1200.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_of_justice": {
+      "id": 15770,
+      "holder": 37642,
+      "treasury": 174.23817,
+      "variables": {
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 1294.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_of_works": {
+      "id": 15771,
+      "holder": 39595,
+      "treasury": 200.86744,
+      "variables": {
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_cf_cut_until": 400902.0,
+        "mam_cf_cut_before": 150.0,
+        "mam_cf_review_until": 400812.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 180.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 401086.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 49.43933
+      }
+    }
+  },
+  "current_projects": [
+    {
+      "id": 16,
+      "type": "minister_project_culture",
+      "status": "in_progress",
+      "contributions": [
+        {
+          "slot": "cultural_liason",
+          "actor": 30031,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants",
+          "actor": 32741,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants_2",
+          "actor": 35282,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants_3",
+          "actor": 31043,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "35282"
+        },
+        "mam_pc_last_paid_date": 394690.0,
+        "mam_pc_last_paid": 62.5,
+        "mam_pc_last_key": 87.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "35282"
+        },
+        "mam_pc_attempt_after": 154.64608,
+        "mam_pc_attempt_on": 394690.0,
+        "mam_pc_attempt_before": 217.64608,
+        "mam_pc_attempt_price": 62.5,
+        "mam_pc_attempt_key": 87.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "35282"
+        },
+        "mam_pc_native_key": 87.0,
+        "mam_pc_approved_on": 394673.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "34419"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 625.0,
+        "mam_pc_spent": 250.0,
+        "mam_pc_budget": 375.0
+      }
+    }
+  ],
+  "retained_fiscal_stories": [
+    {
+      "id": 33554490,
+      "variables": {
+        "mam_cf_closed": 400722.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_old_cost": 2.20625,
+        "mam_cf_old_headroom": 150.0,
+        "mam_cf_created": 400718.0,
+        "mam_cf_serial": 50.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 49.43933,
+        "mam_cf_amount": 16.69924,
+        "mam_cf_kind": 1.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "39258"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "15771"
+        }
+      }
+    },
+    {
+      "id": 83886145,
+      "variables": {
+        "mam_cf_closed": 400993.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_created": 400989.0,
+        "mam_cf_serial": 53.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 2.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0,
+        "mam_cf_amount": 0.0,
+        "mam_cf_kind": 4.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "31760"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "14022"
+        }
+      }
+    },
+    {
+      "id": 16777285,
+      "variables": {
+        "mam_cf_closed": 400992.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_old_cost": 0.0,
+        "mam_cf_old_headroom": 75.0,
+        "mam_cf_created": 400989.0,
+        "mam_cf_serial": 52.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 25.0,
+        "mam_cf_cost": 42.98609,
+        "mam_cf_amount": 128.95827,
+        "mam_cf_kind": 1.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "15767"
+        }
+      }
+    },
+    {
+      "id": 50331866,
+      "variables": {
+        "mam_cf_closed": 400725.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_paid_to_title": {
+          "type": "lt",
+          "identity": "15769"
+        },
+        "mam_cf_paid_from_title": {
+          "type": "lt",
+          "identity": "15767"
+        },
+        "mam_cf_paid_to": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_paid_from": {
+          "type": "char",
+          "identity": "39258"
+        },
+        "mam_cf_paid_amount": 1200.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_created": 400718.0,
+        "mam_cf_serial": 51.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0,
+        "mam_cf_amount": 1200.0,
+        "mam_cf_kind": 12.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "39258"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "15769"
+        }
+      }
+    },
+    {
+      "id": 33554852,
+      "variables": {
+        "mam_cf_closed": 400996.0,
+        "mam_cf_result": 2.0,
+        "mam_cf_decider": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_project_target": {
+          "type": "lt",
+          "identity": "14769"
+        },
+        "mam_cf_project_type": 4.0,
+        "mam_cf_created": 400990.0,
+        "mam_cf_serial": 55.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0,
+        "mam_cf_amount": 520.0,
+        "mam_cf_kind": 3.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "15770"
+        }
+      }
+    },
+    {
+      "id": 33554865,
+      "variables": {
+        "mam_cf_closed": 400995.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_paid_to_title": {
+          "type": "lt",
+          "identity": "15769"
+        },
+        "mam_cf_paid_from_title": {
+          "type": "lt",
+          "identity": "15767"
+        },
+        "mam_cf_paid_to": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_paid_from": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_paid_amount": 1200.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_created": 400989.0,
+        "mam_cf_serial": 54.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0,
+        "mam_cf_amount": 1200.0,
+        "mam_cf_kind": 12.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "15769"
+        }
+      }
+    }
+  ],
+  "pending_fiscal_stories": 0,
+  "payment_hold_marker_count": 0,
+  "eventstats": {
+    "mam_senior.3": {
+      "IsValidToTriggerCount": "83",
+      "ImmediateEffectCount": "49",
+      "ExecuteCount": "0",
+      "Sum": "3.21890370",
+      "%": "2.73%"
+    },
+    "tgp_china_ministry.0100": {
+      "IsValidToTriggerCount": "2645",
+      "ImmediateEffectCount": "34",
+      "ExecuteCount": "34",
+      "Sum": "2.06759300",
+      "%": "1.75%"
+    },
+    "mam_fund.31": {
+      "IsValidToTriggerCount": "13742",
+      "ImmediateEffectCount": "13742",
+      "ExecuteCount": "0",
+      "Sum": "1.60823820",
+      "%": "1.36%"
+    },
+    "mam_senior.1": {
+      "IsValidToTriggerCount": "49",
+      "ImmediateEffectCount": "49",
+      "ExecuteCount": "49",
+      "Sum": "0.77964230",
+      "%": "0.66%"
+    },
+    "mam_senior.7": {
+      "IsValidToTriggerCount": "49",
+      "ImmediateEffectCount": "49",
+      "ExecuteCount": "0",
+      "Sum": "0.74253260",
+      "%": "0.63%"
+    },
+    "mam_fund.95": {
+      "IsValidToTriggerCount": "1528",
+      "ImmediateEffectCount": "1528",
+      "ExecuteCount": "0",
+      "Sum": "0.64213560",
+      "%": "0.54%"
+    },
+    "mam_ministry.3": {
+      "IsValidToTriggerCount": "36",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "0",
+      "Sum": "0.19928030",
+      "%": "0.17%"
+    },
+    "mam_ministry.1": {
+      "IsValidToTriggerCount": "12",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "12",
+      "Sum": "0.05992960",
+      "%": "0.05%"
+    },
+    "mam_ministry.4": {
+      "IsValidToTriggerCount": "12",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "0",
+      "Sum": "0.05859570",
+      "%": "0.05%"
+    },
+    "mam_fund.1": {
+      "IsValidToTriggerCount": "5944",
+      "ImmediateEffectCount": "34",
+      "ExecuteCount": "34",
+      "Sum": "0.05128710",
+      "%": "0.04%"
+    },
+    "mam_fund.99": {
+      "IsValidToTriggerCount": "29",
+      "ImmediateEffectCount": "29",
+      "ExecuteCount": "0",
+      "Sum": "0.03836340",
+      "%": "0.03%"
+    },
+    "mam_senior.10": {
+      "IsValidToTriggerCount": "2378",
+      "ImmediateEffectCount": "2378",
+      "ExecuteCount": "0",
+      "Sum": "0.03314320",
+      "%": "0.03%"
+    },
+    "mam_senior.9": {
+      "IsValidToTriggerCount": "2375",
+      "ImmediateEffectCount": "2367",
+      "ExecuteCount": "0",
+      "Sum": "0.03273630",
+      "%": "0.03%"
+    },
+    "mam_fund.90": {
+      "IsValidToTriggerCount": "76",
+      "ImmediateEffectCount": "76",
+      "ExecuteCount": "0",
+      "Sum": "0.03084660",
+      "%": "0.03%"
+    },
+    "mam_fund.96": {
+      "IsValidToTriggerCount": "14",
+      "ImmediateEffectCount": "14",
+      "ExecuteCount": "0",
+      "Sum": "0.01767640",
+      "%": "0.01%"
+    },
+    "mam_fund.4": {
+      "IsValidToTriggerCount": "1760",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "12",
+      "Sum": "0.01634800",
+      "%": "0.01%"
+    },
+    "mam_fund.2": {
+      "IsValidToTriggerCount": "24",
+      "ImmediateEffectCount": "24",
+      "ExecuteCount": "24",
+      "Sum": "0.00476400",
+      "%": "0.00%"
+    },
+    "mam_fund.5": {
+      "IsValidToTriggerCount": "13",
+      "ImmediateEffectCount": "13",
+      "ExecuteCount": "13",
+      "Sum": "0.00411270",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0002": {
+      "IsValidToTriggerCount": "465",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "1",
+      "Sum": "0.00368630",
+      "%": "0.00%"
+    },
+    "mam_fund.98": {
+      "IsValidToTriggerCount": "76",
+      "ImmediateEffectCount": "76",
+      "ExecuteCount": "0",
+      "Sum": "0.00367680",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0001": {
+      "IsValidToTriggerCount": "2",
+      "ImmediateEffectCount": "2",
+      "ExecuteCount": "2",
+      "Sum": "0.00292010",
+      "%": "0.00%"
+    },
+    "mam_ministry.2": {
+      "IsValidToTriggerCount": "24",
+      "ImmediateEffectCount": "24",
+      "ExecuteCount": "0",
+      "Sum": "0.00147670",
+      "%": "0.00%"
+    },
+    "mam_ministry.5": {
+      "IsValidToTriggerCount": "18",
+      "ImmediateEffectCount": "18",
+      "ExecuteCount": "0",
+      "Sum": "0.00117380",
+      "%": "0.00%"
+    },
+    "mam_fund.8": {
+      "IsValidToTriggerCount": "6",
+      "ImmediateEffectCount": "6",
+      "ExecuteCount": "6",
+      "Sum": "0.00104980",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0004": {
+      "IsValidToTriggerCount": "5",
+      "ImmediateEffectCount": "5",
+      "ExecuteCount": "5",
+      "Sum": "0.00078150",
+      "%": "0.00%"
+    },
+    "mam_fund.36": {
+      "IsValidToTriggerCount": "1",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "0",
+      "Sum": "0.00036730",
+      "%": "0.00%"
+    },
+    "mam_fund.97": {
+      "IsValidToTriggerCount": "4",
+      "ImmediateEffectCount": "4",
+      "ExecuteCount": "0",
+      "Sum": "0.00021390",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0005": {
+      "IsValidToTriggerCount": "652",
+      "ImmediateEffectCount": "2",
+      "ExecuteCount": "2",
+      "Sum": "0.00018550",
+      "%": "0.00%"
+    },
+    "mam_fund.20": {
+      "IsValidToTriggerCount": "785",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "1",
+      "Sum": "0.00017770",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0007": {
+      "IsValidToTriggerCount": "468",
+      "ImmediateEffectCount": "2",
+      "ExecuteCount": "2",
+      "Sum": "0.00005700",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0003": {
+      "IsValidToTriggerCount": "1",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "1",
+      "Sum": "0.00001260",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0008": {
+      "IsValidToTriggerCount": "3",
+      "ImmediateEffectCount": "3",
+      "ExecuteCount": "3",
+      "Sum": "0.00000570",
+      "%": "0.00%"
+    }
+  },
+  "debug_markers": {
+    "MAM_PERSONNEL_TASK: Manage Talent baselines active": 1,
+    "MAM_PERSONNEL_AI: Chancellor set professional nominations": 21,
+    "MAM_PERSONNEL_JURISDICTION: existing recorded appointments checked for safe repair": 1,
+    "MAM_PROJECT_BUDGET: approved institutionally; no cash transfer at approval": 4,
+    "MAM_PERSONNEL_VACANCY: senior Celestial death reached callback": 63,
+    "MAM_PERSONNEL_VACANCY: incumbent passed custody filters": 35,
+    "MAM_PERSONNEL_VACANCY: candidates found; creating custody file": 52,
+    "MAM_PERSONNEL_QUEUE: registered independent custody file": 52,
+    "MAM_PERSONNEL_VACANCY: custody acquired; queueing Personnel event": 52,
+    "MAM_PERSONNEL_QUEUE: leased oldest available custody file": 83,
+    "MAM_PERSONNEL_POOL: eligible candidates found after custody": 49,
+    "MAM_PERSONNEL_AI: Personnel selected lateral transfer": 17,
+    "MAM_PERSONNEL: source custody created; notification deferred until destination resolves": 17,
+    "MAM_PERSONNEL_JURISDICTION: recorded holdings and vassals restored": 49,
+    "MAM_PERSONNEL_APPOINTMENT: destination grant completed": 49,
+    "MAM_PERSONNEL_APPOINTMENT: sponsorship opinion awarded to nominating minister": 49,
+    "MAM_PERSONNEL_AI: Personnel selected promotion": 19,
+    "MAM_PERSONNEL_SERVICE: advancement endorsed and old concern withdrawn": 289,
+    "MAM_PERSONNEL_SERVICE: poor service assessment applied": 39,
+    "MAM_MINISTRY_REVIEW: minister death armed post-inheritance review": 13,
+    "MAM_PERSONNEL_VACANCY: rejected - not a governor": 13,
+    "MAM_PERSONNEL_VACANCY: custody skipped; check title law, jurisdiction and realm authority": 28,
+    "MAM_MINISTRY_REVIEW: installed successor recorded for the proper superior": 13,
+    "MAM_MINISTRY_REVIEW: queued one succession review for its current authority": 39,
+    "MAM_MINISTRY_REVIEW: incumbent and eligible alternatives prepared": 13,
+    "MAM_MINISTRY_REVIEW: title and council seat verified; succession approved": 13,
+    "MAM_PERSONNEL_VACANCY: rejected - not a supported civilian contract": 15,
+    "MAM_EXAM: earned laureate recognition; upgrade-only Prestige paid": 21,
+    "MAM_PERSONNEL_AI: Chancellor allowed ministerial discretion": 8,
+    "MAM_PERSONNEL_AI: Personnel selected first office grant": 13,
+    "MAM_PERSONNEL_VACANCY: rejected - incumbent at war": 3,
+    "MAM_PROJECT_START: funded AI ministry planned its authorized native project": 1,
+    "MAM_PERSONNEL_VACANCY: mixed outside-jurisdiction titles; full native succession retained": 1,
+    "MAM_PERSONNEL_AI: Chancellor set continuity nominations": 4
+  },
+  "mod_error_locations": {
+    "file: common/on_action/mam_ministry_review_on_actions.txt line: 6 (mam_ministry_review_death:trigger)": 2356,
+    "file: common/great_projects/types/zz_mam_revenue_common_00_ministry_projects.txt line: 253 (grand_campaign_project:on_complete)": 36,
+    "file: common/story_cycles/mam_personnel_patronage_story.txt line: 4 (mam_personnel_patronage_story:on_owner_death)": 5,
+    "file: common/scripted_triggers/mam_shared_office_eligibility_triggers.txt line: 4 (mam_cj_office_allowed_trigger)": 3,
+    "file: common/scripted_triggers/mam_shared_office_eligibility_triggers.txt line: 5 (mam_cj_office_allowed_trigger)": 3,
+    "file: common/script_values/mam_revenue_values.txt line: 24 (mam_revenue_need_score)": 3,
+    "file: common/great_projects/types/zz_mam_revenue_common_00_ministry_projects.txt line: 2349 (minister_project_development:is_location_valid)": 1
+  },
+  "limitations": [
+    "End balances do not prove no earlier transient deficits.",
+    "Event queries and scheduled checks are not payments or successful projects.",
+    "Completed/expired projects, stories and receipts may be absent from the final save.",
+    "Debug logging is selective; a missing success marker is not proof no expenditure happened.",
+    "The latest transfer diagnostic is not a complete transaction history.",
+    "The run is not a matched vanilla control or a controlled law comparison."
+  ]
+}

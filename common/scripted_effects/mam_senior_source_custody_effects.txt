@@ -1,0 +1,63 @@
+﻿# Independent source-file alias prevents nested capture from replacing the destination file.
+mam_senior_capture_source_effect = {
+ every_in_list = { list = mam_senior_candidates remove_from_list = mam_senior_candidates }
+ save_scope_as = mam_incumbent top_liege = { save_scope_as = mam_emperor }
+ primary_title = { save_scope_as = mam_posting }
+ clear_saved_scope = mam_native_order_reference
+ scope:mam_posting.current_heir ?= {
+ if = { limit = { is_alive = yes top_liege = scope:mam_emperor this != scope:mam_emperor this != scope:mam_incumbent }
+ save_scope_as = mam_native_order_reference }
+ }
+
+ clear_saved_scope = mam_minister
+ scope:mam_emperor.cp:minister_personnel ?= { if = { limit = { mam_can_nominate_trigger = yes } save_scope_as = mam_minister } }
+ if = { limit = { NOT = { exists = scope:mam_minister } } debug_log = "MAM_PERSONNEL_VACANCY: no matched Personnel minister" }
+ # Without a valid minister leave vanilla succession alone.
+ if = { limit = { exists = scope:mam_minister }
+ scope:mam_posting.current_heir ?= { mam_senior_add_candidate_effect = yes }
+ scope:mam_minister.var:mam_marked_candidate ?= { mam_senior_add_candidate_effect = yes }
+ scope:mam_emperor = { every_courtier_or_guest = { mam_senior_add_candidate_effect = yes }
+ every_vassal_or_below = { mam_senior_add_candidate_effect = yes every_courtier_or_guest = { mam_senior_add_candidate_effect = yes } } }
+ if = { limit = { NOT = { exists = scope:mam_native_order_reference } NOT = { any_in_list = { list = mam_senior_candidates always = yes } } } debug_log = "MAM_PERSONNEL_VACANCY: no eligible candidates; native succession retained"
+ scope:mam_minister = { trigger_event = { id = mam_senior.5 days = 1 } } }
+ if = { limit = { OR = { exists = scope:mam_native_order_reference any_in_list = { list = mam_senior_candidates always = yes } } }
+ debug_log = "MAM_PERSONNEL_VACANCY: candidates found; creating custody file"
+ scope:mam_emperor = { create_story = { type = mam_senior_appointment_story save_scope_as = mam_senior_source_file } }
+ scope:mam_senior_source_file = {
+ set_variable = { name = mam_senior_title value = scope:mam_posting }
+ set_variable = { name = mam_senior_realm value = scope:mam_emperor.primary_title }
+ set_variable = { name = mam_senior_pending value = 1 }
+ set_variable = { name = mam_senior_native_certified value = 1 }
+ set_variable = { name = mam_senior_merit_floor value = scope:mam_posting.min_appointment_level }
+
+ set_variable = { name = mam_senior_deadline value = { value = current_date add = 90 } }
+ }
+ every_in_list = { list = mam_senior_candidates
+ scope:mam_senior_source_file = { add_to_variable_list = { name = mam_senior_native_candidates target = prev } }
+ }
+ # The native interaction reads title.min_appointment_level before testing merit.
+ scope:mam_native_order_reference ?= {
+ scope:mam_senior_source_file = {
+ set_variable = { name = mam_senior_default value = prev }
+ add_to_variable_list = { name = mam_senior_native_candidates target = prev }
+ } }
+ ordered_in_list = { list = mam_senior_candidates order_by = mam_public_suitability max = 1 check_range_bounds = no
+ scope:mam_senior_source_file = { set_variable = { name = mam_senior_professional value = prev } } }
+ ordered_in_list = { list = mam_senior_candidates order_by = mam_recommendation_score max = 1 check_range_bounds = no
+ scope:mam_senior_source_file = { set_variable = { name = mam_senior_preferred value = prev } } }
+ scope:mam_minister.var:mam_marked_candidate ?= { if = { limit = { is_in_list = mam_senior_candidates }
+ scope:mam_senior_source_file = { set_variable = { name = mam_senior_marked value = prev } } } }
+ # Snapshot the complete office before any title/custody changes.
+ scope:mam_incumbent = { mam_senior_snapshot_vassals_effect = { FILE = scope:mam_senior_source_file TITLE = scope:mam_posting } }
+ # Move only this clean jurisdiction, preserving family/estate titles.
+ create_title_and_vassal_change = { type = appointment save_scope_as = mam_appointment_change }
+ mam_senior_queue_custody_effect = { FILE = scope:mam_senior_source_file TITLE = scope:mam_posting OLD = scope:mam_incumbent NEW = scope:mam_emperor }
+ resolve_title_and_vassal_change = scope:mam_appointment_change
+ scope:mam_senior_source_file = { if = { limit = { mam_senior_pending_trigger = yes }
+ mam_senior_index_file_effect = yes
+ debug_log = "MAM_PERSONNEL_VACANCY: custody acquired; queueing Personnel event"
+ debug_log = "MAM_PERSONNEL: source custody created; notification deferred until destination resolves"
+ } else = { debug_log = "MAM_PERSONNEL_VACANCY: custody transfer did not satisfy postconditions" set_variable = { name = mam_senior_pending value = 0 } mam_senior_release_custody_lock_effect = yes } }
+ }
+ }
+}

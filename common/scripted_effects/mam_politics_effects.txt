@@ -1,0 +1,70 @@
+﻿# Called on submission only, so abandoning a draft carries no stress or credit.
+mam_record_reason_effect = {
+ if = {
+  limit = { exists = scope:mam_reason scope:mam_reason = 2 }
+  scope:mam_minister = { stress_impact = { just = 15 honest = 15 } }
+ }
+}
+# Only a verified successful destination receives sponsorship and a service record.
+mam_record_sponsorship_effect = {
+ if = {
+  limit = {
+   scope:mam_posting.holder = scope:mam_nominee
+   scope:mam_nominee = { mam_clean_bundle_trigger = { TITLE = scope:mam_posting } }
+   trigger_if = {
+    limit = { exists = scope:mam_source }
+    scope:mam_source.holder = scope:mam_replacement
+    scope:mam_replacement = { mam_clean_source_bundle_trigger = { TITLE = scope:mam_source } }
+   }
+  }
+  mam_record_dossier_sponsor_effect = yes
+  scope:mam_nominee = {
+   if = { limit = { this != scope:mam_minister scope:mam_minister = { is_alive = yes } } add_opinion = { target = scope:mam_minister modifier = mam_sponsored_appointment years = 5 } }
+   save_scope_value_as = { name = mam_review_start_merit value = merit_level }
+  }
+  scope:mam_posting = {
+   if = { limit = { NOT = { has_variable = mam_service_serial } } set_variable = { name = mam_service_serial value = 0 } }
+   change_variable = { name = mam_service_serial add = 1 }
+   save_scope_value_as = { name = mam_review_serial value = var:mam_service_serial }
+  }
+  scope:mam_nominee = { trigger_event = { id = mam_personnel.0053 years = 2 } }
+ }
+}
+mam_review_service_effect = {
+ # Recheck current holder, realm and serial; stale reviews have no effects.
+ if = {
+  limit = {
+   exists = scope:mam_posting exists = scope:mam_review_serial exists = scope:mam_review_start_merit exists = scope:mam_proposal_realm
+   scope:mam_posting.holder = this
+   scope:mam_posting = { has_variable = mam_service_serial var:mam_service_serial = scope:mam_review_serial }
+   top_liege.primary_title = scope:mam_proposal_realm
+  }
+  scope:mam_posting = { change_variable = { name = mam_service_serial add = 1 } }
+  top_liege = { save_scope_as = mam_review_ruler }
+  save_scope_value_as = { name = mam_review_end_merit value = merit_level }
+  save_scope_value_as = { name = mam_review_stewardship value = stewardship }
+  save_scope_value_as = { name = mam_review_rating value = 0 }
+  if = {
+   limit = { merit_level > scope:mam_review_start_merit stewardship >= 10 }
+   save_scope_value_as = { name = mam_review_rating value = 1 }
+  }
+  else_if = {
+   limit = { OR = { merit_level < scope:mam_review_start_merit stewardship < 8 } }
+   save_scope_value_as = { name = mam_review_rating value = 2 }
+  }
+  scope:mam_minister ?= {
+   if = {
+    limit = { is_alive = yes top_liege = scope:mam_review_ruler this != scope:mam_review_ruler }
+    if = { limit = { scope:mam_review_rating = 1 } scope:mam_review_ruler = { add_opinion = { target = scope:mam_minister modifier = mam_sound_recommendation years = 3 } } }
+    if = {
+     limit = { scope:mam_review_rating = 2 }
+     scope:mam_review_ruler = { add_opinion = { target = scope:mam_minister modifier = mam_weak_recommendation years = 3 } }
+     stress_impact = { just = 10 honest = 10 diligent = 10 }
+    }
+    if = { limit = { is_ai = no } trigger_event = mam_personnel.0052 }
+   }
+  }
+  scope:mam_review_ruler = { if = { limit = { is_ai = no } trigger_event = mam_personnel.0052 } }
+  if = { limit = { is_ai = no this != scope:mam_review_ruler this != scope:mam_minister } trigger_event = mam_personnel.0052 }
+ }
+}

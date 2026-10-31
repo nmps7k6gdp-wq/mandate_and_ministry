@@ -1,0 +1,68 @@
+﻿# Right-click the incumbent to review their existing civilian posting.
+
+# This is a local report, not a request sent to the incumbent.
+
+mam_review_posting_interaction = {
+
+    category = interaction_category_ministry
+
+    icon = scroll_scales
+
+    desc = mam_review_posting_interaction_desc
+
+    common_interaction = yes
+
+    auto_accept = yes
+
+    ai_frequency = 0
+
+    ai_targets = { ai_recipients = vassals }
+
+    interface_priority = 41
+
+    is_shown = { always = no # Retired: advancement now endorses a future vacancy.
+
+
+
+        scope:actor = { mam_can_nominate_trigger = yes }
+
+        scope:recipient = {
+
+            top_liege = scope:actor.top_liege
+
+            mam_supported_governor_trigger = yes
+
+        }
+
+    }
+
+    on_accept = {
+
+        scope:actor = {
+
+            mam_resolve_register_authority_effect = yes
+
+            scope:recipient = {
+
+                save_scope_as = mam_incumbent
+
+                primary_title = { save_scope_as = mam_posting }
+
+            }
+
+            save_scope_value_as = { name = mam_review_mode value = 0 }
+
+            mam_build_posting_review_effect = yes
+
+            trigger_event = mam_personnel.0020
+
+        }
+
+    }
+
+    ai_potential = { always = no }
+
+    ai_will_do = { base = 0 }
+
+}
+

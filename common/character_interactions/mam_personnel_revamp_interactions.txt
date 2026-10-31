@@ -1,0 +1,10 @@
+﻿mam_personnel_review_official_interaction = {
+ category = interaction_category_ministry icon = scroll_scales common_interaction = yes auto_accept = yes ai_frequency = 0 ai_targets = { ai_recipients = vassals }
+ desc = mam_personnel_review_official_desc
+ is_shown = { scope:actor = { mam_personnel_manage_talent_trigger = yes } scope:recipient = { mam_personnel_review_target_trigger = yes } }
+ on_accept = { scope:actor = { if = { limit = { mam_personnel_manage_talent_trigger = yes scope:recipient = { mam_personnel_review_target_trigger = yes } }
+ scope:recipient = { save_scope_as = mam_review_official mam_update_one_dossier_effect = yes }
+ trigger_event = mam_personnel_revamp.1
+ } } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

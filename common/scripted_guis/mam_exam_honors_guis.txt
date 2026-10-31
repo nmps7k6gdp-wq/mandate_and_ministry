@@ -1,0 +1,32 @@
+﻿# Read-only presentation. Querying these never awards Merit or changes flags.
+mam_exam_badge_any = {
+ scope = character
+ is_valid = {
+  OR = { mam_exam_palace_honors_trigger = yes mam_exam_palace_first_trigger = yes mam_exam_triple_first_trigger = yes }
+ }
+}
+mam_exam_badge_honors = {
+ scope = character
+ is_valid = {
+  mam_exam_palace_honors_trigger = yes
+  NOT = { mam_exam_palace_first_trigger = yes }
+  NOT = { mam_exam_triple_first_trigger = yes }
+ }
+}
+mam_exam_badge_champion = {
+ scope = character
+ is_valid = { mam_exam_palace_first_trigger = yes NOT = { mam_exam_triple_first_trigger = yes } }
+}
+mam_exam_badge_triple = {
+ scope = character
+ is_valid = { mam_exam_triple_first_trigger = yes }
+}
+
+# Earned status is cumulative; the separate compact badge remains highest-only.
+mam_exam_earned_honors = { scope = character is_valid = {
+ OR = { mam_exam_palace_honors_trigger = yes mam_exam_palace_first_trigger = yes mam_exam_triple_first_trigger = yes }
+} }
+mam_exam_earned_champion = { scope = character is_valid = {
+ OR = { mam_exam_palace_first_trigger = yes mam_exam_triple_first_trigger = yes }
+} }
+mam_exam_earned_triple = { scope = character is_valid = { mam_exam_triple_first_trigger = yes } }

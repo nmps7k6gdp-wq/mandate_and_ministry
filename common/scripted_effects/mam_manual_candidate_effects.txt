@@ -1,0 +1,18 @@
+﻿# Player's preference only; destination and replacement eligibility are unchanged.
+mam_mark_candidate_effect = {
+ set_variable = { name = mam_marked_candidate value = $CANDIDATE$ }
+}
+mam_read_marked_candidate_effect = {
+ clear_saved_scope = mam_marked_candidate
+ scope:mam_requester ?= {
+  if = {
+   limit = { is_ai = no mam_can_nominate_trigger = yes }
+   var:mam_marked_candidate ?= {
+    if = {
+     limit = { is_alive = yes is_adult = yes top_liege = scope:mam_emperor }
+     save_scope_as = mam_marked_candidate
+    }
+   }
+  }
+ }
+}

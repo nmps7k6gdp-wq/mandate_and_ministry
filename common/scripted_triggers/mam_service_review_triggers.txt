@@ -1,0 +1,67 @@
+﻿# Title scope: evidence is usable only for this supported primary office.
+mam_service_evidence_trigger = {
+ mam_dossier_mature_trigger = yes
+ holder = { mam_dossier_governor_trigger = yes primary_title = prev }
+ holder.top_liege.primary_title = { has_variable = mam_ds_enabled }
+}
+# War-confounded declines cannot support adverse advice or lenient retention.
+mam_service_safe_advice_trigger = {
+ mam_service_evidence_trigger = yes
+ OR = { NOT = { has_variable = mam_ds_war_observed } mam_service_concern_value = 0 }
+}
+mam_service_major_concern_trigger = {
+ OR = {
+  var:mam_ds_control <= { value = var:mam_ds_baseline_control subtract = 20 }
+  var:mam_ds_development <= { value = var:mam_ds_baseline_development subtract = 2 }
+  var:mam_ds_merit <= { value = var:mam_ds_baseline_merit subtract = 2 }
+ }
+}
+mam_service_modest_concern_trigger = {
+ OR = {
+  var:mam_ds_control <= { value = var:mam_ds_baseline_control subtract = 5 }
+  var:mam_ds_development <= { value = var:mam_ds_baseline_development subtract = 0.5 }
+  var:mam_ds_merit < var:mam_ds_baseline_merit
+ }
+}
+mam_service_advice_current_trigger = {
+ mam_dossier_record_current_trigger = yes
+ has_variable = mam_rv_war
+ OR = { AND = { has_variable = mam_ds_war_observed var:mam_rv_war = 1 } AND = { NOT = { has_variable = mam_ds_war_observed } var:mam_rv_war = 0 } }
+ has_variable = mam_rv_kind has_variable = mam_rv_author
+ has_variable = mam_rv_holder has_variable = mam_rv_realm
+ has_variable = mam_rv_baseline has_variable = mam_rv_sample
+ var:mam_rv_holder = holder
+ var:mam_rv_realm = var:mam_ds_realm
+ var:mam_rv_baseline = var:mam_ds_started
+ has_variable = mam_rv_serial
+ var:mam_rv_serial = var:mam_ds_serial
+ has_variable = mam_rv_control
+ var:mam_rv_control = var:mam_ds_control
+ has_variable = mam_rv_development
+ var:mam_rv_development = var:mam_ds_development
+ has_variable = mam_rv_merit
+ var:mam_rv_merit = var:mam_ds_merit
+ var:mam_rv_sample = var:mam_ds_sampled
+ holder.top_liege.primary_title = { has_variable = mam_ds_enabled }
+}
+# Requester scope; opened evidence must still be exactly the evidence reviewed.
+mam_service_can_record_trigger = {
+ mam_personnel_manage_talent_trigger = yes
+ mam_can_nominate_trigger = yes this = scope:mam_srv_minister
+ exists = scope:mam_dossier_governor exists = scope:mam_dossier_title
+ scope:mam_dossier_governor = {
+  mam_dossier_governor_trigger = yes top_liege = scope:mam_srv_emperor
+  primary_title = scope:mam_dossier_title
+ }
+ scope:mam_dossier_title = {
+  mam_dossier_record_current_trigger = yes
+  holder.top_liege.primary_title = { has_variable = mam_ds_enabled }
+  OR = { AND = { has_variable = mam_ds_war_observed scope:mam_srv_opened_war = 1 } AND = { NOT = { has_variable = mam_ds_war_observed } scope:mam_srv_opened_war = 0 } }
+  var:mam_ds_started = scope:mam_srv_opened_baseline
+  var:mam_ds_serial = scope:mam_srv_opened_serial
+  var:mam_ds_control = scope:mam_srv_opened_control
+  var:mam_ds_development = scope:mam_srv_opened_development
+  var:mam_ds_merit = scope:mam_srv_opened_merit
+  var:mam_ds_sampled = scope:mam_srv_opened_sample
+ }
+}

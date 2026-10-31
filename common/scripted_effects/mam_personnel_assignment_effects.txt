@@ -1,0 +1,68 @@
+﻿mam_personnel_assignment_maintenance_effect = {
+
+ if = { limit = { mam_can_oversee_personnel_trigger = yes }
+
+ mam_remove_retired_ministry_laws_effect = yes
+
+ # Invalidate legacy forced-transfer proposals on the first maintenance pass.
+
+ if = { limit = { primary_title = { NOT = { has_variable = mam_personnel_revamp_migrated } } }
+
+ remove_character_flag = mam_pending_proposal
+
+ primary_title = {
+
+ remove_variable = mam_active_proposal_generation remove_variable = mam_active_proposal_emperor
+
+ set_variable = { name = mam_personnel_revamp_migrated value = 1 }
+
+ }
+
+ }
+
+
+
+ if = { limit = { exists = cp:minister_personnel cp:minister_personnel = { mam_personnel_manage_talent_trigger = yes } }
+
+ if = { limit = { primary_title = { has_variable = mam_personnel_observation_gap } }
+
+ every_vassal_or_below = { limit = { mam_dossier_governor_trigger = yes }
+
+ primary_title = { mam_start_dossier_effect = { REASON = 4 } } }
+
+ primary_title = { remove_variable = mam_personnel_observation_gap }
+
+ }
+
+ primary_title = { set_variable = { name = mam_ds_enabled value = 1 } }
+ # Start or resume baselines without waiting up to a year for the annual sample.
+ if = { limit = { primary_title = { NOT = { has_variable = mam_personnel_observation_active } } }
+  mam_refresh_realm_dossiers_effect = yes
+  primary_title = { set_variable = { name = mam_personnel_observation_active value = 1 } }
+  debug_log = "MAM_PERSONNEL_TASK: Manage Talent baselines active"
+ }
+
+ } else = { primary_title = {
+  set_variable = { name = mam_personnel_observation_gap value = 1 }
+  remove_variable = mam_personnel_observation_active
+ } }
+
+ cp:councillor_chancellor ?= { mam_personnel_ai_direction_effect = yes }
+
+ cp:minister_personnel ?= { mam_senior_queue_effect = yes }
+
+ }
+
+}
+
+
+# Personnel scope. Called independently of vanilla's throttled random side effects.
+mam_personnel_apply_favor_effect = {
+ if = { limit = { mam_can_nominate_trigger = yes is_performing_council_task = task_bestow_royal_favor_minister_of_personnel }
+  councillor_task_target ?= { if = { limit = { is_alive = yes this != prev.top_liege top_liege = prev.top_liege }
+   set_variable = { name = mam_personnel_favor_realm value = top_liege.primary_title }
+   add_character_modifier = { modifier = mam_personnel_royal_favor days = 90 }
+   debug_log = "MAM_PERSONNEL_TASK: Royal Favor refreshed on current target"
+  } }
+ }
+}

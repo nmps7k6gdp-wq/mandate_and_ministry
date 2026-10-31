@@ -1,0 +1,21 @@
+﻿# Title scope. Return only cash actually present above current operating needs.
+mam_revenue_fund_settle_return_effect = {
+ if = { limit = { has_variable = mam_cf_return_pending }
+  if = { limit = { this = title:e_minister_of_revenue } remove_variable = mam_cf_return_pending }
+  else_if = { limit = { exists = holder exists = title:e_minister_of_revenue.holder
+   title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes }
+  }
+   mam_revenue_fund_sweep_effect = yes
+   if = { limit = { holder.treasury < { value = mam_revenue_fund_cash_target add = 1 } }
+    remove_variable = mam_cf_return_pending
+   }
+  }
+ }
+}
+mam_revenue_fund_return_project_effect = {
+ set_variable = { name = mam_cf_project_cash value = 0 }
+ remove_variable = mam_cf_project_type remove_variable = mam_cf_project_target
+ remove_variable = mam_cf_project_instance remove_variable = mam_cf_project_until
+ set_variable = { name = mam_cf_return_pending value = 1 }
+ mam_revenue_fund_settle_return_effect = yes
+}

@@ -1,0 +1,10 @@
+﻿mam_senior_sponsorship_preview_effect = {
+ if = { limit = { exists = $CANDIDATE$ exists = $SPONSOR$ }
+ if = { limit = { exists = $SPONSOR$
+ $SPONSOR$ = { is_alive = yes top_liege.primary_title = scope:mam_senior_file.var:mam_senior_realm }
+ $CANDIDATE$ = { this != $SPONSOR$ mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes }
+ }
+ $CANDIDATE$ = { show_as_tooltip = { add_opinion = { target = $SPONSOR$ modifier = mam_sponsored_appointment years = 5 } } }
+ }
+ }
+}

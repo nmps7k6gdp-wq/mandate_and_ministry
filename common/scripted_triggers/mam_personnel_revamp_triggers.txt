@@ -1,0 +1,11 @@
+﻿# Character scope: assignment powers supplement permanent nomination authority.
+mam_personnel_manage_talent_trigger = {
+ mam_can_nominate_trigger = yes
+ is_performing_council_task = task_manage_talent
+}
+mam_personnel_review_target_trigger = {
+ is_alive = yes is_adult = yes is_landed = yes
+ primary_title = { tier >= tier_county is_landless_type_title = no is_noble_family_title = no }
+ top_liege = scope:actor.top_liege
+ this != scope:actor this != scope:actor.top_liege
+}

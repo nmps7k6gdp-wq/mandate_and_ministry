@@ -1,0 +1,25 @@
+﻿mam_justice_service_story = {
+ visible = no on_setup = { }
+ on_owner_death = { mam_justice_inherit_effect = yes }
+ effect_group = { days = 7 triggered_effect = { trigger = { always = yes } effect = {
+  if = { limit = { exists = var:mam_jus_realm.holder var:mam_jus_realm = { exists = var:mam_jus_service var:mam_jus_service = prev } }
+   var:mam_jus_realm.holder = { mam_justice_poll_effect = yes }
+  } else = { end_story = yes }
+ } } }
+}
+mam_justice_case_story = {
+ visible = no on_setup = { }
+ on_owner_death = { mam_justice_inherit_effect = yes }
+ effect_group = { days = 7 triggered_effect = { trigger = { always = yes } effect = {
+  mam_justice_warrant_maintenance_effect = yes
+  mam_justice_reported_conduct_effect = yes
+  if = { limit = { var:mam_jus_pending = 1 } mam_justice_tick_effect = yes }
+  else_if = { limit = { has_variable = mam_jus_closed var:mam_jus_closed <= { value = current_date subtract = 7300 }
+   NOT = { has_variable = mam_jus_warrant_issued } NOT = { has_variable = mam_jus_offer_author } NOT = { has_variable = mam_jus_violation }
+  } var:mam_jus_realm = { remove_list_variable = { name = mam_jus_cases target = prev } } end_story = yes }
+ } } }
+}
+mam_justice_receipt_story = {
+ visible = no on_setup = { }
+ on_owner_death = { mam_justice_inherit_effect = yes }
+}

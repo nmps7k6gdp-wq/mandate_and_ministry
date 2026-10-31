@@ -1,0 +1,68 @@
+﻿# Candidate scope. An accepted payment is tied to THIS minister and expires.
+mam_private_obligation_trigger = {
+ exists = scope:mam_minister
+ has_variable = mam_bribe_sponsor has_variable = mam_bribe_until
+ var:mam_bribe_sponsor = scope:mam_minister var:mam_bribe_until > current_date
+}
+mam_political_client_trigger = {
+ exists = scope:mam_minister
+ has_variable = mam_political_sponsor
+ var:mam_political_sponsor = scope:mam_minister
+}
+# Candidate scope. Exception context is exact to this candidate and posting.
+# Does not waive jurisdiction, native eligibility, recent appointment or source rules.
+mam_exception_for_candidate_trigger = {
+ exists = scope:mam_exception_candidate exists = scope:mam_exception_posting
+ this = scope:mam_exception_candidate
+ $TITLE$ = scope:mam_exception_posting
+}
+mam_may_petition_exception_trigger = {
+ exists = scope:mam_posting exists = scope:mam_inspected
+ scope:mam_requester = { mam_can_nominate_trigger = yes this = scope:mam_minister }
+ scope:mam_emperor = { is_at_war = no NOT = { has_character_flag = mam_pending_proposal } }
+ mam_power_title_allowed_trigger = { TITLE = scope:mam_posting }
+ scope:mam_inspected = {
+  NOT = { has_character_flag = mam_recent_appointment }
+  mam_register_candidate_trigger = yes is_civilian_candidate_trigger = yes tgp_is_any_minister = no
+  can_appoint_for_title = scope:mam_posting
+  has_appointment_level_for_title = scope:mam_posting
+  is_appointment_valid_trigger = { TITLE = scope:mam_posting CANDIDATE = this TOP_LIEGE = scope:mam_emperor }
+  trigger_if = { limit = { is_landed = yes }
+   mam_clean_source_bundle_trigger = { TITLE = primary_title }
+   mam_power_title_allowed_trigger = { TITLE = primary_title }
+  }
+ }
+ NOT = { mam_nomination_ready_trigger = yes }
+ OR = {
+  scope:mam_inspected = { NOT = { mam_exam_standard_trigger = { TITLE = scope:mam_posting } } }
+  scope:mam_inspected = { NOT = { mam_power_destination_discretion_trigger = yes } }
+ }
+}
+# Bribe payer. AI decision resolves the active minister freshly from the top liege.
+mam_can_offer_bribe_trigger = {
+ trigger_if = { limit = { exists = top_liege.cp:minister_personnel }
+ has_tgp_dlc_trigger = yes is_alive = yes is_adult = yes gold >= 100
+ is_independent_ruler = no this != top_liege.cp:minister_personnel
+ NOT = { has_character_flag = mam_bribe_offer_cooldown }
+ NOT = { AND = { has_variable = mam_bribe_until has_variable = mam_bribe_sponsor var:mam_bribe_until > current_date var:mam_bribe_sponsor = top_liege.cp:minister_personnel } }
+ top_liege = {
+  government_has_flag = government_is_celestial
+  cp:minister_personnel = {
+   is_alive = yes is_imprisoned = no mam_cj_office_allowed_trigger = yes has_title = title:e_minister_of_personnel
+   NOT = { has_variable = mam_bribe_offer_sender }
+   NOT = { has_character_flag = mam_bribe_inbox_cooldown }
+  }
+ }
+}
+ trigger_else = { always = no }
+}
+# Minister event scope. An old event cannot charge after minister replacement,
+# realm change, sender death, lost funds, timeout, refusal or previous acceptance.
+mam_bribe_offer_valid_trigger = {
+ is_alive = yes is_imprisoned = no mam_cj_office_allowed_trigger = yes has_title = title:e_minister_of_personnel
+ save_temporary_scope_as = mam_bribe_receiving_minister
+ exists = scope:mam_bribe_payer has_variable = mam_bribe_offer_sender
+ var:mam_bribe_offer_sender = scope:mam_bribe_payer
+ top_liege = { cp:minister_personnel = prev }
+ scope:mam_bribe_payer = { is_alive = yes is_adult = yes gold >= 100 top_liege = scope:mam_bribe_receiving_minister.top_liege }
+}

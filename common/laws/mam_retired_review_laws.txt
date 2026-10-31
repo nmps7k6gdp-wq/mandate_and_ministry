@@ -1,0 +1,56 @@
+﻿# Retired in dev.34. Database keys remain only to load and clean up older saves.
+# No default, adoption, effects, costs or flags; these laws are absent from gameplay.
+mam_cj_review_delegated = {
+ law_group_type = mam_cj_review_laws index = 0
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_cj_review_imperial = {
+ law_group_type = mam_cj_review_laws index = 1
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_ch_mandate_limited = {
+ law_group_type = mam_ch_mandate_laws index = 0
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_ch_mandate_review = {
+ law_group_type = mam_ch_mandate_laws index = 1
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_ch_mandate_coordinating = {
+ law_group_type = mam_ch_mandate_laws index = 2
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}

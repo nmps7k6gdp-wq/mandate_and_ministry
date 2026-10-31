@@ -1,0 +1,13 @@
+﻿# Installed native governor_resignation_title_transfer_effect, with pre-transfer senior custody.
+governor_resignation_title_transfer_effect = {
+ save_scope_as = resigner
+ top_liege = { save_scope_as = emperor }
+ primary_title = { save_scope_as = mam_resignation_posting }
+ if = { limit = { mam_senior_incumbent_trigger = yes }
+ mam_senior_capture_effect = yes
+ }
+ # Preserve vanilla transfer for lower tiers, unsupported offices, or failed custody.
+ if = { limit = { scope:mam_resignation_posting.holder = this }
+ force_step_down_landed_titles = yes
+ }
+}

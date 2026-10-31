@@ -1,0 +1,37 @@
+﻿# Clean campaign setup; the quarterly callback also handles loaded saves.
+on_game_start_after_lobby = { on_actions = { mam_retired_ministry_laws_startup } }
+mam_retired_ministry_laws_startup = {
+ effect = {
+  every_independent_ruler = {
+   mam_remove_retired_ministry_laws_effect = yes
+   every_vassal_or_below = { mam_remove_retired_ministry_laws_effect = yes }
+  }
+ }
+}
+
+# Only affected rulers run the migration; hidden groups have no active policy effects.
+quarterly_playable_pulse = { on_actions = { mam_retired_ministry_laws_cleanup } }
+mam_retired_ministry_laws_cleanup = {
+ trigger = { OR = {
+  has_realm_law = mam_jurisdiction_full
+  has_realm_law = mam_jurisdiction_restricted
+  has_realm_law = mam_discretion_choice
+  has_realm_law = mam_discretion_ranked
+  has_realm_law = mam_cj_review_delegated
+  has_realm_law = mam_cj_review_imperial
+  has_realm_law = mam_ch_mandate_limited
+  has_realm_law = mam_ch_mandate_review
+  has_realm_law = mam_ch_mandate_coordinating
+  has_realm_law = mam_recruitment_mixed
+  has_realm_law = mam_recruitment_preference
+  has_realm_law = mam_recruitment_strict
+  primary_title = { OR = {
+   has_variable = mam_jurisdiction_cooldown
+   has_variable = mam_discretion_cooldown
+   has_variable = mam_cj_review_cooldown
+   has_variable = mam_ch_mandate_cooldown
+   has_variable = mam_recruitment_cooldown
+  } }
+ } }
+ effect = { mam_remove_retired_ministry_laws_effect = yes }
+}

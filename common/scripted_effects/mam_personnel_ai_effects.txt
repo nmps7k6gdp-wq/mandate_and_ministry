@@ -1,0 +1,31 @@
+﻿# Current Chancellor scope. Annual policy renewal, with a quarterly wake-up.
+# Never override imperial instructions or a priority without AI provenance.
+mam_personnel_ai_direction_effect = {
+ if = { limit = { is_ai = yes mam_personnel_can_direct_trigger = yes }
+  save_scope_as = mam_ai_chancellor
+  top_liege.primary_title = {
+   if = { limit = {
+    NOT = { has_variable = mam_personnel_imperial_direction }
+    OR = { NOT = { has_variable = mam_personnel_priority } has_variable = mam_personnel_ai_priority_owner }
+    OR = {
+     NOT = { exists = var:mam_personnel_ai_priority_owner }
+     var:mam_personnel_ai_priority_owner != scope:mam_ai_chancellor
+     NOT = { has_variable = mam_personnel_ai_priority_until }
+     AND = { has_variable = mam_personnel_ai_priority_until var:mam_personnel_ai_priority_until <= current_date }
+    }
+   }
+    if = { limit = { scope:mam_ai_chancellor = { OR = { has_trait = just has_trait = honest has_trait = diligent has_trait = patient } } }
+     set_variable = { name = mam_personnel_priority value = 1 }
+     debug_log = "MAM_PERSONNEL_AI: Chancellor set professional nominations"
+    }
+    else_if = { limit = { scope:mam_ai_chancellor = { OR = { has_trait = lazy has_trait = content has_trait = impatient has_trait = shy } } }
+     set_variable = { name = mam_personnel_priority value = 2 }
+     debug_log = "MAM_PERSONNEL_AI: Chancellor set continuity nominations"
+    }
+    else = { remove_variable = mam_personnel_priority debug_log = "MAM_PERSONNEL_AI: Chancellor allowed ministerial discretion" }
+    set_variable = { name = mam_personnel_ai_priority_owner value = scope:mam_ai_chancellor }
+    set_variable = { name = mam_personnel_ai_priority_until value = { value = current_date add = 365 } }
+   }
+  }
+ }
+}

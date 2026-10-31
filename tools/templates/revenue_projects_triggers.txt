@@ -1,0 +1,80 @@
+# Character scope; a project envelope is an institutional authorization.
+mam_revenue_fund_project_budget_authority_trigger = {
+ exists = scope:mam_cf_selected_project
+ scope:mam_cf_selected_project = { var:mam_pc_budget > 0 }
+ OR = {
+  scope:mam_cf_selected_project = { var:mam_pc_level = 3 }
+  AND = {
+   mam_revenue_reserved_ministry_trigger = no
+   NOT = { has_title = title:e_minister_of_revenue }
+   scope:mam_cf_selected_project = { NOT = { great_project_type = grand_campaign_project } }
+   title:h_china.holder = { NOT = { has_realm_law = mam_revenue_authority_reserved } }
+   OR = {
+    scope:mam_cf_selected_project = { var:mam_pc_level = 2 }
+    AND = {
+     scope:mam_cf_selected_project = { var:mam_pc_level = 1 var:mam_pc_ceiling <= 500 }
+     title:h_china.holder = { has_realm_law = mam_revenue_authority_expanded }
+     title:h_china = { var:mam_cf_programme = 0 NOT = { has_variable = mam_cf_suspended } }
+    }
+   }
+  }
+ }
+}
+mam_revenue_fund_project_invoice_actor_trigger = {
+ mam_revenue_ministry_trigger = yes is_imprisoned = no NOT = { has_trait = incapable }
+ exists = scope:mam_cf_selected_project
+ scope:mam_cf_selected_project = { great_project_owner = title:h_china.holder NOT = { has_variable = mam_pc_closed } }
+ primary_title = { NOT = { has_variable = mam_cf_payment_hold } }
+ mam_revenue_fund_ready_trigger = yes
+}
+mam_revenue_fund_invoice_budget_sufficient_trigger = {
+ mam_revenue_fund_project_budget_authority_trigger = yes
+ scope:mam_cf_selected_project.var:mam_pc_budget >= scope:mam_cf_invoice_price
+ trigger_if = { limit = { scope:mam_cf_selected_project = {
+  has_variable = mam_pc_mobilization_reserved var:mam_pc_mobilization_reserved > 0 var:mam_pc_mobilization_paid = 0
+ } }
+  scope:mam_cf_selected_project.var:mam_pc_budget >= {
+   value = scope:mam_cf_invoice_price add = scope:mam_cf_selected_project.var:mam_pc_mobilization_reserved
+  }
+ }
+}
+mam_revenue_fund_project_launch_needed_trigger = {
+ great_project_type = grand_campaign_project
+ NOT = { any_contribution = { contribution_id = attack_1 contribution_is_funded = yes } }
+}
+# Financial authorization is separate from native execution failure. A lock,
+# payment hold, cooldown or native refusal never creates another budget request.
+mam_revenue_fund_invoice_needs_budget_trigger = {
+ mam_revenue_fund_project_invoice_actor_trigger = yes
+ exists = scope:mam_cf_pick_slot
+ scope:mam_cf_pick_slot = { contribution_is_funded = no }
+ scope:mam_cf_invoice_eligible = 1 scope:mam_cf_invoice_price > 0
+ mam_revenue_fund_legacy_invoice_available_trigger = no
+ mam_revenue_fund_invoice_budget_sufficient_trigger = no
+ scope:mam_cf_selected_project = { NOT = { has_variable = mam_pc_executing } }
+}
+# Story scope. Retire old duplicate requests when an institutional envelope
+# already covers their invoice, without issuing another transfer or notice.
+mam_revenue_fund_project_request_covered_trigger = {
+ var:mam_cf_kind = 13 exists = var:mam_cf_project_instance
+ exists = var:mam_cf_requester has_variable = mam_pc_minimum
+ save_temporary_scope_as = mam_cf_coverage_file
+ var:mam_cf_project_instance = { save_temporary_scope_as = mam_cf_selected_project }
+ var:mam_cf_requester = {
+  save_temporary_scope_value_as = { name = mam_cf_invoice_price value = scope:mam_cf_coverage_file.var:mam_pc_minimum }
+  mam_revenue_fund_invoice_budget_sufficient_trigger = yes
+ }
+}
+mam_revenue_fund_legacy_invoice_available_trigger = {
+ exists = scope:mam_cf_selected_project
+ treasury >= scope:mam_cf_invoice_price
+ primary_title = {
+  has_variable = mam_cf_project_instance var:mam_cf_project_instance = scope:mam_cf_selected_project
+  has_variable = mam_cf_project_until var:mam_cf_project_until > current_date
+  var:mam_cf_project_cash >= scope:mam_cf_invoice_price
+ }
+ trigger_if = { limit = { scope:mam_cf_selected_project = { great_project_type = grand_campaign_project } }
+  scope:mam_cf_selected_project = { OR = { var:mam_pc_launch_authorized = 1
+   any_contribution = { contribution_id = attack_1 contribution_is_funded = yes } } }
+ }
+}

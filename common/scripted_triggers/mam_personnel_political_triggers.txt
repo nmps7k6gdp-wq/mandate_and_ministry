@@ -1,0 +1,18 @@
+﻿mam_personnel_shared_faction_trigger = {
+ exists = scope:mam_minister save_temporary_scope_as = mam_political_candidate
+ top_liege = { any_targeting_faction = {
+ any_faction_member = { this = scope:mam_minister }
+ any_faction_member = { this = scope:mam_political_candidate }
+ } }
+}
+mam_personnel_shared_bloc_trigger = {
+ exists = house.house_confederation exists = scope:mam_minister.house.house_confederation
+ house.house_confederation = scope:mam_minister.house.house_confederation
+}
+mam_personnel_hostile_house_trigger = {
+ exists = house exists = scope:mam_minister.house
+ house = { any_house_relation = {
+ any_relation_house = { this = scope:mam_minister.house }
+ OR = { has_house_relation_level = rivalry has_house_relation_level = feud }
+ } }
+}

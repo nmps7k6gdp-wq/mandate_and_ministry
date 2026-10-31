@@ -1,0 +1,6 @@
+﻿mam_revenue_fiscal_authority_laws = {
+ default = mam_revenue_authority_reserved cumulative = no flag = realm_law
+ required_government_flag = { government_is_celestial }
+ can_have_group = { has_tgp_dlc_trigger = yes has_title = title:h_china is_independent_ruler = yes }
+ can_change_law_group = { mam_revenue_emperor_trigger = yes mam_revenue_authority_trigger = yes }
+}

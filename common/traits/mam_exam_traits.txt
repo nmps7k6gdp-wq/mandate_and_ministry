@@ -1,0 +1,26 @@
+﻿mam_exam_laureate = {
+ category = fame
+ shown_in_ruler_designer = no
+ random_creation = 0
+ random_creation_weight = 0
+ birth = 0
+ same_opinion = 5
+ name = { first_valid = {
+  triggered_desc = { trigger = { NOT = { exists = this } } desc = "trait_mam_exam_laureate" }
+  triggered_desc = { trigger = { mam_exam_triple_first_trigger = yes } desc = "trait_mam_exam_threefold_laureate" }
+  triggered_desc = { trigger = { mam_exam_palace_first_trigger = yes } desc = "trait_mam_exam_palace_champion" }
+  desc = "trait_mam_exam_laureate"
+ } }
+ desc = { first_valid = {
+  triggered_desc = { trigger = { NOT = { exists = this } } desc = "trait_mam_exam_laureate_desc" }
+  triggered_desc = { trigger = { mam_exam_triple_first_trigger = yes } desc = "trait_mam_exam_threefold_laureate_desc" }
+  triggered_desc = { trigger = { mam_exam_palace_first_trigger = yes } desc = "trait_mam_exam_palace_champion_desc" }
+  desc = "trait_mam_exam_laureate_desc"
+ } }
+ icon = { first_valid = {
+  triggered_desc = { trigger = { NOT = { exists = this } } desc = "mam_exam_laureate.dds" }
+  triggered_desc = { trigger = { mam_exam_triple_first_trigger = yes } desc = "mam_exam_threefold_laureate.dds" }
+  triggered_desc = { trigger = { mam_exam_palace_first_trigger = yes } desc = "mam_exam_palace_champion.dds" }
+  desc = "mam_exam_laureate.dds"
+ } }
+}

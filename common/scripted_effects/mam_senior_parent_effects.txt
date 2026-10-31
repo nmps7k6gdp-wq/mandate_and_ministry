@@ -1,0 +1,111 @@
+﻿# Story scope. Re-evaluate the de-jure empire's current holder at every handover.
+mam_senior_resolve_parent_effect = {
+ save_scope_as = mam_parent_file
+ set_variable = { name = mam_senior_destination_liege value = var:mam_senior_realm.holder }
+ remove_variable = mam_senior_parent_waiting
+ if = { limit = { var:mam_senior_title = { tier = tier_kingdom exists = de_jure_liege } }
+  var:mam_senior_title.de_jure_liege = {
+   if = { limit = { tier = tier_empire is_landless_type_title = no is_noble_family_title = no }
+    if = { limit = { exists = holder holder = { mam_senior_valid_empire_parent_trigger = { REALM = scope:mam_parent_file.var:mam_senior_realm } } }
+     scope:mam_parent_file = { set_variable = { name = mam_senior_destination_liege value = prev.holder } }
+    }
+    else_if = { limit = { OR = { NOT = { exists = holder } holder = scope:mam_parent_file.var:mam_senior_realm.holder } }
+     scope:mam_parent_file = { set_variable = { name = mam_senior_parent_waiting value = 1 } }
+    }
+   }
+  }
+ }
+}
+# Story scope, after title resolution. A changed/foreign office cannot be pulled back.
+mam_senior_restore_parent_effect = {
+ save_scope_as = mam_parent_file
+ if = { limit = {
+  exists = var:mam_senior_appointee
+  var:mam_senior_title.holder = var:mam_senior_appointee
+  var:mam_senior_appointee = { is_alive = yes top_liege.primary_title = prev.var:mam_senior_realm }
+ }
+  mam_senior_resolve_parent_effect = yes
+  if = { limit = {
+   var:mam_senior_appointee = { liege != scope:mam_parent_file.var:mam_senior_destination_liege }
+   var:mam_senior_appointee = { liege = scope:mam_parent_file.var:mam_senior_realm.holder }
+   var:mam_senior_destination_liege != var:mam_senior_appointee
+  }
+   create_title_and_vassal_change = { type = appointment save_scope_as = mam_parent_change }
+   var:mam_senior_appointee = { change_liege = { liege = scope:mam_parent_file.var:mam_senior_destination_liege change = scope:mam_parent_change } }
+   resolve_title_and_vassal_change = scope:mam_parent_change
+   if = { limit = { var:mam_senior_appointee = { liege != scope:mam_parent_file.var:mam_senior_destination_liege } }
+    set_variable = { name = mam_senior_parent_waiting value = 1 }
+    debug_log = "MAM_PERSONNEL_PARENT: parent transfer unresolved; retry retained"
+   }
+   else = { debug_log = "MAM_PERSONNEL_PARENT: kingdom placed under its current de-jure empire governor" }
+  }
+  else_if = { limit = { var:mam_senior_appointee = { liege != scope:mam_parent_file.var:mam_senior_realm.holder liege != scope:mam_parent_file.var:mam_senior_destination_liege } }
+   remove_variable = mam_senior_parent_waiting
+  }
+ }
+ else = { remove_variable = mam_senior_parent_waiting }
+}
+# Story scope. Release only this generation's title lock, never a newer vacancy's.
+mam_senior_release_custody_lock_effect = {
+ save_scope_as = mam_unlock_file
+ var:mam_senior_title ?= {
+  if = { limit = { exists = var:mam_senior_custody_file var:mam_senior_custody_file = scope:mam_unlock_file }
+   remove_variable = mam_senior_custody_file
+  }
+ }
+}
+# An empire appointment wakes only completed kingdom files waiting for this empire.
+mam_senior_wake_child_parent_repairs_effect = {
+ save_scope_as = mam_parent_empire_file
+ if = { limit = { var:mam_senior_title = { tier = tier_empire } }
+  var:mam_senior_realm.holder = {
+   every_owned_story = { limit = {
+    story_type = mam_senior_appointment_story
+    has_variable = mam_senior_parent_waiting
+    var:mam_senior_pending = 0
+    var:mam_senior_title = { tier = tier_kingdom de_jure_liege = scope:mam_parent_empire_file.var:mam_senior_title }
+   }
+    mam_senior_restore_parent_effect = yes
+   }
+  }
+ }
+}
+# Display-only; no persistent story state is changed during tooltip evaluation.
+mam_senior_parent_preview_effect = {
+ if = { limit = { scope:mam_posting = { tier = tier_empire } }
+  custom_tooltip = mam_senior.parent_empire_throne_tt
+ }
+ else_if = { limit = { scope:mam_posting = { tier = tier_kingdom exists = de_jure_liege.holder } }
+  scope:mam_posting.de_jure_liege.holder = {
+   if = { limit = { mam_senior_valid_empire_parent_trigger = { REALM = scope:mam_senior_file.var:mam_senior_realm } }
+    save_scope_as = mam_senior_preview_parent
+    custom_tooltip = mam_senior.parent_governor_tt
+   }
+   else = { custom_tooltip = mam_senior.parent_throne_tt }
+  }
+ }
+ else = { custom_tooltip = mam_senior.parent_throne_tt }
+}
+
+# Once per realm/build. Older files can repair only titles they actually recorded.
+# Do not infer missing historical holdings by sweeping a de-jure kingdom.
+mam_senior_repair_existing_jurisdictions_effect = {
+ if = { limit = { mam_can_oversee_personnel_trigger = yes
+  primary_title = { NOT = { has_variable = mam_senior_jurisdiction_migrated_dev43 } }
+ }
+  primary_title = { set_variable = { name = mam_senior_jurisdiction_migrated_dev43 value = 1 } }
+  every_owned_story = { limit = {
+   story_type = mam_senior_appointment_story
+   var:mam_senior_pending = 0
+   exists = var:mam_senior_appointee
+   var:mam_senior_title.holder = var:mam_senior_appointee
+  }
+   if = { limit = { NOT = { has_variable = mam_senior_jurisdiction_snapshot } }
+    debug_log = "MAM_PERSONNEL_JURISDICTION: legacy appointment has limited recorded title coverage"
+   }
+   mam_senior_restore_parent_effect = yes
+   mam_senior_restore_vassals_effect = yes
+  }
+  debug_log = "MAM_PERSONNEL_JURISDICTION: existing recorded appointments checked for safe repair"
+ }
+}

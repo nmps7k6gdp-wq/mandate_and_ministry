@@ -1,0 +1,97 @@
+﻿# Story-scoped, percentage chances. Skills alter discovery, never underlying truth.
+mam_censor_payment_detection_chance = {
+ value = 50
+ add = { value = var:mam_cen_censor.intrigue subtract = var:mam_cen_subject.intrigue multiply = 2 }
+ add = { value = var:mam_cen_censor.stewardship subtract = var:mam_cen_subject.stewardship multiply = 0.5 }
+ add = { value = var:mam_cen_censor.learning subtract = var:mam_cen_subject.learning multiply = 0.5 }
+ if = { limit = { var:mam_cen_censor = { has_trait = diligent } } add = 10 }
+ if = { limit = { var:mam_cen_censor = { has_trait = patient } } add = 5 }
+ if = { limit = { var:mam_cen_subject = { has_trait = deceitful } } subtract = 10 }
+ if = { limit = { var:mam_cen_subject = { has_trait = diligent } } subtract = 5 }
+ min = 10 max = 90
+}
+mam_censor_return_detection_chance = {
+ value = 60
+ add = { value = var:mam_cen_censor.intrigue subtract = var:mam_cen_subject.intrigue multiply = 1.25 }
+ add = { value = var:mam_cen_censor.stewardship subtract = var:mam_cen_subject.stewardship multiply = 1.25 }
+ add = { value = var:mam_cen_censor.learning subtract = var:mam_cen_subject.learning multiply = 0.5 }
+ if = { limit = { var:mam_cen_subject = { OR = { has_title = title:e_minister_of_war has_title = title:e_minister_grand_marshal } } }
+  add = { value = var:mam_cen_censor.martial subtract = var:mam_cen_subject.martial multiply = 0.75 }
+ }
+ if = { limit = { var:mam_cen_censor = { has_trait = diligent } } add = 10 }
+ if = { limit = { var:mam_cen_censor = { has_trait = patient } } add = 5 }
+ if = { limit = { var:mam_cen_subject = { has_trait = deceitful } } subtract = 10 }
+ min = 10 max = 90
+}
+mam_censor_justice_detection_chance = {
+ value = 50
+ if = { limit = { exists = var:mam_cen_reviewer }
+  add = { value = var:mam_cen_reviewer.learning subtract = var:mam_cen_subject.learning multiply = 1.5 }
+  add = { value = var:mam_cen_reviewer.stewardship subtract = var:mam_cen_subject.stewardship multiply = 1 }
+  add = { value = var:mam_cen_reviewer.intrigue subtract = var:mam_cen_subject.intrigue multiply = 0.5 }
+  if = { limit = { var:mam_cen_reviewer = { has_trait = diligent } } add = 10 }
+  if = { limit = { var:mam_cen_reviewer = { has_trait = patient } } add = 5 }
+ }
+ if = { limit = { var:mam_cen_subject = { has_trait = deceitful } } subtract = 10 }
+ min = 10 max = 90
+}
+mam_censor_witness_detection_chance = {
+ value = 50
+ if = { limit = { exists = var:mam_cen_connected }
+  add = { value = var:mam_cen_censor.intrigue subtract = var:mam_cen_connected.intrigue multiply = 1.5 }
+  add = { value = var:mam_cen_censor.learning subtract = var:mam_cen_connected.diplomacy multiply = 1 }
+  if = { limit = { var:mam_cen_connected = { has_trait = deceitful } } subtract = 10 }
+ }
+ if = { limit = { var:mam_cen_censor = { has_trait = diligent } } add = 10 }
+ min = 10 max = 90
+}
+mam_censor_target_weight = {
+ value = highest_held_title_tier multiply = 5
+ if = { limit = { tgp_is_any_minister = yes } add = 10 }
+ if = { limit = { has_variable = mam_bribes_accepted } add = 15 }
+ if = { limit = { has_relation_rival = scope:mam_cen_censor }
+  add = 10
+  if = { limit = { scope:mam_cen_censor = { has_trait = vengeful } } add = 80 }
+ }
+ if = { limit = { has_relation_friend = scope:mam_cen_censor }
+  subtract = 15
+  if = { limit = { scope:mam_cen_censor = { has_trait = just } } add = 15 }
+ }
+ if = { limit = { house ?= scope:mam_cen_censor.house }
+  subtract = 10
+  if = { limit = { scope:mam_cen_censor = { has_trait = arbitrary } } subtract = 25 }
+ }
+ min = 1
+}
+mam_censor_defender_weight = {
+ value = 10
+ add = diplomacy
+ if = { limit = { has_title = title:e_minister_chancellor } add = 30 }
+ if = { limit = { has_relation_friend = scope:mam_cen_subject } add = 100 }
+ if = { limit = { house ?= scope:mam_cen_subject.house } add = 60 }
+ if = { limit = { mam_censor_shared_bloc_trigger = { OTHER = scope:mam_cen_subject } } add = 35 }
+ if = { limit = { mam_censor_shared_faction_trigger = { OTHER = scope:mam_cen_subject } } add = 45 }
+ if = { limit = { has_trait = just scope:mam_cen_file.var:mam_cen_abuse = 1 } add = 25 }
+ if = { limit = { has_trait = compassionate scope:mam_cen_file.var:mam_cen_abuse = 1 } add = 25 }
+ min = 1
+}
+
+# A tracing roll identifies the real plot author. It never chooses a random culprit.
+mam_censor_plot_trace_chance = {
+ value = 45
+ add = { value = scope:mam_cen_intel_reader.intrigue multiply = 2 }
+ add = scope:mam_cen_intel_reader.learning
+ subtract = { value = scope:mam_cen_hidden_suspect.intrigue multiply = 2 }
+ subtract = scope:mam_cen_hidden_suspect.diplomacy
+ if = { limit = { scope:mam_cen_intel_reader = { has_trait = diligent } } add = 10 }
+ if = { limit = { scope:mam_cen_intel_reader = { has_trait = patient } } add = 10 }
+ if = { limit = { scope:mam_cen_hidden_suspect = { has_trait = deceitful } } subtract = 10 }
+ min = 10 max = 90
+}
+
+mam_censor_public_priority = {
+ value = 100
+ if = { limit = { has_trait = murderer } add = 100 }
+ if = { limit = { is_imprisoned = yes } add = 80 }
+ if = { limit = { primary_title = { tier = tier_empire } } add = 40 }
+}

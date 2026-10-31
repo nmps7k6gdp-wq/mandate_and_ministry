@@ -1,0 +1,54 @@
+﻿namespace = mam_personnel
+mam_personnel.0060 = {
+ type = character_event title = mam_personnel.0060.t theme = merit
+ left_portrait = { character = scope:mam_dossier_governor animation = reading }
+ desc = {
+  desc = mam_dossier.heading
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_dossier_display = 0 } desc = mam_dossier.missing }
+   triggered_desc = { trigger = { scope:mam_dossier_title = { mam_dossier_mature_trigger = yes } } desc = mam_dossier.mature }
+   desc = mam_dossier.observing
+  }
+  triggered_desc = { trigger = { scope:mam_dossier_display = 1 } desc = mam_dossier.figures }
+  triggered_desc = { trigger = { scope:mam_dossier_display = 1 scope:mam_dossier_governor.top_liege.primary_title = { NOT = { has_variable = mam_ds_enabled } } } desc = mam_dossier.paused }
+  triggered_desc = { trigger = { scope:mam_dossier_title = { has_variable = mam_ds_war_observed } } desc = mam_dossier.war_short }
+ }
+ option = { name = mam_service.open hidden_effect = {
+  scope:mam_dossier_governor = { save_scope_as = mam_review_official }
+  trigger_event = mam_personnel_revamp.1
+ } }
+ option = { name = mam_dossier.context hidden_effect = { trigger_event = mam_personnel.0061 } }
+ option = {
+  name = mam_dossier.back_posting
+  trigger = { exists = scope:mam_dossier_return scope:mam_dossier_return = 1 exists = scope:mam_posting scope:mam_posting.holder = scope:mam_incumbent mam_can_nominate_trigger = yes }
+  hidden_effect = {
+   mam_build_posting_review_effect = yes
+   if = { limit = { exists = scope:mam_review_mode scope:mam_review_mode = 3 } trigger_event = mam_personnel.0023 }
+   else_if = { limit = { exists = scope:mam_review_mode scope:mam_review_mode = 1 } trigger_event = mam_personnel.0022 }
+   else = { trigger_event = mam_personnel.0020 }
+  }
+ }
+ option = { name = mam_personnel.close }
+}
+mam_personnel.0061 = {
+ type = character_event title = mam_personnel.0061.t theme = merit
+ left_portrait = { character = scope:mam_dossier_governor animation = reading }
+ desc = {
+  desc = mam_dossier.method
+  first_valid = {
+   triggered_desc = { trigger = { exists = scope:mam_dossier_sponsor } desc = mam_dossier.sponsor }
+   desc = mam_dossier.no_sponsor
+  }
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_dossier_display = 0 } desc = mam_dossier.no_baseline }
+   triggered_desc = { trigger = { scope:mam_dossier_title = { has_variable = mam_ds_reset_reason var:mam_ds_reset_reason = 1 } } desc = mam_dossier.reset_holder }
+   triggered_desc = { trigger = { scope:mam_dossier_title = { has_variable = mam_ds_reset_reason var:mam_ds_reset_reason = 2 } } desc = mam_dossier.reset_realm }
+   triggered_desc = { trigger = { scope:mam_dossier_title = { has_variable = mam_ds_reset_reason var:mam_ds_reset_reason = 3 } } desc = mam_dossier.reset_counties }
+   triggered_desc = { trigger = { scope:mam_dossier_title = { has_variable = mam_ds_reset_reason var:mam_ds_reset_reason = 4 } } desc = mam_dossier.reset_enabled }
+   desc = mam_dossier.reset_initial
+  }
+  desc = mam_dossier.limits
+ }
+ option = { name = mam_dossier.back hidden_effect = { trigger_event = mam_personnel.0060 } }
+ option = { name = mam_personnel.close }
+}

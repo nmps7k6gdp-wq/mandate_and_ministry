@@ -1,0 +1,1739 @@
+﻿mam_revenue_fund_invoice_weight_1 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_2 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_3 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_4 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_5 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_6 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_7 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_8 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_9 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_10 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						exists = scope:great_project
+						scope:great_project.great_project_location = {
+							has_great_building = yes
+							county.holder = {
+								NOR = {
+									this = { is_ai = no }
+									any_liege_or_above = { is_ai = no }
+								}
+							}
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_11 = {
+
+				value = 1000
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_12 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_13 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_14 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_15 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_16 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_17 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_18 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_19 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_20 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_21 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_22 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_23 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_24 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_25 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_26 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_27 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_28 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_29 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_30 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_31 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_32 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_33 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_34 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_35 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_36 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_37 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_38 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_39 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_40 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_41 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_42 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_43 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_44 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_45 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_46 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_47 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_48 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_49 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_50 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_51 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_52 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_53 = {
+
+				value = 100
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_54 = {
+
+				value = 100
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_55 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_56 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_57 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_58 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_59 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_60 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_61 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_62 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_63 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_64 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_65 = {
+
+				value = 1000
+			
+}
+
+mam_revenue_fund_invoice_weight_66 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_67 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_68 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_69 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_70 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_71 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_72 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_73 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_74 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_75 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_76 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_77 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_78 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_79 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_80 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_81 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_82 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_83 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_84 = {
+
+				value = contribute_to_grand_campaign_value
+			
+}
+
+mam_revenue_fund_invoice_weight_85 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_86 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_87 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_88 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_89 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_90 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_91 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_92 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_93 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_94 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_95 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_96 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_97 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_98 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_99 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_100 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_101 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_102 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_103 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_104 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_105 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_106 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_107 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					add = -100
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_108 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_109 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					add = -100
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_110 = {
+
+				value = chinese_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					add = -100
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_111 = {
+
+				add = -50
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.5
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.5
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.5
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.25
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_112 = {
+
+				add = -50
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.25
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.5
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.5
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.5
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.25
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.5
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_113 = {
+
+				add = -50
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.25
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.5
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.25
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.25
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.33
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.5
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_114 = {
+
+				add = -75
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.75
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = -0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.5
+					multiply = ai_boldness
+				}
+				add = {
+					value = -0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.5
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.75
+					multiply = ai_sociability
+				}
+				if = {
+					limit = { domain_limit_available < 1 } # AI will never give up domain they don't have
+					add = -1000 
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_115 = {
+
+				add = -75
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.75
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = -0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.25
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.75
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.5
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_116 = {
+
+				add = -75
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.5
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.5
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.75
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = 0.25
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = -0.25
+					multiply = ai_compassion
+				}
+				add = {
+					value = -0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_117 = {
+
+				add = -75
+				add = {
+					value = 0.5
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.5
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.5
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.5
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_118 = {
+
+				add = -50
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.5
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.5
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.5
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.25
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_119 = {
+
+				add = -50
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.25
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.5
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.5
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.5
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.25
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.5
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_120 = {
+
+				add = -50
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.25
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.5
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.25
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.25
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.33
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.5
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_121 = {
+
+				add = -75
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.75
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = -0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.5
+					multiply = ai_boldness
+				}
+				add = {
+					value = -0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.5
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.75
+					multiply = ai_sociability
+				}
+				if = {
+					limit = { domain_limit_available < 1 } # AI will never give up domain they don't have
+					add = -1000 
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_122 = {
+
+				add = -75
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.75
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = -0.25
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.25
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.75
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.75
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.5
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_123 = {
+
+				add = -75
+				if = { # nobody better than me to deal with this
+					limit = { this = top_liege }
+					add = 100
+				}
+				add = {
+					value = 0.5
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.75
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.5
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_energy
+				}
+				add = {
+					value = 0.75
+					multiply = ai_boldness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = 0.25
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = -0.25
+					multiply = ai_compassion
+				}
+				add = {
+					value = -0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_124 = {
+
+				add = -75
+				add = {
+					value = 0.5
+					multiply = ai_honor
+				}
+				add = {
+					value = -0.5
+					multiply = ai_greed
+				}
+				add = {
+					value = 0.5
+					multiply = ai_rationality
+				}
+				add = {
+					value = 0.25
+					multiply = ai_zeal
+				}
+				add = {
+					value = -0.5
+					multiply = ai_vengefulness
+				}
+				add = {
+					value = 0.25
+					multiply = ai_compassion
+				}
+				add = {
+					value = 0.25
+					multiply = ai_sociability
+				}
+				if = {
+					limit = {
+						is_at_war = yes
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_125 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_126 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_127 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				#This one mainly benefits the cathedral's diocese
+				if = {
+					limit = {
+						exists = scope:great_project
+						NOR = {
+							this = scope:great_project.great_project_owner
+							#Check whether they are the benefiting bishop
+							this = scope:great_project.great_project_founder.faith.religious_head
+							capital_county ?= {
+								clerical_region_title ?= scope:great_project.great_project_location.county.clerical_region_title
+							}
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_128 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				#This one mainly benefits the cathedral's county
+				if = {
+					limit = {
+						exists = scope:great_project
+						NOR = {
+							this = scope:great_project.great_project_owner
+							scope:great_project.great_project_location.county.clerical_region_title.holder ?= this
+							scope:great_project.great_project_founder.faith.religious_head ?= this
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_129 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_130 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_131 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_132 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_133 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_134 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_135 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				#This one mainly benefits the cathedral's diocese
+				if = {
+					limit = {
+						exists = scope:great_project
+						NOR = {
+							this = scope:great_project.great_project_owner
+							#Check whether they are the benefiting bishop
+							this = scope:great_project.great_project_founder.faith.religious_head
+							capital_county ?= {
+								clerical_region_title ?= scope:great_project.great_project_location.county.clerical_region_title
+							}
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_136 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				#This one mainly benefits the cathedral's county
+				if = {
+					limit = {
+						exists = scope:great_project
+						NOR = {
+							this = scope:great_project.great_project_owner
+							this = scope:great_project.great_project_founder.faith.religious_head
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_137 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_138 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_139 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_140 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_141 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_142 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_143 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				#This one mainly benefits the cathedral's diocese
+				if = {
+					limit = {
+						exists = scope:great_project
+						NOR = {
+							this = scope:great_project.great_project_owner
+							#Check whether they are the benefiting bishop
+							this = scope:great_project.great_project_founder.faith.religious_head
+							capital_county ?= {
+								clerical_region_title ?= scope:great_project.great_project_location.county.clerical_region_title
+							}
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_144 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				#This one mainly benefits the cathedral's county
+				if = {
+					limit = {
+						exists = scope:great_project
+						NOR = {
+							this = scope:great_project.great_project_owner
+							this = scope:great_project.great_project_founder.faith.religious_head
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_145 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_146 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_147 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_148 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+			
+}
+
+mam_revenue_fund_invoice_weight_149 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					add = -100
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_150 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					multiply = 0
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_151 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					add = -100
+				}
+			
+}
+
+mam_revenue_fund_invoice_weight_152 = {
+
+				value = pam_great_projects_contribution_ai_will_do_base_value
+				if = {
+					limit = {
+						faith = {
+							faith_hostility_level = {
+								target = root.top_liege.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+					add = -100
+				}
+			
+}

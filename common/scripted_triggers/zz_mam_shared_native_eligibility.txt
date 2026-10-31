@@ -1,0 +1,135 @@
+﻿mam_cj_native_can_be_councillor_basics_trigger = {
+	is_available_quick = {
+		adult = yes
+		incapable = no
+		imprisoned = no
+	}
+	is_at_war_with_liege = no
+	trigger_if = {
+		limit = { has_variable = block_hire_councillor }
+		NOT = { var:block_hire_councillor = liege }
+	}
+	custom_tooltip = {
+		text = not_travel_option_character
+		NOT = { has_character_flag = travel_option_added_character }
+	}
+}
+can_be_councillor_basics_trigger = {
+ mam_cj_office_allowed_trigger = yes
+ mam_cj_native_can_be_councillor_basics_trigger = yes
+}
+
+mam_cj_native_is_appointment_valid_trigger = {
+	$TITLE$ = { save_temporary_scope_as = title_temp }
+	$CANDIDATE$ = { save_temporary_scope_as = candidate_temp }
+	$TOP_LIEGE$ = { save_temporary_scope_as = top_liege_temp }
+	custom_tooltip = { # Capital should be never a valid appointment (go for higher title instead
+		text = not_top_liege_capital_county_tt
+		trigger_if = { # Candidates outside a landed realm have no capital county to clash with
+			limit = { exists = scope:candidate_temp.top_liege.capital_county }
+			NOT = { scope:title_temp ?= scope:candidate_temp.top_liege.capital_county }
+		}
+	}
+	scope:candidate_temp = {
+		trigger_if = {
+			limit = {
+				scope:top_liege_temp = { tgp_realm_has_ceremonial_liege_trigger = yes }
+				tgp_is_in_ceremonial_house_trigger = yes
+			}
+			trigger_if = {
+				limit = {
+					scope:title_temp ?= { has_variable = administrative_ui_special_title }
+				}
+				custom_tooltip = {
+					text = ceremonial_liege_only_heir_can_be_ruler_trigger
+					tgp_is_ceremonial_liege_or_direct_heir_trigger = yes
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = ceremonial_liege_cannot_be_governor_trigger
+					tgp_is_ceremonial_liege_trigger = no
+				}
+			}
+		}
+		trigger_if = {
+			limit = { exists = scope:title_temp }
+			custom_tooltip = { # Has relevant law
+				text = mam_senior.native_appointment_law_tt
+				$TITLE$ = {
+					OR = {
+						has_title_law_flag = appointment_type_succession
+						holder ?= { has_realm_law_flag = appointment_type_succession }
+					}
+				}
+			}
+			custom_tooltip = {
+				text = follows_other_title_appointment_tt
+				$TITLE$.tier = $TITLE$.holder.primary_title.tier
+			}
+			trigger_if = {
+				limit = {
+					NOT = { top_liege.highest_held_title_tier = scope:title_temp.tier }
+				}
+				is_adult = yes
+			}
+			trigger_if = {
+				limit = {
+					any_held_title = { count >= 1 }
+				}
+				trigger_if = {
+					limit = { government_has_flag = government_is_celestial }
+					custom_tooltip = { # Only one province of highest rank
+						text = cannot_compete_for_lower_rank_titles_tt
+						NOT = {
+							any_held_title = {
+								tier > scope:title_temp.tier
+								is_landless_type_title = no
+								is_noble_family_title = no
+							}
+						}
+					}
+				}
+				trigger_else = {
+					custom_tooltip = { # Only one province of highest rank
+						text = only_one_province_of_highest_rank_tt
+						NOT = {
+							any_held_title = {
+								tier = scope:title_temp.tier
+								is_landless_type_title = no
+								is_noble_family_title = no
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = mam_senior.native_different_holder_tt
+					this != scope:title_temp.holder
+				}
+			}
+		}
+		custom_tooltip = {
+			text = can_be_appointed_interaction_tt
+			OR = {
+				can_be_granted_titles_by = { RULER = scope:top_liege_temp }
+				can_be_granted_theocratic_titles_by = { RULER = scope:top_liege_temp }
+				AND = {
+					is_diarch_of_target = scope:top_liege_temp
+					scope:top_liege_temp = { has_diarchy_active_parameter = diarchy_is_co_rulership }
+				}
+			}
+		}
+		custom_tooltip = { # Only administrative
+			text = only_administrative_tt
+			trigger_if = {
+				limit = { is_landed = yes }
+				government_has_mechanic = administrative
+			}
+		}
+		is_clergy = no
+	}
+}
+is_appointment_valid_trigger = {
+ $CANDIDATE$ = { mam_cj_office_allowed_trigger = yes }
+ mam_cj_native_is_appointment_valid_trigger = { TITLE = $TITLE$ CANDIDATE = $CANDIDATE$ TOP_LIEGE = $TOP_LIEGE$ }
+}

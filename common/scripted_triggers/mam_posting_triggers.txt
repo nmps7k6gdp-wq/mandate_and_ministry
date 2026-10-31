@@ -1,0 +1,66 @@
+﻿# Character: a supported existing civilian governorship, not a ministry or estate.
+mam_supported_governor_trigger = {
+    is_alive = yes
+    is_governor = yes
+    is_independent_ruler = no
+    government_has_flag = government_is_celestial
+    tgp_is_any_minister = no
+    primary_title = {
+        tier >= tier_duchy
+        tier <= tier_kingdom
+        is_landless_type_title = no
+        is_noble_family_title = no
+        OR = {
+            has_title_law_flag = appointment_type_succession
+            holder = { has_realm_law_flag = appointment_type_succession }
+        }
+    }
+    OR = {
+        vassal_contract_has_flag = celestial_civil_appointment
+        vassal_contract_has_flag = meritocratic_civil_appointment
+    }
+}
+
+# Candidate character. Saved mam_posting and mam_emperor required.
+# Do not call on uncreated or non-appointment titles.
+mam_posting_eligible_trigger = {
+    mam_power_title_allowed_trigger = { TITLE = scope:mam_posting }
+    mam_power_destination_discretion_trigger = yes
+    mam_register_list_category_trigger = yes
+    mam_exam_standard_trigger = { TITLE = scope:mam_posting }
+    mam_register_candidate_trigger = yes
+    is_civilian_candidate_trigger = yes
+    tgp_is_any_minister = no
+    can_appoint_for_title = scope:mam_posting
+    has_appointment_level_for_title = scope:mam_posting
+    is_appointment_valid_trigger = {
+        TITLE = scope:mam_posting
+        CANDIDATE = this
+        TOP_LIEGE = scope:mam_emperor
+    }
+}
+
+# Source offices may be county-tier; destination support remains unchanged.
+# Character: a supported existing civilian governorship, not a ministry or estate.
+mam_supported_source_governor_trigger = {
+    is_alive = yes
+    is_governor = yes
+    is_independent_ruler = no
+    government_has_flag = government_is_celestial
+    tgp_is_any_minister = no
+    primary_title = {
+        tier >= tier_county
+        tier <= tier_empire
+        is_landless_type_title = no
+        is_noble_family_title = no
+        OR = {
+            has_title_law_flag = appointment_type_succession
+            holder = { has_realm_law_flag = appointment_type_succession }
+        }
+    }
+    OR = {
+        vassal_contract_has_flag = celestial_civil_appointment
+        vassal_contract_has_flag = meritocratic_civil_appointment
+    }
+}
+

@@ -1,0 +1,83 @@
+﻿# Input/current scope: requester. Output: semantic saved scopes for this event chain.
+# cp is evaluated inside the emperor scope, not the requesting minister's court.
+mam_resolve_register_authority_effect = {
+    clear_saved_scope = mam_exception_candidate
+    clear_saved_scope = mam_exception_posting
+    clear_saved_scope = mam_service_case
+    save_scope_as = mam_requester
+    top_liege = {
+        save_scope_as = mam_emperor
+        cp:minister_personnel ?= {
+            if = {
+                limit = {
+                    is_alive = yes
+                    has_title = title:e_minister_of_personnel
+                    top_liege = scope:mam_emperor
+                }
+                save_scope_as = mam_minister
+            }
+        }
+    }
+}
+
+# Input/current scope: candidate, saved mam_emperor. Output: ephemeral local list.
+mam_add_register_candidate_effect = {
+    if = {
+        limit = {
+            mam_register_candidate_trigger = yes
+            NOT = { is_in_list = mam_register_candidates }
+        }
+        add_to_list = mam_register_candidates
+    }
+}
+
+# Input/current scope: requester; saved mam_emperor/ministry context.
+# On-demand realm scan, never global/daily. No persistent variables or gameplay writes.
+# Pool covers realm rulers and their courts, not unlocated/generated characters.
+mam_build_register_effect = {
+ clear_saved_scope = mam_candidate_1
+ clear_saved_scope = mam_candidate_2
+ clear_saved_scope = mam_candidate_3
+
+    scope:mam_emperor = {
+        every_courtier_or_guest = { mam_add_register_candidate_effect = yes }
+        every_vassal_or_below = {
+            mam_add_register_candidate_effect = yes
+            every_courtier_or_guest = { mam_add_register_candidate_effect = yes }
+        }
+    }
+    ordered_in_list = {
+        list = mam_register_candidates
+        limit = { mam_register_list_category_trigger = yes }
+        order_by = mam_recommendation_score
+        max = 1
+        check_range_bounds = no
+        save_scope_as = mam_candidate_1
+    }
+    if = {
+        limit = { exists = scope:mam_candidate_1 }
+        ordered_in_list = {
+            list = mam_register_candidates
+            limit = { this != scope:mam_candidate_1 mam_register_list_category_trigger = yes }
+        order_by = mam_recommendation_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_candidate_2
+        }
+    }
+    if = {
+        limit = { exists = scope:mam_candidate_2 }
+        ordered_in_list = {
+            list = mam_register_candidates
+            limit = {
+                this != scope:mam_candidate_1
+                this != scope:mam_candidate_2
+                mam_register_list_category_trigger = yes
+            }
+        order_by = mam_recommendation_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = mam_candidate_3
+        }
+    }
+}

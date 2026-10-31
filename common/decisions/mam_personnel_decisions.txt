@@ -1,0 +1,22 @@
+﻿mam_open_personnel_register_decision = {
+    picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+    desc = mam_open_personnel_register_decision_desc
+    selection_tooltip = mam_open_personnel_register_decision_tooltip
+    confirm_text = mam_open_personnel_register_decision_confirm
+    decision_group_type = mam_ministries
+    ai_check_interval = 0
+    is_shown = { always = no # Register browsing retired; use character interactions.
+ mam_can_open_register_trigger = yes }
+    is_valid = { mam_can_open_register_trigger = yes }
+    effect = {
+        custom_tooltip = mam_register_read_only_tt
+        hidden_effect = {
+            mam_resolve_register_authority_effect = yes
+            save_scope_value_as = { name = mam_review_mode value = 0 }
+            mam_build_register_effect = yes
+            trigger_event = mam_personnel.0001
+        }
+    }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}

@@ -1,0 +1,6 @@
+﻿mam_personnel_confirmation_laws = {
+ default = mam_personnel_confirmation_delegated cumulative = no flag = realm_law
+ required_government_flag = { government_is_celestial }
+ can_have_group = { has_tgp_dlc_trigger = yes is_independent_ruler = yes }
+ can_change_law_group = { is_independent_ruler = yes }
+}

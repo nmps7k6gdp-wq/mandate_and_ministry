@@ -1,0 +1,2 @@
+﻿# The career advantage is applied by the existing assessment/appointment helpers.
+mam_exam_imperial_sponsorship = { }

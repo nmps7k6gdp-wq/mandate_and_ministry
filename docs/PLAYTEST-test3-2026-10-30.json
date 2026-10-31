@@ -1,0 +1,1719 @@
+{
+  "save": {
+    "name": "test3.ck3",
+    "bytes": 31787915,
+    "modified_utc": "2026-10-30T16:43:03.479566+00:00",
+    "sha256": "8b9964d5a28e25e2a609152ce1114614643bae6fc55399033fcd92b00dd863d8"
+  },
+  "game_date": "1103.3.4",
+  "day_number": 402657,
+  "save_modified": false,
+  "log_files": [
+    {
+      "name": "debug.log",
+      "bytes": 4228406,
+      "modified_utc": "2026-10-30T16:43:02.832551+00:00",
+      "sha256": "aeaf89a0a47bbe8313eaa8a4d0d23df91f7b6bc27c84c903fef6ee3ddfad055c"
+    },
+    {
+      "name": "error.log",
+      "bytes": 816801,
+      "modified_utc": "2026-10-30T16:42:54.473680+00:00",
+      "sha256": "a2ed27db8339bf2c88dcda4d57ed153993a3ba66c4f80f05be471af7f87cc8d7"
+    },
+    {
+      "name": "eventstats.csv",
+      "bytes": 682065,
+      "modified_utc": "2026-10-30T04:30:51.969054+00:00",
+      "sha256": "1e6bcbec04cc634455cdbe2d0356cbc6747bdf44b772176a4b7eb9b7b89da958"
+    }
+  ],
+  "fiscal_laws": {
+    "reserved": 0,
+    "limited": 1,
+    "expanded": 0
+  },
+  "statement_age_days": 2.0,
+  "titles": {
+    "h_china": {
+      "id": 14022,
+      "holder": 37986,
+      "treasury": 1608.24178,
+      "variables": {
+        "mam_cf_programme_approved": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_programme_until": 402685.0,
+        "mam_pc_next_scan": 402662.0,
+        "mam_cf_next_review": 402745.0,
+        "mam_pc_commitments": 4000.0,
+        "mam_cf_claims_due": 0.0,
+        "mam_cf_statement_date": 402655.0,
+        "mam_cf_statement_closing": 34223.80181,
+        "mam_cf_essential_cash": 34145.28931,
+        "mam_cf_essential_due": 0.0,
+        "mam_cf_credit": 20.0,
+        "mam_cf_debit": 20.0,
+        "mam_cf_after_payee": 34223.80181,
+        "mam_cf_after_payer": 78.89365,
+        "mam_cf_receipt_state": 2.0,
+        "mam_cf_before_payee": 34203.80181,
+        "mam_cf_before_payer": 98.89365,
+        "mam_cf_last_amount": 20.0,
+        "mam_cf_last_payee_title": {
+          "type": "lt",
+          "identity": "15767"
+        },
+        "mam_cf_last_payer_title": {
+          "type": "lt",
+          "identity": "15770"
+        },
+        "mam_cf_last_payee": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_last_payer": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_cf_statement_opening": 34001.80181,
+        "mam_cf_statement_advanced": 0.0,
+        "mam_cf_statement_collected": 222.0,
+        "mam_cf_next_month": 402680.0,
+        "mam_cf_bootstrap_done": 1.0,
+        "mam_cf_payroll_owner": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_payroll_due": 402662.0,
+        "mam_cf_interim_advances": 0.0,
+        "mam_cf_receipt_count": 869.0,
+        "mam_cf_total_cost": 36.68227,
+        "mam_cf_unfunded": 0.0,
+        "mam_cf_reserve": 273.36454,
+        "mam_cf_serial": 124.0,
+        "mam_cf_programme": 0.0,
+        "mam_cf_bootstrap_until": 389382.0,
+        "mam_cf_active": 1.0,
+        "mam_cf_diag_reconciled": 58.0,
+        "mam_cf_diag_last_reconciled": 402655.0,
+        "mam_cf_diag_proposal_cycle": 58.0,
+        "mam_cf_diag_last_proposal_cycle": 402655.0,
+        "mam_cf_diag_proposal_dispatched": 58.0,
+        "mam_cf_diag_last_proposal_dispatched": 402655.0,
+        "mam_cf_diag_proposal_jurisdiction_found": 58.0,
+        "mam_cf_diag_last_proposal_jurisdiction_found": 402656.0,
+        "mam_cf_diag_proposal_valid_choices": 21.0,
+        "mam_cf_diag_last_proposal_valid_choices": 402236.0,
+        "mam_cf_diag_project_requested": 21.0,
+        "mam_cf_diag_last_project_requested": 402236.0,
+        "mam_cf_diag_start_advance_authorized": 13.0,
+        "mam_cf_diag_last_start_advance_authorized": 402240.0,
+        "mam_cf_diag_start_result_1": 13.0,
+        "mam_cf_diag_last_start_result_1": 402240.0,
+        "mam_cf_diag_start_planned": 12.0,
+        "mam_cf_diag_last_start_planned": 402241.0,
+        "mam_cf_diag_budget_result_1": 26.0,
+        "mam_cf_diag_last_budget_result_1": 402177.0,
+        "mam_cf_diag_start_result_2": 8.0,
+        "mam_cf_diag_last_start_result_2": 401929.0,
+        "mam_cf_diag_budget_result_2": 14.0,
+        "mam_cf_diag_last_budget_result_2": 402246.0,
+        "mam_cf_diag_proposal_no_valid_choice": 37.0,
+        "mam_cf_diag_last_proposal_no_valid_choice": 402656.0,
+        "mam_cf_diag_start_waiting_native": 1.0,
+        "mam_cf_diag_last_start_waiting_native": 401401.0,
+        "mam_cf_diag_project_advance_expired": 1.0,
+        "mam_cf_diag_last_project_advance_expired": 401766.0
+      }
+    },
+    "e_minister_chancellor": {
+      "id": 15763,
+      "holder": 35992,
+      "treasury": 77.58724,
+      "variables": {
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 11.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_censor": {
+      "id": 15764,
+      "holder": 34344,
+      "treasury": 83.7303,
+      "variables": {
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 8.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_grand_marshal": {
+      "id": 15765,
+      "holder": 37616,
+      "treasury": 76.47044,
+      "variables": {
+        "mam_cf_appeal_used": 1.0,
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_cf_cut_until": 398408.0,
+        "mam_cf_cut_before": 75.0,
+        "mam_cf_review_until": 398322.0,
+        "mam_cf_start_on": 401987.0,
+        "mam_cf_start_after": 54.59852,
+        "mam_cf_start_price": 500.0,
+        "mam_cf_start_before": 554.59852,
+        "mam_cf_start_retry": 401994.0,
+        "mam_cf_next_project_request": 402076.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 122.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 25.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 25.0,
+        "mam_cf_cost": 14.59477
+      }
+    },
+    "e_minister_of_personnel": {
+      "id": 15766,
+      "holder": 39258,
+      "treasury": 80.62404,
+      "variables": {
+        "mam_cf_review_until": 392268.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 15.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 2.20625
+      }
+    },
+    "e_minister_of_revenue": {
+      "id": 15767,
+      "holder": 34515,
+      "treasury": 34223.80181,
+      "variables": {
+        "mam_cf_start_on": 401177.0,
+        "mam_cf_start_after": 41429.16298,
+        "mam_cf_start_price": 500.0,
+        "mam_cf_start_before": 41929.16298,
+        "mam_cf_start_retry": 401184.0,
+        "mam_cf_next_project_request": 401266.0,
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_cut_until": 401172.0,
+        "mam_cf_cut_before": 75.0,
+        "mam_cf_review_until": 401181.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 0.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 1.65625
+      }
+    },
+    "e_minister_of_rites": {
+      "id": 15768,
+      "holder": 36763,
+      "treasury": 81.17623,
+      "variables": {
+        "mam_cf_start_on": 401905.0,
+        "mam_cf_start_after": 81.31801,
+        "mam_cf_start_price": 50.0,
+        "mam_cf_start_before": 131.31801,
+        "mam_cf_start_retry": 401912.0,
+        "mam_cf_next_project_request": 401994.0,
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "30428"
+        },
+        "mam_cf_cut_until": 394740.0,
+        "mam_cf_cut_before": 75.0,
+        "mam_cf_review_until": 398570.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 19.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 2.1875
+      }
+    },
+    "e_minister_of_war": {
+      "id": 15769,
+      "holder": 36190,
+      "treasury": 82.88673,
+      "variables": {
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 9.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_of_justice": {
+      "id": 15770,
+      "holder": 37642,
+      "treasury": 78.89365,
+      "variables": {
+        "mam_cf_start_on": 401737.0,
+        "mam_cf_start_after": 83.6945,
+        "mam_cf_start_price": 500.0,
+        "mam_cf_start_before": 583.6945,
+        "mam_cf_start_retry": 401744.0,
+        "mam_cf_next_project_request": 401826.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 20.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0
+      }
+    },
+    "e_minister_of_works": {
+      "id": 15771,
+      "holder": 39595,
+      "treasury": 83.44976,
+      "variables": {
+        "mam_cf_start_on": 402241.0,
+        "mam_cf_start_after": 93.91234,
+        "mam_cf_start_price": 500.0,
+        "mam_cf_start_before": 593.91234,
+        "mam_cf_start_retry": 402248.0,
+        "mam_cf_next_project_request": 402330.0,
+        "mam_cf_cut_holder": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_cf_cut_until": 400902.0,
+        "mam_cf_cut_before": 150.0,
+        "mam_cf_review_until": 401153.0,
+        "mam_cf_payroll_model": 1.0,
+        "mam_cf_statement_received": 0.0,
+        "mam_cf_statement_collected": 18.0,
+        "mam_cf_issued": 0.0,
+        "mam_cf_remaining": 75.0,
+        "mam_cf_period_end": 402724.0,
+        "mam_cf_special_target": 0.0,
+        "mam_cf_project_cash": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 2.675
+      }
+    }
+  },
+  "current_projects": [
+    {
+      "id": 33554440,
+      "type": "strengthen_capital",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "materials",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "workforce",
+          "actor": 34344,
+          "funded": true
+        },
+        {
+          "slot": "architects",
+          "actor": 36224,
+          "funded": true
+        },
+        {
+          "slot": "engineers",
+          "actor": 35495,
+          "funded": true
+        },
+        {
+          "slot": "sculptors",
+          "actor": 35091,
+          "funded": true
+        },
+        {
+          "slot": "forbidden_city",
+          "actor": 34515,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_pc_last_paid_date": 401135.0,
+        "mam_pc_last_paid": 375.0,
+        "mam_pc_last_key": 9.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_pc_attempt_after": 92.57303,
+        "mam_pc_attempt_on": 401135.0,
+        "mam_pc_attempt_before": 467.57303,
+        "mam_pc_attempt_price": 375.0,
+        "mam_pc_attempt_key": 9.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "35091"
+        },
+        "mam_pc_native_key": 9.0,
+        "mam_pc_approved_on": 401137.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 2625.0,
+        "mam_pc_spent": 2125.0,
+        "mam_pc_budget": 500.0
+      }
+    },
+    {
+      "id": 67108873,
+      "type": "minister_project_culture",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "cultural_liason",
+          "actor": 36968,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants",
+          "actor": 38704,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants_2",
+          "actor": 36967,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants_3",
+          "actor": 38736,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_retry_after": 401797.0,
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 0.0,
+        "mam_pc_ceiling": 0.0,
+        "mam_pc_spent": 0.0,
+        "mam_pc_budget": 0.0
+      }
+    },
+    {
+      "id": 33554446,
+      "type": "grand_canals",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "materials",
+          "actor": 38462,
+          "funded": true
+        },
+        {
+          "slot": "logistics",
+          "actor": 36968,
+          "funded": true
+        },
+        {
+          "slot": "personnel_construction",
+          "actor": 37787,
+          "funded": true
+        },
+        {
+          "slot": "personnel_dig",
+          "actor": 37986,
+          "funded": true
+        },
+        {
+          "slot": "engineers",
+          "actor": 36216,
+          "funded": true
+        },
+        {
+          "slot": "dredging_boats",
+          "actor": 38852,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 0.0,
+        "mam_pc_ceiling": 0.0,
+        "mam_pc_spent": 0.0,
+        "mam_pc_budget": 0.0
+      }
+    },
+    {
+      "id": 33554447,
+      "type": "great_wall",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "master_builder",
+          "actor": 39595,
+          "funded": true
+        },
+        {
+          "slot": "walls_01",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "walls_02",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "walls_03",
+          "actor": 36763,
+          "funded": true
+        },
+        {
+          "slot": "walls_04",
+          "actor": 39595,
+          "funded": true
+        },
+        {
+          "slot": "walls_05",
+          "actor": 37996,
+          "funded": true
+        },
+        {
+          "slot": "walls_06",
+          "actor": 37616,
+          "funded": true
+        },
+        {
+          "slot": "walls_07",
+          "actor": 36801,
+          "funded": true
+        },
+        {
+          "slot": "walls_08",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_09",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_10",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_11",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_12",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_13",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_14",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_15",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_16",
+          "actor": 37414,
+          "funded": true
+        },
+        {
+          "slot": "walls_17",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_18",
+          "actor": 35495,
+          "funded": true
+        },
+        {
+          "slot": "walls_19",
+          "actor": 16825502,
+          "funded": true
+        },
+        {
+          "slot": "walls_20",
+          "actor": 34515,
+          "funded": true
+        },
+        {
+          "slot": "walls_21",
+          "actor": 39258,
+          "funded": true
+        },
+        {
+          "slot": "walls_22",
+          "actor": 36216,
+          "funded": true
+        },
+        {
+          "slot": "walls_23",
+          "actor": 40953,
+          "funded": true
+        },
+        {
+          "slot": "walls_24",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_25",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_26",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_27",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_28",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_29",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "walls_30",
+          "actor": 34885,
+          "funded": true
+        },
+        {
+          "slot": "walls_31",
+          "actor": 36190,
+          "funded": true
+        },
+        {
+          "slot": "walls_32",
+          "actor": 34344,
+          "funded": true
+        },
+        {
+          "slot": "walls_33",
+          "actor": 39258,
+          "funded": true
+        },
+        {
+          "slot": "walls_34",
+          "actor": 34515,
+          "funded": true
+        },
+        {
+          "slot": "walls_35",
+          "actor": 4294967295,
+          "funded": false
+        }
+      ],
+      "variables": {
+        "mam_pc_blocked": 1.0,
+        "mam_pc_last_paid_date": 402164.0,
+        "mam_pc_last_paid": 500.0,
+        "mam_pc_last_key": 31.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_pc_attempt_after": 584.22575,
+        "mam_pc_attempt_on": 402167.0,
+        "mam_pc_attempt_before": 584.22575,
+        "mam_pc_attempt_price": 500.0,
+        "mam_pc_attempt_key": 30.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_native_key": 0.0,
+        "mam_pc_approved_on": 402177.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 6500.0,
+        "mam_pc_spent": 6000.0,
+        "mam_pc_budget": 500.0
+      }
+    },
+    {
+      "id": 16777232,
+      "type": "minister_project_conduct_census",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "conduct_census",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "purge_treasury_debt",
+          "actor": 34344,
+          "funded": true
+        },
+        {
+          "slot": "verify_passed_exams",
+          "actor": 36763,
+          "funded": true
+        },
+        {
+          "slot": "fertility_effort",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "natural_disaster_insurance",
+          "actor": 34515,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "36763"
+        },
+        "mam_pc_last_paid_date": 401186.0,
+        "mam_pc_last_paid": 250.0,
+        "mam_pc_last_key": 104.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "36763"
+        },
+        "mam_pc_attempt_after": 89.68849,
+        "mam_pc_attempt_on": 401186.0,
+        "mam_pc_attempt_before": 339.68849,
+        "mam_pc_attempt_price": 250.0,
+        "mam_pc_attempt_key": 104.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "36763"
+        },
+        "mam_pc_native_key": 104.0,
+        "mam_pc_approved_on": 401185.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 1250.0,
+        "mam_pc_spent": 1250.0,
+        "mam_pc_budget": 0.0
+      }
+    },
+    {
+      "id": 16777234,
+      "type": "minister_compel_religious_uniformity",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "religious_liason",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "construct_new_shrines",
+          "actor": 36585,
+          "funded": true
+        },
+        {
+          "slot": "investigate_improper_rites",
+          "actor": 39595,
+          "funded": true
+        },
+        {
+          "slot": "promote_faithful_relocation",
+          "actor": 34515,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_last_paid_date": 401564.0,
+        "mam_pc_last_paid": 62.5,
+        "mam_pc_last_key": 109.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_attempt_after": 232.51515,
+        "mam_pc_attempt_on": 401564.0,
+        "mam_pc_attempt_before": 295.51515,
+        "mam_pc_attempt_price": 62.5,
+        "mam_pc_attempt_key": 109.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_native_key": 109.0,
+        "mam_pc_approved_on": 401546.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 625.0,
+        "mam_pc_spent": 250.0,
+        "mam_pc_budget": 375.0
+      }
+    },
+    {
+      "id": 19,
+      "type": "minister_project_establish_control",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "city_guards",
+          "actor": 38171,
+          "funded": true
+        },
+        {
+          "slot": "highway_patrols",
+          "actor": 37642,
+          "funded": true
+        },
+        {
+          "slot": "administrators",
+          "actor": 34344,
+          "funded": true
+        },
+        {
+          "slot": "court_magistrates",
+          "actor": 31760,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_last_paid_date": 401239.0,
+        "mam_pc_last_paid": 250.0,
+        "mam_pc_last_key": 93.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_attempt_after": 72.53988,
+        "mam_pc_attempt_on": 401239.0,
+        "mam_pc_attempt_before": 322.53988,
+        "mam_pc_attempt_price": 250.0,
+        "mam_pc_attempt_key": 93.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_native_key": 93.0,
+        "mam_pc_approved_on": 401238.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 1500.0,
+        "mam_pc_spent": 750.0,
+        "mam_pc_budget": 750.0
+      }
+    },
+    {
+      "id": 16777236,
+      "type": "grand_campaign_project",
+      "status": "in_progress",
+      "linked_war": {
+        "id": 335544354,
+        "exists": true,
+        "attacker_participants": [
+          37616,
+          35506,
+          65698,
+          36972,
+          34039,
+          16822917,
+          34300
+        ],
+        "defender_participants": [
+          16839763,
+          36386,
+          16839658,
+          40326,
+          33605503,
+          38623,
+          37542
+        ],
+        "type": "grand_campaign_kingdom_invasion_cb",
+        "attacker": "37616",
+        "defender": "16839763"
+      },
+      "contributions": [
+        {
+          "slot": "attack_1",
+          "actor": 37616,
+          "funded": true
+        },
+        {
+          "slot": "attack_2",
+          "actor": 36972,
+          "funded": true
+        },
+        {
+          "slot": "attack_3",
+          "actor": 65698,
+          "funded": true
+        },
+        {
+          "slot": "attack_4",
+          "actor": 35506,
+          "funded": true
+        },
+        {
+          "slot": "attack_5",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_6",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_7",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_8",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_9",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_10",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_11",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_12",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_13",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_14",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_15",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_16",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_17",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_18",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_19",
+          "actor": 4294967295,
+          "funded": false
+        },
+        {
+          "slot": "attack_20",
+          "actor": 4294967295,
+          "funded": false
+        }
+      ],
+      "variables": {
+        "mam_pc_last_paid_date": 402012.0,
+        "mam_pc_last_paid": 250.0,
+        "mam_pc_last_key": 65.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "grand_campaign_war": {
+          "type": "war",
+          "identity": "335544354"
+        },
+        "mam_pc_attempt_after": 279.39403,
+        "mam_pc_attempt_on": 402012.0,
+        "mam_pc_attempt_before": 529.39403,
+        "mam_pc_attempt_price": 250.0,
+        "mam_pc_attempt_key": 65.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_pc_native_key": 65.0,
+        "mam_pc_mobilization_reserved": 224.59102,
+        "mam_pc_approved_on": 401989.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 1.0,
+        "mam_pc_mobilization_paid": 1.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 974.59102,
+        "mam_pc_spent": 474.59102,
+        "mam_pc_budget": 500.0,
+        "grand_campaign_target_kingdom": {
+          "type": "lt",
+          "identity": "14626"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "type": "minister_project_establish_control",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "city_guards",
+          "actor": 31760,
+          "funded": true
+        },
+        {
+          "slot": "highway_patrols",
+          "actor": 37642,
+          "funded": true
+        },
+        {
+          "slot": "administrators",
+          "actor": 34515,
+          "funded": true
+        },
+        {
+          "slot": "court_magistrates",
+          "actor": 34344,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_last_paid_date": 401378.0,
+        "mam_pc_last_paid": 250.0,
+        "mam_pc_last_key": 93.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_attempt_after": 81.4537,
+        "mam_pc_attempt_on": 401378.0,
+        "mam_pc_attempt_before": 331.4537,
+        "mam_pc_attempt_price": 250.0,
+        "mam_pc_attempt_key": 93.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_native_key": 93.0,
+        "mam_pc_approved_on": 401377.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 1500.0,
+        "mam_pc_spent": 1000.0,
+        "mam_pc_budget": 500.0
+      }
+    },
+    {
+      "id": 22,
+      "type": "minister_project_establish_control",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "city_guards",
+          "actor": 36224,
+          "funded": true
+        },
+        {
+          "slot": "highway_patrols",
+          "actor": 37642,
+          "funded": true
+        },
+        {
+          "slot": "administrators",
+          "actor": 34344,
+          "funded": true
+        },
+        {
+          "slot": "court_magistrates",
+          "actor": 31760,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_last_paid_date": 401835.0,
+        "mam_pc_last_paid": 250.0,
+        "mam_pc_last_key": 93.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_attempt_after": 91.0561,
+        "mam_pc_attempt_on": 401835.0,
+        "mam_pc_attempt_before": 341.0561,
+        "mam_pc_attempt_price": 250.0,
+        "mam_pc_attempt_key": 93.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "37642"
+        },
+        "mam_pc_native_key": 93.0,
+        "mam_pc_approved_on": 401834.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 3.0,
+        "mam_pc_ceiling": 1250.0,
+        "mam_pc_spent": 750.0,
+        "mam_pc_budget": 500.0
+      }
+    },
+    {
+      "id": 23,
+      "type": "minister_project_culture",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "cultural_liason",
+          "actor": 36763,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants",
+          "actor": 37986,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants_2",
+          "actor": 39595,
+          "funded": true
+        },
+        {
+          "slot": "send_inhabitants_3",
+          "actor": 39258,
+          "funded": true
+        }
+      ],
+      "variables": {
+        "mam_pc_native_actor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_last_paid_date": 401928.0,
+        "mam_pc_last_paid": 62.5,
+        "mam_pc_last_key": 87.0,
+        "mam_pc_last_contributor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_retry_after": 401942.0,
+        "mam_pc_attempt_after": 83.06151,
+        "mam_pc_attempt_on": 401928.0,
+        "mam_pc_attempt_before": 146.06151,
+        "mam_pc_attempt_price": 62.5,
+        "mam_pc_attempt_key": 87.0,
+        "mam_pc_attempt_actor": {
+          "type": "char",
+          "identity": "39595"
+        },
+        "mam_pc_native_key": 87.0,
+        "mam_pc_approved_on": 401910.0,
+        "mam_pc_approver": {
+          "type": "char",
+          "identity": "31760"
+        },
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 2.0,
+        "mam_pc_ceiling": 625.0,
+        "mam_pc_spent": 250.0,
+        "mam_pc_budget": 375.0
+      }
+    },
+    {
+      "id": 24,
+      "type": "minister_project_development",
+      "status": "in_progress",
+      "linked_war": null,
+      "contributions": [
+        {
+          "slot": "personnel",
+          "actor": 71228,
+          "funded": true
+        },
+        {
+          "slot": "engineers",
+          "actor": 36224,
+          "funded": true
+        },
+        {
+          "slot": "infrastructure",
+          "actor": 4294967295,
+          "funded": false
+        }
+      ],
+      "variables": {
+        "mam_pc_retry_after": 402276.0,
+        "mam_pc_launch_authorized": 0.0,
+        "mam_pc_mobilization_paid": 0.0,
+        "mam_pc_level": 0.0,
+        "mam_pc_ceiling": 0.0,
+        "mam_pc_spent": 0.0,
+        "mam_pc_budget": 0.0
+      }
+    }
+  ],
+  "retained_fiscal_stories": [
+    {
+      "id": 33554759,
+      "variables": {
+        "mam_cf_closed": 402547.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_paid_to_title": {
+          "type": "lt",
+          "identity": "15765"
+        },
+        "mam_cf_paid_from_title": {
+          "type": "lt",
+          "identity": "15767"
+        },
+        "mam_cf_paid_to": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_cf_paid_from": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_paid_amount": 225.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_created": 402543.0,
+        "mam_cf_serial": 124.0,
+        "mam_cf_generation": 2.0,
+        "mam_cf_stage": 1.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0,
+        "mam_cf_amount": 225.0,
+        "mam_cf_kind": 12.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "37616"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "15765"
+        }
+      }
+    },
+    {
+      "id": 16777737,
+      "variables": {
+        "mam_cf_closed": 402320.0,
+        "mam_cf_result": 1.0,
+        "mam_cf_authorized": {
+          "type": "char",
+          "identity": "35992"
+        },
+        "mam_cf_next_actor": {
+          "type": "char",
+          "identity": "35992"
+        },
+        "mam_cf_created": 402319.0,
+        "mam_cf_serial": 123.0,
+        "mam_cf_generation": 1.0,
+        "mam_cf_stage": 0.0,
+        "mam_cf_pending": 0.0,
+        "mam_cf_mode": 0.0,
+        "mam_cf_headroom": 75.0,
+        "mam_cf_cost": 0.0,
+        "mam_cf_amount": 0.0,
+        "mam_cf_kind": 4.0,
+        "mam_cf_revenue": {
+          "type": "char",
+          "identity": "34515"
+        },
+        "mam_cf_emperor": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_requester": {
+          "type": "char",
+          "identity": "35992"
+        },
+        "mam_cf_snapshot": {
+          "type": "char",
+          "identity": "37986"
+        },
+        "mam_cf_target": {
+          "type": "lt",
+          "identity": "14022"
+        }
+      }
+    }
+  ],
+  "pending_fiscal_stories": 0,
+  "payment_hold_marker_count": 0,
+  "eventstats_usable_for_this_run": false,
+  "eventstats_age_relative_to_logs_seconds": 43930.863,
+  "eventstats_warning": "Likely previous-session data; excluded from current-run conclusions.",
+  "eventstats": {
+    "mam_senior.3": {
+      "IsValidToTriggerCount": "83",
+      "ImmediateEffectCount": "49",
+      "ExecuteCount": "0",
+      "Sum": "3.21890370",
+      "%": "2.73%"
+    },
+    "tgp_china_ministry.0100": {
+      "IsValidToTriggerCount": "2645",
+      "ImmediateEffectCount": "34",
+      "ExecuteCount": "34",
+      "Sum": "2.06759300",
+      "%": "1.75%"
+    },
+    "mam_fund.31": {
+      "IsValidToTriggerCount": "13742",
+      "ImmediateEffectCount": "13742",
+      "ExecuteCount": "0",
+      "Sum": "1.60823820",
+      "%": "1.36%"
+    },
+    "mam_senior.1": {
+      "IsValidToTriggerCount": "49",
+      "ImmediateEffectCount": "49",
+      "ExecuteCount": "49",
+      "Sum": "0.77964230",
+      "%": "0.66%"
+    },
+    "mam_senior.7": {
+      "IsValidToTriggerCount": "49",
+      "ImmediateEffectCount": "49",
+      "ExecuteCount": "0",
+      "Sum": "0.74253260",
+      "%": "0.63%"
+    },
+    "mam_fund.95": {
+      "IsValidToTriggerCount": "1528",
+      "ImmediateEffectCount": "1528",
+      "ExecuteCount": "0",
+      "Sum": "0.64213560",
+      "%": "0.54%"
+    },
+    "mam_ministry.3": {
+      "IsValidToTriggerCount": "36",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "0",
+      "Sum": "0.19928030",
+      "%": "0.17%"
+    },
+    "mam_ministry.1": {
+      "IsValidToTriggerCount": "12",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "12",
+      "Sum": "0.05992960",
+      "%": "0.05%"
+    },
+    "mam_ministry.4": {
+      "IsValidToTriggerCount": "12",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "0",
+      "Sum": "0.05859570",
+      "%": "0.05%"
+    },
+    "mam_fund.1": {
+      "IsValidToTriggerCount": "5944",
+      "ImmediateEffectCount": "34",
+      "ExecuteCount": "34",
+      "Sum": "0.05128710",
+      "%": "0.04%"
+    },
+    "mam_fund.99": {
+      "IsValidToTriggerCount": "29",
+      "ImmediateEffectCount": "29",
+      "ExecuteCount": "0",
+      "Sum": "0.03836340",
+      "%": "0.03%"
+    },
+    "mam_senior.10": {
+      "IsValidToTriggerCount": "2378",
+      "ImmediateEffectCount": "2378",
+      "ExecuteCount": "0",
+      "Sum": "0.03314320",
+      "%": "0.03%"
+    },
+    "mam_senior.9": {
+      "IsValidToTriggerCount": "2375",
+      "ImmediateEffectCount": "2367",
+      "ExecuteCount": "0",
+      "Sum": "0.03273630",
+      "%": "0.03%"
+    },
+    "mam_fund.90": {
+      "IsValidToTriggerCount": "76",
+      "ImmediateEffectCount": "76",
+      "ExecuteCount": "0",
+      "Sum": "0.03084660",
+      "%": "0.03%"
+    },
+    "mam_fund.96": {
+      "IsValidToTriggerCount": "14",
+      "ImmediateEffectCount": "14",
+      "ExecuteCount": "0",
+      "Sum": "0.01767640",
+      "%": "0.01%"
+    },
+    "mam_fund.4": {
+      "IsValidToTriggerCount": "1760",
+      "ImmediateEffectCount": "12",
+      "ExecuteCount": "12",
+      "Sum": "0.01634800",
+      "%": "0.01%"
+    },
+    "mam_fund.2": {
+      "IsValidToTriggerCount": "24",
+      "ImmediateEffectCount": "24",
+      "ExecuteCount": "24",
+      "Sum": "0.00476400",
+      "%": "0.00%"
+    },
+    "mam_fund.5": {
+      "IsValidToTriggerCount": "13",
+      "ImmediateEffectCount": "13",
+      "ExecuteCount": "13",
+      "Sum": "0.00411270",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0002": {
+      "IsValidToTriggerCount": "465",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "1",
+      "Sum": "0.00368630",
+      "%": "0.00%"
+    },
+    "mam_fund.98": {
+      "IsValidToTriggerCount": "76",
+      "ImmediateEffectCount": "76",
+      "ExecuteCount": "0",
+      "Sum": "0.00367680",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0001": {
+      "IsValidToTriggerCount": "2",
+      "ImmediateEffectCount": "2",
+      "ExecuteCount": "2",
+      "Sum": "0.00292010",
+      "%": "0.00%"
+    },
+    "mam_ministry.2": {
+      "IsValidToTriggerCount": "24",
+      "ImmediateEffectCount": "24",
+      "ExecuteCount": "0",
+      "Sum": "0.00147670",
+      "%": "0.00%"
+    },
+    "mam_ministry.5": {
+      "IsValidToTriggerCount": "18",
+      "ImmediateEffectCount": "18",
+      "ExecuteCount": "0",
+      "Sum": "0.00117380",
+      "%": "0.00%"
+    },
+    "mam_fund.8": {
+      "IsValidToTriggerCount": "6",
+      "ImmediateEffectCount": "6",
+      "ExecuteCount": "6",
+      "Sum": "0.00104980",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0004": {
+      "IsValidToTriggerCount": "5",
+      "ImmediateEffectCount": "5",
+      "ExecuteCount": "5",
+      "Sum": "0.00078150",
+      "%": "0.00%"
+    },
+    "mam_fund.36": {
+      "IsValidToTriggerCount": "1",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "0",
+      "Sum": "0.00036730",
+      "%": "0.00%"
+    },
+    "mam_fund.97": {
+      "IsValidToTriggerCount": "4",
+      "ImmediateEffectCount": "4",
+      "ExecuteCount": "0",
+      "Sum": "0.00021390",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0005": {
+      "IsValidToTriggerCount": "652",
+      "ImmediateEffectCount": "2",
+      "ExecuteCount": "2",
+      "Sum": "0.00018550",
+      "%": "0.00%"
+    },
+    "mam_fund.20": {
+      "IsValidToTriggerCount": "785",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "1",
+      "Sum": "0.00017770",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0007": {
+      "IsValidToTriggerCount": "468",
+      "ImmediateEffectCount": "2",
+      "ExecuteCount": "2",
+      "Sum": "0.00005700",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0003": {
+      "IsValidToTriggerCount": "1",
+      "ImmediateEffectCount": "1",
+      "ExecuteCount": "1",
+      "Sum": "0.00001260",
+      "%": "0.00%"
+    },
+    "tgp_china_ministry.0008": {
+      "IsValidToTriggerCount": "3",
+      "ImmediateEffectCount": "3",
+      "ExecuteCount": "3",
+      "Sum": "0.00000570",
+      "%": "0.00%"
+    }
+  },
+  "debug_markers": {
+    "MAM_PERSONNEL_AI: Chancellor set professional nominations": 6,
+    "MAM_FUND_DIAG:reconciled$": 58,
+    "MAM_FUND_DIAG:proposal_cycle$": 58,
+    "MAM_FUND_DIAG:proposal_dispatched$": 58,
+    "MAM_FUND_DIAG:proposal_jurisdiction_found$": 58,
+    "MAM_FUND_DIAG:proposal_valid_choices$": 21,
+    "MAM_FUND_DIAG:project_requested$": 21,
+    "MAM_FUND_PROJECT_REQUEST: type9$": 1,
+    "MAM_FUND_DIAG:start_advance_authorized$": 13,
+    "MAM_FUND_DIAG:start_result_1$": 13,
+    "MAM_PROJECT_START: funded AI ministry planned its authorized native project": 12,
+    "MAM_FUND_DIAG:start_planned$": 12,
+    "MAM_FUND_DIAG:budget_result_1$": 26,
+    "MAM_PROJECT_BUDGET: approved institutionally; no cash transfer at approval": 26,
+    "MAM_FUND_PROJECT_REQUEST: type6$": 3,
+    "MAM_FUND_DIAG:start_result_2$": 8,
+    "MAM_FUND_DIAG:budget_result_2$": 14,
+    "MAM_PERSONNEL_SERVICE: advancement endorsed and old concern withdrawn": 134,
+    "MAM_FUND_PROJECT_REQUEST: type4$": 4,
+    "MAM_PERSONNEL_VACANCY: senior Celestial death reached callback": 5,
+    "MAM_PERSONNEL_VACANCY: rejected - incumbent at war": 2,
+    "MAM_PERSONNEL_VACANCY: rejected - not a supported civilian contract": 1,
+    "MAM_PERSONNEL_VACANCY: custody skipped; check title law, jurisdiction and realm authority": 4,
+    "MAM_FUND_PROJECT_REQUEST: type13$": 1,
+    "MAM_FUND_PROJECT_REQUEST: type1$": 2,
+    "MAM_FUND_DIAG:proposal_no_valid_choice$": 37,
+    "MAM_FUND_PROJECT_REQUEST: type3$": 4,
+    "MAM_FUND_PROJECT_REQUEST: type10$": 2,
+    "MAM_PROJECT_START: paid grant waiting for native eligibility, affordability or a valid authorized site": 1,
+    "MAM_FUND_DIAG:start_waiting_native$": 1,
+    "MAM_FUND_PROJECT_REQUEST: type7$": 2,
+    "MAM_FUND_PROJECT_REQUEST: type2$": 2,
+    "MAM_FUND_DIAG:project_advance_expired$": 1,
+    "MAM_PERSONNEL_VACANCY: mixed outside-jurisdiction titles; full native succession retained": 1,
+    "MAM_MINISTRY_REVIEW: minister death armed post-inheritance review": 2,
+    "MAM_PERSONNEL_VACANCY: rejected - not a governor": 2,
+    "MAM_MINISTRY_REVIEW: installed successor recorded for the proper superior": 2,
+    "MAM_MINISTRY_REVIEW: queued one succession review for its current authority": 6,
+    "MAM_MINISTRY_REVIEW: incumbent and eligible alternatives prepared": 2,
+    "MAM_MINISTRY_REVIEW: title and council seat verified; succession approved": 2,
+    "MAM_PERSONNEL_VACANCY: incumbent passed custody filters": 1,
+    "MAM_PERSONNEL_VACANCY: candidates found; creating custody file": 1,
+    "MAM_PERSONNEL_QUEUE: registered independent custody file": 1,
+    "MAM_PERSONNEL_VACANCY: custody acquired; queueing Personnel event": 1,
+    "MAM_PERSONNEL_QUEUE: leased oldest available custody file": 2,
+    "MAM_PERSONNEL_POOL: eligible candidates found after custody": 1,
+    "MAM_PERSONNEL_AI: Personnel selected promotion": 1,
+    "MAM_PERSONNEL_JURISDICTION: recorded holdings and vassals restored": 1,
+    "MAM_PERSONNEL_APPOINTMENT: destination grant completed": 1,
+    "MAM_PERSONNEL_APPOINTMENT: sponsorship opinion awarded to nominating minister": 1,
+    "MAM_PERSONNEL_SERVICE: poor service assessment applied": 2,
+    "MAM_EXAM: earned laureate recognition; upgrade-only Prestige paid": 3
+  },
+  "mod_error_locations": {
+    "file: common/on_action/mam_ministry_review_on_actions.txt line: 6 (mam_ministry_review_death:trigger)": 472,
+    "file: common/great_projects/types/zz_mam_revenue_common_00_ministry_projects.txt line: 253 (grand_campaign_project:on_complete)": 17
+  },
+  "errors_with_mod_call_context": {
+    "top_liege trigger [ Failed context switch ] | file: common/on_action/mam_ministry_review_on_actions.txt line: 6 (mam_ministry_review_death:trigger)": 472,
+    "trigger_event effect [ Scoped object is not valid. Type: (no character) \u0015weak (Character - 4294967295)\u0015! ] | file: common/great_projects/types/zz_mam_revenue_common_00_ministry_projects.txt line: 253 (grand_campaign_project:on_complete)": 17,
+    "Undefined event target 'grand_campaign_war' | file: common/scripted_effects/10_dlc_tgp_scripted_effects.txt line: 2687 (grand_campaign_update_war_participants_effect)": 14,
+    "Event target link 'scope' returned an unset scope | file: common/scripted_effects/10_dlc_tgp_scripted_effects.txt line: 2687 (grand_campaign_update_war_participants_effect)": 14,
+    "Invalid right side during comparison 'scope' | file: common/scripted_effects/10_dlc_tgp_scripted_effects.txt line: 2687 (grand_campaign_update_war_participants_effect)": 14
+  },
+  "limitations": [
+    "End balances do not prove no earlier transient deficits.",
+    "Event queries and scheduled checks are not payments or successful projects.",
+    "Completed/expired projects, stories and receipts may be absent from the final save.",
+    "Debug logging is selective; a missing success marker is not proof no expenditure happened.",
+    "The latest transfer diagnostic is not a complete transaction history.",
+    "The run is not a matched vanilla control or a controlled law comparison."
+  ]
+}

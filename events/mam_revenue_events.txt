@@ -1,0 +1,615 @@
+﻿namespace = mam_revenue
+
+mam_revenue.1 = {
+ type = character_event theme = stewardship title = mam_rv.aid_title desc = mam_rv.aid_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.edit_amount
+  trigger = { mam_revenue_actor_trigger = yes is_ai = no }
+  custom_tooltip = mam_rv.edit_amount_tt
+  hidden_effect = { mam_revenue_begin_amount_effect = { RETURN = 1 } }
+  ai_chance = { base = 0 }
+ }
+ option = {
+  name = mam_rv.grant_full
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } }
+  mam_revenue_preview_effect = yes custom_tooltip = mam_rv.full_tt
+  hidden_effect = { scope:mam_rv_file = { set_variable = { name = mam_rv_kind value = 1 } } mam_revenue_propose_payment_effect = { AMOUNT = scope:mam_rv_amount } }
+  ai_chance = { base = 70 modifier = { add = 30 has_trait = generous } modifier = { add = 25 has_trait = compassionate } modifier = { factor = 0.5 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.grant_half
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_half_amount } }
+  mam_revenue_preview_effect = yes custom_tooltip = mam_rv.half_tt
+  hidden_effect = { scope:mam_rv_file = { set_variable = { name = mam_rv_kind value = 1 } } mam_revenue_propose_payment_effect = { AMOUNT = scope:mam_rv_half_amount } }
+  ai_chance = { base = 25 modifier = { add = 35 has_trait = greedy } modifier = { add = 15 title:h_china = { var:mam_rv_priority = 1 } } }
+ }
+ option = {
+  name = mam_rv.recovery
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } scope:mam_rv_recipient = { mam_revenue_province_trigger = yes mam_revenue_has_recovery_need_trigger = yes } }
+  mam_revenue_preview_effect = yes custom_tooltip = mam_rv.recovery_tt
+  hidden_effect = { mam_revenue_recovery_choice_effect = yes }
+  ai_chance = { base = 90 modifier = { add = 50 has_trait = compassionate } modifier = { add = 30 title:h_china = { var:mam_rv_priority = 2 } } }
+ }
+ option = {
+  name = mam_rv.development
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } scope:mam_rv_recipient = { mam_revenue_has_project_trigger = yes } }
+  mam_revenue_preview_effect = yes custom_tooltip = mam_rv.development_tt
+  hidden_effect = { mam_revenue_development_choice_effect = yes }
+  ai_chance = { base = 35 modifier = { add = 25 has_trait = diligent } }
+ }
+ option = {
+  name = mam_rv.find_contribution
+  trigger = { mam_revenue_actor_trigger = yes exists = scope:mam_rv_alternative_donor }
+  custom_tooltip = mam_rv.find_contribution_tt
+  hidden_effect = { mam_revenue_use_alternative_donor_effect = yes }
+  ai_chance = { base = 25 modifier = { add = 100 scope:mam_rv_emperor = { treasury < { value = mam_revenue_account_reserve add = scope:mam_rv_amount } } } }
+ }
+ option = {
+  name = mam_rv.refuse
+  trigger = { mam_revenue_actor_trigger = yes }
+  mam_revenue_refusal_preview_effect = yes
+  hidden_effect = { mam_revenue_decline_effect = yes }
+  ai_chance = { base = 10 modifier = { add = 10 has_trait = greedy } modifier = { add = 20 has_trait = vengeful scope:mam_rv_recipient = { has_relation_rival = root } } }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.2 = {
+ type = character_event theme = stewardship title = mam_rv.contribution_title desc = mam_rv.contribution_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.contribute_selected
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } }
+  custom_tooltip = mam_rv.contribution_tt mam_revenue_preview_effect = yes
+  hidden_effect = { mam_revenue_propose_payment_effect = { AMOUNT = scope:mam_rv_amount } }
+  ai_chance = { base = 100 }
+ }
+ option = {
+  name = mam_rv.edit_amount
+  trigger = { mam_revenue_actor_trigger = yes is_ai = no }
+  custom_tooltip = mam_rv.edit_amount_tt
+  hidden_effect = { mam_revenue_begin_amount_effect = { RETURN = 2 } }
+  ai_chance = { base = 0 }
+ }
+ option = {
+  name = mam_rv.close
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.no_measure_tt
+  
+  hidden_effect = { mam_revenue_finish_review_effect = yes }
+  ai_chance = { base = 5 }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.3 = {
+ type = character_event theme = stewardship title = mam_rv.settlement_title desc = mam_rv.settlement_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.edit_amount
+  trigger = { mam_revenue_actor_trigger = yes is_ai = no }
+  custom_tooltip = mam_rv.edit_amount_tt
+  hidden_effect = { mam_revenue_begin_amount_effect = { RETURN = 3 } }
+  ai_chance = { base = 0 }
+ }
+ option = {
+  name = mam_rv.standard
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.standard_tt
+  hidden_effect = { mam_revenue_standard_choice_effect = yes }
+  ai_chance = { base = 60 modifier = { add = 30 has_trait = content } }
+ }
+ option = {
+  name = mam_rv.remittance
+  trigger = { mam_revenue_actor_trigger = yes scope:mam_rv_recipient = { mam_revenue_province_trigger = yes treasury >= { value = mam_revenue_account_reserve add = 100 } NOT = { mam_revenue_has_recovery_need_trigger = yes } primary_title = { trigger_if = { limit = { has_variable = mam_rv_settlement_until } var:mam_rv_settlement_until <= current_date } trigger_if = { limit = { has_variable = mam_rv_donor_until } var:mam_rv_donor_until <= current_date } } } }
+  custom_tooltip = mam_rv.remittance_tt
+  hidden_effect = { mam_revenue_remittance_choice_effect = yes }
+  ai_chance = { base = 35 modifier = { add = 40 title:h_china = { var:mam_rv_priority = 1 } } modifier = { add = 20 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.recovery
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } scope:mam_rv_recipient = { mam_revenue_has_recovery_need_trigger = yes } }
+  mam_revenue_preview_effect = yes custom_tooltip = mam_rv.recovery_tt
+  hidden_effect = { mam_revenue_recovery_choice_effect = yes }
+  ai_chance = { base = 80 modifier = { add = 40 has_trait = compassionate } }
+ }
+ option = {
+  name = mam_rv.development
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } scope:mam_rv_recipient = { mam_revenue_has_project_trigger = yes } }
+  mam_revenue_preview_effect = yes custom_tooltip = mam_rv.development_tt
+  hidden_effect = { mam_revenue_development_choice_effect = yes }
+  ai_chance = { base = 35 modifier = { add = 30 has_trait = diligent } }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.4 = {
+ type = character_event theme = stewardship title = mam_rv.budget_title desc = mam_rv.budget_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.budget_low
+  trigger = { mam_revenue_actor_trigger = yes scope:mam_rv_recipient = { mam_revenue_budget_office_trigger = yes mam_revenue_budget_level != 0 } }
+  custom_tooltip = mam_rv.budget_low_tt
+  hidden_effect = { mam_revenue_budget_choice_effect = { LEVEL = 0 } }
+  ai_chance = { base = 10 modifier = { add = 100 scope:mam_rv_recipient = { treasury > 1500 } title:h_china = { var:mam_rv_priority = 1 } } }
+ }
+ option = {
+  name = mam_rv.budget_medium
+  trigger = { mam_revenue_actor_trigger = yes scope:mam_rv_recipient = { mam_revenue_budget_office_trigger = yes mam_revenue_budget_level != 1 } }
+  custom_tooltip = mam_rv.budget_medium_tt
+  hidden_effect = { mam_revenue_budget_choice_effect = { LEVEL = 1 } }
+  ai_chance = { base = 60 }
+ }
+ option = {
+  name = mam_rv.budget_high
+  trigger = { mam_revenue_actor_trigger = yes scope:mam_rv_recipient = { mam_revenue_budget_office_trigger = yes mam_revenue_budget_level != 2 } }
+  custom_tooltip = mam_rv.budget_high_tt
+  hidden_effect = { mam_revenue_budget_choice_effect = { LEVEL = 2 } }
+  ai_chance = { base = 20 modifier = { add = 100 scope:mam_rv_recipient = { treasury < 100 monthly_character_treasury_balance < 0 } } }
+ }
+ option = {
+  name = mam_rv.keep_budget
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.no_measure_tt
+  
+  hidden_effect = { mam_revenue_finish_review_effect = yes }
+  ai_chance = { base = 25 }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.5 = {
+ type = character_event theme = stewardship title = mam_rv.donor_title desc = mam_rv.donor_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.donor_accept
+  trigger = { mam_revenue_actor_trigger = yes scope:mam_rv_file = { mam_revenue_payment_ready_trigger = yes } }
+  custom_tooltip = mam_rv.donor_accept_tt mam_revenue_preview_effect = yes
+  hidden_effect = { mam_revenue_donor_accept_effect = { HALF = no } }
+  ai_chance = { base = 80 modifier = { add = 40 has_trait = generous } modifier = { add = 20 has_trait = loyal } modifier = { factor = 0.5 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.donor_half
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_half_amount } }
+  custom_tooltip = mam_rv.donor_half_tt mam_revenue_preview_effect = yes
+  hidden_effect = { mam_revenue_donor_accept_effect = { HALF = yes } }
+  ai_chance = { base = 25 modifier = { add = 30 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.donor_dispute
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.dispute_tt
+  hidden_effect = { mam_revenue_dispute_effect = yes }
+  ai_chance = { base = 15 modifier = { add = 50 has_trait = greedy } modifier = { add = 30 has_trait = arrogant } modifier = { add = 40 has_trait = vengeful scope:mam_rv_revenue = { has_relation_rival = root } } }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.6 = {
+ type = character_event theme = stewardship title = mam_rv.approval_title desc = {
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_rv_file.var:mam_rv_kind = 4 scope:mam_rv_file.var:mam_rv_budget_level = 0 } desc = mam_rv.approval_budget_low_desc }
+   triggered_desc = { trigger = { scope:mam_rv_file.var:mam_rv_kind = 4 scope:mam_rv_file.var:mam_rv_budget_level = 2 } desc = mam_rv.approval_budget_high_desc }
+   triggered_desc = { trigger = { scope:mam_rv_file.var:mam_rv_kind = 4 } desc = mam_rv.approval_budget_medium_desc }
+   desc = mam_rv.approval_desc
+  }
+ }
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.approve
+  trigger = { mam_revenue_actor_trigger = yes OR = { AND = { scope:mam_rv_file.var:mam_rv_kind = 4 scope:mam_rv_recipient = { mam_revenue_budget_office_trigger = yes } } AND = { scope:mam_rv_file.var:mam_rv_kind != 4 scope:mam_rv_file = { mam_revenue_payment_ready_trigger = yes } } } }
+  mam_revenue_approval_preview_effect = yes
+  hidden_effect = { mam_revenue_approve_effect = yes }
+  ai_chance = { base = 80 modifier = { add = 30 has_trait = trusting } modifier = { factor = 0.5 has_trait = greedy } modifier = { add = 40 has_trait = compassionate scope:mam_rv_recipient = { mam_revenue_need_score >= 100 } } }
+ }
+ option = {
+  name = mam_rv.approve_half
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_half_amount } scope:mam_rv_file.var:mam_rv_kind != 4 }
+  custom_tooltip = mam_rv.half_tt
+  hidden_effect = { scope:mam_rv_file = { set_variable = { name = mam_rv_amount value = scope:mam_rv_half_amount } } mam_revenue_approve_effect = yes }
+  ai_chance = { base = 20 modifier = { add = 30 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.return
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.return_tt
+  hidden_effect = { mam_revenue_return_choice_effect = yes }
+  ai_chance = { base = 10 modifier = { add = 15 has_trait = paranoid } }
+ }
+ option = {
+  name = mam_rv.reject
+  trigger = { mam_revenue_actor_trigger = yes }
+  mam_revenue_refusal_preview_effect = yes
+  hidden_effect = { mam_revenue_decline_effect = yes }
+  ai_chance = { base = 15 modifier = { add = 25 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.7 = {
+ type = character_event theme = stewardship title = mam_rv.annual_title desc = mam_rv.annual_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.continue
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.no_measure_tt
+  
+  hidden_effect = { mam_revenue_finish_review_effect = yes }
+  ai_chance = { base = 100 }
+ }
+ option = {
+  name = mam_rv.recommend_reserves
+  trigger = { mam_revenue_actor_trigger = yes title:h_china = { var:mam_rv_priority != 1 } }
+  custom_tooltip = mam_rv.recommend_priority_tt
+  hidden_effect = { mam_revenue_recommend_priority_effect = { LEVEL = 1 } }
+  ai_chance = { base = 10 modifier = { add = 80 scope:mam_rv_emperor = { treasury < 1000 } } }
+ }
+ option = {
+  name = mam_rv.recommend_recovery
+  trigger = { mam_revenue_actor_trigger = yes title:h_china = { var:mam_rv_priority != 2 } }
+  custom_tooltip = mam_rv.recommend_priority_tt
+  hidden_effect = { mam_revenue_recommend_priority_effect = { LEVEL = 2 } }
+  ai_chance = { base = 10 modifier = { add = 60 has_trait = compassionate } modifier = { add = 50 scope:mam_rv_emperor = { any_vassal_or_below = { mam_revenue_province_trigger = yes treasury < 0 } } } }
+ }
+ option = {
+  name = mam_rv.native_budget
+  trigger = { mam_revenue_actor_trigger = yes influence >= medium_influence_value is_at_war = no title:h_china = { NOT = { has_variable = mam_rv_native_budget_until } } scope:mam_rv_emperor = { treasury_months_since_budget_enact_date >= 36 } OR = { can_suggest_budget_ministry_template_trigger = yes can_suggest_budget_balanced_template_trigger = yes } }
+  custom_tooltip = mam_rv.native_budget_tt show_as_tooltip = { change_influence = { value = medium_influence_value multiply = -1 } }
+  hidden_effect = { mam_revenue_native_budget_proposal_effect = yes }
+  ai_chance = { base = 15 modifier = { add = 20 has_trait = diligent } }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.8 = {
+ type = character_event theme = stewardship title = mam_rv.mandate_title desc = mam_rv.mandate_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_revenue scope:mam_rv_revenue != root } character = scope:mam_rv_revenue animation = thinking }
+ option = {
+  name = mam_rv.acknowledge_law
+  custom_tooltip = mam_rv.current_law_rules_tt
+  custom_tooltip = mam_rv.law_change_tt
+  custom_tooltip = mam_rv.law_shared_tt
+  hidden_effect = { mam_revenue_finish_review_effect = yes }
+  ai_chance = { base = 100 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.9 = {
+ type = character_event theme = stewardship title = mam_rv.priority_title desc = mam_rv.priority_desc
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.priority_0
+  trigger = { mam_revenue_actor_trigger = yes mam_revenue_priority_authority_trigger = yes }
+  custom_tooltip = mam_rv.priority_0_tt
+  hidden_effect = { mam_revenue_choose_priority_effect = { LEVEL = 0 } }
+  ai_chance = { base = 50 }
+ }
+ option = {
+  name = mam_rv.priority_1
+  trigger = { mam_revenue_actor_trigger = yes mam_revenue_priority_authority_trigger = yes }
+  custom_tooltip = mam_rv.priority_1_tt
+  hidden_effect = { mam_revenue_choose_priority_effect = { LEVEL = 1 } }
+  ai_chance = { base = 25 modifier = { add = 70 scope:mam_rv_emperor = { treasury < 1000 } } modifier = { add = 20 has_trait = greedy } }
+ }
+ option = {
+  name = mam_rv.priority_2
+  trigger = { mam_revenue_actor_trigger = yes mam_revenue_priority_authority_trigger = yes }
+  custom_tooltip = mam_rv.priority_2_tt
+  hidden_effect = { mam_revenue_choose_priority_effect = { LEVEL = 2 } }
+  ai_chance = { base = 25 modifier = { add = 50 has_trait = compassionate } modifier = { add = 30 scope:mam_rv_emperor = { any_vassal_or_below = { mam_revenue_province_trigger = yes treasury < 0 } } } }
+ }
+ option = {
+  name = mam_rv.allow_chancellor
+  trigger = { mam_revenue_actor_trigger = yes mam_revenue_emperor_trigger = yes }
+  custom_tooltip = mam_rv.allow_chancellor_tt
+  hidden_effect = { title:h_china = { remove_variable = mam_rv_imperial_priority remove_variable = mam_rv_priority_owner remove_variable = mam_rv_priority_manual } mam_revenue_finish_review_effect = yes }
+  ai_chance = { base = 30 }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.10 = {
+ type = character_event theme = stewardship title = mam_rv.recommendation_title desc = {
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_rv_file.var:mam_rv_requested_priority = 1 } desc = mam_rv.priority_recommend_reserves_desc }
+   desc = mam_rv.priority_recommend_recovery_desc
+  }
+ }
+ trigger = { mam_revenue_actor_trigger = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_recipient scope:mam_rv_recipient != root } character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.accept_priority
+  trigger = { mam_revenue_actor_trigger = yes mam_revenue_priority_authority_trigger = yes }
+  custom_tooltip = mam_rv.accept_priority_tt
+  hidden_effect = { mam_revenue_accept_priority_effect = yes }
+  ai_chance = { base = 80 modifier = { add = 30 has_trait = trusting } }
+ }
+ option = {
+  name = mam_rv.retain_priority
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.retain_priority_tt
+  hidden_effect = { mam_revenue_finish_review_effect = yes }
+  ai_chance = { base = 30 modifier = { add = 30 has_trait = stubborn } }
+ }
+ option = {
+  name = mam_rv.defer
+  custom_tooltip = mam_rv.defer_tt
+  hidden_effect = { mam_revenue_defer_choice_effect = yes }
+  ai_chance = { base = 0 }
+ }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+# Bind the current lease; no stale scopes from simultaneous cases are reused.
+mam_revenue.90 = {
+ type = character_event hidden = yes
+ immediate = { mam_revenue_dispatch_effect = yes }
+}
+mam_revenue.99 = {
+ type = character_event hidden = yes
+ trigger = { mam_revenue_emperor_trigger = yes }
+ immediate = { mam_revenue_maintenance_effect = yes mam_revenue_wake_effect = yes }
+}
+
+# Draft editor uses ordinary event choices and the existing public treasury.
+mam_revenue.11 = {
+ type = character_event theme = stewardship title = mam_rv.amount_title desc = mam_rv.amount_desc
+ trigger = { mam_revenue_actor_trigger = yes is_ai = no scope:mam_rv_file.var:mam_rv_stage = 0 }
+ immediate = { mam_revenue_bind_effect = yes }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_rv_donor } character = scope:mam_rv_donor animation = thinking }
+ option = {
+  name = mam_rv.amount_use
+  trigger = { mam_revenue_offer_ready_trigger = { AMOUNT = scope:mam_rv_amount } }
+  custom_tooltip = mam_rv.amount_use_tt
+  hidden_effect = { mam_revenue_finish_amount_effect = { CANCEL = no } }
+ }
+ option = { name = mam_rv.amount_plus25 trigger = { scope:mam_rv_amount < scope:mam_rv_max_amount } custom_tooltip = mam_rv.edit_only_tt hidden_effect = { mam_revenue_adjust_amount_effect = { DELTA = 25 } } }
+ option = { name = mam_rv.amount_plus100 trigger = { scope:mam_rv_amount < scope:mam_rv_max_amount } custom_tooltip = mam_rv.edit_only_tt hidden_effect = { mam_revenue_adjust_amount_effect = { DELTA = 100 } } }
+ option = { name = mam_rv.amount_minus25 trigger = { scope:mam_rv_amount > 1 } custom_tooltip = mam_rv.edit_only_tt hidden_effect = { mam_revenue_adjust_amount_effect = { DELTA = -25 } } }
+ option = { name = mam_rv.amount_minus100 trigger = { scope:mam_rv_amount > 1 } custom_tooltip = mam_rv.edit_only_tt hidden_effect = { mam_revenue_adjust_amount_effect = { DELTA = -100 } } }
+ option = {
+  name = mam_rv.amount_debt
+  trigger = { scope:mam_rv_debt_amount > 0 scope:mam_rv_debt_amount <= scope:mam_rv_max_amount }
+  custom_tooltip = mam_rv.edit_only_tt
+  hidden_effect = { scope:mam_rv_file = { set_variable = { name = mam_rv_amount value = scope:mam_rv_debt_amount } } trigger_event = mam_revenue.11 }
+ }
+ option = {
+  name = mam_rv.amount_max
+  trigger = { scope:mam_rv_max_amount > 0 }
+  custom_tooltip = mam_rv.amount_max_tt
+  hidden_effect = { scope:mam_rv_file = { set_variable = { name = mam_rv_amount value = scope:mam_rv_max_amount } } trigger_event = mam_revenue.11 }
+ }
+ option = { name = mam_rv.amount_cancel custom_tooltip = mam_rv.amount_cancel_tt hidden_effect = { mam_revenue_finish_amount_effect = { CANCEL = yes } } }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+mam_revenue.12 = {
+ type = character_event theme = stewardship title = mam_rv.appeal_title desc = {
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_rv_file.var:mam_rv_budget_level = 0 } desc = mam_rv.appeal_low_desc }
+   triggered_desc = { trigger = { scope:mam_rv_file.var:mam_rv_budget_level = 2 } desc = mam_rv.appeal_high_desc }
+   desc = mam_rv.appeal_medium_desc
+  }
+ }
+ trigger = { mam_revenue_actor_trigger = yes scope:mam_rv_file.var:mam_rv_kind = 13 }
+ left_portrait = { character = root animation = reading }
+ right_portrait = { character = scope:mam_rv_recipient animation = thinking }
+ option = {
+  name = mam_rv.uphold_appeal
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.uphold_appeal_tt
+  hidden_effect = { mam_revenue_approve_effect = yes }
+  ai_chance = { base = 20 modifier = { add = 80 scope:mam_rv_recipient = { treasury < 200 } } modifier = { add = 35 scope:mam_rv_recipient = { monthly_character_treasury_balance < 0 } } modifier = { add = 20 has_trait = compassionate } }
+ }
+ option = {
+  name = mam_rv.reject_appeal
+  trigger = { mam_revenue_actor_trigger = yes }
+  custom_tooltip = mam_rv.reject_appeal_tt
+  hidden_effect = { mam_revenue_reject_appeal_effect = yes }
+  ai_chance = { base = 70 modifier = { add = 40 title:h_china = { var:mam_rv_priority = 1 } } modifier = { add = 30 scope:mam_rv_recipient = { treasury >= 1000 } } }
+ }
+ option = { name = mam_rv.defer custom_tooltip = mam_rv.defer_tt hidden_effect = { mam_revenue_defer_choice_effect = yes } ai_chance = { base = 0 } }
+
+ option = { name = mam_cf.legacy_changed
+  trigger = { title:h_china = { has_variable = mam_cf_active } mam_revenue_actor_trigger = no }
+  hidden_effect = { if = { limit = { exists = scope:mam_rv_file }
+   scope:mam_rv_file = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_close_effect = yes } }
+  } }
+ 
+ custom_tooltip = mam_cf.changed_tt
+}
+}
+
+# Informational results do not grant authority, repeat a payment or seize a lease.
+mam_revenue.20 = {
+ type = character_event theme = stewardship title = mam_rv.outcome_title desc = {
+  first_valid = {
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 8 } } desc = mam_rv.outcome_superseded }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 7 } } desc = mam_rv.outcome_consent }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 6 } } desc = mam_rv.outcome_returned }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 5 } } desc = mam_rv.outcome_uncertain }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 2 scope:mam_rv_outcome_kind = 13 } } desc = mam_rv.outcome_appeal_rejected }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 2 scope:mam_rv_outcome_kind = 4 } } desc = mam_rv.outcome_budget_refused }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 2 } } desc = mam_rv.outcome_refused }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 scope:mam_rv_outcome_kind = 13 scope:mam_rv_outcome_budget = 0 } } desc = mam_rv.outcome_appeal_upheld_low }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 scope:mam_rv_outcome_kind = 13 scope:mam_rv_outcome_budget = 1 } } desc = mam_rv.outcome_appeal_upheld_medium }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 scope:mam_rv_outcome_kind = 13 scope:mam_rv_outcome_budget = 2 } } desc = mam_rv.outcome_appeal_upheld_high }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 scope:mam_rv_outcome_kind = 4 scope:mam_rv_outcome_budget = 0 } } desc = mam_rv.outcome_budget_changed_low }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 scope:mam_rv_outcome_kind = 4 scope:mam_rv_outcome_budget = 1 } } desc = mam_rv.outcome_budget_changed_medium }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 scope:mam_rv_outcome_kind = 4 scope:mam_rv_outcome_budget = 2 } } desc = mam_rv.outcome_budget_changed_high }
+   triggered_desc = { trigger = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind trigger_if = { limit = { exists = scope:mam_rv_outcome_status exists = scope:mam_rv_outcome_kind } scope:mam_rv_outcome_status = 1 exists = scope:mam_rv_outcome_payment_state trigger_if = { limit = { exists = scope:mam_rv_outcome_payment_state } scope:mam_rv_outcome_payment_state = 2 } } } desc = mam_rv.outcome_paid }
+   desc = mam_rv.outcome_desc
+  }
+ }
+ trigger = { is_ai = no exists = scope:mam_rv_outcome_subject }
+ left_portrait = { character = root animation = reading }
+ right_portrait = {
+  trigger = { exists = scope:mam_rv_outcome_decider scope:mam_rv_outcome_decider != root }
+  character = scope:mam_rv_outcome_decider animation = thinking
+ }
+ option = {
+  name = mam_rv.appeal_cut
+  trigger = { scope:mam_rv_outcome_kind = 4 scope:mam_rv_outcome_status = 1 mam_revenue_can_appeal_trigger = yes }
+  custom_tooltip = mam_rv.appeal_cut_tt
+  hidden_effect = { mam_revenue_open_appeal_effect = yes }
+ }
+ option = { name = mam_rv.understood custom_tooltip = mam_rv.outcome_ack_tt }
+}

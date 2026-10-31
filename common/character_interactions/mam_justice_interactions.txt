@@ -1,0 +1,52 @@
+﻿mam_justice_review_interaction = {
+ category = interaction_category_ministry icon = scroll_scales common_interaction = yes auto_accept = yes interface_priority = 52
+ desc = mam_justice_review_interaction_desc
+ is_shown = {
+  scope:recipient = { mam_justice_tracked_trigger = yes mam_justice_person_trigger = yes }
+  scope:actor = { is_alive = yes is_adult = yes OR = { is_imprisoned = no this = scope:recipient } top_liege = title:h_china.holder
+   OR = { mam_justice_emperor_trigger = yes mam_justice_officer_trigger = yes mam_censor_officer_trigger = yes
+    this = scope:recipient.liege this = scope:recipient
+    AND = { tgp_is_any_minister = yes has_imprisonment_reason = scope:recipient }
+   }
+  }
+ }
+ is_valid_showing_failures_only = {
+  custom_tooltip = { text = mam_jus.queue_room
+   scope:recipient = { NOT = { exists = var:mam_jus_case }
+    OR = { NOT = { has_character_flag = mam_jus_recent } scope:actor = { OR = { mam_justice_officer_trigger = yes mam_justice_emperor_trigger = yes } } } }
+   NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } }
+  }
+ }
+ on_accept = { if = { limit = { scope:actor = { is_alive = yes is_adult = yes OR = { is_imprisoned = no this = scope:recipient } top_liege = title:h_china.holder
+  OR = { mam_justice_emperor_trigger = yes mam_justice_officer_trigger = yes mam_censor_officer_trigger = yes this = scope:recipient.liege this = scope:recipient
+   AND = { tgp_is_any_minister = yes has_imprisonment_reason = scope:recipient }
+  }
+ } }
+  clear_saved_scope = mam_cen_file clear_saved_scope = mam_jus_aging_origin scope:recipient = { save_scope_as = mam_jus_subject }
+  scope:actor = { save_scope_as = mam_jus_originator mam_justice_open_effect = yes }
+ } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_justice_petition_interaction = {
+ category = interaction_category_ministry icon = scroll_scales common_interaction = yes auto_accept = yes interface_priority = 51
+ desc = mam_justice_petition_interaction_desc
+ is_shown = {
+  scope:recipient = { OR = { exists = var:mam_jus_case exists = var:mam_jus_last_case } }
+  scope:actor = { is_alive = yes is_adult = yes top_liege = title:h_china.holder
+   OR = { this = scope:recipient mam_censor_officer_trigger = yes mam_justice_emperor_trigger = yes has_title = title:e_minister_chancellor
+    AND = { tgp_is_any_minister = yes has_relation_friend = scope:recipient }
+    AND = { tgp_is_any_minister = yes is_close_or_extended_family_of = scope:recipient }
+   }
+  }
+ }
+ is_valid_showing_failures_only = {
+  OR = { scope:recipient = { exists = var:mam_jus_case } NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } } }
+  scope:recipient = { trigger_if = { limit = { exists = var:mam_jus_case } var:mam_jus_case = { mam_justice_petition_case_trigger = yes } }
+   trigger_else = { var:mam_jus_last_case = { mam_justice_petition_case_trigger = yes
+    has_variable = mam_jus_closed var:mam_jus_closed >= { value = current_date subtract = 365 }
+   } }
+  }
+ }
+ on_accept = { mam_justice_petition_effect = yes }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

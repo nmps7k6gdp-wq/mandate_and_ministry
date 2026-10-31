@@ -1,0 +1,16 @@
+﻿mam_justice_authority_delegated = {
+ law_group_type = mam_justice_authority_laws index = 0
+ can_keep = { mam_justice_emperor_trigger = yes } can_have = { mam_justice_emperor_trigger = yes } can_realm_have = { mam_justice_emperor_trigger = yes }
+ can_pass = { is_at_war = no title:h_china = { NOT = { has_variable = mam_jus_law_cooldown } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { title:h_china = { set_variable = { name = mam_jus_law_cooldown years = 5 } } }
+ ai_will_do = { value = 10 if = { limit = { has_trait = trusting } add = 40 } }
+}
+mam_justice_authority_reserved = {
+ law_group_type = mam_justice_authority_laws index = 1
+ can_keep = { mam_justice_emperor_trigger = yes } can_have = { mam_justice_emperor_trigger = yes } can_realm_have = { mam_justice_emperor_trigger = yes }
+ can_pass = { is_at_war = no title:h_china = { NOT = { has_variable = mam_jus_law_cooldown } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { title:h_china = { set_variable = { name = mam_jus_law_cooldown years = 5 } } }
+ ai_will_do = { value = 5 if = { limit = { has_trait = paranoid } add = 50 } }
+}

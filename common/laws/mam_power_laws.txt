@@ -1,0 +1,45 @@
+﻿# Retired in dev.34. Database keys remain only to load and clean up older saves.
+# No default, adoption, effects, costs or flags; these laws are absent from gameplay.
+mam_jurisdiction_full = {
+ law_group_type = mam_jurisdiction_laws index = 0
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_jurisdiction_restricted = {
+ law_group_type = mam_jurisdiction_laws index = 1
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_discretion_choice = {
+ law_group_type = mam_discretion_laws index = 0
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}
+
+mam_discretion_ranked = {
+ law_group_type = mam_discretion_laws index = 1
+ potential = { always = no }
+ should_start_with = { always = no }
+ can_keep = { always = no }
+ can_have = { always = no }
+ can_realm_have = { always = no }
+ can_pass = { always = no }
+ ai_will_do = { value = 0 }
+}

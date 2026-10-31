@@ -1,0 +1,9 @@
+﻿namespace = mam_personnel
+# Retired law menus; retained as inert targets for old queued events.
+mam_personnel.0070 = { type = character_event hidden = yes }
+
+mam_personnel.0071 = { type = character_event hidden = yes }
+
+mam_personnel.0072 = { type = character_event hidden = yes }
+
+mam_personnel.0073 = { type = character_event hidden = yes }

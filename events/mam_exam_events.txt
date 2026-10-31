@@ -1,0 +1,79 @@
+﻿namespace = mam_exam
+
+mam_exam.1 = {
+ type = character_event theme = merit
+ title = mam_exam.1.t desc = mam_exam.1.desc
+ trigger = { is_alive = yes is_ai = no mam_exam_recognition_rank > 0 }
+ left_portrait = { character = root animation = reading }
+ option = { name = mam_exam.1.a custom_tooltip = mam_exam.1.reward_tt }
+}
+# Resolve the current emperor after native exam callbacks have completed.
+mam_exam.3 = {
+ type = character_event hidden = yes
+ trigger = { is_alive = yes mam_exam_recognition_rank >= 2 }
+ immediate = {
+  save_scope_as = mam_laureate
+  title:h_china.holder ?= {
+   if = { limit = { mam_exam_audience_valid_trigger = yes }
+    trigger_event = mam_exam.2
+   }
+  }
+ }
+}
+mam_exam.2 = {
+ type = character_event theme = merit
+ title = mam_exam.2.t
+ desc = { first_valid = {
+  triggered_desc = { trigger = { scope:mam_laureate = { mam_exam_triple_first_trigger = yes } } desc = mam_exam.2.triple_desc }
+  desc = mam_exam.2.desc
+ } }
+ trigger = { mam_exam_audience_valid_trigger = yes }
+ left_portrait = { character = root animation = thinking }
+ right_portrait = { character = scope:mam_laureate animation = reading }
+ option = {
+  name = mam_exam.2.sponsor
+  trigger = { mam_exam_audience_valid_trigger = yes prestige >= 75 }
+  show_as_unavailable = { mam_exam_audience_valid_trigger = yes }
+  custom_tooltip = mam_exam.2.sponsor_tt
+  if = { limit = { mam_exam_audience_valid_trigger = yes prestige >= 75 }
+   add_prestige = -75
+   scope:mam_laureate = {
+    add_character_modifier = { modifier = mam_exam_imperial_sponsorship years = 5 }
+    add_opinion = { target = root modifier = mam_exam_imperial_gratitude years = 10 }
+   }
+   add_opinion = { target = scope:mam_laureate modifier = mam_exam_scholar_respect years = 5 }
+   hidden_effect = {
+    scope:mam_laureate = {
+     set_variable = { name = mam_exam_sponsor_realm value = title:h_china }
+     set_variable = { name = mam_exam_sponsored_by value = root }
+    }
+    mam_exam_close_audience_effect = yes
+   }
+  }
+  ai_chance = { base = 15 modifier = { add = 45 has_trait = diligent } modifier = { add = 30 has_trait = just } modifier = { add = 20 has_trait = ambitious } }
+ }
+ option = {
+  name = mam_exam.2.commend
+  trigger = { mam_exam_audience_valid_trigger = yes }
+  if = { limit = { mam_exam_audience_valid_trigger = yes }
+   scope:mam_laureate = { add_opinion = { target = root modifier = mam_exam_imperial_commendation years = 5 } }
+   add_opinion = { target = scope:mam_laureate modifier = mam_exam_scholar_respect years = 5 }
+   hidden_effect = { mam_exam_close_audience_effect = yes }
+  }
+  ai_chance = { base = 50 modifier = { add = 30 has_trait = humble } modifier = { add = 20 has_trait = honest } }
+ }
+ option = {
+  name = mam_exam.2.congratulate
+  trigger = { mam_exam_audience_valid_trigger = yes }
+  if = { limit = { mam_exam_audience_valid_trigger = yes }
+   scope:mam_laureate = { add_opinion = { target = root modifier = mam_exam_imperial_congratulations years = 3 } }
+   hidden_effect = { mam_exam_close_audience_effect = yes }
+  }
+  ai_chance = { base = 25 modifier = { add = 30 has_trait = lazy } modifier = { add = 30 has_trait = arrogant } }
+ }
+ option = {
+  name = mam_exam.2.stale
+  trigger = { mam_exam_audience_valid_trigger = no }
+  ai_chance = { base = 100 }
+ }
+}

@@ -1,0 +1,169 @@
+﻿namespace = tgp_china_ministry
+
+tgp_china_ministry.0005 = {
+	type = character_event
+	title = tgp_china_ministry.0005.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { list_size:titles_won >= list_size:titles_lost }
+				desc = tgp_china_ministry.0005.desc_won
+			}
+			desc = tgp_china_ministry.0005.desc_lost
+		}
+	}
+	theme = martial
+	left_portrait = {
+		character = root
+		triggered_animation = {
+			trigger = { list_size:titles_won >= list_size:titles_lost }
+			animation = admiration
+		}
+		animation = dismissal
+	}
+	right_portrait = {
+ trigger = { exists = scope:war_leader scope:war_leader ?= { is_alive = yes } }
+		character = scope:war_leader
+		triggered_animation = {
+			trigger = { list_size:titles_won >= list_size:titles_lost }
+			animation = random_weapon_celebrate
+		}
+		animation = shame
+	}
+
+	immediate = {
+		scope:great_project.var:grand_campaign_target_kingdom = {
+			save_scope_as = target_kingdom
+		}
+		every_in_list = {
+ limit = { is_alive = yes }
+			list = all_contributors
+			if = {
+				limit = {
+					list_size:titles_won >= list_size:titles_lost
+				}
+				custom_tooltip = grand_campaign_movement_power_gain_tt
+				if = {
+					limit = {
+						exists = var:grand_campaign_won
+					}
+					change_variable = {
+						name = grand_campaign_won
+						add = 100
+					}
+				}
+				else = {
+					set_variable = {
+						name = grand_campaign_won
+						value = 100
+					}
+				}
+	 			add_merit_if_relevant_effect = {
+	 				MERIT = monumental_merit_value
+	 			}
+			}
+			else = {
+				custom_tooltip = grand_campaign_movement_power_loss_tt
+				if = {
+					limit = {
+						exists = var:grand_campaign_lost
+					}
+					change_variable = {
+						name = grand_campaign_lost
+						add = -100
+					}
+				}
+				else = {
+					set_variable = {
+						name = grand_campaign_lost
+						value = -100
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = {
+			trigger = { list_size:titles_won >= list_size:titles_lost }
+			text = tgp_china_ministry.0005.a_win
+		}
+		name = {
+			trigger = { list_size:titles_won < list_size:titles_lost }
+			text = tgp_china_ministry.0005.a_lost
+		}
+		if = {
+			limit = {
+				list_size:titles_won >= list_size:titles_lost
+			}
+			add_legitimacy_effect = { LEGITIMACY = major_legitimacy_gain }
+			scope:war_leader ?= { if = { limit = { is_alive = yes }
+
+				tgp_activate_catalyst_against_hegemon_effect = {
+					HEGEMON = scope:owner
+					CATALYST = catalyst_grand_campaign
+				}
+	 			add_merit_if_relevant_effect = {
+	 				MERIT = 1000
+	 			}
+			
+} }
+		}
+		else = {
+			add_legitimacy_effect = { LEGITIMACY = major_legitimacy_loss }
+			scope:war_leader ?= { if = { limit = { is_alive = yes }
+
+				tgp_activate_catalyst_against_hegemon_effect = {
+					HEGEMON = scope:owner
+					CATALYST = catalyst_grand_campaign_lost
+				}
+	 			change_influence = major_influence_loss
+			
+} }
+		}
+	}
+}
+
+tgp_china_ministry.0004 = {
+	type = character_event
+	title = tgp_china_ministry.0004.t
+	desc = tgp_china_ministry.0004.desc
+	theme = martial
+	left_portrait = {
+		character = root
+		animation = war_attacker
+	}
+	right_portrait = {
+		character = scope:war_leader
+		animation = random_weapon_aggressive
+		trigger = {
+			scope:war_leader != root
+		}
+	}
+	lower_right_portrait = scope:owner
+	lower_center_portrait = { trigger = { exists = scope:target_title.holder } character = scope:target_title.holder }
+
+	immediate = {
+		scope:great_project.var:grand_campaign_war = {
+			save_scope_as = grand_campaign_war
+			if = {
+				limit = {
+					scope:contributor = {
+						NOT = {
+							any_character_war = { this = scope:grand_campaign_war }
+						}
+					}
+				}
+				add_attacker = scope:contributor
+			}
+		}
+		add_character_modifier = {
+			modifier = tgp_joined_grand_campaign_modifier
+		}
+		custom_tooltip = grand_campaign_added_war_target_tt
+	}
+
+	option = {
+		name = tgp_china_ministry.0004.a
+	}
+}

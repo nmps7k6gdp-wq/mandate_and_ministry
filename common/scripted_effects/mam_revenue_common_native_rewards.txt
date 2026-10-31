@@ -1,0 +1,35 @@
+﻿# Preserve the creditor's native credit only after the real grant, once. An old
+# minister who has left office cannot receive a new personal hook or Influence.
+mam_revenue_fund_native_rewards_effect = {
+ if = { limit = { has_variable = mam_cf_native_petition NOT = { has_variable = mam_cf_native_rewarded }
+  var:mam_cf_paid_from != var:mam_cf_paid_to
+  exists = var:mam_cf_native_actor exists = var:mam_cf_native_credit
+  var:mam_cf_native_credit_title.holder = var:mam_cf_native_credit
+  var:mam_cf_native_actor = var:mam_cf_target.holder
+ }
+  set_variable = { name = mam_cf_native_rewarded value = 1 }
+  save_scope_as = mam_cf_native_reward
+  var:mam_cf_native_credit = { change_influence = major_influence_value }
+  if = { limit = { has_variable = mam_cf_native_hook
+   var:mam_cf_native_actor = { has_usable_hook = scope:mam_cf_native_reward.var:mam_cf_native_credit }
+  }
+   var:mam_cf_native_actor = { use_hook = scope:mam_cf_native_reward.var:mam_cf_native_credit }
+  }
+  if = { limit = { has_variable = mam_cf_clear_debt var:mam_cf_native_actor.treasury >= 0 }
+   var:mam_cf_native_credit = { add_hook = { type = strong_indebted_hook target = scope:mam_cf_native_reward.var:mam_cf_native_actor } }
+   situation:dynastic_cycle ?= {
+    if = { limit = { situation_top_has_catalyst = catalyst_cleared_treasury_debt
+     any_situation_participant = { this = scope:mam_cf_native_reward.var:mam_cf_native_actor }
+    }
+     trigger_situation_catalyst = { catalyst = catalyst_cleared_treasury_debt character = scope:mam_cf_native_reward.var:mam_cf_native_actor }
+    }
+   }
+  }
+  var:mam_cf_native_actor = {
+   tgp_activate_catalyst_against_hegemon_effect = {
+    HEGEMON = scope:mam_cf_native_reward.var:mam_cf_native_credit
+    CATALYST = catalyst_hegemon_influenced_by_interaction
+   }
+  }
+ }
+}

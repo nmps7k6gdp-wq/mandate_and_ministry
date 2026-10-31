@@ -1,0 +1,181 @@
+﻿# Title scope. The most specific live office keeps its own component claim.
+mam_senior_record_jurisdiction_component_effect = {
+ save_scope_as = mam_snapshot_component
+ $FILE$ = { add_to_variable_list = { name = mam_senior_jurisdiction_titles target = scope:mam_snapshot_component } }
+ if = { limit = { always = $OWNED$ }
+  set_variable = { name = mam_senior_component_file value = $FILE$ }
+ }
+ else_if = { limit = { NOT = { exists = var:mam_senior_component_file } }
+  set_variable = { name = mam_senior_component_file value = $FILE$ }
+ }
+ else_if = { limit = { var:mam_senior_component_file = { mam_senior_jurisdiction_claim_live_trigger = no } }
+  set_variable = { name = mam_senior_component_file value = $FILE$ }
+ }
+ else_if = { limit = { var:mam_senior_component_file.var:mam_senior_title.tier > $FILE$.var:mam_senior_title.tier }
+  set_variable = { name = mam_senior_component_file value = $FILE$ }
+ }
+}
+# Incumbent scope, before custody. FILE/TITLE are explicit across nested source captures.
+mam_senior_snapshot_vassals_effect = {
+ $FILE$ = {
+  set_variable = { name = mam_senior_original_liege_title value = $TITLE$.holder.liege.primary_title }
+ }
+ $TITLE$ = {
+  set_variable = { name = mam_senior_custody_file value = $FILE$ }
+  set_variable = { name = mam_senior_component_file value = $FILE$ }
+ }
+ every_held_title = {
+  limit = {
+   this != $TITLE$ tier < $TITLE$.tier
+   is_landless_type_title = no is_noble_family_title = no
+   is_leased_out = no is_head_of_faith = no
+   target_is_de_jure_liege_or_above = $TITLE$
+  }
+  $FILE$ = { add_to_variable_list = { name = mam_senior_parts target = prev } }
+  mam_senior_record_jurisdiction_component_effect = { FILE = $FILE$ OWNED = yes }
+ }
+ every_vassal_or_below = {
+  limit = { primary_title = { is_landless_type_title = no is_noble_family_title = no
+   tier < $TITLE$.tier target_is_de_jure_liege_or_above = $TITLE$
+  } }
+  $FILE$ = { add_to_variable_list = { name = mam_senior_original_vassals target = prev } }
+  primary_title = { $FILE$ = { add_to_variable_list = { name = mam_senior_vassal_titles target = prev } } }
+  every_held_title = {
+   limit = {
+    tier >= tier_barony tier < $TITLE$.tier
+    is_landless_type_title = no is_noble_family_title = no
+    is_leased_out = no is_head_of_faith = no
+    target_is_de_jure_liege_or_above = $TITLE$
+   }
+   mam_senior_record_jurisdiction_component_effect = { FILE = $FILE$ OWNED = no }
+  }
+ }
+ $FILE$ = {
+  set_variable = { name = mam_senior_vassal_snapshot value = 1 }
+  set_variable = { name = mam_senior_jurisdiction_snapshot value = 2 }
+ }
+}
+# Shared personal-part transaction. Never independently queue a county capital.
+mam_senior_queue_personal_parts_effect = {
+ save_scope_as = mam_jurisdiction_file
+ every_in_list = { variable = mam_senior_parts
+  limit = {
+   holder = $OLD$
+   mam_senior_direct_title_transfer_allowed_trigger = yes
+   mam_senior_component_claim_available_trigger = yes
+  }
+  change_title_holder = { holder = $NEW$ change = scope:mam_appointment_change take_baronies = no }
+ }
+}
+# The county carries its capital; explicitly recorded noncapital baronies follow too.
+mam_senior_queue_custody_effect = {
+ $FILE$ = { mam_senior_queue_personal_parts_effect = { OLD = $OLD$ NEW = $NEW$ } }
+ $TITLE$ = { change_title_holder_include_vassals = { holder = $NEW$ change = scope:mam_appointment_change take_baronies = no } }
+}
+# Append each recorded title/barony only once; never collect unrecorded imperial land.
+mam_senior_add_recovery_title_effect = {
+ if = { limit = { mam_senior_recorded_component_ready_trigger = yes NOT = { is_in_list = mam_jurisdiction_transfer_titles } }
+  add_to_list = mam_jurisdiction_transfer_titles
+ }
+}
+mam_senior_collect_recovery_titles_effect = {
+ mam_senior_add_recovery_title_effect = yes
+}
+mam_senior_add_recovery_vassal_effect = {
+ if = { limit = { mam_senior_recorded_vassal_holder_ready_trigger = yes NOT = { is_in_list = mam_jurisdiction_vassal_candidates } }
+  add_to_list = mam_jurisdiction_vassal_candidates
+ }
+}
+# Parent title scope. A county can return to its recorded duchy/kingdom, not flatten.
+mam_senior_choose_recorded_vassal_parent_effect = {
+ save_temporary_scope_as = mam_vassal_parent_title
+ if = { limit = {
+  scope:mam_vassal_parent_chosen = 0
+  tier <= scope:mam_jurisdiction_file.var:mam_senior_title.tier
+  tier > scope:mam_jurisdiction_child_title.tier
+  exists = holder
+  OR = {
+   this = scope:mam_jurisdiction_file.var:mam_senior_title
+   scope:mam_jurisdiction_file = { any_in_list = { variable = mam_senior_jurisdiction_titles this = scope:mam_vassal_parent_title } }
+  }
+  holder = {
+   save_temporary_scope_as = mam_jurisdiction_possible_parent
+   is_alive = yes
+   top_liege.primary_title = scope:mam_jurisdiction_file.var:mam_senior_realm
+   this != scope:mam_jurisdiction_child
+   OR = {
+    this = scope:mam_jurisdiction_file.var:mam_senior_appointee
+    mam_senior_recorded_vassal_holder_ready_trigger = yes
+    is_vassal_or_below_of = scope:mam_jurisdiction_file.var:mam_senior_appointee
+    any_in_list = { list = mam_jurisdiction_vassal_candidates
+     scope:mam_jurisdiction_possible_parent = { is_vassal_or_below_of = prev }
+    }
+   }
+  }
+ }
+  holder = { save_scope_as = mam_jurisdiction_vassal_parent }
+  save_scope_value_as = { name = mam_vassal_parent_chosen value = 1 }
+ }
+}
+# Title scope. Select the nearest recorded live higher office, including branches
+# queued to rejoin the recipient. Used for both land recovery and vassal hierarchy.
+mam_senior_resolve_recorded_title_parent_effect = {
+ save_scope_as = mam_jurisdiction_child_title
+ holder = { save_scope_as = mam_jurisdiction_child }
+ scope:mam_jurisdiction_file.var:mam_senior_appointee = { save_scope_as = mam_jurisdiction_vassal_parent }
+ save_scope_value_as = { name = mam_vassal_parent_chosen value = 0 }
+ de_jure_liege ?= { mam_senior_choose_recorded_vassal_parent_effect = yes }
+ de_jure_liege.de_jure_liege ?= { mam_senior_choose_recorded_vassal_parent_effect = yes }
+ de_jure_liege.de_jure_liege.de_jure_liege ?= { mam_senior_choose_recorded_vassal_parent_effect = yes }
+}
+mam_senior_queue_recorded_vassal_effect = {
+ primary_title = { mam_senior_resolve_recorded_title_parent_effect = yes }
+ change_liege = { liege = scope:mam_jurisdiction_vassal_parent change = scope:mam_jurisdiction_change }
+}
+mam_senior_collect_recovery_vassals_effect = {
+ every_in_list = { list = mam_jurisdiction_vassal_candidates remove_from_list = mam_jurisdiction_vassal_candidates }
+ every_in_list = { variable = mam_senior_original_vassals mam_senior_add_recovery_vassal_effect = yes }
+ every_in_list = { variable = mam_senior_vassal_titles holder ?= { mam_senior_add_recovery_vassal_effect = yes } }
+}
+# Story scope, after the main grant. Recover only titles proved part of this office.
+mam_senior_restore_vassals_effect = {
+ save_scope_as = mam_jurisdiction_file
+ if = { limit = { has_variable = mam_senior_vassal_snapshot exists = var:mam_senior_appointee exists = var:mam_senior_title.holder
+  var:mam_senior_title.holder = var:mam_senior_appointee
+  var:mam_senior_appointee = { is_alive = yes top_liege.primary_title = scope:mam_jurisdiction_file.var:mam_senior_realm }
+ }
+  every_in_list = { list = mam_jurisdiction_transfer_titles remove_from_list = mam_jurisdiction_transfer_titles }
+  every_in_list = { variable = mam_senior_parts mam_senior_collect_recovery_titles_effect = yes }
+  every_in_list = { variable = mam_senior_vassal_titles mam_senior_collect_recovery_titles_effect = yes }
+  every_in_list = { variable = mam_senior_jurisdiction_titles mam_senior_collect_recovery_titles_effect = yes }
+  mam_senior_collect_recovery_vassals_effect = yes
+  create_title_and_vassal_change = { type = appointment save_scope_as = mam_jurisdiction_change }
+  every_in_list = { list = mam_jurisdiction_transfer_titles
+   limit = { mam_senior_recorded_component_ready_trigger = yes }
+   mam_senior_resolve_recorded_title_parent_effect = yes
+   change_title_holder = { holder = scope:mam_jurisdiction_vassal_parent change = scope:mam_jurisdiction_change take_baronies = no }
+  }
+  resolve_title_and_vassal_change = scope:mam_jurisdiction_change
+  mam_senior_collect_recovery_vassals_effect = yes
+  create_title_and_vassal_change = { type = appointment save_scope_as = mam_jurisdiction_change }
+  every_in_list = { list = mam_jurisdiction_vassal_candidates
+   limit = { mam_senior_recorded_vassal_holder_ready_trigger = yes }
+   mam_senior_queue_recorded_vassal_effect = yes
+  }
+  resolve_title_and_vassal_change = scope:mam_jurisdiction_change
+  if = { limit = { OR = {
+   any_in_list = { variable = mam_senior_parts mam_senior_recorded_component_ready_trigger = yes }
+   any_in_list = { variable = mam_senior_jurisdiction_titles mam_senior_recorded_component_ready_trigger = yes }
+   any_in_list = { variable = mam_senior_vassal_titles mam_senior_recorded_vassal_ready_trigger = yes }
+   any_in_list = { variable = mam_senior_original_vassals mam_senior_recorded_vassal_holder_ready_trigger = yes }
+  } }
+   set_variable = { name = mam_senior_vassal_repair_pending value = 1 }
+   debug_log = "MAM_PERSONNEL_JURISDICTION: recorded land/vassals still with a custodian; repair retained"
+  }
+  else = {
+   remove_variable = mam_senior_vassal_repair_pending
+   debug_log = "MAM_PERSONNEL_JURISDICTION: recorded holdings and vassals restored"
+  }
+ }
+ else = { remove_variable = mam_senior_vassal_repair_pending }
+}

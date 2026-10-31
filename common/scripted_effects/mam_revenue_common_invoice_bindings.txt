@@ -1,0 +1,1721 @@
+﻿
+# Character scope; great_project and mam_cf_contribution are bound by the caller.
+mam_revenue_fund_bind_invoice_effect = {
+ save_scope_as = mam_cf_contributor
+ save_scope_value_as = { name = mam_cf_invoice_key value = 0 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = 0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = 0 }
+ save_scope_value_as = { name = mam_cf_invoice_eligible value = 0 }
+if = { limit = {
+ scope:great_project = { great_project_type = construct_great_barracks }
+ scope:mam_cf_contribution = { contribution_id = base_materials }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 1 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_construct_great_barracks_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_1 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_1_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = construct_great_barracks }
+ scope:mam_cf_contribution = { contribution_id = fort_material }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 2 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_construct_great_barracks_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_2 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_2_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = construct_great_barracks }
+ scope:mam_cf_contribution = { contribution_id = work_force }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 3 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_construct_great_barracks_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_3 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_3_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = construct_great_barracks }
+ scope:mam_cf_contribution = { contribution_id = soldiers }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 4 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_construct_great_barracks_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_4 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_4_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = strengthen_capital }
+ scope:mam_cf_contribution = { contribution_id = materials }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 5 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_strengthen_capital_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_5 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_5_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = strengthen_capital }
+ scope:mam_cf_contribution = { contribution_id = workforce }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 6 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_strengthen_capital_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_6 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_6_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = strengthen_capital }
+ scope:mam_cf_contribution = { contribution_id = architects }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 7 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_strengthen_capital_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_7 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_7_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = strengthen_capital }
+ scope:mam_cf_contribution = { contribution_id = engineers }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 8 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_strengthen_capital_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_8 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_8_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = strengthen_capital }
+ scope:mam_cf_contribution = { contribution_id = sculptors }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 9 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_strengthen_capital_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_9 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_9_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = strengthen_capital }
+ scope:mam_cf_contribution = { contribution_id = forbidden_city }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 10 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_strengthen_capital_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_10 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_10_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = master_builder }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 11 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_11 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_11_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_01 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 12 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_12 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_12_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_02 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 13 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_13 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_13_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_03 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 14 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_14 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_14_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_04 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 15 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_15 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_15_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_05 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 16 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_16 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_16_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_06 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 17 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_17 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_17_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_07 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 18 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_7 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_18 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_18_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_08 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 19 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_8 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_19 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_19_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_09 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 20 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_9 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_20 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_20_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_10 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 21 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_10 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_21 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_21_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_11 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 22 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_11 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_22 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_22_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_12 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 23 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_12 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_23 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_23_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_13 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 24 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_13 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_24 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_24_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_14 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 25 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_14 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_25 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_25_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_15 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 26 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_15 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_26 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_26_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_16 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 27 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_16 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_27 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_27_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_17 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 28 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_17 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_28 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_28_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_18 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 29 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_18 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_29 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_29_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_19 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 30 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_19 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_30 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_30_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_20 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 31 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_20 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_31 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_31_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_21 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 32 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_21 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_32 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_32_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_22 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 33 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_22 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_33 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_33_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_23 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 34 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_23 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_34 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_34_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_24 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 35 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_24 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_35 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_35_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_25 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 36 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_25 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_36 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_36_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_26 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 37 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_26 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_37 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_37_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_27 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 38 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_27 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_38 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_38_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_28 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 39 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_28 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_39 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_39_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_29 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 40 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_29 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_40 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_40_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_30 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 41 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_30 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_41 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_41_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_31 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 42 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_31 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_42 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_42_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_32 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 43 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_32 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_43 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_43_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_33 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 44 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_33 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_44 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_44_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_34 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 45 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_34 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_45 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_45_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall }
+ scope:mam_cf_contribution = { contribution_id = walls_35 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 46 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_35 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_46 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_46_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = materials }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 47 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_47 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_47_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = land_clearance }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 48 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_48 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_48_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = engineers }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 49 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_49 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_49_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = logistics }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 50 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_50 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_50_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = personnel_construction }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 51 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_51 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_51_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = personnel_dig }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 52 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_52 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_52_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = architects }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 53 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_53 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_53_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_shanhai_pass }
+ scope:mam_cf_contribution = { contribution_id = fort_material }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 54 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_shanhai_pass_7 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_54 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_54_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_liaodong }
+ scope:mam_cf_contribution = { contribution_id = materials }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 55 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_55 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_55_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_liaodong }
+ scope:mam_cf_contribution = { contribution_id = workforce }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 56 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_56 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_56_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_liaodong }
+ scope:mam_cf_contribution = { contribution_id = logistics }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 57 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_57 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_57_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_wall_extend_to_liaodong }
+ scope:mam_cf_contribution = { contribution_id = engineers }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 58 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_wall_extend_to_liaodong_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_58 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_58_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_canals }
+ scope:mam_cf_contribution = { contribution_id = materials }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 59 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_canals_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_59 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_59_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_canals }
+ scope:mam_cf_contribution = { contribution_id = logistics }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 60 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_canals_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_60 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_60_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_canals }
+ scope:mam_cf_contribution = { contribution_id = personnel_construction }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 61 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_canals_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_61 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_61_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_canals }
+ scope:mam_cf_contribution = { contribution_id = personnel_dig }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 62 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_canals_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_62 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_62_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_canals }
+ scope:mam_cf_contribution = { contribution_id = engineers }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 63 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_canals_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_63 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_63_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_canals }
+ scope:mam_cf_contribution = { contribution_id = dredging_boats }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 64 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_canals_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_64 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_64_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_1 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 65 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_65 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_65_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_2 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 66 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_66 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_66_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_3 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 67 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_67 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_67_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_4 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 68 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_68 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_68_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_5 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 69 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_69 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_69_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_6 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 70 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_70 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_70_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_7 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 71 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_71 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_71_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_8 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 72 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_7 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_72 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_72_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_9 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 73 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_8 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_73 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_73_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_10 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 74 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_9 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_74 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_74_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_11 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 75 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_10 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_75 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_75_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_12 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 76 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_11 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_76 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_76_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_13 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 77 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_12 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_77 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_77_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_14 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 78 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_13 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_78 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_78_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_15 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 79 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_14 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_79 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_79_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_16 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 80 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_15 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_80 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_80_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_17 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 81 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_16 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_81 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_81_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_18 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 82 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_17 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_82 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_82_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_19 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 83 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_18 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_83 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_83_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = grand_campaign_project }
+ scope:mam_cf_contribution = { contribution_id = attack_20 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 84 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_grand_campaign_project_19 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_84 }
+ if = { limit = {
+ mam_revenue_fund_campaign_command_ready_trigger = yes
+ mam_revenue_fund_invoice_eligible_84_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_culture }
+ scope:mam_cf_contribution = { contribution_id = cultural_liason }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 85 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_culture_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_85 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_85_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_culture }
+ scope:mam_cf_contribution = { contribution_id = send_inhabitants }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 86 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_culture_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_86 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_86_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_culture }
+ scope:mam_cf_contribution = { contribution_id = send_inhabitants_2 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 87 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_culture_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_87 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_87_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_culture }
+ scope:mam_cf_contribution = { contribution_id = send_inhabitants_3 }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 88 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_culture_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_88 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_88_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_development }
+ scope:mam_cf_contribution = { contribution_id = personnel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 89 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_development_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_89 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_89_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_development }
+ scope:mam_cf_contribution = { contribution_id = engineers }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 90 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_development_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_90 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_90_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_development }
+ scope:mam_cf_contribution = { contribution_id = infrastructure }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 91 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_development_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_91 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_91_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_establish_control }
+ scope:mam_cf_contribution = { contribution_id = city_guards }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 92 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_establish_control_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_92 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_92_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_establish_control }
+ scope:mam_cf_contribution = { contribution_id = highway_patrols }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 93 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_establish_control_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_93 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_93_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_establish_control }
+ scope:mam_cf_contribution = { contribution_id = administrators }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 94 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_establish_control_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_94 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_94_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_establish_control }
+ scope:mam_cf_contribution = { contribution_id = court_magistrates }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 95 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_establish_control_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_95 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_95_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_train_troops }
+ scope:mam_cf_contribution = { contribution_id = train_troops }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 96 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_train_troops_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_96 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_96_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_train_troops }
+ scope:mam_cf_contribution = { contribution_id = military_academy }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 97 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_train_troops_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_97 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_97_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_train_troops }
+ scope:mam_cf_contribution = { contribution_id = levy_bootcamp }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 98 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_train_troops_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_98 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_98_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_train_troops }
+ scope:mam_cf_contribution = { contribution_id = equipment_check }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 99 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_train_troops_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_99 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_99_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_train_troops }
+ scope:mam_cf_contribution = { contribution_id = siege_exercise }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 100 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_train_troops_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_100 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_100_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_train_troops }
+ scope:mam_cf_contribution = { contribution_id = natural_disaster_test }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 101 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_train_troops_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_101 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_101_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_conduct_census }
+ scope:mam_cf_contribution = { contribution_id = conduct_census }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 102 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_conduct_census_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_102 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_102_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_conduct_census }
+ scope:mam_cf_contribution = { contribution_id = purge_treasury_debt }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 103 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_conduct_census_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_103 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_103_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_conduct_census }
+ scope:mam_cf_contribution = { contribution_id = verify_passed_exams }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 104 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_conduct_census_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_104 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_104_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_conduct_census }
+ scope:mam_cf_contribution = { contribution_id = fertility_effort }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 105 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_conduct_census_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_105 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_105_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_project_conduct_census }
+ scope:mam_cf_contribution = { contribution_id = natural_disaster_insurance }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 106 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_project_conduct_census_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_106 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_106_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_compel_religious_uniformity }
+ scope:mam_cf_contribution = { contribution_id = religious_liason }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 107 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_107 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_107_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_compel_religious_uniformity }
+ scope:mam_cf_contribution = { contribution_id = construct_new_shrines }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 108 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_108 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_108_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_compel_religious_uniformity }
+ scope:mam_cf_contribution = { contribution_id = investigate_improper_rites }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 109 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_109 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_109_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = minister_compel_religious_uniformity }
+ scope:mam_cf_contribution = { contribution_id = promote_faithful_relocation }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 110 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_minister_compel_religious_uniformity_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_110 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_110_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = recovery }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 111 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_111 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_111_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = cleanup }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 112 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_112 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_112_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = reconstruction }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 113 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_113 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_113_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = resettlement }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 114 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_114 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_114_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = aid }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 115 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_115 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_115_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = memorial }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 116 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_116 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_116_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_earthquake }
+ scope:mam_cf_contribution = { contribution_id = minister_sends_aid }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 117 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_earthquake_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_117 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_117_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = recovery }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 118 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_118 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_118_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = drainage }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 119 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_119 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_119_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = reconstruction }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 120 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_120 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_120_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = resettlement }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 121 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_121 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_121_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = aid }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 122 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_122 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_122_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = memorial }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 123 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_123 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_123_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = great_project_flood }
+ scope:mam_cf_contribution = { contribution_id = minister_sends_aid }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 124 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_great_project_flood_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_124 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_124_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = stone }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 125 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_125 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_125_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = master_mason }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 126 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_126 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_126_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = bells }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 127 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_127 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_127_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = facade }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 128 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_128 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_128_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = frescoes }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 129 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_129 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_129_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = stained_glass }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 130 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_130 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_130_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = north_chapel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 131 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_131 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_131_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_01 }
+ scope:mam_cf_contribution = { contribution_id = south_chapel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 132 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_01_7 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_132 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_132_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = stone }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 133 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_133 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_133_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = master_mason }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 134 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_134 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_134_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = bells }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 135 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_135 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_135_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = facade }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 136 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_136 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_136_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = frescoes }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 137 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_137 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_137_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = stained_glass }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 138 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_138 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_138_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = north_chapel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 139 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_139 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_139_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_02 }
+ scope:mam_cf_contribution = { contribution_id = south_chapel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 140 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_02_7 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_140 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_140_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = stone }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 141 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_141 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_141_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = master_mason }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 142 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_142 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_142_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = bells }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 143 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_143 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_143_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = facade }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 144 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_144 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_144_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = frescoes }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 145 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_4 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_145 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_145_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = stained_glass }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 146 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_5 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_146 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_146_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = north_chapel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 147 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_6 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_147 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_147_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_cathedral_03 }
+ scope:mam_cf_contribution = { contribution_id = south_chapel }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 148 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_cathedral_03_7 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_148 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_148_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_mass_rite_conversion }
+ scope:mam_cf_contribution = { contribution_id = send_missionaries }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 149 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_0 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_149 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_149_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_mass_rite_conversion }
+ scope:mam_cf_contribution = { contribution_id = construct_new_shrines }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 150 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_1 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_150 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_150_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_mass_rite_conversion }
+ scope:mam_cf_contribution = { contribution_id = promote_faithful_relocation }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 151 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_2 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_151 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_151_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+else_if = { limit = {
+ scope:great_project = { great_project_type = pam_mass_rite_conversion }
+ scope:mam_cf_contribution = { contribution_id = integrate_existing_rituals }
+ }
+ save_scope_value_as = { name = mam_cf_invoice_key value = 152 }
+ save_scope_value_as = { name = mam_cf_invoice_price value = mam_revenue_fund_contribution_cost_pam_mass_rite_conversion_3 }
+ save_scope_value_as = { name = mam_cf_invoice_weight value = mam_revenue_fund_invoice_weight_152 }
+ if = { limit = { mam_revenue_fund_invoice_eligible_152_trigger = yes }
+  save_scope_value_as = { name = mam_cf_invoice_eligible value = 1 }
+ }
+}
+}

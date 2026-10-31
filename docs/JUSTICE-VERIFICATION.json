@@ -1,0 +1,11 @@
+{
+  "build": "0.4.0-alpha.20-dev.66",
+  "runtime_text_files": 21,
+  "definitions": 165,
+  "english_keys": 166,
+  "pinned_native_definitions": 14,
+  "native_acceptance_and_cost_parity": true,
+  "engine_execution": "NOT TESTED",
+  "visual_and_long_run_AI": "NOT TESTED",
+  "actual_source_predicate_contract_tests": 23
+}

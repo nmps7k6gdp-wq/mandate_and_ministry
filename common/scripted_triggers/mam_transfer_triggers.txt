@@ -1,0 +1,165 @@
+﻿# Character holder; TITLE is the single substantive provincial posting.
+# Reject ambiguous personal land or vassal jurisdictions, rather than stripping it.
+mam_clean_bundle_trigger = {
+    $TITLE$ = { save_temporary_scope_as = mam_bundle_title }
+    mam_supported_governor_trigger = yes
+    liege = scope:mam_emperor
+    primary_title = scope:mam_bundle_title
+    is_at_war = no
+    NOT = {
+        any_held_title = {
+            is_landless_type_title = no
+            is_noble_family_title = no
+            OR = {
+                AND = { tier >= tier_county is_leased_out = yes }
+                is_head_of_faith = yes
+                AND = {
+                    this != scope:mam_bundle_title
+                    NOT = { target_is_de_jure_liege_or_above = scope:mam_bundle_title }
+                }
+            }
+        }
+    }
+    NOT = {
+        any_vassal = {
+            primary_title = {
+                is_landless_type_title = no
+                is_noble_family_title = no
+                NOT = { target_is_de_jure_liege_or_above = scope:mam_bundle_title }
+            }
+        }
+    }
+}
+
+# Candidate: same adapter used by both player and AI proposals.
+mam_eligible_for_office_trigger = {
+ mam_cj_office_allowed_trigger = yes
+    mam_power_title_allowed_trigger = { TITLE = $TITLE$ }
+    NOT = { has_character_flag = mam_recent_appointment }
+    mam_exam_standard_trigger = { TITLE = $TITLE$ }
+    mam_register_candidate_trigger = yes
+    is_civilian_candidate_trigger = yes
+    tgp_is_any_minister = no
+    can_appoint_for_title = $TITLE$
+    has_appointment_level_for_title = $TITLE$
+    is_appointment_valid_trigger = {
+        TITLE = $TITLE$
+        CANDIDATE = this
+        TOP_LIEGE = scope:mam_emperor
+    }
+}
+
+mam_nomination_ready_trigger = {
+ always = no # Retired manual forced-transfer pipeline.
+    trigger_if = { limit = { exists = scope:mam_service_case } mam_service_case_valid_trigger = yes }
+    exists = scope:mam_requester
+    scope:mam_requester = { mam_can_nominate_trigger = yes this = scope:mam_minister }
+    exists = scope:mam_minister
+    scope:mam_emperor = {
+        is_alive = yes
+        is_independent_ruler = yes
+        government_has_flag = government_is_celestial
+        is_at_war = no
+        NOT = { has_character_flag = mam_pending_proposal }
+        cp:minister_personnel = scope:mam_minister
+    }
+    scope:mam_incumbent = {
+        is_alive = yes
+        mam_clean_bundle_trigger = { TITLE = scope:mam_posting }
+    }
+    scope:mam_posting.holder = scope:mam_incumbent
+    scope:mam_inspected = {
+        mam_power_destination_discretion_trigger = yes
+        trigger_if = { limit = { is_landed = yes } mam_power_title_allowed_trigger = { TITLE = primary_title } }
+        mam_eligible_for_office_trigger = { TITLE = scope:mam_posting }
+        trigger_if = {
+            limit = { is_landed = yes }
+            mam_clean_source_bundle_trigger = { TITLE = scope:mam_inspected.primary_title }
+        }
+    }
+}
+
+mam_replacement_eligible_trigger = {
+    mam_power_source_discretion_trigger = yes
+    is_landed = no
+    this != scope:mam_nominee
+    this != scope:mam_incumbent
+    mam_eligible_for_office_trigger = { TITLE = scope:mam_source }
+}
+
+# Called immediately before an irreversible title transaction. No cached eligibility.
+mam_proposal_valid_trigger = {
+ always = no # Old queued proposals cannot commit after migration.
+    trigger_if = { limit = { exists = scope:mam_service_case } mam_service_case_valid_trigger = yes }
+    exists = scope:mam_requester
+    scope:mam_requester = { mam_can_nominate_trigger = yes this = scope:mam_minister }
+    exists = scope:mam_emperor
+    exists = scope:mam_posting
+    exists = scope:mam_incumbent
+    exists = scope:mam_generation
+    exists = scope:mam_nominee
+    exists = scope:mam_minister
+    scope:mam_emperor = {
+        is_alive = yes
+        is_independent_ruler = yes
+        government_has_flag = government_is_celestial
+        is_at_war = no
+        has_character_flag = mam_pending_proposal
+        var:mam_proposal_generation = scope:mam_generation
+        cp:minister_personnel = scope:mam_minister
+    }
+    scope:mam_minister = {
+        is_alive = yes
+        has_title = title:e_minister_of_personnel
+        top_liege = scope:mam_emperor
+    }
+    scope:mam_posting.holder = scope:mam_incumbent
+    scope:mam_incumbent = { mam_clean_bundle_trigger = { TITLE = scope:mam_posting } }
+    scope:mam_nominee = {
+        mam_power_destination_discretion_trigger = yes
+        mam_eligible_for_office_trigger = { TITLE = scope:mam_posting }
+    }
+    trigger_if = {
+        limit = { exists = scope:mam_source }
+        scope:mam_source.holder = scope:mam_nominee
+        scope:mam_nominee = { mam_clean_source_bundle_trigger = { TITLE = scope:mam_source } }
+        exists = scope:mam_replacement
+        scope:mam_replacement = { mam_replacement_eligible_trigger = yes }
+    }
+    trigger_else = { scope:mam_nominee = { is_landed = no } }
+}
+
+# A source may be nested in the same realm; its own jurisdiction must be clean.
+# Character holder; TITLE is the single substantive provincial posting.
+# Reject ambiguous personal land or vassal jurisdictions, rather than stripping it.
+mam_clean_source_bundle_trigger = {
+    $TITLE$ = { save_temporary_scope_as = mam_bundle_title }
+    mam_supported_source_governor_trigger = yes
+    top_liege = scope:mam_emperor
+    primary_title = scope:mam_bundle_title
+    is_at_war = no
+    NOT = {
+        any_held_title = {
+            is_landless_type_title = no
+            is_noble_family_title = no
+            OR = {
+                AND = { tier >= tier_county is_leased_out = yes }
+                is_head_of_faith = yes
+                AND = {
+                    this != scope:mam_bundle_title
+                    NOT = { target_is_de_jure_liege_or_above = scope:mam_bundle_title }
+                }
+            }
+        }
+    }
+    NOT = {
+        any_vassal = {
+            primary_title = {
+                is_landless_type_title = no
+                is_noble_family_title = no
+                NOT = { target_is_de_jure_liege_or_above = scope:mam_bundle_title }
+            }
+        }
+    }
+}
+

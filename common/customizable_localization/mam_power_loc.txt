@@ -1,0 +1,10 @@
+﻿MamNominationJurisdiction = {
+ type = character
+ text = { trigger = { top_liege = { has_realm_law = mam_jurisdiction_restricted } } localization_key = mam_jurisdiction_restricted }
+ text = { localization_key = mam_jurisdiction_full }
+}
+MamSelectionDiscretion = {
+ type = character
+ text = { trigger = { top_liege = { has_realm_law = mam_discretion_ranked } } localization_key = mam_discretion_ranked }
+ text = { localization_key = mam_discretion_choice }
+}

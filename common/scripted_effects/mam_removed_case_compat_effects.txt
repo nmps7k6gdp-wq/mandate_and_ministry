@@ -1,0 +1,5 @@
+﻿# Inert compatibility entry points called by unchanged Personnel patronage code.
+# These hooks were already disabled before removal. They create no records or events.
+mam_cj_record_payment_effect = { }
+mam_cj_record_offer_effect = { }
+mam_cj_link_appointment_effect = { }

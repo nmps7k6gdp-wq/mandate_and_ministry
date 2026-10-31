@@ -1,0 +1,225 @@
+﻿mam_revenue_fund_enabled_trigger = {
+ exists = title:h_china.holder title:h_china.holder = { mam_revenue_emperor_trigger = yes }
+ title:h_china = { has_variable = mam_cf_active }
+}
+mam_revenue_fund_member_trigger = {
+ mam_revenue_fund_enabled_trigger = yes has_treasury = yes top_liege = title:h_china.holder
+ primary_title = { tgp_is_minister_title = yes holder = prev }
+}
+# Story identity includes the exact holder who requested/was reviewed.
+mam_revenue_fund_case_trigger = {
+ var:mam_cf_pending = 1 exists = var:mam_cf_target.holder exists = var:mam_cf_requester
+ mam_revenue_fund_enabled_trigger = yes
+ trigger_if = { limit = { mam_revenue_fund_earned_claim_trigger = no } var:mam_cf_emperor = title:h_china.holder }
+ save_temporary_scope_as = mam_cf_check
+ var:mam_cf_target = { var:mam_cf_case_$KIND$ = scope:mam_cf_check }
+ var:mam_cf_target.holder = var:mam_cf_snapshot
+ trigger_if = { limit = { var:mam_cf_target != title:h_china }
+  trigger_if = { limit = { mam_revenue_fund_earned_claim_trigger = no }
+   var:mam_cf_target.holder = { mam_revenue_recipient_trigger = yes primary_title = scope:mam_cf_check.var:mam_cf_target }
+  }
+  trigger_else = { var:mam_cf_target.holder = { has_treasury = yes top_liege = title:h_china.holder } }
+ }
+}
+mam_revenue_fund_live_case_trigger = {
+ exists = var:mam_cf_target.holder exists = var:mam_cf_requester
+ var:mam_cf_pending = 1 mam_revenue_fund_enabled_trigger = yes
+ trigger_if = { limit = { exists = var:mam_cf_target.holder exists = var:mam_cf_requester }
+ trigger_if = { limit = { mam_revenue_fund_earned_claim_trigger = no }
+  var:mam_cf_emperor = title:h_china.holder var:mam_cf_target.holder = var:mam_cf_snapshot
+ }
+ trigger_if = { limit = { var:mam_cf_target != title:h_china }
+  save_temporary_scope_as = mam_cf_check
+  trigger_if = { limit = { mam_revenue_fund_earned_claim_trigger = no }
+   var:mam_cf_target.holder = { mam_revenue_recipient_trigger = yes primary_title = scope:mam_cf_check.var:mam_cf_target }
+  }
+  trigger_else = { var:mam_cf_target.holder = { has_treasury = yes top_liege = title:h_china.holder } }
+ }
+
+ }
+
+ trigger_if = { limit = { has_variable = mam_cf_clear_debt exists = var:mam_cf_target.holder } var:mam_cf_target.holder = { treasury < 0 } }
+
+ trigger_if = { limit = { var:mam_cf_kind = 13 }
+  var:mam_cf_requester = { is_alive = yes mam_revenue_ministry_trigger = yes }
+  var:mam_pc_request_office.holder = var:mam_cf_requester
+  exists = var:mam_cf_project_instance
+  var:mam_cf_project_instance = { great_project_owner = title:h_china.holder NOT = { has_variable = mam_pc_closed } }
+ }
+}
+mam_revenue_fund_actor_trigger = {
+ is_alive = yes is_imprisoned = no NOT = { has_trait = incapable }
+ exists = scope:mam_cf_file exists = var:mam_cf_open
+ trigger_if = { limit = { exists = scope:mam_cf_file exists = var:mam_cf_open }
+ var:mam_cf_open = scope:mam_cf_file
+ scope:mam_cf_file = {
+  mam_revenue_fund_live_case_trigger = yes exists = title:e_minister_of_revenue.holder
+  title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes } var:mam_cf_actor = root
+  var:mam_cf_generation = scope:mam_cf_generation
+  var:mam_cf_stage = scope:mam_cf_stage
+  trigger_if = { limit = { var:mam_cf_stage = 0 var:mam_cf_kind != 4 var:mam_cf_kind != 5 var:mam_cf_kind != 7 }
+   var:mam_cf_actor = title:e_minister_of_revenue.holder
+   var:mam_cf_actor = { mam_revenue_officer_trigger = yes }
+  }
+  trigger_if = { limit = { OR = { var:mam_cf_stage = 1 var:mam_cf_kind = 5 var:mam_cf_kind = 7 } }
+   OR = { var:mam_cf_actor = title:h_china.holder
+    AND = { mam_revenue_fund_imperial_trigger = no var:mam_cf_actor = title:e_minister_chancellor.holder
+     var:mam_cf_actor = { mam_revenue_chancellor_trigger = yes } }
+   }
+  }
+  trigger_if = { limit = { var:mam_cf_stage = 2 } var:mam_cf_actor = var:mam_cf_target.holder }
+  trigger_if = { limit = { var:mam_cf_kind = 4 }
+   OR = { var:mam_cf_actor = title:h_china.holder
+    AND = { var:mam_cf_actor = title:e_minister_chancellor.holder var:mam_cf_actor = { mam_revenue_chancellor_trigger = yes } }
+   }
+  }
+ }
+
+ }
+}
+# Story scope. Rechecked at commitment; the law changes control rights.
+mam_revenue_fund_imperial_trigger = {
+  OR = {
+  var:mam_cf_kind = 5 var:mam_cf_target = title:e_minister_chancellor
+  title:h_china.holder = { has_realm_law = mam_revenue_authority_reserved }
+  AND = { var:mam_cf_target.holder = { mam_revenue_reserved_ministry_trigger = yes } var:mam_cf_kind != 8 }
+  AND = { var:mam_cf_kind = 4 title:h_china = { has_variable = mam_cf_imperial_programme } }
+  has_variable = mam_cf_explicit_imperial
+ }
+}
+mam_revenue_fund_delegated_trigger = {
+ title:h_china = { NOT = { has_variable = mam_cf_suspended } }
+ title:h_china.holder = { has_realm_law = mam_revenue_authority_expanded }
+ mam_revenue_fund_imperial_trigger = no
+ var:mam_cf_kind != 4 var:mam_cf_kind != 7 var:mam_cf_kind != 8
+ var:mam_cf_target != title:e_minister_of_revenue
+ var:mam_cf_amount <= 500
+ trigger_if = { limit = { OR = { var:mam_cf_kind = 3 var:mam_cf_kind = 9 var:mam_cf_kind = 13 } }
+  title:h_china = { var:mam_cf_programme = 0 }
+ }
+ trigger_if = { limit = { var:mam_cf_kind = 6 }
+  var:mam_cf_amount <= 200 var:mam_cf_target.holder = { mam_revenue_has_recovery_need_trigger = no }
+ }
+
+ trigger_if = { limit = { var:mam_cf_kind = 13 }
+  var:mam_cf_project_instance = {
+   var:mam_pc_spent <= { value = 500 subtract = prev.var:mam_cf_amount }
+  }
+ }
+}
+mam_revenue_fund_project_start_trigger = {
+ # Native prices use the founder's council seat, income and other character
+ # properties. Evaluate BEFORE entering primary_title, which stores the grant.
+ save_temporary_scope_value_as = { name = mam_cf_required_start_cost value = $COST$ }
+ primary_title = {
+  custom_tooltip = { text = mam_cf.grant_exists_tt has_variable = mam_cf_project_type }
+  trigger_if = { limit = { has_variable = mam_cf_project_type }
+  custom_tooltip = { text = mam_cf.grant_type_tt var:mam_cf_project_type = $TYPE$ }
+  custom_tooltip = { text = mam_cf.grant_current_tt
+   has_variable = mam_cf_project_until
+   trigger_if = { limit = { has_variable = mam_cf_project_until } var:mam_cf_project_until > current_date } }
+  custom_tooltip = { text = mam_cf.grant_unused_tt NOT = { has_variable = mam_cf_project_instance } }
+  custom_tooltip = { text = mam_cf.grant_cash_tt has_variable = mam_cf_project_cash
+   trigger_if = { limit = { has_variable = mam_cf_project_cash } var:mam_cf_project_cash >= scope:mam_cf_required_start_cost } }
+  custom_tooltip = { text = mam_cf.grant_hold_tt NOT = { has_variable = mam_cf_payment_hold } }
+  }
+ }
+}
+mam_revenue_fund_project_location_trigger = {
+ primary_title = {
+  has_variable = mam_cf_project_type
+  trigger_if = { limit = { has_variable = mam_cf_project_type }
+
+  trigger_if = { limit = { var:mam_cf_project_type = 1 }
+   exists = var:mam_cf_project_target.holder
+   save_temporary_scope_as = mam_cf_border_office
+   scope:province.county = {
+    exists = holder holder.top_liege != title:h_china.holder
+    any_neighboring_county = { holder = {
+     OR = { this = scope:mam_cf_border_office.var:mam_cf_project_target.holder
+      is_vassal_or_below_of = scope:mam_cf_border_office.var:mam_cf_project_target.holder }
+    } }
+   }
+  }
+  # Missionary work uses the same approved external border, plus native faith/site rules.
+trigger_else_if = { limit = { var:mam_cf_project_type = 17 }
+   exists = var:mam_cf_project_target.holder
+   save_temporary_scope_as = mam_cf_border_office
+   scope:province.county = {
+    exists = holder holder.top_liege != title:h_china.holder
+    any_neighboring_county = { holder = {
+     OR = { this = scope:mam_cf_border_office.var:mam_cf_project_target.holder
+      is_vassal_or_below_of = scope:mam_cf_border_office.var:mam_cf_project_target.holder }
+    } }
+   }
+  }
+  trigger_else_if = { limit = { var:mam_cf_project_type = 9 }
+   scope:province.county.holder = { top_liege = title:h_china.holder }
+  }
+  # Native Wall projects have no provincial location filter. Their work is
+  # imperial; a previously selected governor is not their territorial owner.
+  trigger_else_if = { limit = { OR = {
+   var:mam_cf_project_type = 10 var:mam_cf_project_type = 11 var:mam_cf_project_type = 12
+  } }
+   holder = { top_liege = title:h_china.holder }
+   trigger_if = { limit = { exists = scope:province }
+    scope:province.county.holder = { top_liege = title:h_china.holder }
+   }
+  }
+  trigger_else = {
+   exists = var:mam_cf_project_target.holder
+   save_temporary_scope_as = mam_cf_project_office
+   scope:province.county.holder = {
+    OR = { this = scope:mam_cf_project_office.var:mam_cf_project_target.holder
+     is_vassal_or_below_of = scope:mam_cf_project_office.var:mam_cf_project_target.holder }
+   }
+  }
+ 
+}
+}
+}
+mam_revenue_fund_contribution_trigger = {
+ save_temporary_scope_value_as = { name = mam_cf_required_contribution_cost value = $COST$ }
+ exists = scope:great_project
+ primary_title = {
+  NOT = { has_variable = mam_cf_payment_hold }
+  OR = {
+   AND = { has_variable = mam_pc_executing_project
+    trigger_if = { limit = { has_variable = mam_pc_executing_project }
+     var:mam_pc_executing_project = scope:great_project
+    }
+   }
+   AND = {
+    has_variable = mam_cf_project_instance has_variable = mam_cf_project_until has_variable = mam_cf_project_cash
+    trigger_if = { limit = { has_variable = mam_cf_project_instance has_variable = mam_cf_project_until has_variable = mam_cf_project_cash }
+     var:mam_cf_project_instance = scope:great_project
+     var:mam_cf_project_until > current_date
+     var:mam_cf_project_cash >= scope:mam_cf_required_contribution_cost
+    }
+   }
+  }
+ }
+ trigger_if = { limit = { scope:great_project = { great_project_type = grand_campaign_project } }
+  scope:great_project = { OR = {
+   AND = { has_variable = mam_pc_launch_authorized
+    trigger_if = { limit = { has_variable = mam_pc_launch_authorized } var:mam_pc_launch_authorized = 1 }
+   }
+   any_contribution = { contribution_id = attack_1 contribution_is_funded = yes }
+  } }
+ }
+}
+
+mam_revenue_fund_earned_claim_trigger = { OR = { var:mam_cf_kind = 10 var:mam_cf_kind = 11 } }
+
+mam_revenue_fund_ready_trigger = {
+ mam_revenue_fund_enabled_trigger = yes title:h_china = { has_variable = mam_cf_bootstrap_done }
+
+ mam_revenue_fund_custodian_trigger = yes
+}
+
+mam_revenue_fund_custodian_trigger = {
+ exists = title:e_minister_of_revenue.holder
+ trigger_if = { limit = { exists = title:e_minister_of_revenue.holder }
+  title:e_minister_of_revenue.holder = { mam_revenue_officer_trigger = yes }
+ }
+}

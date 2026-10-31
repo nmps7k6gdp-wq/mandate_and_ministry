@@ -1,0 +1,28 @@
+﻿mam_justice_pardon_reason_mask = {
+ value = 0
+ if = { limit = { exists = scope:mam_jus_pardon_authority }
+  if = { limit = { scope:mam_jus_pardon_authority = { has_imprisonment_reason = scope:mam_jus_subject } } add = 1 }
+  if = { limit = { scope:mam_jus_pardon_authority = { has_execute_reason = scope:mam_jus_subject } } add = 2 }
+  if = { limit = { scope:mam_jus_pardon_authority = { has_banish_reason = scope:mam_jus_subject } } add = 4 }
+  if = { limit = { scope:mam_jus_pardon_authority = { has_revoke_title_reason = scope:mam_jus_subject } } add = 8 }
+ }
+}
+mam_justice_mitigation_chance = {
+ value = 25
+ add = { value = scope:mam_jus_subject.diplomacy multiply = 2 }
+ add = scope:mam_jus_subject.learning
+ if = { limit = { scope:mam_jus_subject = { has_trait = deceitful } }
+  add = scope:mam_jus_subject.intrigue
+  subtract = { value = scope:mam_jus_judge.intrigue multiply = 2 }
+ }
+ subtract = scope:mam_jus_judge.learning
+ if = { limit = { scope:mam_jus_case = { has_variable = mam_jus_contested } } add = 10 }
+ min = 10 max = 80
+}
+mam_justice_advocate_weight = {
+ value = 10 add = diplomacy
+ if = { limit = { has_title = title:e_minister_chancellor } add = 20 }
+ if = { limit = { has_relation_friend = scope:mam_jus_case.var:mam_jus_subject } add = 60 }
+ if = { limit = { is_close_or_extended_family_of = scope:mam_jus_case.var:mam_jus_subject } add = 50 }
+ if = { limit = { exists = house house = scope:mam_jus_case.var:mam_jus_subject.house } add = 20 }
+}

@@ -1,0 +1,3 @@
+﻿mam_revenue_fund_support_opinion = { opinion = 10 years = 2 decaying = yes }
+mam_revenue_fund_cut_opinion = { opinion = -15 years = 2 decaying = yes }
+mam_revenue_fund_levy_opinion = { opinion = -10 years = 2 decaying = yes }

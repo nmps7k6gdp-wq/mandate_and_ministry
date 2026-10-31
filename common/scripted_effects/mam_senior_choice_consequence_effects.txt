@@ -1,0 +1,44 @@
+﻿# Display-only. Conditions match the committed effects; blocked choices show no phantom costs.
+mam_senior_choice_consequences_tooltip_effect = {
+ if = { limit = { exists = $CANDIDATE$ }
+ $CANDIDATE$ = {
+ if = { limit = { is_alive = no } custom_tooltip = mam_senior.block_dead_tt }
+ if = { limit = { is_adult = no } custom_tooltip = mam_senior.block_age_tt }
+ if = { limit = { is_imprisoned = yes } custom_tooltip = mam_senior.block_prison_tt }
+ if = { limit = { top_liege.primary_title != scope:mam_senior_file.var:mam_senior_realm } custom_tooltip = mam_senior.block_realm_tt }
+ if = { limit = { merit_level < scope:mam_senior_file.var:mam_senior_merit_floor } custom_tooltip = mam_senior.block_merit_tt }
+
+ if = { limit = { any_held_title = { tier > scope:mam_posting.tier is_landless_type_title = no is_noble_family_title = no } } custom_tooltip = mam_senior.block_rank_tt }
+ }
+ if = { limit = { $CANDIDATE$ = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes } }
+ $CANDIDATE$ = { mam_exam_candidate_honor_tooltip_effect = yes }
+ mam_exam_snapshot_snub_effect = { ACTOR = root BENCHMARK = scope:mam_senior_file.var:mam_senior_professional CANDIDATE = $CANDIDATE$ SCORE = mam_public_suitability ELIGIBILITY = mam_senior_choice_trigger SENIOR = yes }
+ mam_exam_snub_preview_effect = yes
+ mam_senior_parent_preview_effect = yes
+ custom_tooltip = mam_senior.sponsorship_deferred_tt
+ mam_senior_sponsorship_preview_effect = { CANDIDATE = $CANDIDATE$ SPONSOR = root }
+
+ if = { limit = { scope:mam_senior_file = { mam_senior_requires_confirmation_trigger = yes } } custom_tooltip = mam_senior.consequence_confirmation }
+ if = { limit = { always = $PERSONAL$
+ NOT = { AND = { exists = scope:mam_senior_default $CANDIDATE$ = scope:mam_senior_default } }
+ OR = { has_trait = just has_trait = honest }
+ exists = scope:mam_senior_professional $CANDIDATE$ = { mam_senior_basis_weak_trigger = yes }
+ }
+ custom_tooltip = mam_senior.consequence_stress_deferred
+ show_as_tooltip = { stress_impact = { just = 15 honest = 15 } }
+ }
+ if = { limit = { has_trait = vengeful $CANDIDATE$ = { has_relation_rival = root } }
+ custom_tooltip = mam_senior.consequence_stress_deferred
+ show_as_tooltip = { stress_impact = { vengeful = 15 } }
+ }
+ $CANDIDATE$ = {
+ if = { limit = { has_character_modifier = mam_personnel_service_endorsement }
+ custom_tooltip = mam_senior.consequence_endorsement
+ show_as_tooltip = { remove_character_modifier = mam_personnel_service_endorsement }
+ }
+ if = { limit = { mam_private_obligation_trigger = yes exists = var:mam_patronage_record var:mam_patronage_record = { var:mam_patron_minister = root } }
+ custom_tooltip = mam_senior.consequence_obligation }
+ }
+ }
+ }
+}

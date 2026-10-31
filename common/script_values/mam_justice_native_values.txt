@@ -1,0 +1,296 @@
+﻿mam_justice_cost_1_prestige = {
+
+			value = liege_diarchy_surcharge_interaction_imprison_interaction_value
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_arrest_quote_prestige = {
+
+			value = mam_justice_arrest_prestige_quote_native
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_cost_1_treasury = {
+
+			if = {
+				limit = {
+					scope:puppet_or_actor = {
+						has_title = title:e_minister_of_justice
+					}
+					scope:recipient = {
+						NOT = { is_courtier_of = scope:puppet_or_actor }
+					}
+				}
+				value = {
+					value = 0
+					desc = BASE
+				}
+				add = {
+					value = scope:puppet_or_actor.major_treasury_value
+					desc = IMPRISON_MINISTER_OF_JUSTICE_TREASURY_COST
+				}
+			}
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_arrest_quote_treasury = {
+
+			if = {
+				limit = {
+					scope:mam_jus_arrest_performer = {
+						has_title = title:e_minister_of_justice
+					}
+					scope:recipient = {
+						NOT = { is_courtier_of = scope:mam_jus_arrest_performer }
+					}
+				}
+				value = {
+					value = 0
+					desc = BASE
+				}
+				add = {
+					value = scope:mam_jus_arrest_performer.major_treasury_value
+					desc = IMPRISON_MINISTER_OF_JUSTICE_TREASURY_COST
+				}
+			}
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_cost_1_gold = { value = 0 }
+
+mam_justice_arrest_quote_gold = { value = 0 }
+
+mam_justice_cost_1_influence = { value = 0 }
+
+mam_justice_arrest_quote_influence = { value = 0 }
+
+mam_justice_cost_1_piety = { value = 0 }
+
+mam_justice_arrest_quote_piety = { value = 0 }
+
+mam_justice_cost_2_influence = {
+
+			value = pardon_interaction_influence_cost_value
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_pardon_quote_influence = {
+
+			value = mam_justice_pardon_influence_quote_native
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_cost_2_treasury = {
+
+			value = pardon_interaction_treasury_cost_value
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_pardon_quote_treasury = {
+
+			value = mam_justice_pardon_treasury_quote_native
+			if = {
+				limit = { scope:is_puppet_action ?= yes }
+				multiply = 0
+			}
+		
+}
+
+mam_justice_cost_2_gold = { value = 0 }
+
+mam_justice_cost_2_prestige = { value = 0 }
+
+mam_justice_cost_2_piety = { value = 0 }
+
+mam_justice_cost_3_prestige = {
+
+			value = 0
+			if = {
+				limit = {
+					scope:make_puppet = yes
+					scope:puppet_or_actor = { has_puppet_type = external_ruler_puppet }
+					scope:recipient = {
+						is_landed = yes
+						is_ruler = yes
+						is_clergy = no
+					}
+				}
+				add = {
+					value = minor_prestige_value
+					multiply = {
+						value = scope:recipient.highest_held_title_tier
+						subtract = 1
+					}
+					desc = PRESTIGE_INTERACTION_ACCEPTANCE_SEND_OPTION
+				}
+			}
+		
+}
+
+mam_justice_cost_3_treasury = { value = 0 }
+
+mam_justice_cost_3_gold = { value = 0 }
+
+mam_justice_cost_3_influence = { value = 0 }
+
+mam_justice_cost_3_piety = { value = 0 }
+
+mam_justice_cost_4_prestige = {
+value = liege_diarchy_surcharge_interaction_execute_prisoner_interaction_value
+}
+
+mam_justice_cost_4_treasury = { value = 0 }
+
+mam_justice_cost_4_gold = { value = 0 }
+
+mam_justice_cost_4_influence = { value = 0 }
+
+mam_justice_cost_4_piety = { value = 0 }
+
+mam_justice_action_1 = { value = 1 }
+
+mam_justice_action_2 = { value = 2 }
+
+mam_justice_action_3 = { value = 3 }
+
+mam_justice_action_4 = { value = 4 }
+
+mam_justice_action_5 = { value = 5 }
+
+mam_justice_action_6 = { value = 6 }
+
+mam_justice_action_7 = { value = 7 }
+
+mam_justice_arrest_prestige_quote_native = {
+
+
+	# But, inside diarchies, there's a cost attached to various simple political actions.
+	scope:mam_jus_arrest_performer = {
+		if = {
+			limit = { has_active_diarchy = yes }
+			# Base value of zero, since this is free by default.
+			value = {
+				value = 0
+				desc = BASE
+			}
+			# Mild costs.
+			if = {
+				limit = { has_diarchy_active_parameter = liege_pays_currency_surcharge_for_mundane_interactions_mild }
+				add = {
+					value = liege_diarchy_surcharge_interaction_miniscule_value
+					desc = IS_IN_DIARCHY_MILD_COSTS
+				}
+			}
+			# Medium costs.
+			if = {
+				limit = { has_diarchy_active_parameter = liege_pays_currency_surcharge_for_mundane_interactions_medium }
+				add = {
+					value = liege_diarchy_surcharge_interaction_minor_value
+					desc = IS_IN_DIARCHY_MEDIUM_COSTS
+				}
+			}
+			# Major costs.
+			if = {
+				limit = { has_diarchy_active_parameter = liege_pays_currency_surcharge_for_mundane_interactions_major }
+				add = {
+					value = liege_diarchy_surcharge_interaction_medium_value
+					desc = IS_IN_DIARCHY_MAJOR_COSTS
+				}
+			}
+			# Massive costs.
+			if = {
+				limit = { has_diarchy_active_parameter = liege_pays_currency_surcharge_for_mundane_interactions_massive }
+				add = {
+					value = liege_diarchy_surcharge_interaction_major_value
+					desc = IS_IN_DIARCHY_MASSIVE_COSTS
+				}
+			}
+		}
+	}
+
+}
+
+mam_justice_pardon_influence_quote_native = {
+
+	value = 0
+	if = {
+		limit = {
+			scope:mam_jus_pardon_performer = {
+				has_title = title:e_minister_of_justice
+				NOT = { has_imprisonment_reason = scope:recipient }
+			}
+		}
+		add = {
+			value = 25
+			if = {
+				limit = {
+					scope:mam_jus_pardon_performer.top_liege = {
+						has_realm_law = celestial_bureaucracy_0
+					}
+				}
+				add = 75
+			}
+			else_if = {
+				limit = {
+					scope:mam_jus_pardon_performer.top_liege = {
+						has_realm_law = celestial_bureaucracy_1
+					}
+				}
+				add = 50
+			}
+			else_if = {
+				limit = {
+					scope:mam_jus_pardon_performer.top_liege = {
+						has_realm_law = celestial_bureaucracy_2
+					}
+				}
+				add = 25
+			}
+		}
+	}
+
+}
+
+mam_justice_pardon_treasury_quote_native = {
+
+	value = 0
+	if = {
+		limit = {
+			scope:mam_jus_pardon_performer = {
+				has_title = title:e_minister_of_justice
+				has_treasury = yes
+				NOT = { has_imprisonment_reason = scope:recipient }
+			}
+		}
+		add = scope:mam_jus_pardon_performer.minor_treasury_value
+	}
+
+}

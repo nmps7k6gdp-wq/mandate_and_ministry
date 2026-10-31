@@ -1,0 +1,22 @@
+﻿mam_senior_basis_paid_trigger = { mam_private_obligation_trigger = yes }
+mam_senior_basis_family_trigger = {
+ exists = scope:mam_minister
+ OR = { is_close_family_of = scope:mam_minister
+ AND = { exists = house exists = scope:mam_minister.house house = scope:mam_minister.house } }
+}
+mam_senior_basis_faction_trigger = {
+ OR = { mam_personnel_shared_faction_trigger = yes mam_personnel_shared_bloc_trigger = yes mam_political_client_trigger = yes }
+}
+mam_senior_basis_friend_trigger = {
+ exists = scope:mam_minister has_relation_friend = scope:mam_minister
+}
+mam_senior_basis_trait_trigger = { exists = scope:mam_minister mam_minister_preference > 0 }
+mam_senior_basis_weak_trigger = {
+ exists = scope:mam_senior_professional
+ trigger_if = { limit = { exists = scope:mam_senior_professional }
+  mam_public_suitability < { value = scope:mam_senior_professional.mam_public_suitability subtract = 5 }
+ }
+}
+mam_senior_basis_nepotism_trigger = {
+ mam_senior_basis_family_trigger = yes mam_senior_basis_weak_trigger = yes
+}

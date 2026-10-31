@@ -1,0 +1,116 @@
+﻿namespace = mam_ministry
+
+mam_ministry.1 = {
+ type = character_event theme = merit title = mam_mr.title desc = mam_mr.narrative
+ trigger = { mam_ministry_review_actor_trigger = yes }
+ left_portrait = { character = scope:mam_mr_incumbent animation = reading }
+ right_portrait = { trigger = { exists = scope:mam_mr_professional } character = scope:mam_mr_professional animation = thinking }
+ option = {
+  name = mam_mr.confirm
+  trigger = { mam_ministry_review_actor_trigger = yes scope:mam_mr_incumbent = { mam_ministry_review_candidate_trigger = yes } }
+  show_as_unavailable = { mam_ministry_review_actor_trigger = yes }
+  mam_ministry_review_choice_tooltip_effect = { CANDIDATE = scope:mam_mr_incumbent PERSONAL = no }
+  hidden_effect = { mam_ministry_review_schedule_choice_effect = { CANDIDATE = scope:mam_mr_incumbent PERSONAL = 0 } }
+  ai_chance = { base = 80
+   modifier = { add = 60 has_trait = just } modifier = { add = 40 has_trait = honest }
+   modifier = { add = 40 has_trait = content } modifier = { add = 25 has_trait = lazy }
+   modifier = { factor = 0.25 has_trait = vengeful scope:mam_mr_incumbent = { has_relation_rival = root } }
+  }
+ }
+ option = {
+  name = mam_mr.professional
+  trigger = { mam_ministry_review_actor_trigger = yes exists = scope:mam_mr_professional scope:mam_mr_professional = { mam_ministry_review_candidate_trigger = yes } }
+  mam_ministry_review_choice_tooltip_effect = { CANDIDATE = scope:mam_mr_professional PERSONAL = yes }
+  hidden_effect = { mam_ministry_review_schedule_choice_effect = { CANDIDATE = scope:mam_mr_professional PERSONAL = 1 } }
+  ai_chance = { base = 25
+   modifier = { add = 70 OR = { has_trait = diligent has_trait = just } scope:mam_mr_professional.mam_ministry_public_suitability > { value = scope:mam_mr_incumbent.mam_ministry_public_suitability add = 5 } }
+   modifier = { add = 30 has_trait = patient }
+   modifier = { factor = 0.15 OR = { has_trait = just has_trait = honest } scope:mam_mr_professional = { mam_ministry_review_weak_trigger = yes } }
+  }
+ }
+ option = {
+  name = mam_mr.preferred
+  trigger = { mam_ministry_review_actor_trigger = yes exists = scope:mam_mr_preferred scope:mam_mr_preferred = { mam_ministry_review_candidate_trigger = yes } }
+  mam_ministry_review_choice_tooltip_effect = { CANDIDATE = scope:mam_mr_preferred PERSONAL = yes }
+  hidden_effect = { mam_ministry_review_schedule_choice_effect = { CANDIDATE = scope:mam_mr_preferred PERSONAL = 1 } }
+  ai_chance = { base = 10
+   modifier = { add = 60 has_trait = arbitrary }
+   modifier = { add = 45 has_trait = ambitious scope:mam_mr_preferred = { OR = { mam_senior_basis_family_trigger = yes mam_senior_basis_faction_trigger = yes } } }
+   modifier = { add = 40 has_trait = gregarious scope:mam_mr_preferred = { mam_senior_basis_friend_trigger = yes } }
+   modifier = { factor = 0.15 OR = { has_trait = just has_trait = honest } scope:mam_mr_preferred = { mam_ministry_review_weak_trigger = yes } }
+  }
+ }
+ option = {
+  name = mam_mr.marked
+  trigger = { mam_ministry_review_actor_trigger = yes exists = scope:mam_mr_marked scope:mam_mr_marked != scope:mam_mr_incumbent scope:mam_mr_marked = { mam_ministry_review_candidate_trigger = yes } }
+  show_as_unavailable = { mam_ministry_review_actor_trigger = yes exists = scope:mam_mr_marked scope:mam_mr_marked != scope:mam_mr_incumbent }
+  mam_ministry_review_choice_tooltip_effect = { CANDIDATE = scope:mam_mr_marked PERSONAL = yes }
+  custom_tooltip = mam_mr.marked_tt
+  hidden_effect = { mam_ministry_review_schedule_choice_effect = { CANDIDATE = scope:mam_mr_marked PERSONAL = 1 } }
+  ai_chance = { base = 20 modifier = { add = 40 has_trait = ambitious } modifier = { add = 40 has_trait = arbitrary }
+   modifier = { factor = 0.15 OR = { has_trait = just has_trait = honest } scope:mam_mr_marked = { mam_ministry_review_weak_trigger = yes } }
+  }
+ }
+ option = {
+  name = mam_mr.defer
+  custom_tooltip = mam_mr.defer_tt
+  hidden_effect = { if = { limit = { mam_ministry_review_actor_trigger = yes }
+   scope:mam_mr_file = {
+    set_variable = { name = mam_mr_snooze value = { value = current_date add = 30 } }
+    mam_ministry_review_release_effect = yes
+   }
+  } }
+  ai_chance = { base = 1 }
+ }
+}
+# Capture occurs after native succession has granted the title and council position.
+mam_ministry.2 = {
+ type = character_event hidden = yes
+ trigger = { mam_ministry_realm_emperor_trigger = yes }
+ immediate = { mam_ministry_review_scan_effect = yes }
+}
+# Bind the live lease, never the saved scopes inherited from another simultaneous death.
+mam_ministry.3 = {
+ type = character_event hidden = yes
+ trigger = {
+  save_temporary_scope_as = mam_mr_dispatch_actor
+  OR = {
+   AND = { mam_ministry_upper_authority_trigger = yes title:h_china = {
+    exists = var:mam_mr_upper_open_file var:mam_mr_upper_open_actor = scope:mam_mr_dispatch_actor
+    NOT = { has_variable = mam_mr_upper_presented }
+    var:mam_mr_upper_open_file = { mam_ministry_review_current_trigger = yes }
+   } }
+   AND = { mam_ministry_lower_authority_trigger = yes title:h_china = {
+    exists = var:mam_mr_lower_open_file var:mam_mr_lower_open_actor = scope:mam_mr_dispatch_actor
+    NOT = { has_variable = mam_mr_lower_presented }
+    var:mam_mr_lower_open_file = { mam_ministry_review_current_trigger = yes }
+   } }
+  }
+ }
+ immediate = {
+  save_scope_as = mam_mr_actor save_scope_as = mam_minister
+  if = { limit = { mam_ministry_upper_authority_trigger = yes }
+   title:h_china = { set_variable = { name = mam_mr_upper_presented value = 1 } var:mam_mr_upper_open_file = { save_scope_as = mam_mr_file } }
+  }
+  else = { title:h_china = { set_variable = { name = mam_mr_lower_presented value = 1 } var:mam_mr_lower_open_file = { save_scope_as = mam_mr_file } } }
+  scope:mam_mr_file = { mam_ministry_review_refresh_effect = yes }
+  clear_saved_scope = mam_mr_professional clear_saved_scope = mam_mr_preferred clear_saved_scope = mam_mr_marked clear_saved_scope = mam_mr_benchmark
+  scope:mam_mr_file.var:mam_mr_incumbent = { save_scope_as = mam_mr_incumbent }
+  scope:mam_mr_file.var:mam_mr_predecessor = { save_scope_as = mam_mr_predecessor }
+  scope:mam_mr_file.var:mam_mr_professional ?= { save_scope_as = mam_mr_professional }
+  scope:mam_mr_file.var:mam_mr_preferred ?= { save_scope_as = mam_mr_preferred }
+  scope:mam_mr_file.var:mam_mr_marked ?= { save_scope_as = mam_mr_marked }
+  scope:mam_mr_file.var:mam_mr_benchmark ?= { save_scope_as = mam_mr_benchmark }
+  trigger_event = mam_ministry.1
+ }
+}
+mam_ministry.4 = {
+ type = character_event hidden = yes
+ trigger = { mam_ministry_review_actor_trigger = yes exists = scope:mam_mr_selected }
+ immediate = { mam_ministry_review_commit_effect = yes }
+}
+mam_ministry.5 = {
+ type = character_event hidden = yes
+ trigger = { mam_ministry_realm_emperor_trigger = yes }
+ immediate = { mam_ministry_review_wake_effect = yes }
+}

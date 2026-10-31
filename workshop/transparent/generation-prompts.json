@@ -1,0 +1,31 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-30",
+  "transparent_background": true,
+  "edits": [
+    {
+      "name": "workshop-banner-transparent",
+      "source": "workshop-banner.png",
+      "prompt": "Use case: background-extraction / transparent Steam Workshop description graphic. Edit the supplied image, retaining its elegant antique-gold serif lettering, fine gold rules, Chinese ornamental cloud and knot details, and small vermilion accents. Remove the entire dark teal/black field and its paper grain. Actual transparent alpha background is mandatory, including negative spaces between ornaments and inside the counters of letters. Do not paint a white, black, gray or checkerboard backdrop; the output must have real alpha transparency. Clean antialiased edges, no opaque rectangle or background halo. Keep exact correct English spelling. Do not introduce new wording or symbols. Make a compact horizontal graphic with minimal empty vertical space, suitable for a description page at 640px wide; aim for 1280px width. Preserve the foreground decoration, not the old background.\nEdit target: the main description header. Retain ONLY the central two-line gold \"MANDATE & MINISTRY\" title and the slender gold lines with geometric knot flourishes above and below it. Remove the books, desk, map, incense burner, seals, other scene objects, scenery, and outer rectangular frame. The final artwork is just a floating gold title lockup with its central ornaments, tightly framed with modest clear padding. No main mod cover image."
+    },
+    {
+      "name": "divider-current-features-transparent",
+      "source": "divider-current-features.png",
+      "prompt": "Use case: background-extraction / transparent Steam Workshop description graphic. Edit the supplied image, retaining its elegant antique-gold serif lettering, fine gold rules, Chinese ornamental cloud and knot details, and small vermilion accents. Remove the entire dark teal/black field and its paper grain. Actual transparent alpha background is mandatory, including negative spaces between ornaments and inside the counters of letters. Do not paint a white, black, gray or checkerboard backdrop; the output must have real alpha transparency. Clean antialiased edges, no opaque rectangle or background halo. Keep exact correct English spelling. Do not introduce new wording or symbols. Make a compact horizontal graphic with minimal empty vertical space, suitable for a description page at 640px wide; aim for 1280px width. Preserve the foreground decoration, not the old background.\nEdit target: section divider. Retain the exact text \"CURRENT FEATURES\", the scroll ornament, the fine gold lines and the cloud ornaments. Remove the full background. Use the correct plain final S with no accent or extra glyph. Keep all surviving foreground detail coherent with the original."
+    },
+    {
+      "name": "divider-planned-features-transparent",
+      "source": "divider-planned-features.png",
+      "prompt": "Use case: background-extraction / transparent Steam Workshop description graphic. Edit the supplied image, retaining its elegant antique-gold serif lettering, fine gold rules, Chinese ornamental cloud and knot details, and small vermilion accents. Remove the entire dark teal/black field and its paper grain. Actual transparent alpha background is mandatory, including negative spaces between ornaments and inside the counters of letters. Do not paint a white, black, gray or checkerboard backdrop; the output must have real alpha transparency. Clean antialiased edges, no opaque rectangle or background halo. Keep exact correct English spelling. Do not introduce new wording or symbols. Make a compact horizontal graphic with minimal empty vertical space, suitable for a description page at 640px wide; aim for 1280px width. Preserve the foreground decoration, not the old background.\nEdit target: section divider. Retain the exact text \"PLANNED FEATURES\", brush-and-scroll ornament, fine gold lines and cloud ornaments. Remove the full background. Keep all surviving foreground detail coherent with the original."
+    },
+    {
+      "name": "divider-alpha-feedback-transparent",
+      "source": "divider-alpha-feedback.png",
+      "prompt": "Use case: background-extraction / transparent Steam Workshop description graphic. Edit the supplied image, retaining its elegant antique-gold serif lettering, fine gold rules, Chinese ornamental cloud and knot details, and small vermilion accents. Remove the entire dark teal/black field and its paper grain. Actual transparent alpha background is mandatory, including negative spaces between ornaments and inside the counters of letters. Do not paint a white, black, gray or checkerboard backdrop; the output must have real alpha transparency. Clean antialiased edges, no opaque rectangle or background halo. Keep exact correct English spelling. Do not introduce new wording or symbols. Make a compact horizontal graphic with minimal empty vertical space, suitable for a description page at 640px wide; aim for 1280px width. Preserve the foreground decoration, not the old background.\nEdit target: section divider. Retain the exact text \"EARLY ALPHA & FEEDBACK\", the small vermilion seal, fine gold lines and cloud ornaments. Remove the full background. Keep all surviving foreground detail coherent with the original."
+    }
+  ],
+  "final_correction": {
+    "asset": "divider-current-features-transparent",
+    "prompt": "Use case: precise-object-edit. Edit this transparent PNG section divider. Make ONE tiny correction: remove the little gold accent/caron floating immediately above the final letter S in the word FEATURES, at the right-hand end of the title. It must read exactly CURRENT FEATURES using ordinary English letters, with a plain unaccented final S. Do not change any other lettering, ornaments, colours, layout or fine detail. Preserve genuine alpha transparency everywhere it already exists. Do not add a backdrop or checkerboard. Keep all three scroll/cloud/rule details exactly as they are."
+  }
+}

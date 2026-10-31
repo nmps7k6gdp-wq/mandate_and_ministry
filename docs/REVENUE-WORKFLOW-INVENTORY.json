@@ -1,0 +1,1555 @@
+{
+  "date": "2026-10-29",
+  "build_reviewed": "0.4.0-alpha.20-dev.52",
+  "scope": "All Revenue entry points, events, cash/queue/authority logic, native overrides and all five participating roles",
+  "gameplay_changed_by_review": false,
+  "engine_tested_by_review": false,
+  "reviewed_module_files": 50,
+  "source_hashes": {
+    "common/character_interactions/mam_revenue_common_interactions.txt": "775389f752de2897d95e058e61f7aa83586d23477d7c49212d6e903009b3c0e1",
+    "common/character_interactions/mam_revenue_interactions.txt": "a430b03d71ed6f733132bdd7f683f1982177a4d1bd9097993c067555dda84b98",
+    "common/character_interactions/zz_mam_revenue_common_native_spending.txt": "c51d74929e66db4f6778f29f128ebdee0b4402a25b2230120d8ed34bca18c112",
+    "common/character_interactions/zz_mam_revenue_native_requests.txt": "146727e0bce996077400eabd71e4aad9fd963231fcede08a853e9818f612dbf8",
+    "common/customizable_localization/mam_revenue_common_loc.txt": "6f7a567c8fc71f020d80584cac97678fde9846ccc6af53890a38b537658ba244",
+    "common/customizable_localization/mam_revenue_loc.txt": "543d679fbb802ed524715af548810cea5568ab3b8d2c3116bd043e0dd94741ea",
+    "common/decisions/mam_revenue_common_decisions.txt": "1e8940f7485b37bc43fe96f9ec0196bd1b0f4fafa2a3e2f3df7828f01300df73",
+    "common/decisions/mam_revenue_decisions.txt": "e2f28396555fa3051940d8b39ec439179b77f5e9439cab9bdcf84c7dff557744",
+    "common/laws/mam_revenue_laws.txt": "c2869a865bdde8ce82c7be7c651185c855004a02bd11ebc0e0a2dba4d1f0b2c6",
+    "common/law_groups/mam_revenue_law_groups.txt": "5b89047df62a13cf552ee12099e811b2b29592c35dab7bcbdacd001636f3bc8a",
+    "common/modifiers/mam_revenue_modifiers.txt": "724b73087ee39985794994801e073601bf614f1577cbe8d2f11143693be179ce",
+    "common/on_action/mam_revenue_on_actions.txt": "47333386f79f441caa1ecace2b65c37b3679eb18529b2334cea41b52b509347e",
+    "common/opinion_modifiers/mam_revenue_common_opinions.txt": "790acb772ac871ed92584adeedad2e0f2d5e6873c0e6b81cb8efcf931f064e12",
+    "common/opinion_modifiers/mam_revenue_opinions.txt": "d26d3ec463d6cc26699733ee90abba172aba73f1e1a16f7ba3504783c95e77f3",
+    "common/scripted_effects/mam_revenue_amount_effects.txt": "ed79deacfa654bacdd55311db0f16b6c244d748f234dd45b56ad35c2dfab525c",
+    "common/scripted_effects/mam_revenue_appeal_effects.txt": "ba0adc85963486ff164894155846d9fde0c67e74d6fea9bb21d01c2f58c1ba26",
+    "common/scripted_effects/mam_revenue_bridges_effects.txt": "3ecfb4d915cc57a4daa8b8c8b491f00be83ca53501ac0b36e36d7a46f9ffa4bf",
+    "common/scripted_effects/mam_revenue_choice_effects.txt": "c7ae9e9b8ba9d72635a78a89bbcc1b88dcfe4f0507d18b30dd7111c740d237c8",
+    "common/scripted_effects/mam_revenue_common_cash_effects.txt": "7671a1b2b03e84a0d64600d269d5918697470591a0b2305c64ae690ca4b398bb",
+    "common/scripted_effects/mam_revenue_common_choice_effects.txt": "da85da80769dfd16046f00cbefc8ec3fae19be68eec79d2476c919a05481cdb1",
+    "common/scripted_effects/mam_revenue_common_claims_effects.txt": "070790e8ec10e4c994fd3f8537a378b8941524c7d97454dbc313ee0540c39f45",
+    "common/scripted_effects/mam_revenue_common_initiative_effects.txt": "0addc23d83c6acf91dbaa4f9b5627380dfd7989dde5881f2700d3956d35fee06",
+    "common/scripted_effects/mam_revenue_common_native_rewards.txt": "3656c51b10fe4748e19eec86741f2a78c5bb00183ba2a6ad169fc0c20353ee83",
+    "common/scripted_effects/mam_revenue_common_preview_effects.txt": "99fb319d7635da177fa1c44c3f29b4a4022adecb92c81a30f50f0c2a968d930b",
+    "common/scripted_effects/mam_revenue_common_project_menu.txt": "90ac0dfcd4256cae94cf7f039f49bb5fdde771e74aff9654242151ca7e3bc002",
+    "common/scripted_effects/mam_revenue_common_queue_effects.txt": "565f73444005604fb391bb66d23e30b1ea2eb4d59740c46d69f8cb5718d39322",
+    "common/scripted_effects/mam_revenue_common_returns.txt": "f855906d7eb2cf3a69d11e3d817e0bdeba5dfcc3157ea11703e85f8484e70322",
+    "common/scripted_effects/mam_revenue_feedback_effects.txt": "25321297430d3317e0594f60d2a5c4f400353ca9dedaa283236722e7f468c39d",
+    "common/scripted_effects/mam_revenue_initiative_effects.txt": "27ff10369869d1af698932d0d6b70917aaace96c1468bab37f7d668810ae6e71",
+    "common/scripted_effects/mam_revenue_policy_effects.txt": "6466788a9416d93786762df292a4138681354630aae4a0e24dcc8f9e05a019ee",
+    "common/scripted_effects/mam_revenue_queue_effects.txt": "63a05edaa4aea6c107feeaad696d20faa7f86132f7fce9bed073ad55cbad4906",
+    "common/scripted_effects/mam_revenue_records_effects.txt": "3de5665d4936197cf63a60f42ae93b81b6ee22e302de6ad1c9a624209af029cc",
+    "common/scripted_effects/mam_revenue_transaction_effects.txt": "8a35c6de372ff2d018f14d0f86ddada242b2386b83e9aebfd92e09b085756ef4",
+    "common/scripted_effects/zz_mam_revenue_common_native_obligations.txt": "458317c11e3b2df5971e5154593bfd654d5d5a85be8fb3cf06e49762c0a36f47",
+    "common/scripted_triggers/mam_revenue_common_project_eligibility.txt": "72b444a70859d3f861af83664db2192748bf70d7a08c777f7e119d4c909aec9e",
+    "common/scripted_triggers/mam_revenue_common_triggers.txt": "526ee84d15d8118e92595d02ad187dcca4b38c6114c28373a639c5e3d6373f35",
+    "common/scripted_triggers/mam_revenue_triggers.txt": "a11c32c50648af86722b136bff589925eeb70b391c4644117879341d1bebb364",
+    "common/script_values/mam_revenue_common_project_costs.txt": "392f4deac6778602135e3cf1b9cd08bf63baf164f962abec43e1ded68d3f7daf",
+    "common/script_values/mam_revenue_common_values.txt": "045cb9ec8e6ddbb684d09f687495ae35d7c894e7d93d3464bbf427f0d39445dd",
+    "common/script_values/mam_revenue_values.txt": "5cb0d74a94271e2ea9b95c0e4b4f6d421a3177884b98f2e94c79877a7f208db7",
+    "common/story_cycles/mam_revenue_common_story.txt": "fa2c9bc9f0adca2efb1cb837ef1444b5e7781939ad23858b77dcbefb08d08c09",
+    "common/story_cycles/mam_revenue_story.txt": "ffdead1b023c3d75dfa90d5af6f5252c5c8db2cfd855225e1c4b115859012896",
+    "common/great_projects/types/zz_mam_revenue_common_00_great_project_types.txt": "da1dcdc027ba1dad9ebdab0597ac8d4d7a93468d3815a7bed7124cc140afbd20",
+    "common/great_projects/types/zz_mam_revenue_common_00_ministry_projects.txt": "d7de5b0370ce24122bacc091035110e0c077b00b159bf381ab5d6726fafb5b0c",
+    "common/great_projects/types/zz_mam_revenue_common_00_natural_disasters.txt": "827280378e2c724c281d92b0b6a2f66d20bb398d0c4314617d52bffb1464203d",
+    "common/great_projects/types/zz_mam_revenue_common_01_pam_projects.txt": "d89f4c393d67ce54236f37db5f49ec707d74396609e7f10880bb98e9555979cf",
+    "events/mam_revenue_common_events.txt": "3cf1915bf6f6cdc02966581f7a23e4f9b4b73a506be5eebb7e76529651e39230",
+    "events/mam_revenue_events.txt": "a5b5faf0b37a2a856aa6d3fa5565f47d51cdc8db04cca8e24df159ec433e50fc",
+    "localization/english/mam_revenue_common_l_english.yml": "a839d87c0c436fbaaca1a4bad7a6c6840eff1818e61911a716cf91a5ab0d22d3",
+    "localization/english/mam_revenue_l_english.yml": "87eb5dd87297ac1aa003e905e0bbd50305f821f2318fad826fac9b63fb35c537"
+  },
+  "entry_points": [
+    {
+      "id": "mam_revenue_fund_accounts_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 1,
+      "label": "Revenue: Examine Common Accounts",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { is_ai = no mam_revenue_fund_enabled_trigger = yes OR = { mam_revenue_authority_trigger = yes mam_revenue_ministry_trigger = yes } }",
+      "options": [],
+      "event_calls": [
+        "mam_fund.6"
+      ]
+    },
+    {
+      "id": "mam_revenue_fund_programme_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 9,
+      "label": "Revenue: Set the Spending Programme",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { is_ai = no mam_revenue_fund_enabled_trigger = yes OR = { mam_revenue_chancellor_trigger = yes mam_revenue_emperor_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_topup_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 20,
+      "label": "Revenue: Appropriate Imperial Funds",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { is_ai = no mam_revenue_fund_enabled_trigger = yes mam_revenue_authority_trigger = yes }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_contribution_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 31,
+      "label": "Revenue: Fund a Project Contribution",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { any_great_project = { great_project_owner = { top_liege = title:h_china.holder } } is_ai = no mam_revenue_fund_enabled_trigger = yes mam_revenue_ministry_trigger = yes primary_title = { var:mam_cf_project_cash = 0 NOT = { has_variable = mam_cf_case_3 } NOT = { has_variable = mam_cf_case_9 } } }",
+      "options": [],
+      "event_calls": [
+        "mam_fund.7"
+      ]
+    },
+    {
+      "id": "mam_revenue_fund_resume_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 44,
+      "label": "Revenue: Resume Fiscal Papers",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { is_ai = no mam_revenue_fund_enabled_trigger = yes mam_revenue_authority_trigger = yes }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_return_advance_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 56,
+      "label": "Revenue: Return Uncommitted Project Funds",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { is_ai = no mam_revenue_fund_enabled_trigger = yes mam_revenue_ministry_trigger = yes primary_title = { var:mam_cf_project_cash > 0 } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_supplement_decision",
+      "path": "common/decisions/mam_revenue_common_decisions.txt",
+      "line": 66,
+      "label": "Revenue: Request Supplementary Provision",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { is_ai = no mam_revenue_fund_enabled_trigger = yes mam_revenue_ministry_trigger = yes primary_title = { NOT = { has_variable = mam_cf_case_12 } NOT = { has_variable = mam_cf_special_until } } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_resume_cases_decision",
+      "path": "common/decisions/mam_revenue_decisions.txt",
+      "line": 1,
+      "label": "Revenue: Resume Fiscal Business",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n\n  is_ai = no is_alive = yes is_imprisoned = no\n  save_temporary_scope_as = mam_rv_resume_actor\n  OR = {\n   has_variable = mam_rv_open_file\n   title:h_china = { any_in_list = { variable = mam_rv_files mam_revenue_file_current_trigger = yes\n    exists = var:mam_rv_next_actor var:mam_rv_next_actor = scope:mam_rv_resume_actor\n   } }\n  }\n }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_review_operations_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 1,
+      "label": "Revenue: Review Operating Provision",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_authority_trigger = yes is_ai = no mam_revenue_fund_enabled_trigger = yes } scope:recipient = { mam_revenue_ministry_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_request_operations_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 14,
+      "label": "Revenue: Request Operating Provision",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes this != scope:actor } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_petition_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 27,
+      "label": "Revenue: Petition for Public Funds",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_province_trigger = yes is_ai = no mam_revenue_fund_enabled_trigger = yes } scope:recipient = { mam_revenue_officer_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_remittance_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 61,
+      "label": "Revenue: Request Provincial Contribution",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_officer_trigger = yes is_ai = no mam_revenue_fund_enabled_trigger = yes } scope:recipient = { mam_revenue_province_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_project_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 74,
+      "label": "Revenue: Request Great Project Funding",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no OR = { has_title = title:e_minister_of_works has_title = title:e_minister_of_rites has_title = title:e_minister_of_war has_title = title:e_minister_of_justice has_title = title:e_minister_of_revenue has_title = title:e_minister_grand_marshal } } scope:recipient = { is_landed = yes primary_title = { tier >= tier_kingdom } } }",
+      "options": [],
+      "event_calls": [
+        "mam_fund.5"
+      ]
+    },
+    {
+      "id": "mam_revenue_fund_appeal_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 92,
+      "label": "Revenue: Appeal Operating Provision",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no } scope:recipient = { OR = { mam_revenue_chancellor_trigger = yes mam_revenue_emperor_trigger = yes } this != scope:actor } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_fund_supplement_interaction",
+      "path": "common/character_interactions/mam_revenue_common_interactions.txt",
+      "line": 105,
+      "label": "Revenue: Request Supplementary Provision",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = { scope:actor = { mam_revenue_fund_member_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_designate_recipient_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 2,
+      "label": "Revenue: Designate a Funding Recipient",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_officer_trigger = yes is_ai = no } scope:recipient = { mam_revenue_recipient_trigger = yes this != scope:actor } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_arrange_contribution_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 17,
+      "label": "Revenue: Arrange a Treasury Contribution",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_officer_trigger = yes is_ai = no exists = var:mam_rv_designated_recipient }\n  scope:recipient = { mam_revenue_ministry_trigger = yes }\n }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_review_budget_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 47,
+      "label": "Revenue: Review Departmental Funding",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_officer_trigger = yes is_ai = no } scope:recipient = { mam_revenue_budget_office_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_settle_province_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 65,
+      "label": "Revenue: Settle Provincial Contributions",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_officer_trigger = yes is_ai = no } scope:recipient = { mam_revenue_province_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_petition_assistance_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 81,
+      "label": "Revenue: Petition for Public Assistance",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_province_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_direct_priorities_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 115,
+      "label": "Revenue: Direct Fiscal Priorities",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_priority_authority_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_set_mandate_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 131,
+      "label": "Revenue: Review Fiscal Authority",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n scope:actor = { mam_revenue_emperor_trigger = yes mam_revenue_authority_trigger = yes is_ai = no } scope:recipient = { mam_revenue_officer_trigger = yes } }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue_appeal_budget_interaction",
+      "path": "common/character_interactions/mam_revenue_interactions.txt",
+      "line": 148,
+      "label": "Revenue: Appeal Departmental Funding",
+      "status": "retired_saved_definition",
+      "hidden": false,
+      "visibility": "is_shown = {\n always = no # retired common-fund entry\n\n  scope:actor = { is_ai = no mam_revenue_can_appeal_trigger = yes }\n  scope:recipient = {\n   OR = { mam_revenue_emperor_trigger = yes mam_revenue_chancellor_trigger = yes }\n   this != scope:actor\n  }\n }",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "celestial_give_treasury_interaction",
+      "path": "common/character_interactions/zz_mam_revenue_common_native_spending.txt",
+      "line": 1,
+      "label": "celestial_give_treasury_interaction",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = {\n\t\tscope:recipient = {\n\t\t\thas_treasury = yes\n\t\t\tthis != scope:actor\n\t\t\ttop_liege ?= scope:actor.top_liege\n\t\t}\n\t}",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "celestial_demand_treasury_interaction",
+      "path": "common/character_interactions/zz_mam_revenue_common_native_spending.txt",
+      "line": 292,
+      "label": "celestial_demand_treasury_interaction",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = {\n\t\tscope:recipient = {\n\t\t\thas_treasury = yes\n\t\t\tthis != scope:actor\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tvassal_contract_has_flag = celestial_military_appointment\n\t\t\t\t\ttitle:e_minister_of_war.holder ?= scope:actor\n\t\t\t\t}\n\t\t\t\ttop_liege = scope:actor.top_liege\n\t\t\t}\n\t\t\ttrigger_else_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tNOT = { vassal_contract_has_flag = celestial_military_appointment }\n\t\t\t\t\ttitle:e_minister_of_revenue.holder ?= scope:actor\n\t\t\t\t}\n\t\t\t\ttop_liege = scope:actor.top_liege\n\t\t\t}\n\t\t\ttrigger_else = {\n\t\t\t\tis_vassal_or_below_of = scope:actor\n\t\t\t}\n\t\t}\n\t}",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "pay_treasury_debt_interaction",
+      "path": "common/character_interactions/zz_mam_revenue_common_native_spending.txt",
+      "line": 700,
+      "label": "pay_treasury_debt_interaction",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": "is_shown = {\n\t\tscope:actor = {\n\t\t\tOR = {\n\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\tthis = scope:recipient.top_liege\n\t\t\t}\n\t\t}\n\t\tscope:recipient = {\n\t\t\ttop_liege ?= scope:actor.top_liege\n\t\t\thas_treasury = yes\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\ttitle:e_minister_of_revenue.holder ?= scope:actor\n\t\t\t\t\tNOT = { vassal_contract_has_flag = celestial_military_appointment }\n\t\t\t\t}\n\t\t\t}\n\t\t\ttrigger_else_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\ttitle:e_minister_of_war.holder ?= scope:actor\n\t\t\t\t\tvassal_contract_has_flag = celestial_military_appointment\n\t\t\t\t}\n\t\t\t}\n\t\t\ttrigger_else = {\n\t\t\t\ttop_liege = scope:actor\n\t\t\t}\n\t\t}\n\t}",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "celestial_request_treasury_interaction",
+      "path": "common/character_interactions/zz_mam_revenue_native_requests.txt",
+      "line": 4,
+      "label": "celestial_request_treasury_interaction",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": "is_shown = {\n\t\tNOT = { AND = { mam_revenue_native_request_trigger = yes scope:actor = { is_ai = no } } }\n\t\tscope:actor = {\n\t\t\tthis != scope:recipient\n\t\t}\n\t\tscope:actor.top_liege ?= scope:recipient.top_liege\n\t\tscope:recipient = {\n\t\t\tgovernment_has_flag = government_is_celestial\n\t\t\tOR = {\n\t\t\t\tthis = scope:actor.top_liege\n\t\t\t\tOR = {\n\t\t\t\t\tAND = {\n\t\t\t\t\t\thas_title = title:e_minister_of_war\n\t\t\t\t\t\tliege ?= {\n\t\t\t\t\t\t\thighest_held_title_tier >= tier_hegemony\n\t\t\t\t\t\t\tgovernment_has_flag = government_is_celestial\n\t\t\t\t\t\t}\n\t\t\t\t\t\tscope:actor = {\n\t\t\t\t\t\t\tvassal_contract_has_flag = celestial_military_appointment\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tAND = {\n\t\t\t\t\t\thas_title = title:e_minister_of_revenue\n\t\t\t\t\t\tliege ?= {\n\t\t\t\t\t\t\thighest_held_title_tier >= tier_hegemony\n\t\t\t\t\t\t\tgovernment_has_flag = government_is_celestial\n\t\t\t\t\t\t}\n\t\t\t\t\t\tscope:actor = {\n\t\t\t\t\t\t\tNOT = { vassal_contract_has_flag = celestial_military_appointment }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\ttrigger_if = {\n\t\t\t\tlimit = {\n\t\t\t\t\tscope:actor = { is_ai = yes }\n\t\t\t\t}\n\t\t\t\tNOT = { has_variable = celestial_request_treasury_ai_cooldown }\n\t\t\t}\n\t\t}\n\t}",
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.99",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 2,
+      "label": "mam_fund.99",
+      "status": "active_common_fund",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.98",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 3,
+      "label": "mam_fund.98",
+      "status": "active_common_fund",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.90",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 4,
+      "label": "mam_fund.90",
+      "status": "active_common_fund",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.1",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 5,
+      "label": "A Request for Public Funds",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.revise",
+          "text": "Let me revise the amount.",
+          "line": 17
+        },
+        {
+          "key": "mam_cf.recommend",
+          "text": "Submit [mam_cf_quote|0] [treasury_i] for consideration.",
+          "line": 23
+        },
+        {
+          "key": "mam_cf.approve",
+          "text": "Authorize [mam_cf_quote|0] [treasury_i].",
+          "line": 36
+        },
+        {
+          "key": "mam_cf.consent",
+          "text": "I will make this contribution.",
+          "line": 44
+        },
+        {
+          "key": "mam_cf.refuse",
+          "text": "I cannot support this request.",
+          "line": 59
+        },
+        {
+          "key": "mam_cf.defer",
+          "text": "I will return to these papers later.",
+          "line": 69
+        },
+        {
+          "key": "mam_cf.changed",
+          "text": "The circumstances have changed. Set these papers aside.",
+          "line": 74
+        }
+      ],
+      "event_calls": [
+        "mam_fund.3"
+      ]
+    },
+    {
+      "id": "mam_fund.2",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 87,
+      "label": "The Means to Carry Out the Work",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.lean",
+          "text": "Keep only a modest working balance for [mam_cf_title.GetName].",
+          "line": 92
+        },
+        {
+          "key": "mam_cf.standard",
+          "text": "Provide ordinary means for [mam_cf_title.GetName].",
+          "line": 108
+        },
+        {
+          "key": "mam_cf.expanded",
+          "text": "Give [mam_cf_title.GetName] more room to act.",
+          "line": 124
+        },
+        {
+          "key": "mam_cf.decline_increase",
+          "text": "The existing provision must suffice.",
+          "line": 140
+        },
+        {
+          "key": "mam_cf.defer",
+          "text": "I will return to these papers later.",
+          "line": 145
+        },
+        {
+          "key": "mam_cf.changed",
+          "text": "The circumstances have changed. Set these papers aside.",
+          "line": 150
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.3",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 163,
+      "label": "How Much Can Be Committed?",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.plus25",
+          "text": "Add 25 [treasury_i].",
+          "line": 168
+        },
+        {
+          "key": "mam_cf.plus100",
+          "text": "Add 100 [treasury_i].",
+          "line": 174
+        },
+        {
+          "key": "mam_cf.minus25",
+          "text": "Reduce it by 25 [treasury_i].",
+          "line": 180
+        },
+        {
+          "key": "mam_cf.minus100",
+          "text": "Reduce it by 100 [treasury_i].",
+          "line": 186
+        },
+        {
+          "key": "mam_cf.amount_max",
+          "text": "Use the available [mam_cf_max|0] [treasury_i].",
+          "line": 192
+        },
+        {
+          "key": "mam_cf.amount_done",
+          "text": "Return to the request.",
+          "line": 197
+        },
+        {
+          "key": "mam_cf.changed",
+          "text": "The circumstances have changed. Set these papers aside.",
+          "line": 202
+        }
+      ],
+      "event_calls": [
+        "mam_fund.3"
+      ]
+    },
+    {
+      "id": "mam_fund.4",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 215,
+      "label": "The Government's Spending Programme",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.balanced",
+          "text": "Give Revenue room to meet the ordinary needs of government.",
+          "line": 220
+        },
+        {
+          "key": "mam_cf.reserves",
+          "text": "Build our reserves before undertaking optional work.",
+          "line": 231
+        },
+        {
+          "key": "mam_cf.recovery",
+          "text": "Put the recovery of the provinces first.",
+          "line": 242
+        },
+        {
+          "key": "mam_cf.defer",
+          "text": "I will return to these papers later.",
+          "line": 253
+        },
+        {
+          "key": "mam_cf.changed",
+          "text": "The circumstances have changed. Set these papers aside.",
+          "line": 258
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.5",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 271,
+      "label": "Provision for a Great Project",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.project_1",
+          "text": "Request provision for $great_project_type_grand_campaign_project$.",
+          "line": 279
+        },
+        {
+          "key": "mam_cf.project_2",
+          "text": "Request provision for $great_project_type_minister_project_culture$.",
+          "line": 286
+        },
+        {
+          "key": "mam_cf.project_3",
+          "text": "Request provision for $great_project_type_minister_project_development$.",
+          "line": 293
+        },
+        {
+          "key": "mam_cf.project_4",
+          "text": "Request provision for $great_project_type_minister_project_establish_control$.",
+          "line": 300
+        },
+        {
+          "key": "mam_cf.project_5",
+          "text": "Request provision for $great_project_type_minister_project_train_troops$.",
+          "line": 307
+        },
+        {
+          "key": "mam_cf.project_6",
+          "text": "Request provision for $great_project_type_minister_project_conduct_census$.",
+          "line": 314
+        },
+        {
+          "key": "mam_cf.project_7",
+          "text": "Request provision for $great_project_type_minister_compel_religious_uniformity$.",
+          "line": 321
+        },
+        {
+          "key": "mam_cf.project_8",
+          "text": "Request provision for $great_project_type_construct_great_barracks$.",
+          "line": 328
+        },
+        {
+          "key": "mam_cf.project_9",
+          "text": "Request provision for $great_project_type_strengthen_capital$.",
+          "line": 335
+        },
+        {
+          "key": "mam_cf.project_10",
+          "text": "Request provision for $great_project_type_great_wall$.",
+          "line": 342
+        },
+        {
+          "key": "mam_cf.project_11",
+          "text": "Request provision for $great_project_type_great_wall_extend_to_shanhai_pass$.",
+          "line": 349
+        },
+        {
+          "key": "mam_cf.project_12",
+          "text": "Request provision for $great_project_type_great_wall_extend_to_liaodong$.",
+          "line": 356
+        },
+        {
+          "key": "mam_cf.project_13",
+          "text": "Request provision for $great_project_type_grand_canals$.",
+          "line": 363
+        },
+        {
+          "key": "mam_cf.project_14",
+          "text": "Request provision for $great_project_type_pam_cathedral_01$.",
+          "line": 370
+        },
+        {
+          "key": "mam_cf.project_15",
+          "text": "Request provision for $great_project_type_pam_cathedral_02$.",
+          "line": 377
+        },
+        {
+          "key": "mam_cf.project_16",
+          "text": "Request provision for $great_project_type_pam_cathedral_03$.",
+          "line": 384
+        },
+        {
+          "key": "mam_cf.project_17",
+          "text": "Request provision for $great_project_type_pam_mass_rite_conversion$.",
+          "line": 391
+        },
+        {
+          "key": "mam_cf.cancel",
+          "text": "I need more time to consider this.",
+          "line": 398
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.6",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 400,
+      "label": "The Common Ministerial Fund",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 410
+        },
+        {
+          "key": "mam_cf.view_own",
+          "text": "Examine the provision for my office.",
+          "line": 417
+        },
+        {
+          "key": "mam_cf.view_flow",
+          "text": "Explain the movement of public funds.",
+          "line": 420
+        },
+        {
+          "key": "mam_cf.view_departments",
+          "text": "Examine the departmental accounts.",
+          "line": 421
+        },
+        {
+          "key": "mam_cf.view_controls",
+          "text": "Review the safeguards on public spending.",
+          "line": 426
+        },
+        {
+          "key": "mam_cf.refresh_accounts",
+          "text": "Bring the current accounts.",
+          "line": 431
+        }
+      ],
+      "event_calls": [
+        "mam_fund.10",
+        "mam_fund.11",
+        "mam_fund.14",
+        "mam_fund.6",
+        "mam_fund.9"
+      ]
+    },
+    {
+      "id": "mam_fund.7",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 434,
+      "label": "An Allowance for Ongoing Work",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.contribution_one",
+          "text": "Provide for #high [mam_cf_project_one.GetName]#!.",
+          "line": 468
+        },
+        {
+          "key": "mam_cf.contribution_two",
+          "text": "Provide for #high [mam_cf_project_two.GetName]#!.",
+          "line": 476
+        },
+        {
+          "key": "mam_cf.contribution_three",
+          "text": "Provide for #high [mam_cf_project_three.GetName]#!.",
+          "line": 484
+        },
+        {
+          "key": "mam_cf.cancel",
+          "text": "I need more time to consider this.",
+          "line": 492
+        },
+        {
+          "key": "mam_cf.next_projects",
+          "text": "Bring me the next project papers.",
+          "line": 494
+        },
+        {
+          "key": "mam_cf.first_projects",
+          "text": "Return to the first project papers.",
+          "line": 503
+        }
+      ],
+      "event_calls": [
+        "mam_fund.7"
+      ]
+    },
+    {
+      "id": "mam_fund.20",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 508,
+      "label": "The Public Accounts: A Decision",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.recorded",
+          "text": "I have received the decision.",
+          "line": 520
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.96",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 524,
+      "label": "mam_fund.96",
+      "status": "active_common_fund",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": [
+        "mam_fund.5"
+      ]
+    },
+    {
+      "id": "mam_fund.97",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 537,
+      "label": "mam_fund.97",
+      "status": "active_common_fund",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.8",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 550,
+      "label": "A Request for Public Funds",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.revise",
+          "text": "Let me revise the amount.",
+          "line": 562
+        },
+        {
+          "key": "mam_cf.recommend",
+          "text": "Submit [mam_cf_quote|0] [treasury_i] for consideration.",
+          "line": 568
+        },
+        {
+          "key": "mam_cf.approve",
+          "text": "Authorize [mam_cf_quote|0] [treasury_i].",
+          "line": 581
+        },
+        {
+          "key": "mam_cf.consent",
+          "text": "I will make this contribution.",
+          "line": 589
+        },
+        {
+          "key": "mam_cf.refuse",
+          "text": "I cannot support this request.",
+          "line": 604
+        },
+        {
+          "key": "mam_cf.defer",
+          "text": "I will return to these papers later.",
+          "line": 614
+        },
+        {
+          "key": "mam_cf.changed",
+          "text": "The circumstances have changed. Set these papers aside.",
+          "line": 622
+        }
+      ],
+      "event_calls": [
+        "mam_fund.3"
+      ]
+    },
+    {
+      "id": "mam_fund.9",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 637,
+      "label": "How the Public Funds Move",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 641
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.10",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 643,
+      "label": "The Provision for My Office",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 651
+        },
+        {
+          "key": "mam_cf.review_mine",
+          "text": "Review the provision for my own office.",
+          "line": 653
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.11",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 662,
+      "label": "The Departmental Accounts",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 667
+        },
+        {
+          "key": "mam_cf.refresh_accounts",
+          "text": "Bring the current accounts.",
+          "line": 668
+        }
+      ],
+      "event_calls": [
+        "mam_fund.11"
+      ]
+    },
+    {
+      "id": "mam_fund.12",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 672,
+      "label": "The Departmental Accounts",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 677
+        },
+        {
+          "key": "mam_cf.refresh_accounts",
+          "text": "Bring the current accounts.",
+          "line": 678
+        }
+      ],
+      "event_calls": [
+        "mam_fund.11"
+      ]
+    },
+    {
+      "id": "mam_fund.13",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 682,
+      "label": "The Departmental Accounts",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 687
+        },
+        {
+          "key": "mam_cf.refresh_accounts",
+          "text": "Bring the current accounts.",
+          "line": 688
+        }
+      ],
+      "event_calls": [
+        "mam_fund.11"
+      ]
+    },
+    {
+      "id": "mam_fund.14",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 692,
+      "label": "Safeguards on Public Spending",
+      "status": "active_common_fund",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_cf.accounts_close",
+          "text": "The accounts are before me.",
+          "line": 696
+        },
+        {
+          "key": "mam_cf.release_programme",
+          "text": "Let the Chancellor direct the next programme.",
+          "line": 697
+        },
+        {
+          "key": "mam_cf.suspend",
+          "text": "Require superior review of discretionary releases.",
+          "line": 701
+        },
+        {
+          "key": "mam_cf.restore",
+          "text": "Restore the ordinary delegation rules.",
+          "line": 709
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_fund.95",
+      "path": "events/mam_revenue_common_events.txt",
+      "line": 717,
+      "label": "mam_fund.95",
+      "status": "active_common_fund",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.1",
+      "path": "events/mam_revenue_events.txt",
+      "line": 3,
+      "label": "Public Funds for [mam_rv_subject.GetName]",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.edit_amount",
+          "text": "I should revise the amount first.",
+          "line": 8
+        },
+        {
+          "key": "mam_rv.grant_full",
+          "text": "Recommend [mam_rv_amount|0] [treasury_i] for [mam_rv_recipient.GetShortUIName].",
+          "line": 15
+        },
+        {
+          "key": "mam_rv.grant_half",
+          "text": "Offer [mam_rv_half_amount|0] [treasury_i] to [mam_rv_recipient.GetShortUIName].",
+          "line": 22
+        },
+        {
+          "key": "mam_rv.recovery",
+          "text": "Support the recovery of #high [mam_rv_subject.GetName]#!.",
+          "line": 29
+        },
+        {
+          "key": "mam_rv.development",
+          "text": "Appropriate funds towards an existing civilian project.",
+          "line": 36
+        },
+        {
+          "key": "mam_rv.find_contribution",
+          "text": "Ask [mam_rv_alternative_donor.GetShortUIName] to contribute.",
+          "line": 43
+        },
+        {
+          "key": "mam_rv.refuse",
+          "text": "Other needs must take precedence.",
+          "line": 50
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 57
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 64
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.2",
+      "path": "events/mam_revenue_events.txt",
+      "line": 74,
+      "label": "A Contribution Between Offices",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.contribute_selected",
+          "text": "Request #high [mam_rv_amount|0]#! [treasury_i] for #high [mam_rv_subject.GetName]#!.",
+          "line": 79
+        },
+        {
+          "key": "mam_rv.edit_amount",
+          "text": "I should revise the amount first.",
+          "line": 86
+        },
+        {
+          "key": "mam_rv.close",
+          "text": "There is no need to proceed with this contribution.",
+          "line": 93
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 101
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 108
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.3",
+      "path": "events/mam_revenue_events.txt",
+      "line": 118,
+      "label": "The Finances of [mam_rv_subject.GetName]",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.edit_amount",
+          "text": "I should revise the amount first.",
+          "line": 123
+        },
+        {
+          "key": "mam_rv.standard",
+          "text": "Continue the ordinary arrangements for #high [mam_rv_subject.GetName]#!.",
+          "line": 130
+        },
+        {
+          "key": "mam_rv.remittance",
+          "text": "Ask [mam_rv_recipient.GetShortUIName] for an extraordinary contribution.",
+          "line": 137
+        },
+        {
+          "key": "mam_rv.recovery",
+          "text": "Support the recovery of #high [mam_rv_subject.GetName]#!.",
+          "line": 144
+        },
+        {
+          "key": "mam_rv.development",
+          "text": "Appropriate funds towards an existing civilian project.",
+          "line": 151
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 158
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 165
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.4",
+      "path": "events/mam_revenue_events.txt",
+      "line": 175,
+      "label": "Funding [mam_rv_subject.GetName]",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.budget_low",
+          "text": "Recommend a Low Budget for #high [mam_rv_subject.GetName]#!.",
+          "line": 180
+        },
+        {
+          "key": "mam_rv.budget_medium",
+          "text": "Recommend a Medium Budget for #high [mam_rv_subject.GetName]#!.",
+          "line": 187
+        },
+        {
+          "key": "mam_rv.budget_high",
+          "text": "Recommend a High Budget for #high [mam_rv_subject.GetName]#!.",
+          "line": 194
+        },
+        {
+          "key": "mam_rv.keep_budget",
+          "text": "The current allocation should remain.",
+          "line": 201
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 209
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 216
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.5",
+      "path": "events/mam_revenue_events.txt",
+      "line": 226,
+      "label": "A Call on My Treasury",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.donor_accept",
+          "text": "My office can contribute [mam_rv_amount|0] [treasury_i].",
+          "line": 231
+        },
+        {
+          "key": "mam_rv.donor_half",
+          "text": "I can spare [mam_rv_half_amount|0] [treasury_i].",
+          "line": 238
+        },
+        {
+          "key": "mam_rv.donor_dispute",
+          "text": "These funds are needed here. Let the matter be reviewed.",
+          "line": 245
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 252
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 259
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.6",
+      "path": "events/mam_revenue_events.txt",
+      "line": 269,
+      "label": "A Fiscal Recommendation",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.approve",
+          "text": "Approve the recommendation for #high [mam_rv_subject.GetName]#!.",
+          "line": 281
+        },
+        {
+          "key": "mam_rv.approve_half",
+          "text": "Authorize half the proposed payment.",
+          "line": 288
+        },
+        {
+          "key": "mam_rv.return",
+          "text": "The ministry should reconsider its recommendation.",
+          "line": 295
+        },
+        {
+          "key": "mam_rv.reject",
+          "text": "I will not authorize this measure.",
+          "line": 302
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 309
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 316
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.7",
+      "path": "events/mam_revenue_events.txt",
+      "line": 326,
+      "label": "The Affairs of Revenue",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.continue",
+          "text": "Continue the present programme.",
+          "line": 331
+        },
+        {
+          "key": "mam_rv.recommend_reserves",
+          "text": "Recommend that we build the government's reserves.",
+          "line": 339
+        },
+        {
+          "key": "mam_rv.recommend_recovery",
+          "text": "Recommend greater support for provincial recovery.",
+          "line": 346
+        },
+        {
+          "key": "mam_rv.native_budget",
+          "text": "Submit a budget recommendation to [mam_rv_emperor.GetShortUIName].",
+          "line": 353
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 360
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 367
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.8",
+      "path": "events/mam_revenue_events.txt",
+      "line": 377,
+      "label": "The Law of Fiscal Authority",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.acknowledge_law",
+          "text": "The ministry shall work within this law.",
+          "line": 382
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 391
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.9",
+      "path": "events/mam_revenue_events.txt",
+      "line": 401,
+      "label": "Directing Fiscal Affairs",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.priority_0",
+          "text": "Balance reserves with legitimate civilian needs.",
+          "line": 406
+        },
+        {
+          "key": "mam_rv.priority_1",
+          "text": "Build the central reserves.",
+          "line": 413
+        },
+        {
+          "key": "mam_rv.priority_2",
+          "text": "Prioritize provincial recovery.",
+          "line": 420
+        },
+        {
+          "key": "mam_rv.allow_chancellor",
+          "text": "Let the Chancellor direct fiscal priorities.",
+          "line": 427
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 434
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 441
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.10",
+      "path": "events/mam_revenue_events.txt",
+      "line": 451,
+      "label": "A Change of Fiscal Emphasis",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.accept_priority",
+          "text": "Accept the proposed emphasis.",
+          "line": 461
+        },
+        {
+          "key": "mam_rv.retain_priority",
+          "text": "Keep the present direction.",
+          "line": 468
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 475
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 482
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.90",
+      "path": "events/mam_revenue_events.txt",
+      "line": 493,
+      "label": "mam_revenue.90",
+      "status": "retained_legacy_event",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.99",
+      "path": "events/mam_revenue_events.txt",
+      "line": 497,
+      "label": "mam_revenue.99",
+      "status": "retained_legacy_event",
+      "hidden": true,
+      "visibility": null,
+      "options": [],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.11",
+      "path": "events/mam_revenue_events.txt",
+      "line": 504,
+      "label": "How Much Can the Treasury Spare?",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.amount_use",
+          "text": "Use #high [mam_rv_amount|0]#! [treasury_i] in my recommendation.",
+          "line": 510
+        },
+        {
+          "key": "mam_rv.amount_plus25",
+          "text": "Increase the draft by 25 [treasury_i].",
+          "line": 516
+        },
+        {
+          "key": "mam_rv.amount_plus100",
+          "text": "Increase the draft by 100 [treasury_i].",
+          "line": 517
+        },
+        {
+          "key": "mam_rv.amount_minus25",
+          "text": "Reduce the draft by 25 [treasury_i].",
+          "line": 518
+        },
+        {
+          "key": "mam_rv.amount_minus100",
+          "text": "Reduce the draft by 100 [treasury_i].",
+          "line": 519
+        },
+        {
+          "key": "mam_rv.amount_debt",
+          "text": "Set #high [mam_rv_debt_amount|0]#! [treasury_i] to clear the current debt.",
+          "line": 520
+        },
+        {
+          "key": "mam_rv.amount_max",
+          "text": "Set the available surplus: #high [mam_rv_max_amount|0]#! [treasury_i].",
+          "line": 526
+        },
+        {
+          "key": "mam_rv.amount_cancel",
+          "text": "Keep my original draft.",
+          "line": 532
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 534
+        }
+      ],
+      "event_calls": [
+        "mam_revenue.11"
+      ]
+    },
+    {
+      "id": "mam_revenue.12",
+      "path": "events/mam_revenue_events.txt",
+      "line": 544,
+      "label": "A Minister Contests a Budget Cut",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.uphold_appeal",
+          "text": "Restore the previous allocation to #high [mam_rv_subject.GetName]#!.",
+          "line": 555
+        },
+        {
+          "key": "mam_rv.reject_appeal",
+          "text": "The reduced allocation must remain.",
+          "line": 562
+        },
+        {
+          "key": "mam_rv.defer",
+          "text": "This matter can wait a little longer.",
+          "line": 569
+        },
+        {
+          "key": "mam_cf.legacy_changed",
+          "text": "These papers belong to the former fiscal arrangement. Close them.",
+          "line": 571
+        }
+      ],
+      "event_calls": []
+    },
+    {
+      "id": "mam_revenue.20",
+      "path": "events/mam_revenue_events.txt",
+      "line": 582,
+      "label": "The Fiscal Decision",
+      "status": "retained_legacy_event",
+      "hidden": false,
+      "visibility": null,
+      "options": [
+        {
+          "key": "mam_rv.appeal_cut",
+          "text": "I shall petition for the former allocation.",
+          "line": 608
+        },
+        {
+          "key": "mam_rv.understood",
+          "text": "The decision is recorded.",
+          "line": 614
+        }
+      ],
+      "event_calls": []
+    }
+  ],
+  "confirmed_native_references": {
+    "plan_project": "events/test_events/debug.txt:3367; common/story_cycles/tgp_story_cycle_mandala.txt:1526",
+    "test_planning": "common/story_cycles/tgp_story_cycle_mandala.txt:1524",
+    "fund_contribution": "events/test_events/debug.txt, native fund_great_project_contribution example",
+    "native_budget_treasury": "common/scripted_effects/00_ai_conqueror_effects.txt:67-68",
+    "native_project_budget_gold": "common/story_cycles/tgp_story_cycle_mandala.txt, explicit move_budget_gold to budget_long_term"
+  }
+}

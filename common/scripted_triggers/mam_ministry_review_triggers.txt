@@ -1,0 +1,107 @@
+﻿# This subsystem is independent of the suspended Censor-Justice case runtime.
+mam_ministry_realm_emperor_trigger = {
+ mam_can_oversee_personnel_trigger = yes
+ tgp_has_access_to_ministry_trigger = yes
+ is_alive = yes
+}
+mam_ministry_upper_authority_trigger = {
+ mam_ministry_realm_emperor_trigger = yes is_imprisoned = no
+}
+mam_ministry_lower_authority_trigger = {
+ is_alive = yes is_imprisoned = no
+ has_title = title:e_minister_chancellor
+ is_independent_ruler = no
+ top_liege = { mam_ministry_realm_emperor_trigger = yes cp:councillor_chancellor = prev }
+}
+mam_ministry_review_authority_trigger = {
+ OR = { mam_ministry_upper_authority_trigger = yes mam_ministry_lower_authority_trigger = yes }
+}
+# Title scope.
+mam_ministry_upper_office_trigger = { OR = {
+ this = title:e_minister_chancellor this = title:e_minister_censor this = title:e_minister_grand_marshal
+} }
+# Story scope. Match the exact installed successor and the current per-title file.
+mam_ministry_review_current_trigger = {
+ save_temporary_scope_as = mam_mr_check_file
+ has_variable = mam_mr_pending var:mam_mr_pending = 1
+ exists = var:mam_mr_title.holder exists = var:mam_mr_realm.holder
+ exists = var:mam_mr_incumbent
+ var:mam_mr_title.holder = var:mam_mr_incumbent
+ var:mam_mr_incumbent = { is_alive = yes top_liege = scope:mam_mr_check_file.var:mam_mr_realm.holder }
+ var:mam_mr_realm.holder = { mam_ministry_realm_emperor_trigger = yes }
+ var:mam_mr_title = { exists = var:mam_mr_review_file var:mam_mr_review_file = scope:mam_mr_check_file }
+}
+# Actor scope. A stale event cannot authorize a different office or successor.
+mam_ministry_review_actor_trigger = {
+ save_temporary_scope_as = mam_mr_check_actor
+ exists = scope:mam_mr_file exists = scope:mam_mr_incumbent
+ scope:mam_mr_incumbent = scope:mam_mr_file.var:mam_mr_incumbent
+ scope:mam_mr_file = { mam_ministry_review_current_trigger = yes }
+ OR = {
+  AND = {
+   mam_ministry_upper_authority_trigger = yes
+   title:h_china = { var:mam_mr_upper_open_file = scope:mam_mr_file var:mam_mr_upper_open_actor = scope:mam_mr_check_actor }
+   scope:mam_mr_file = { var:mam_mr_level = 1 var:mam_mr_realm.holder = scope:mam_mr_check_actor }
+  }
+  AND = {
+   mam_ministry_lower_authority_trigger = yes
+   title:h_china = { var:mam_mr_lower_open_file = scope:mam_mr_file var:mam_mr_lower_open_actor = scope:mam_mr_check_actor }
+   top_liege = scope:mam_mr_file.var:mam_mr_realm.holder
+   scope:mam_mr_file = { var:mam_mr_level = 0 }
+  }
+ }
+}
+# Candidate scope. Confirmation of an installed incumbent uses native council eligibility;
+# alternatives also pass the engine's title-specific appointment and merit gates.
+mam_ministry_review_candidate_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no
+ top_liege = scope:mam_mr_emperor
+ this != scope:mam_mr_emperor
+ mam_cj_ministry_candidate_trigger = { TITLE = scope:mam_mr_title OWNER = scope:mam_mr_emperor }
+ trigger_if = { limit = { this != scope:mam_mr_file.var:mam_mr_incumbent }
+  this != scope:mam_mr_actor
+  can_appoint_for_title = scope:mam_mr_title
+  has_appointment_level_for_title = scope:mam_mr_title
+  # The Chancellor cannot divert the emperor's upper ministers into a lower seat.
+  trigger_if = { limit = { scope:mam_mr_file = { var:mam_mr_level = 0 } }
+   NOT = { any_held_title = { mam_ministry_upper_office_trigger = yes } }
+  }
+ }
+}
+# Candidate scope. Weakness is relative to the best qualified comparison in this review.
+mam_ministry_review_weak_trigger = {
+ exists = scope:mam_mr_benchmark
+ scope:mam_mr_benchmark = { mam_ministry_review_candidate_trigger = yes }
+ mam_ministry_public_suitability < { value = scope:mam_mr_benchmark.mam_ministry_public_suitability subtract = 5 }
+}
+# Title scope, OWNER supplied explicitly; verify both the title and native council seat.
+mam_ministry_office_synchronized_trigger = {
+ tgp_is_minister_title = yes
+ trigger_if = { limit = { this = title:e_minister_chancellor }
+  holder = { is_councillor_of = $OWNER$ has_council_position = councillor_chancellor }
+ }
+ trigger_if = { limit = { this = title:e_minister_censor }
+  holder = { is_councillor_of = $OWNER$ has_council_position = councillor_spymaster }
+ }
+ trigger_if = { limit = { this = title:e_minister_grand_marshal }
+  holder = { is_councillor_of = $OWNER$ has_council_position = minister_grand_marshal }
+ }
+ trigger_if = { limit = { this = title:e_minister_of_personnel }
+  holder = { is_councillor_of = $OWNER$ has_council_position = minister_personnel }
+ }
+ trigger_if = { limit = { this = title:e_minister_of_war }
+  holder = { is_councillor_of = $OWNER$ has_council_position = councillor_marshal }
+ }
+ trigger_if = { limit = { this = title:e_minister_of_rites }
+  holder = { is_councillor_of = $OWNER$ has_council_position = councillor_court_chaplain }
+ }
+ trigger_if = { limit = { this = title:e_minister_of_works }
+  holder = { is_councillor_of = $OWNER$ has_council_position = minister_works }
+ }
+ trigger_if = { limit = { this = title:e_minister_of_revenue }
+  holder = { is_councillor_of = $OWNER$ has_council_position = councillor_steward }
+ }
+ trigger_if = { limit = { this = title:e_minister_of_justice }
+  holder = { is_councillor_of = $OWNER$ has_council_position = minister_justice }
+ }
+}

@@ -1,0 +1,8 @@
+﻿# Personnel event scope. Keep the professional category's total weight stable
+# whether one, two or all three types of qualified alternative are available.
+mam_personnel_ai_professional_options = {
+ value = 0
+ if = { limit = { exists = scope:mam_senior_lateral scope:mam_senior_lateral = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes } } add = 1 }
+ if = { limit = { exists = scope:mam_senior_promotion scope:mam_senior_promotion = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes } } add = 1 }
+ if = { limit = { exists = scope:mam_senior_first_office scope:mam_senior_first_office = { mam_senior_choice_trigger = yes mam_senior_source_actionable_trigger = yes } } add = 1 }
+}

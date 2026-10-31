@@ -1,0 +1,27 @@
+﻿MamRevenuePriority = {
+ type = character
+ text = { trigger = { title:h_china = { var:mam_rv_priority = 1 } } localization_key = mam_rv.priority_reserves }
+ text = { trigger = { title:h_china = { var:mam_rv_priority = 2 } } localization_key = mam_rv.priority_recovery }
+ text = { localization_key = mam_rv.priority_balanced }
+}
+
+MamRevenueAuthority = {
+ type = character
+ text = { trigger = { title:h_china = { var:mam_rv_mandate = 2 } } localization_key = mam_revenue_authority_expanded }
+ text = { trigger = { title:h_china = { var:mam_rv_mandate = 1 } } localization_key = mam_revenue_authority_limited }
+ text = { localization_key = mam_revenue_authority_reserved }
+}
+
+MamRevenueAuthorityRules = {
+ type = character
+ text = { trigger = { title:h_china = { var:mam_rv_mandate = 2 } } localization_key = mam_rv.mandate_2_tt }
+ text = { trigger = { title:h_china = { var:mam_rv_mandate = 1 } } localization_key = mam_rv.mandate_1_tt }
+ text = { localization_key = mam_rv.mandate_0_tt }
+}
+
+MamRevenueAuthoritySummary = {
+ type = character
+ text = { trigger = { title:h_china = { var:mam_rv_mandate = 2 } } localization_key = mam_rv.authority_summary_expanded }
+ text = { trigger = { title:h_china = { var:mam_rv_mandate = 1 } } localization_key = mam_rv.authority_summary_limited }
+ text = { localization_key = mam_rv.authority_summary_reserved }
+}

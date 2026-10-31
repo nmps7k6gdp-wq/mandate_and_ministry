@@ -1,0 +1,30 @@
+﻿mam_personnel_confirmation_delegated = {
+ law_group_type = mam_personnel_confirmation_laws index = 0
+ can_keep = { mam_can_oversee_personnel_trigger = yes }
+ can_have = { mam_can_oversee_personnel_trigger = yes }
+ can_realm_have = { mam_can_oversee_personnel_trigger = yes }
+ can_pass = { is_at_war = no primary_title = { NOT = { has_variable = mam_personnel_confirmation_cooldown } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { primary_title = { set_variable = { name = mam_personnel_confirmation_cooldown years = 5 } } }
+ ai_will_do = { value = 0 }
+}
+mam_personnel_confirmation_empire = {
+ law_group_type = mam_personnel_confirmation_laws index = 1
+ can_keep = { mam_can_oversee_personnel_trigger = yes }
+ can_have = { mam_can_oversee_personnel_trigger = yes }
+ can_realm_have = { mam_can_oversee_personnel_trigger = yes }
+ can_pass = { is_at_war = no primary_title = { NOT = { has_variable = mam_personnel_confirmation_cooldown } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { primary_title = { set_variable = { name = mam_personnel_confirmation_cooldown years = 5 } } }
+ ai_will_do = { value = 0 }
+}
+mam_personnel_confirmation_all = {
+ law_group_type = mam_personnel_confirmation_laws index = 2
+ can_keep = { mam_can_oversee_personnel_trigger = yes }
+ can_have = { mam_can_oversee_personnel_trigger = yes }
+ can_realm_have = { mam_can_oversee_personnel_trigger = yes }
+ can_pass = { is_at_war = no primary_title = { NOT = { has_variable = mam_personnel_confirmation_cooldown } } }
+ requires_approve = { always = no } pass_cost = { prestige = 150 }
+ on_pass = { primary_title = { set_variable = { name = mam_personnel_confirmation_cooldown years = 5 } } }
+ ai_will_do = { value = 0 }
+}

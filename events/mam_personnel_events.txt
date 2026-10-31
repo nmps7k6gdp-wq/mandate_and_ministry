@@ -1,0 +1,168 @@
+﻿namespace = mam_personnel
+
+mam_personnel.0001 = {
+    type = character_event
+    title = mam_personnel.0001.t
+    desc = {
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_minister }
+                desc = mam_minister_current
+            }
+            desc = mam_minister_missing
+        }
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_candidate_1 }
+                desc = mam_register_populated
+            }
+            desc = mam_register_empty
+        }
+        desc = mam_personnel.0001.desc
+    }
+    theme = merit
+    left_portrait = { character = root animation = reading }
+    option = {
+        name = mam_personnel.close
+    }
+
+    option = {
+        name = mam_personnel.inspect_1
+        trigger = { exists = scope:mam_candidate_1 }
+        hidden_effect = {
+            scope:mam_candidate_1 = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 1 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+
+    option = {
+        name = mam_personnel.inspect_2
+        trigger = { exists = scope:mam_candidate_2 }
+        hidden_effect = {
+            scope:mam_candidate_2 = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 1 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+
+    option = {
+        name = mam_personnel.inspect_3
+        trigger = { exists = scope:mam_candidate_3 }
+        hidden_effect = {
+            scope:mam_candidate_3 = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 1 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+
+option = { name = mam_list.show_serving hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 1 } mam_build_register_effect = yes trigger_event = mam_personnel.0002 } }
+}
+
+mam_personnel.0010 = {
+    type = character_event
+    title = mam_personnel.0010.t
+    desc = mam_personnel.0010.desc
+    theme = merit
+    left_portrait = { character = scope:mam_inspected animation = reading }
+    immediate = {
+        mam_resolve_register_authority_effect = yes
+        scope:mam_inspected = {
+            save_scope_value_as = { name = mam_detail_merit value = mam_merit_points }
+            save_scope_value_as = { name = mam_detail_qualification value = mam_qualification_points }
+            save_scope_value_as = { name = mam_detail_skills value = mam_skill_points }
+            save_scope_value_as = { name = mam_detail_preference value = mam_minister_preference }
+
+        save_scope_value_as = { name = mam_detail_distinction value = mam_exam_distinction_points }
+            save_scope_value_as = { name = mam_detail_total value = mam_recommendation_score }
+        }
+    }
+    option = { name = mam_personnel.close }
+
+    option = {
+        name = mam_credentials.back
+        trigger = {
+            exists = scope:mam_credentials_origin
+            scope:mam_credentials_origin > 0
+            trigger_if = {
+                limit = { scope:mam_credentials_origin = 2 }
+                exists = scope:mam_posting
+            }
+        }
+        hidden_effect = {
+            if = {
+                limit = { scope:mam_credentials_origin = 2 }
+                trigger_event = mam_personnel.0021
+            }
+            else = {
+                mam_build_register_effect = yes
+                if = {
+                    limit = { exists = scope:mam_review_mode scope:mam_review_mode = 1 }
+                    trigger_event = mam_personnel.0002
+                }
+                else = { trigger_event = mam_personnel.0001 }
+            }
+        }
+    }
+
+}
+
+mam_personnel.0002 = {
+    type = character_event
+    title = mam_personnel.0002.t
+    desc = {
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_minister }
+                desc = mam_minister_current
+            }
+            desc = mam_minister_missing
+        }
+        first_valid = {
+            triggered_desc = {
+                trigger = { exists = scope:mam_candidate_1 }
+                desc = mam_register_populated
+            }
+            desc = mam_register_empty
+        }
+        desc = mam_list.serving_register
+    }
+    theme = merit
+    left_portrait = { character = root animation = reading }
+    option = {
+        name = mam_personnel.close
+    }
+
+    option = {
+        name = mam_personnel.inspect_1
+        trigger = { exists = scope:mam_candidate_1 }
+        hidden_effect = {
+            scope:mam_candidate_1 = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 1 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+
+    option = {
+        name = mam_personnel.inspect_2
+        trigger = { exists = scope:mam_candidate_2 }
+        hidden_effect = {
+            scope:mam_candidate_2 = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 1 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+
+    option = {
+        name = mam_personnel.inspect_3
+        trigger = { exists = scope:mam_candidate_3 }
+        hidden_effect = {
+            scope:mam_candidate_3 = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 1 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+
+option = { name = mam_list.show_available hidden_effect = { save_scope_value_as = { name = mam_review_mode value = 0 } mam_build_register_effect = yes trigger_event = mam_personnel.0001 } }
+}
+

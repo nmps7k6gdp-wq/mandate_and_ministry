@@ -1,0 +1,79 @@
+﻿mam_censor_inspect_interaction = {
+ category = interaction_category_ministry icon = secret common_interaction = yes auto_accept = yes interface_priority = 55
+ desc = mam_censor_inspect_interaction_desc
+ is_shown = {
+  scope:actor = { OR = { mam_censor_officer_trigger = yes mam_censor_emperor_trigger = yes } }
+  scope:recipient = { mam_censor_subject_trigger = { EMPEROR = title:h_china.holder CENSOR = title:e_minister_censor.holder } }
+ }
+ is_valid_showing_failures_only = {
+  custom_tooltip = { text = mam_cen.only_one_tt title:h_china = { NOT = { exists = var:mam_cen_active } } }
+  custom_tooltip = { text = mam_cen.current_censor_tt title:e_minister_censor.holder = { mam_censor_officer_trigger = yes } }
+  custom_tooltip = { text = mam_cen.cooldown_tt scope:recipient = { NOT = { has_character_flag = mam_cen_recent_inspection } } }
+ }
+ on_accept = {
+  scope:recipient = { save_scope_as = mam_cen_subject }
+  scope:actor = { save_scope_as = mam_cen_originator mam_censor_start_effect = yes }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_censor_petition_interaction = {
+ category = interaction_category_ministry icon = scroll_scales common_interaction = yes auto_accept = yes interface_priority = 54
+ desc = mam_censor_petition_interaction_desc
+ is_shown = {
+  scope:recipient = { mam_censor_officer_trigger = yes }
+  scope:actor = { is_alive = yes is_adult = yes is_imprisoned = no
+   top_liege = title:h_china.holder this != scope:recipient
+   OR = { tgp_is_any_minister = yes is_governor_or_admin_count = yes }
+  }
+ }
+ is_valid_showing_failures_only = {
+  title:h_china = { exists = var:mam_cen_active var:mam_cen_active = {
+   mam_censor_live_trigger = yes var:mam_cen_stage < 7
+   NOT = { has_variable = mam_cen_petition_used }
+  } }
+ }
+ on_accept = {
+  scope:actor = { save_scope_as = mam_cen_petitioner }
+  title:h_china.var:mam_cen_active = {
+   if = { limit = { mam_censor_live_trigger = yes var:mam_cen_stage < 7 NOT = { has_variable = mam_cen_petition_used } }
+    set_variable = { name = mam_cen_petitioner value = scope:mam_cen_petitioner }
+    set_variable = { name = mam_cen_petition_used value = 1 }
+    if = { limit = { var:mam_cen_stage >= 3 } mam_censor_move_effect = { STAGE = 3 DAYS = 1 } }
+   }
+  }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+
+mam_censor_refer_crime_interaction = {
+ category = interaction_category_ministry icon = secret common_interaction = yes auto_accept = yes interface_priority = 53
+ desc = mam_censor_refer_crime_interaction_desc
+ is_shown = {
+  exists = title:h_china.holder
+  scope:recipient = { mam_censor_public_subject_trigger = yes }
+  scope:actor = { is_alive = yes is_adult = yes is_imprisoned = no top_liege = title:h_china.holder
+   this != scope:recipient has_imprisonment_reason = scope:recipient
+   OR = { mam_censor_emperor_trigger = yes tgp_is_any_minister = yes this = scope:recipient.liege }
+  }
+ }
+ is_valid_showing_failures_only = {
+  custom_tooltip = { text = mam_cen.public_no_duplicate scope:recipient = { mam_censor_public_new_trigger = yes } }
+  custom_tooltip = { text = mam_cen.public_queue_room
+   NOT = { title:h_china = { any_in_list = { variable = mam_cen_intel_queue count >= 8 always = yes } } }
+  }
+  exists = title:e_minister_censor.holder
+ }
+ on_accept = {
+  if = { limit = { scope:recipient = { mam_censor_public_subject_trigger = yes mam_censor_public_new_trigger = yes }
+   scope:actor = { is_alive = yes is_adult = yes is_imprisoned = no top_liege = title:h_china.holder
+    this != scope:recipient has_imprisonment_reason = scope:recipient
+    OR = { mam_censor_emperor_trigger = yes tgp_is_any_minister = yes this = scope:recipient.liege }
+   }
+  }
+   scope:actor = { save_scope_as = mam_cen_public_accuser }
+   save_scope_value_as = { name = mam_cen_public_kind value = 31 }
+   scope:recipient = { mam_censor_public_capture_effect = yes }
+  }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

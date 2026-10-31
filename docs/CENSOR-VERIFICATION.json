@@ -1,0 +1,79 @@
+{
+  "build": "0.4.0-alpha.20-dev.66",
+  "source_checked": true,
+  "engine_tested": false,
+  "native_definitions_pinned": 19,
+  "files": {
+    "common\\character_interactions\\mam_censor_interactions.txt": "9043aa65637da10a16d2597a8773fff3b97f9207d80b90cada1f708fcdef8f92",
+    "common\\decisions\\mam_censor_decisions.txt": "e14da8a14348206c60bd0c160fa38abc15f02d6423dbd1251180085e4aac15a4",
+    "common\\modifiers\\mam_censor_modifiers.txt": "6e9a325676e0c9685c4e92d90040b17725211041f6e274d69c82bb9f704698e4",
+    "common\\on_action\\mam_censor_on_actions.txt": "bd43dd1218b9bc69aae3bf8549056e1b99a2b7faeba2a289d45a51d158c4b57c",
+    "common\\opinion_modifiers\\mam_censor_opinions.txt": "6985879d7314068b769edea77ee9fea82b04aadb6c93f8986712659c8108f2d1",
+    "common\\scripted_effects\\mam_censor_effects.txt": "23326a1c8eaa73c8c3d65acd2f881186661831e232233efcf475888e2a21d9fc",
+    "common\\scripted_triggers\\mam_censor_triggers.txt": "fd23dd4cc4798c72fd48afa7632cca7d72eec9a30360d6ae0ee42a865741c9ea",
+    "common\\script_values\\mam_censor_values.txt": "b75546b36f7eb1134aff3ef93a5542911d423a6c443891b10d20fd6a38e1b75c",
+    "common\\story_cycles\\mam_censor_inspection_story.txt": "800d9f1c610bc7c061d3c943b54ff8add97137477af39f766be9935e26a992e2",
+    "events\\mam_censor_events.txt": "0d33cb1af84039762973fe106ab3922d4e421df35b00022c77c7ed09ba83daec",
+    "localization\\english\\mam_censor_l_english.yml": "b2a7f9624f5f9bfe0814fadeb1ad9492e807990453da13a96650039604d66054"
+  },
+  "definitions": 110,
+  "localization_keys": 298,
+  "stage_edges": {
+    "1": [
+      2
+    ],
+    "2": [
+      3,
+      12
+    ],
+    "3": [
+      4
+    ],
+    "4": [
+      4,
+      5,
+      6,
+      8,
+      11
+    ],
+    "5": [
+      6
+    ],
+    "6": [
+      6,
+      7
+    ],
+    "7": [
+      4,
+      7,
+      9
+    ],
+    "8": [
+      6
+    ],
+    "9": [
+      10
+    ],
+    "10": [
+      10
+    ],
+    "11": [
+      6,
+      7
+    ],
+    "12": [
+      3
+    ]
+  },
+  "not_tested": [
+    "CK3 script execution",
+    "event rendering",
+    "native handoffs",
+    "AI balance",
+    "save migration"
+  ],
+  "lifecycle_contract_examples_passed": 5,
+  "skill_source_evaluator_tests_passed": 5,
+  "discovery_source_contracts_checked": true,
+  "public_crime_source_predicate_tests_passed": 3
+}

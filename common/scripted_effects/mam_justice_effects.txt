@@ -1,0 +1,263 @@
+﻿mam_justice_ensure_effect = {
+ if = { limit = { mam_justice_emperor_trigger = yes }
+  title:h_china = { if = { limit = { NOT = { has_variable = mam_jus_statute_started } } set_variable = { name = mam_jus_statute_started value = current_date } } }
+  if = { limit = { NOT = { has_realm_law = mam_justice_authority_delegated } NOT = { has_realm_law = mam_justice_authority_reserved } }
+   add_realm_law_skip_effects = mam_justice_authority_delegated
+  }
+  if = { limit = { NOT = { title:h_china = { exists = var:mam_jus_service } } }
+   clear_saved_scope = mam_jus_service
+   create_story = { type = mam_justice_service_story save_scope_as = mam_jus_service }
+   if = { limit = { exists = scope:mam_jus_service }
+    scope:mam_jus_service = { set_variable = { name = mam_jus_realm value = title:h_china } }
+    title:h_china = { set_variable = { name = mam_jus_service value = scope:mam_jus_service } }
+   }
+  }
+  mam_justice_poll_effect = yes
+ }
+}
+# Character scope; filing has no penal effect. Subject identity never transfers.
+mam_justice_open_effect = {
+ clear_saved_scope = mam_jus_new
+ if = { limit = { exists = scope:mam_jus_subject scope:mam_jus_subject = { mam_justice_tracked_trigger = yes mam_justice_person_trigger = yes }
+  exists = title:h_china.holder title:h_china.holder = { mam_justice_emperor_trigger = yes }
+  NOT = { title:h_china = { any_in_list = { variable = mam_jus_queue count >= 8 always = yes } } }
+  scope:mam_jus_subject = { NOT = { exists = var:mam_jus_case } }
+  OR = { scope:mam_jus_subject = { NOT = { has_character_flag = mam_jus_recent } } exists = scope:mam_cen_file exists = scope:mam_jus_aging_origin
+   AND = { exists = scope:mam_jus_originator scope:mam_jus_originator = { OR = { mam_justice_officer_trigger = yes mam_justice_emperor_trigger = yes } } } }
+ }
+  title:h_china.holder = { create_story = { type = mam_justice_case_story save_scope_as = mam_jus_new } }
+  if = { limit = { exists = scope:mam_jus_new }
+   title:h_china = { if = { limit = { NOT = { has_variable = mam_jus_statute_started } } set_variable = { name = mam_jus_statute_started value = current_date } } }
+   scope:mam_jus_new = {
+    set_variable = { name = mam_jus_realm value = title:h_china }
+    set_variable = { name = mam_jus_subject value = scope:mam_jus_subject }
+    set_variable = { name = mam_jus_office value = scope:mam_jus_subject.primary_title }
+    set_variable = { name = mam_jus_created value = current_date }
+    set_variable = { name = mam_jus_pending value = 1 }
+    set_variable = { name = mam_jus_serial value = 0 }
+    set_variable = { name = mam_jus_action value = 0 }
+    set_variable = { name = mam_jus_delay value = 0 }
+    if = { limit = { exists = scope:mam_cen_file }
+     set_variable = { name = mam_jus_source value = scope:mam_cen_file }
+    }
+    if = { limit = { exists = scope:mam_jus_originator } set_variable = { name = mam_jus_originator value = scope:mam_jus_originator } }
+    if = { limit = { exists = scope:mam_jus_aging_origin } set_variable = { name = mam_jus_aged value = 1 } }
+    mam_justice_identify_offense_effect = yes
+    mam_justice_move_effect = { STAGE = 1 DAYS = 1 }
+   }
+   scope:mam_jus_subject = { set_variable = { name = mam_jus_case value = scope:mam_jus_new } set_variable = { name = mam_jus_episode_seen value = 1 } }
+   title:h_china = { add_to_variable_list = { name = mam_jus_queue target = scope:mam_jus_new } add_to_variable_list = { name = mam_jus_cases target = scope:mam_jus_new } }
+   debug_log = "MAM_JUSTICE: opened institutional judicial business; no guilt or penalty created"
+  }
+ }
+}
+mam_justice_from_censor_effect = {
+ if = { limit = { mam_censor_actor_trigger = yes scope:mam_cen_subject = { mam_justice_senior_trigger = yes }
+  NOT = { scope:mam_cen_file = { has_variable = mam_cen_justice_referred } }
+ }
+  scope:mam_cen_subject = { save_scope_as = mam_jus_subject }
+  save_scope_as = mam_jus_originator
+  mam_justice_open_effect = yes
+  if = { limit = { exists = scope:mam_jus_new }
+   scope:mam_cen_file = { set_variable = { name = mam_cen_justice_referred value = scope:mam_jus_new } }
+  }
+ }
+}
+mam_justice_poll_effect = {
+ mam_justice_recover_transaction_effect = yes
+ if = { limit = { mam_justice_emperor_trigger = yes NOT = { title:h_china = { exists = var:mam_jus_transaction } } }
+  clear_saved_scope = mam_cen_file clear_saved_scope = mam_jus_originator clear_saved_scope = mam_jus_aging_origin
+  every_vassal_or_below = { limit = { mam_justice_senior_trigger = yes
+   NOT = { exists = var:mam_jus_case } mam_justice_native_ground_trigger = no is_imprisoned = no
+  } remove_variable = mam_jus_episode_seen }
+  ordered_vassal_or_below = { limit = {
+   mam_justice_senior_trigger = yes NOT = { exists = var:mam_jus_case } NOT = { has_character_flag = mam_jus_recent } NOT = { has_variable = mam_jus_episode_seen }
+   OR = { mam_censor_public_detention_trigger = yes mam_justice_native_ground_trigger = yes }
+  } order_by = mam_censor_public_priority max = 1 check_range_bounds = no
+   save_scope_as = mam_jus_subject mam_justice_open_effect = yes
+  }
+  title:h_china = { every_in_list = { variable = mam_jus_queue mam_justice_tick_effect = yes } }
+  mam_justice_aging_effect = yes
+ }
+}
+mam_justice_move_effect = {
+ set_variable = { name = mam_jus_stage value = $STAGE$ }
+ set_variable = { name = mam_jus_due value = { value = current_date add = $DAYS$ } }
+ change_variable = { name = mam_jus_serial add = 1 }
+ remove_variable = mam_jus_sent remove_variable = mam_jus_until remove_variable = mam_jus_reviewer
+ var:mam_jus_realm = { if = { limit = { exists = var:mam_jus_desk var:mam_jus_desk = prev } remove_variable = mam_jus_desk } }
+ if = { limit = { var:mam_jus_stage = 4 }
+  set_variable = { name = mam_jus_action value = 0 } remove_variable = mam_jus_approved remove_variable = mam_jus_shadow
+ }
+}
+mam_justice_bind_effect = {
+ save_scope_as = mam_jus_case
+ var:mam_jus_subject = { save_scope_as = mam_jus_subject }
+ var:mam_jus_office = { save_scope_as = mam_jus_office }
+ var:mam_jus_realm.holder = { save_scope_as = mam_jus_emperor }
+ var:mam_jus_judge ?= { save_scope_as = mam_jus_judge }
+ clear_saved_scope = mam_jus_sender
+ var:mam_jus_judge ?= { if = { limit = { is_alive = yes this != scope:mam_jus_case.var:mam_jus_reviewer } } save_scope_as = mam_jus_sender }
+ if = { limit = { NOT = { exists = scope:mam_jus_sender } } var:mam_jus_realm.holder = { save_scope_as = mam_jus_sender } }
+ clear_saved_scope = mam_jus_offer_author clear_saved_scope = mam_jus_advocate
+ var:mam_jus_offer_author ?= { save_scope_as = mam_jus_offer_author }
+ var:mam_jus_advocate ?= { save_scope_as = mam_jus_advocate }
+ save_scope_value_as = { name = mam_jus_token value = var:mam_jus_serial }
+ save_scope_value_as = { name = mam_jus_expected value = var:mam_jus_stage }
+ mam_justice_native_bind_effect = yes
+ if = { limit = { has_variable = mam_jus_last_action }
+  save_scope_value_as = { name = mam_jus_last_action value = var:mam_jus_last_action }
+  var:mam_jus_last_performer ?= { save_scope_as = mam_jus_last_performer }
+  save_scope_value_as = { name = mam_jus_paid_treasury value = var:mam_jus_paid_treasury }
+  save_scope_value_as = { name = mam_jus_paid_gold value = var:mam_jus_paid_gold }
+  save_scope_value_as = { name = mam_jus_paid_influence value = var:mam_jus_paid_influence }
+  save_scope_value_as = { name = mam_jus_paid_prestige value = var:mam_jus_paid_prestige }
+  save_scope_value_as = { name = mam_jus_paid_piety value = var:mam_jus_paid_piety }
+ }
+}
+mam_justice_tick_effect = {
+ save_scope_as = mam_jus_case
+ if = { limit = { NOT = { var:mam_jus_realm = { exists = var:mam_jus_transaction } } }
+ if = { limit = { has_variable = mam_jus_pending_death var:mam_jus_pending = 1 }
+  mam_justice_pending_execution_effect = yes
+ }
+ else_if = { limit = { mam_justice_live_trigger = no }
+  if = { limit = { has_variable = mam_jus_pending var:mam_jus_pending = 1 } mam_justice_close_effect = { RESULT = 10 } }
+ }
+ else = {
+  save_scope_as = mam_jus_case
+  if = { limit = { OR = {
+   AND = { NOT = { has_variable = mam_jus_receipt_review } var:mam_jus_created <= { value = current_date subtract = 1095 } }
+   AND = { has_variable = mam_jus_receipt_review has_variable = mam_jus_review_started var:mam_jus_review_started <= { value = current_date subtract = 365 } }
+  } } mam_justice_close_effect = { RESULT = 10 } }
+  else = {
+   clear_saved_scope = mam_jus_next clear_saved_scope = mam_jus_current
+   title:e_minister_of_justice.holder ?= { if = { limit = { mam_justice_officer_trigger = yes this != scope:mam_jus_case.var:mam_jus_subject } } save_scope_as = mam_jus_current }
+   if = { limit = { NOT = { exists = scope:mam_jus_current } } var:mam_jus_realm.holder = { save_scope_as = mam_jus_current } }
+   if = { limit = { NOT = { exists = var:mam_jus_judge } } set_variable = { name = mam_jus_judge value = scope:mam_jus_current } }
+   else_if = { limit = { var:mam_jus_judge != scope:mam_jus_current }
+    set_variable = { name = mam_jus_judge value = scope:mam_jus_current }
+    remove_variable = mam_jus_approved remove_variable = mam_jus_shadow
+    if = { limit = { has_variable = mam_jus_offer_author } set_variable = { name = mam_jus_offer_void value = 1 } }
+    if = { limit = { has_variable = mam_jus_receipt_review } mam_justice_move_effect = { STAGE = 8 DAYS = 7 } }
+    else = { mam_justice_move_effect = { STAGE = 4 DAYS = 7 } }
+   }
+   if = { limit = { var:mam_jus_delay > 0 var:mam_jus_created <= { value = current_date subtract = 90 } NOT = { has_variable = mam_jus_delay_appeal } }
+    set_variable = { name = mam_jus_delay_appeal value = 1 }
+    mam_justice_move_effect = { STAGE = 8 DAYS = 1 }
+   }
+   switch = { trigger = var:mam_jus_stage
+    1 = { var:mam_jus_judge = { save_scope_as = mam_jus_next } }
+    2 = { var:mam_jus_subject = { save_scope_as = mam_jus_next } }
+    3 = {
+     var:mam_jus_realm.holder = { ordered_vassal_or_below = { limit = {
+      tgp_is_any_minister = yes is_alive = yes is_imprisoned = no
+      this != scope:mam_jus_case.var:mam_jus_subject this != scope:mam_jus_case.var:mam_jus_judge
+      OR = { has_title = title:e_minister_chancellor has_relation_friend = scope:mam_jus_case.var:mam_jus_subject
+       is_close_or_extended_family_of = scope:mam_jus_case.var:mam_jus_subject }
+     } order_by = mam_justice_advocate_weight max = 1 check_range_bounds = no
+      save_scope_as = mam_jus_next scope:mam_jus_case = { set_variable = { name = mam_jus_advocate value = prev } }
+     } }
+     if = { limit = { NOT = { exists = scope:mam_jus_next } } mam_justice_move_effect = { STAGE = 4 DAYS = 1 } }
+    }
+    4 = { var:mam_jus_judge = { save_scope_as = mam_jus_next } }
+    5 = { var:mam_jus_realm.holder = { save_scope_as = mam_jus_next } }
+    6 = {
+     mam_justice_bind_effect = yes
+     if = { limit = { var:mam_jus_action = 2 }
+      scope:mam_jus_pardon_performer ?= { if = { limit = { is_alive = yes is_imprisoned = no } } save_scope_as = mam_jus_next }
+     }
+     else = { var:mam_jus_subject.imprisoner ?= { if = { limit = { is_alive = yes is_imprisoned = no } } save_scope_as = mam_jus_next } }
+     if = { limit = { NOT = { exists = scope:mam_jus_next } } mam_justice_move_effect = { STAGE = 4 DAYS = 1 } }
+    }
+    7 = { var:mam_jus_subject = { save_scope_as = mam_jus_next } }
+    8 = {
+     var:mam_jus_realm.holder.cp:councillor_chancellor ?= { if = { limit = { is_alive = yes is_imprisoned = no this != scope:mam_jus_case.var:mam_jus_subject this != scope:mam_jus_case.var:mam_jus_judge } } save_scope_as = mam_jus_next }
+     if = { limit = { NOT = { exists = scope:mam_jus_next } } var:mam_jus_realm.holder = { save_scope_as = mam_jus_next } }
+    }
+    9 = { var:mam_jus_judge = { save_scope_as = mam_jus_next } }
+    10 = { var:mam_jus_subject = { save_scope_as = mam_jus_next } }
+    11 = { mam_justice_dispatch_commit_effect = yes }
+    12 = { mam_justice_censor_wait_effect = yes }
+   }
+   if = { limit = { exists = scope:mam_jus_next }
+    if = { limit = { NOT = { exists = var:mam_jus_reviewer } } set_variable = { name = mam_jus_reviewer value = scope:mam_jus_next } change_variable = { name = mam_jus_serial add = 1 } }
+    else_if = { limit = { var:mam_jus_reviewer != scope:mam_jus_next }
+     set_variable = { name = mam_jus_reviewer value = scope:mam_jus_next } change_variable = { name = mam_jus_serial add = 1 } remove_variable = mam_jus_sent
+    }
+    if = { limit = { has_variable = mam_jus_until var:mam_jus_until <= current_date } remove_variable = mam_jus_sent }
+    if = { limit = { var:mam_jus_due <= current_date NOT = { has_variable = mam_jus_sent }
+     var:mam_jus_realm = { OR = { NOT = { exists = var:mam_jus_desk } var:mam_jus_desk = prev } }
+    }
+     var:mam_jus_realm = { set_variable = { name = mam_jus_desk value = prev } }
+     mam_justice_bind_effect = yes
+     set_variable = { name = mam_jus_sent value = 1 }
+     set_variable = { name = mam_jus_until value = { value = current_date add = 90 } }
+     switch = { trigger = var:mam_jus_stage
+      1 = { var:mam_jus_reviewer = { trigger_event = mam_justice.1 } }
+      2 = { var:mam_jus_reviewer = { trigger_event = mam_justice.2 } }
+      3 = { var:mam_jus_reviewer = { trigger_event = mam_justice.3 } }
+      4 = { var:mam_jus_reviewer = { trigger_event = mam_justice.4 } }
+      5 = { var:mam_jus_reviewer = { trigger_event = mam_justice.5 } }
+      6 = { var:mam_jus_reviewer = { trigger_event = mam_justice.6 } }
+      7 = { var:mam_jus_reviewer = { trigger_event = mam_justice.7 } }
+      8 = { var:mam_jus_reviewer = { trigger_event = mam_justice.8 } }
+      9 = { var:mam_jus_reviewer = { trigger_event = mam_justice.9 } }
+      10 = { var:mam_jus_reviewer = { trigger_event = mam_justice.10 } }
+     }
+    }
+   }
+  }
+ }
+ }
+}
+mam_justice_propose_effect = {
+ set_variable = { name = mam_jus_action value = $ACTION$ }
+ change_variable = { name = mam_jus_serial add = 1 }
+ remove_variable = mam_jus_approved remove_variable = mam_jus_approver
+ remove_variable = mam_jus_custodian_consent remove_variable = mam_jus_terms_consent remove_variable = mam_jus_cost_paid
+ remove_variable = mam_jus_executed
+ remove_variable = mam_jus_funding_started remove_variable = mam_jus_breach_before
+ set_variable = { name = mam_jus_author value = var:mam_jus_judge }
+ remove_variable = mam_jus_proposed_offense
+ mam_justice_native_bind_effect = yes
+ if = { limit = { var:mam_jus_action = 7 exists = var:mam_jus_offense_identity }
+  set_variable = { name = mam_jus_proposed_offense value = var:mam_jus_offense_identity }
+ }
+ if = { limit = { var:mam_jus_judge = var:mam_jus_realm.holder } mam_justice_approve_effect = yes }
+ if = { limit = { mam_justice_authorized_trigger = no } mam_justice_move_effect = { STAGE = 5 DAYS = 7 } }
+ else = { mam_justice_move_effect = { STAGE = 11 DAYS = 1 } }
+}
+mam_justice_approve_effect = {
+ set_variable = { name = mam_jus_approved value = 1 }
+ set_variable = { name = mam_jus_approver value = var:mam_jus_realm.holder }
+ if = { limit = { var:mam_jus_action = 7 mam_justice_selected_offense_trigger = yes }
+  set_variable = { name = mam_jus_approved_offense value = var:mam_jus_proposed_offense }
+ }
+ if = { limit = { var:mam_jus_action = 2 exists = scope:mam_jus_pardon_authority }
+  set_variable = { name = mam_jus_approved_authority value = scope:mam_jus_pardon_authority }
+  set_variable = { name = mam_jus_approved_reasons value = mam_justice_pardon_reason_mask }
+ }
+}
+mam_justice_close_effect = {
+ save_scope_as = mam_jus_case
+ if = { limit = { has_variable = mam_jus_pending var:mam_jus_pending = 1 }
+  set_variable = { name = mam_jus_pending value = 0 }
+  set_variable = { name = mam_jus_result value = $RESULT$ }
+  set_variable = { name = mam_jus_closed value = current_date }
+  change_variable = { name = mam_jus_serial add = 1 }
+  # Guard post-write state: native tooltip previews do not set variables.
+  if = { limit = { has_variable = mam_jus_result }
+   var:mam_jus_realm = { remove_list_variable = { name = mam_jus_queue target = prev }
+    if = { limit = { exists = var:mam_jus_desk var:mam_jus_desk = prev } remove_variable = mam_jus_desk }
+   }
+   var:mam_jus_subject ?= {
+    if = { limit = { exists = var:mam_jus_case var:mam_jus_case = prev } remove_variable = mam_jus_case }
+    set_variable = { name = mam_jus_last_case value = scope:mam_jus_case }
+    add_character_flag = { flag = mam_jus_recent years = 1 }
+   }
+   mam_justice_notify_effect = yes
+   debug_log = "MAM_JUSTICE: closed judicial business once; native disposition retained"
+  }
+ }
+}

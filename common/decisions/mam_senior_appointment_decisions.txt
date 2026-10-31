@@ -1,0 +1,34 @@
+﻿mam_personnel_resume_appointments_decision = {
+
+ decision_group_type = mam_ministries ai_check_interval = 0
+
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds" }
+
+ desc = mam_personnel_resume_appointments_desc selection_tooltip = mam_personnel_resume_appointments_desc confirm_text = mam_senior.resume
+
+ is_shown = { is_ai = no mam_can_nominate_trigger = yes top_liege = { any_owned_story = { story_type = mam_senior_appointment_story mam_senior_pending_trigger = yes NOT = { has_variable = mam_senior_awaiting_confirmation } } } }
+
+ is_valid = {
+  mam_can_nominate_trigger = yes
+  save_temporary_scope_as = mam_resume_actor
+  top_liege.primary_title = { OR = {
+   NOT = { has_variable = mam_senior_open_file }
+   NOT = { exists = var:mam_senior_open_file }
+   var:mam_senior_open_file = { mam_senior_pending_trigger = no }
+   NOT = { exists = var:mam_senior_open_actor }
+   var:mam_senior_open_actor != scope:mam_resume_actor
+   NOT = { has_variable = mam_senior_open_until }
+   AND = { has_variable = mam_senior_open_until var:mam_senior_open_until <= current_date }
+  } }
+ }
+
+ effect = { if = { limit = { mam_can_nominate_trigger = yes }
+
+ top_liege = { every_owned_story = { limit = { story_type = mam_senior_appointment_story mam_senior_pending_trigger = yes NOT = { has_variable = mam_senior_awaiting_confirmation } } remove_variable = mam_senior_snooze } }
+
+ mam_senior_queue_effect = yes } }
+
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+
+}
+

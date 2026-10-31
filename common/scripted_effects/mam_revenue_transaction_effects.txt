@@ -1,0 +1,286 @@
+﻿# Actor scope, validated live event. AMOUNT can be a literal or bound value.
+mam_revenue_propose_payment_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes exists = scope:mam_rv_recipient exists = scope:mam_rv_donor }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_amount value = $AMOUNT$ }
+   set_variable = { name = mam_rv_proposer value = root }
+   set_variable = { name = mam_rv_donor_snapshot value = var:mam_rv_donor_title.holder }
+   set_variable = { name = mam_rv_recipient_snapshot value = var:mam_rv_recipient_title.holder }
+   remove_variable = mam_rv_authorized remove_variable = mam_rv_donor_accepted
+   set_variable = { name = mam_rv_reserved value = 0 }
+   if = { limit = { mam_revenue_imperial_measure_trigger = yes } set_variable = { name = mam_rv_reserved value = 1 } }
+   if = { limit = { mam_revenue_payment_ready_trigger = yes }
+    if = { limit = { var:mam_rv_donor_title.holder != title:h_china.holder }
+     if = { limit = { var:mam_rv_donor_title.holder = root }
+      set_variable = { name = mam_rv_donor_accepted value = root }
+      mam_revenue_route_approval_effect = yes
+     }
+     else = { set_variable = { name = mam_rv_stage value = 2 } mam_revenue_release_effect = yes }
+    }
+    else = { mam_revenue_route_approval_effect = yes }
+   }
+   else = { mam_revenue_snooze_effect = yes debug_log = "MAM_REVENUE: proposal waits; account, need or reserve changed" }
+  }
+ }
+}
+# Story scope. No payment happens in the recommendation/consent stage.
+mam_revenue_route_approval_effect = {
+ if = { limit = { mam_revenue_delegated_trigger = yes NOT = { has_variable = mam_rv_disputed } var:mam_rv_kind != 4 }
+  remove_variable = mam_rv_explicit_authorizer
+  set_variable = { name = mam_rv_authorized value = title:h_china.holder }
+  mam_revenue_commit_effect = yes
+ }
+ else = {
+  set_variable = { name = mam_rv_reserved value = 0 }
+  if = { limit = { OR = { mam_revenue_imperial_measure_trigger = yes var:mam_rv_donor_title.holder = title:h_china.holder } }
+   set_variable = { name = mam_rv_reserved value = 1 }
+  }
+  set_variable = { name = mam_rv_stage value = 3 }
+  mam_revenue_release_effect = yes
+ }
+}
+mam_revenue_donor_accept_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  scope:mam_rv_file = {
+   if = { limit = { always = $HALF$ } set_variable = { name = mam_rv_amount value = { value = var:mam_rv_amount divide = 2 floor = yes min = 1 } } }
+   set_variable = { name = mam_rv_donor_accepted value = var:mam_rv_donor_title.holder }
+   remove_variable = mam_rv_disputed
+   mam_revenue_route_approval_effect = yes
+   if = { limit = { var:mam_rv_pending = 1 var:mam_rv_stage = 3 }
+    mam_revenue_notify_effect = { STATUS = 7 PAID = no }
+   }
+  }
+ }
+}
+mam_revenue_dispute_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  scope:mam_rv_file = { set_variable = { name = mam_rv_disputed value = 1 } mam_revenue_route_approval_effect = yes }
+ }
+}
+mam_revenue_approve_effect = {
+ if = { limit = { mam_revenue_actor_trigger = yes }
+  scope:mam_rv_file = {
+   set_variable = { name = mam_rv_authorized value = root }
+   set_variable = { name = mam_rv_explicit_authorizer value = root }
+   if = { limit = { OR = { var:mam_rv_kind = 4 var:mam_rv_kind = 13 } } mam_revenue_commit_budget_effect = yes }
+   else = { mam_revenue_commit_effect = yes }
+  }
+ }
+}
+# Story scope. Authorization must still belong to the current superior.
+mam_revenue_commit_effect = {
+ save_scope_as = mam_rv_committing
+ if = { limit = {
+  mam_revenue_payment_ready_trigger = yes exists = var:mam_rv_authorized
+  OR = {
+   AND = { var:mam_rv_authorized = title:h_china.holder title:h_china.holder = { mam_revenue_emperor_trigger = yes } }
+   AND = { var:mam_rv_reserved = 0 mam_revenue_imperial_measure_trigger = no var:mam_rv_authorized = title:e_minister_chancellor.holder
+    var:mam_rv_authorized = { mam_revenue_chancellor_trigger = yes }
+   }
+  }
+  OR = { var:mam_rv_donor_title.holder = title:h_china.holder
+   var:mam_rv_donor_accepted = var:mam_rv_donor_title.holder
+   var:mam_rv_disputed = 1
+  }
+ }
+  var:mam_rv_donor_title.holder = { save_scope_as = mam_rv_payer }
+  var:mam_rv_recipient_title.holder = { save_scope_as = mam_rv_payee }
+  scope:mam_rv_payee = { save_scope_as = mam_rv_recipient }
+  var:mam_rv_proposer = { save_scope_as = mam_rv_revenue }
+  remove_variable = mam_rv_partiality
+  # Assess the choice before the grant changes the recipient's financial need.
+  if = { limit = { var:mam_rv_kind != 3 mam_revenue_personal_favour_trigger = yes } set_variable = { name = mam_rv_partiality value = 1 } }
+  set_variable = { name = mam_rv_paid_from value = scope:mam_rv_payer }
+  set_variable = { name = mam_rv_paid_to value = scope:mam_rv_payee }
+  set_variable = { name = mam_rv_before_donor value = scope:mam_rv_payer.treasury }
+  set_variable = { name = mam_rv_before_recipient value = scope:mam_rv_payee.treasury }
+  # Mark before calling the native effect. An uncertain payment is never retried.
+  set_variable = { name = mam_rv_payment_state value = 1 }
+  set_variable = { name = mam_rv_pending value = 0 }
+  scope:mam_rv_payer = { pay_short_term_treasury = { target = scope:mam_rv_payee treasury = scope:mam_rv_committing.var:mam_rv_amount } }
+  # Retain both account readings and actual deltas for the result event/save.
+  set_variable = { name = mam_rv_after_donor value = scope:mam_rv_payer.treasury }
+  set_variable = { name = mam_rv_after_recipient value = scope:mam_rv_payee.treasury }
+  set_variable = { name = mam_rv_actual_debit value = { value = var:mam_rv_before_donor subtract = var:mam_rv_after_donor } }
+  set_variable = { name = mam_rv_actual_credit value = { value = var:mam_rv_after_recipient subtract = var:mam_rv_before_recipient } }
+  if = { limit = {
+   var:mam_rv_amount > 0
+   var:mam_rv_actual_debit > 0 var:mam_rv_actual_credit > 0
+   var:mam_rv_actual_debit >= { value = var:mam_rv_amount subtract = 0.01 }
+   var:mam_rv_actual_debit <= { value = var:mam_rv_amount add = 0.01 }
+   var:mam_rv_actual_credit >= { value = var:mam_rv_amount subtract = 0.01 }
+   var:mam_rv_actual_credit <= { value = var:mam_rv_amount add = 0.01 }
+  }
+   set_variable = { name = mam_rv_payment_state value = 2 }
+   set_variable = { name = mam_rv_result value = 1 }
+   title:h_china = { change_variable = { name = mam_rv_payment_count add = 1 } }
+   mam_revenue_success_effect = yes
+   debug_log = "MAM_REVENUE: public contribution committed; donor and recipient balances verified"
+  }
+  else = {
+   set_variable = { name = mam_rv_payment_state value = 3 }
+   set_variable = { name = mam_rv_result value = 5 }
+   title:h_china = { change_variable = { name = mam_rv_uncertain_count add = 1 } }
+   var:mam_rv_subject = { set_variable = { name = mam_rv_aid_until value = { value = current_date add = 365 } } }
+   var:mam_rv_donor_title = { set_variable = { name = mam_rv_donor_until value = { value = current_date add = 365 } } }
+
+   mam_revenue_notify_effect = { STATUS = 5 PAID = no }
+   debug_log = "MAM_REVENUE: native transfer result uncertain; no rewards or automatic retry"
+  }
+  mam_revenue_close_effect = yes
+ }
+ else = {
+  remove_variable = mam_rv_authorized
+  set_variable = { name = mam_rv_stage value = 0 }
+  mam_revenue_snooze_effect = yes
+  debug_log = "MAM_REVENUE: commitment rejected; live authority/accounts/reserves changed"
+  title:h_china = { change_variable = { name = mam_rv_rejected_commit_count add = 1 } }
+ }
+}
+mam_revenue_commit_budget_effect = {
+ save_scope_as = mam_rv_budget_file
+ if = { limit = {
+  mam_revenue_file_current_trigger = yes exists = var:mam_rv_authorized
+  OR = { var:mam_rv_kind = 13 AND = { exists = var:mam_rv_proposer var:mam_rv_proposer = { mam_revenue_officer_trigger = yes } } }
+  var:mam_rv_subject.holder = { mam_revenue_budget_office_trigger = yes this = scope:mam_rv_budget_file.var:mam_rv_recipient_snapshot
+   mam_revenue_budget_level = scope:mam_rv_budget_file.var:mam_rv_budget_before }
+  OR = { var:mam_rv_authorized = title:h_china.holder
+   AND = { var:mam_rv_reserved = 0 mam_revenue_imperial_measure_trigger = no var:mam_rv_authorized = title:e_minister_chancellor.holder var:mam_rv_authorized = { mam_revenue_chancellor_trigger = yes } }
+  }
+ }
+  var:mam_rv_subject.holder = {
+   if = { limit = { scope:mam_rv_budget_file.var:mam_rv_budget_level = 0 } vassal_contract_set_obligation_level = { type = celestial_ministry_budget level = 0 } }
+   else_if = { limit = { scope:mam_rv_budget_file.var:mam_rv_budget_level = 2 } vassal_contract_set_obligation_level = { type = celestial_ministry_budget level = 2 } }
+   else = { vassal_contract_set_obligation_level = { type = celestial_ministry_budget level = 1 } }
+  }
+  if = { limit = { var:mam_rv_subject.holder.mam_revenue_budget_level = var:mam_rv_budget_level }
+   set_variable = { name = mam_rv_result value = 1 }
+   var:mam_rv_subject = { set_variable = { name = mam_rv_budget_review_until value = { value = current_date add = 365 } } }
+   if = { limit = { var:mam_rv_kind = 4 var:mam_rv_budget_level != var:mam_rv_budget_before exists = var:mam_rv_proposer }
+    var:mam_rv_subject.holder = {
+     if = { limit = { scope:mam_rv_budget_file.var:mam_rv_budget_level > scope:mam_rv_budget_file.var:mam_rv_budget_before }
+      add_opinion = { target = scope:mam_rv_budget_file.var:mam_rv_proposer modifier = mam_revenue_budget_raised_opinion }
+     }
+     else = { add_opinion = { target = scope:mam_rv_budget_file.var:mam_rv_proposer modifier = mam_revenue_budget_reduced_opinion } }
+    }
+   }
+   if = { limit = { var:mam_rv_kind = 13 }
+    var:mam_rv_subject.holder = {
+     add_opinion = { target = scope:mam_rv_budget_file.var:mam_rv_authorized modifier = mam_revenue_appeal_upheld_opinion }
+     if = { limit = { exists = scope:mam_rv_budget_file.var:mam_rv_cut_revenue scope:mam_rv_budget_file.var:mam_rv_cut_revenue = { is_alive = yes } }
+      remove_opinion = { target = scope:mam_rv_budget_file.var:mam_rv_cut_revenue modifier = mam_revenue_budget_reduced_opinion }
+     }
+    }
+   }
+   mam_revenue_notify_effect = { STATUS = 1 PAID = no }
+   mam_revenue_close_effect = yes
+   mam_revenue_offer_appeal_effect = yes
+  }
+  else = {
+   if = { limit = { var:mam_rv_kind = 13 }
+    set_variable = { name = mam_rv_result value = 4 }
+    mam_revenue_notify_effect = { STATUS = 8 PAID = no }
+    mam_revenue_close_effect = yes
+   }
+   else = { set_variable = { name = mam_rv_stage value = 0 } mam_revenue_snooze_effect = yes }
+  }
+ }
+ else = {
+   if = { limit = { var:mam_rv_kind = 13 }
+    set_variable = { name = mam_rv_result value = 4 }
+    mam_revenue_notify_effect = { STATUS = 8 PAID = no }
+    mam_revenue_close_effect = yes
+   }
+   else = { set_variable = { name = mam_rv_stage value = 0 } mam_revenue_snooze_effect = yes }
+  }
+}
+# Story scope. Consequences are separate from the one native payment call.
+mam_revenue_success_effect = {
+ save_scope_as = mam_rv_success
+ var:mam_rv_proposer ?= { save_scope_as = mam_rv_revenue }
+ var:mam_rv_recipient_title.holder = { save_scope_as = mam_rv_recipient }
+ if = { limit = { var:mam_rv_kind != 3 }
+  var:mam_rv_recipient_title = { set_variable = { name = mam_rv_aid_until value = { value = current_date add = 180 } } }
+  scope:mam_rv_recipient = {
+   if = { limit = { exists = scope:mam_rv_revenue }
+    remove_opinion = { target = scope:mam_rv_revenue modifier = mam_revenue_secured_funding_opinion }
+    add_opinion = { target = scope:mam_rv_revenue modifier = mam_revenue_secured_funding_opinion }
+   }
+   if = { limit = { exists = scope:mam_rv_success.var:mam_rv_donor_title.holder this != scope:mam_rv_success.var:mam_rv_donor_title.holder }
+    remove_opinion = { target = scope:mam_rv_success.var:mam_rv_donor_title.holder modifier = mam_revenue_fair_terms_opinion }
+    add_opinion = { target = scope:mam_rv_success.var:mam_rv_donor_title.holder modifier = mam_revenue_fair_terms_opinion }
+   }
+  }
+ }
+ if = { limit = { var:mam_rv_donor_title.holder != title:h_china.holder }
+  var:mam_rv_donor_title = { set_variable = { name = mam_rv_donor_until value = { value = current_date add = 365 } } }
+  var:mam_rv_donor_title.holder = {
+   if = { limit = { exists = scope:mam_rv_revenue this != scope:mam_rv_revenue }
+    remove_opinion = { target = scope:mam_rv_revenue modifier = mam_revenue_contribution_burden_opinion }
+    add_opinion = { target = scope:mam_rv_revenue modifier = mam_revenue_contribution_burden_opinion }
+   }
+   if = { limit = { scope:mam_rv_success = { has_variable = mam_rv_disputed } }
+    add_opinion = { target = scope:mam_rv_success.var:mam_rv_authorized modifier = mam_revenue_overruled_opinion }
+   }
+  }
+ }
+ else_if = { limit = { NOT = { has_variable = mam_rv_explicit_authorizer } }
+  title:h_china = { change_variable = { name = mam_rv_year_spent add = scope:mam_rv_success.var:mam_rv_amount } }
+ }
+ if = { limit = { var:mam_rv_kind = 3 }
+  var:mam_rv_subject = {
+   set_variable = { name = mam_rv_settlement value = 1 }
+   set_variable = { name = mam_rv_settlement_until value = { value = current_date add = 365 } }
+  }
+  var:mam_rv_subject.holder = { add_character_modifier = { modifier = mam_revenue_extra_remittance_modifier years = 1 } }
+ }
+ if = { limit = { var:mam_rv_kind = 5 } mam_revenue_apply_recovery_effect = yes }
+ if = { limit = { var:mam_rv_kind = 6 exists = var:mam_rv_project }
+  var:mam_rv_project = { set_variable = { name = mam_rv_project_funded_until value = { value = current_date add = 365 } } }
+  scope:mam_rv_recipient = { add_character_modifier = { modifier = mam_revenue_development_funding_modifier years = 1 } }
+ }
+ mam_revenue_native_credit_effect = yes
+ if = { limit = { exists = scope:mam_rv_revenue } scope:mam_rv_revenue = { mam_revenue_apply_funding_stress_effect = yes } }
+ if = { limit = { exists = var:mam_rv_explicit_authorizer }
+  var:mam_rv_explicit_authorizer = {
+   if = { limit = { has_trait = compassionate scope:mam_rv_success = { has_variable = mam_rv_disputed } } add_stress = 10 }
+   if = { limit = { this != scope:mam_rv_revenue } mam_revenue_apply_funding_stress_effect = yes }
+  }
+ }
+ if = { limit = { exists = var:mam_rv_donor_accepted NOT = { has_variable = mam_rv_disputed } }
+  var:mam_rv_donor_accepted = {
+   if = { limit = { this != scope:mam_rv_revenue
+    trigger_if = { limit = { exists = scope:mam_rv_success.var:mam_rv_explicit_authorizer } this != scope:mam_rv_success.var:mam_rv_explicit_authorizer }
+   } mam_revenue_apply_funding_stress_effect = yes }
+  }
+ }
+ mam_revenue_notify_effect = { STATUS = 1 PAID = yes }
+}
+mam_revenue_native_credit_effect = {
+ save_scope_as = mam_rv_credit_file
+ if = { limit = { has_variable = mam_rv_native_request exists = var:mam_rv_native_actor exists = var:mam_rv_native_recipient
+  var:mam_rv_recipient_title.holder = var:mam_rv_native_actor
+ }
+  var:mam_rv_proposer ?= { change_influence = major_influence_value }
+  var:mam_rv_native_actor = {
+   if = { limit = { scope:mam_rv_credit_file = { has_variable = mam_rv_native_hook } has_usable_hook = scope:mam_rv_credit_file.var:mam_rv_native_recipient }
+    use_hook = scope:mam_rv_credit_file.var:mam_rv_native_recipient
+   }
+  }
+  if = { limit = { has_variable = mam_rv_clear_debt var:mam_rv_native_actor.treasury >= 0 }
+   var:mam_rv_donor_title.holder = { add_hook = { type = strong_indebted_hook target = scope:mam_rv_credit_file.var:mam_rv_native_actor } }
+   situation:dynastic_cycle ?= { if = { limit = { situation_top_has_catalyst = catalyst_cleared_treasury_debt any_situation_participant = { this = scope:mam_rv_credit_file.var:mam_rv_native_actor } }
+    trigger_situation_catalyst = { catalyst = catalyst_cleared_treasury_debt character = scope:mam_rv_credit_file.var:mam_rv_donor_title.holder }
+   } }
+  }
+ }
+}
+
+# Current deciding character; called only after a verified successful payment.
+mam_revenue_apply_funding_stress_effect = {
+ if = { limit = { has_trait = vengeful scope:mam_rv_recipient = { has_relation_rival = prev } scope:mam_rv_success.var:mam_rv_kind != 3 } add_stress = 15 }
+ if = { limit = { scope:mam_rv_success = { has_variable = mam_rv_partiality } }
+  if = { limit = { has_trait = just } add_stress = 15 }
+  if = { limit = { has_trait = honest } add_stress = 15 }
+ }
+}

@@ -1,0 +1,148 @@
+﻿# Title scope. Only dossier metadata is written; the economy and titles are read.
+# CAPTURE=yes records the exact county set. CAPTURE=no checks every current member.
+mam_sample_dossier_effect = {
+ save_scope_as = mam_dossier_title
+ set_variable = { name = mam_ds_count value = 0 }
+ set_variable = { name = mam_ds_control value = 0 }
+ set_variable = { name = mam_ds_development value = 0 }
+ remove_variable = mam_ds_coverage_changed
+ holder = {
+  every_sub_realm_county = {
+   save_scope_as = mam_dossier_county
+   save_scope_value_as = { name = mam_ds_county_control value = county_control }
+   save_scope_value_as = { name = mam_ds_county_development value = development_level }
+   scope:mam_dossier_title = {
+    change_variable = { name = mam_ds_count add = 1 }
+    change_variable = { name = mam_ds_control add = scope:mam_ds_county_control }
+    change_variable = { name = mam_ds_development add = scope:mam_ds_county_development }
+    if = { limit = { always = $CAPTURE$ }
+     add_to_variable_list = { name = mam_ds_counties target = scope:mam_dossier_county }
+    }
+    else_if = { limit = { NOT = { any_in_list = { variable = mam_ds_counties this = scope:mam_dossier_county } } }
+     set_variable = { name = mam_ds_coverage_changed value = 1 }
+    }
+   }
+  }
+ }
+ # Effect previews do not execute the initialization above. Do not read an
+ # absent sample count while the engine describes this effect in a tooltip.
+ if = { limit = {
+  trigger_if = { limit = { has_variable = mam_ds_count } var:mam_ds_count > 0 }
+  trigger_else = { always = no }
+ }
+  set_variable = { name = mam_ds_control value = { value = var:mam_ds_control divide = var:mam_ds_count } }
+  set_variable = { name = mam_ds_development value = { value = var:mam_ds_development divide = var:mam_ds_count } }
+ }
+ set_variable = { name = mam_ds_merit value = holder.merit_level }
+ set_variable = { name = mam_ds_sampled value = current_date }
+ if = { limit = { holder = { OR = { is_at_war = yes top_liege = { is_at_war = yes } } } }
+  set_variable = { name = mam_ds_war_observed value = 1 }
+ }
+}
+# Title scope. REASON: 0 initial, 1 holder/title gain, 2 realm, 3 counties, 4 restart.
+mam_start_dossier_effect = {
+ if = { limit = { NOT = { has_variable = mam_ds_serial } } set_variable = { name = mam_ds_serial value = 0 } }
+ change_variable = { name = mam_ds_serial add = 1 }
+ mam_clear_service_advice_effect = yes
+ clear_variable_list = mam_ds_counties
+ remove_variable = mam_ds_sponsor
+ remove_variable = mam_ds_war_observed
+ remove_variable = mam_ds_invalidated
+ set_variable = { name = mam_ds_holder value = holder }
+ set_variable = { name = mam_ds_realm value = holder.top_liege.primary_title }
+ set_variable = { name = mam_ds_started value = current_date }
+ set_variable = { name = mam_ds_reset_reason value = $REASON$ }
+ mam_sample_dossier_effect = { CAPTURE = yes }
+ set_variable = { name = mam_ds_baseline_count value = var:mam_ds_count }
+ set_variable = { name = mam_ds_baseline_control value = var:mam_ds_control }
+ set_variable = { name = mam_ds_baseline_development value = var:mam_ds_development }
+ set_variable = { name = mam_ds_baseline_merit value = var:mam_ds_merit }
+}
+# Character scope. No saved event chain/timer can attach a predecessor's record.
+mam_update_one_dossier_effect = {
+ if = { limit = {
+  mam_dossier_governor_trigger = yes
+  top_liege.primary_title = { has_variable = mam_ds_enabled }
+  exists = top_liege.cp:minister_personnel top_liege.cp:minister_personnel = { mam_personnel_manage_talent_trigger = yes }
+ }
+  primary_title = {
+   if = { limit = { NOT = { has_variable = mam_ds_serial } } set_variable = { name = mam_ds_serial value = 0 } }
+   if = { limit = { NOT = { has_variable = mam_ds_holder } }
+    mam_start_dossier_effect = { REASON = 0 }
+   }
+   else_if = { limit = { OR = { holder != var:mam_ds_holder has_variable = mam_ds_invalidated } }
+    mam_start_dossier_effect = { REASON = 1 }
+   }
+   else_if = { limit = { NOT = { var:mam_ds_realm = holder.top_liege.primary_title } }
+    mam_start_dossier_effect = { REASON = 2 }
+   }
+   else = {
+    mam_sample_dossier_effect = { CAPTURE = no }
+    if = { limit = { OR = { has_variable = mam_ds_coverage_changed NOT = { var:mam_ds_count = var:mam_ds_baseline_count } } }
+     mam_start_dossier_effect = { REASON = 3 }
+    }
+   }
+  }
+ }
+}
+# Independent ruler scope. An opted-in realm only; no global character scan.
+mam_refresh_realm_dossiers_effect = {
+ every_vassal_or_below = { mam_update_one_dossier_effect = yes }
+}
+mam_enable_dossiers_effect = {
+ top_liege = {
+  primary_title = { set_variable = { name = mam_ds_enabled value = 1 } }
+  every_vassal_or_below = {
+   if = { limit = { mam_dossier_governor_trigger = yes }
+    primary_title = { mam_start_dossier_effect = { REASON = 4 } }
+   }
+  }
+ }
+}
+mam_disable_dossiers_effect = {
+ top_liege.primary_title = { remove_variable = mam_ds_enabled }
+}
+# A loss followed by regaining the same title must still restart observation.
+mam_invalidate_dossier_effect = {
+ if = { limit = { has_variable = mam_ds_holder }
+  set_variable = { name = mam_ds_invalidated value = 1 }
+ }
+}
+# Called only within the existing verified successful ministry appointment path.
+mam_record_dossier_sponsor_effect = {
+ scope:mam_nominee = {
+  mam_update_one_dossier_effect = yes
+  if = { limit = { top_liege.primary_title = { has_variable = mam_ds_enabled } }
+   primary_title = { set_variable = { name = mam_ds_sponsor value = scope:mam_minister } }
+  }
+ }
+ scope:mam_replacement ?= {
+  mam_update_one_dossier_effect = yes
+  if = { limit = { top_liege.primary_title = { has_variable = mam_ds_enabled } }
+   primary_title = { set_variable = { name = mam_ds_sponsor value = scope:mam_minister } }
+  }
+ }
+}
+# Requester scope; saved mam_dossier_governor. Only observation metadata refreshes.
+mam_prepare_dossier_report_effect = {
+ clear_saved_scope = mam_dossier_sponsor
+ save_scope_value_as = { name = mam_dossier_display value = 0 }
+ scope:mam_dossier_governor = {
+  mam_update_one_dossier_effect = yes
+  primary_title = {
+   save_scope_as = mam_dossier_title
+   if = { limit = { mam_dossier_record_current_trigger = yes }
+    save_scope_value_as = { name = mam_dossier_display value = 1 }
+    save_scope_value_as = { name = mam_dossier_days value = { value = var:mam_ds_sampled subtract = var:mam_ds_started min = 0 } }
+    save_scope_value_as = { name = mam_dossier_count value = var:mam_ds_count }
+    save_scope_value_as = { name = mam_dossier_start_merit value = var:mam_ds_baseline_merit }
+    save_scope_value_as = { name = mam_dossier_end_merit value = var:mam_ds_merit }
+    save_scope_value_as = { name = mam_dossier_start_control value = var:mam_ds_baseline_control }
+    save_scope_value_as = { name = mam_dossier_end_control value = var:mam_ds_control }
+    save_scope_value_as = { name = mam_dossier_start_development value = var:mam_ds_baseline_development }
+    save_scope_value_as = { name = mam_dossier_end_development value = var:mam_ds_development }
+    if = { limit = { has_variable = mam_ds_sponsor } var:mam_ds_sponsor = { save_scope_as = mam_dossier_sponsor } }
+   }
+  }
+ }
+}

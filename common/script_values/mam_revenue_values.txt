@@ -1,0 +1,46 @@
+﻿# Public treasury values, not personal gold. Initial tuning is deliberately bounded.
+mam_revenue_account_reserve = {
+ value = 200
+ if = { limit = { mam_revenue_emperor_trigger = yes }
+  value = 500
+  if = { limit = { title:h_china = { var:mam_rv_mandate = 2 } } value = 300 }
+ }
+ else = { add = { value = monthly_character_treasury_variable_income multiply = 2 min = 0 max = 300 } }
+}
+mam_revenue_contribution_capacity = { value = treasury subtract = mam_revenue_account_reserve min = 0 floor = yes }
+mam_revenue_budget_level = {
+ value = 1
+ # The native value returns the zero-based obligation index, not a named scope.
+ if = { limit = { vassal_contract_obligation_level:celestial_ministry_budget = 0 } value = 0 }
+ else_if = { limit = { vassal_contract_obligation_level:celestial_ministry_budget = 2 } value = 2 }
+}
+mam_revenue_need_score = {
+ value = 0
+ if = { limit = { treasury < 0 } add = 100 }
+ if = { limit = { monthly_character_treasury_balance < 0 } add = 20 }
+ if = { limit = { treasury < minor_treasury_value } add = 30 }
+ if = { limit = { mam_revenue_has_recovery_need_trigger = yes } add = 40 }
+ if = { limit = { mam_revenue_has_project_trigger = yes } add = 20 }
+ if = { limit = { title:h_china = {
+  has_variable = mam_cf_programme
+  trigger_if = { limit = { has_variable = mam_cf_programme } var:mam_cf_programme = 2 }
+ } mam_revenue_has_recovery_need_trigger = yes } add = 25 }
+}
+# Candidate recipient scope. Caller binds the current Revenue minister.
+mam_revenue_relationship_bias = {
+ value = 0
+ if = { limit = { exists = scope:mam_rv_revenue }
+  if = { limit = { is_close_or_extended_family_of = scope:mam_rv_revenue scope:mam_rv_revenue = { has_trait = ambitious } } add = 10 }
+  if = { limit = { has_relation_friend = scope:mam_rv_revenue } add = 8 }
+  if = { limit = { is_in_same_movement_as = { TARGET = scope:mam_rv_revenue } } add = 6 }
+  if = { limit = { has_relation_rival = scope:mam_rv_revenue scope:mam_rv_revenue = { has_trait = vengeful } } subtract = 15 }
+  if = { limit = { scope:mam_rv_revenue = { OR = { has_trait = just has_trait = honest } } } multiply = 0.25 }
+ }
+ min = -15 max = 15
+}
+mam_revenue_priority_score = { value = mam_revenue_need_score add = mam_revenue_relationship_bias }
+# Story scope. Old cases age without overpowering a genuine emergency.
+mam_revenue_queue_score = {
+ value = var:mam_rv_urgency
+ add = { value = current_date subtract = var:mam_rv_created divide = 30 min = 0 max = 20 }
+}

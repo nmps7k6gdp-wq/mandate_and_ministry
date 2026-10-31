@@ -1,0 +1,11 @@
+﻿# Legacy placement evidence gains its visible trait, without rewards or popups.
+on_game_start_after_lobby = { on_actions = { mam_exam_restore_honors } }
+yearly_global_pulse = { on_actions = { mam_exam_restore_honors } }
+mam_exam_restore_honors = {
+ effect = {
+  every_living_character = {
+   limit = { mam_exam_recognition_rank > 0 NOT = { has_trait = mam_exam_laureate } }
+   mam_sync_exam_laureate_effect = yes
+  }
+ }
+}

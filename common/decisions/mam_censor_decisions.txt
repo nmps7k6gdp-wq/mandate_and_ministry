@@ -1,0 +1,39 @@
+﻿mam_censor_begin_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_censor_begin_decision_desc selection_tooltip = mam_censor_begin_decision_desc confirm_text = mam_cen.begin_confirm
+ is_shown = { mam_censor_officer_trigger = yes is_ai = no }
+ is_valid = { title:h_china = { NOT = { exists = var:mam_cen_active } } }
+ effect = { mam_censor_agenda_effect = yes }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+mam_censor_resume_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_censor_resume_decision_desc selection_tooltip = mam_censor_resume_decision_desc confirm_text = mam_cen.resume_confirm
+ is_shown = { is_ai = no title:h_china = { exists = var:mam_cen_active var:mam_cen_active = { exists = var:mam_cen_reviewer var:mam_cen_reviewer = root } } }
+ is_valid = { title:h_china.var:mam_cen_active = { exists = var:mam_cen_reviewer var:mam_cen_reviewer = root } }
+ effect = { title:h_china.var:mam_cen_active = {
+  if = { limit = { var:mam_cen_reviewer = root mam_censor_live_trigger = yes }
+   remove_variable = mam_cen_sent set_variable = { name = mam_cen_due value = current_date } mam_censor_tick_effect = yes
+  }
+ } }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}
+
+mam_censor_intelligence_decision = {
+ decision_group_type = mam_ministries ai_check_interval = 0
+ picture = { reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds" }
+ desc = mam_censor_intelligence_decision_desc selection_tooltip = mam_censor_intelligence_decision_desc confirm_text = mam_cen.intel_confirm
+ is_shown = { is_ai = no OR = { mam_censor_officer_trigger = yes mam_censor_emperor_trigger = yes }
+  exists = title:h_china.var:mam_cen_intel_brief
+  title:h_china.var:mam_cen_intel_brief ?= { mam_censor_intel_live_trigger = yes exists = var:mam_cen_reviewer var:mam_cen_reviewer = root }
+ }
+ is_valid = { title:h_china = { NOT = { exists = var:mam_cen_active } } }
+ effect = {
+  title:h_china.var:mam_cen_intel_brief ?= { if = { limit = { exists = var:mam_cen_reviewer var:mam_cen_reviewer = root }
+   remove_variable = mam_cen_sent mam_censor_intel_tick_effect = yes
+  } }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

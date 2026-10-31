@@ -1,0 +1,134 @@
+﻿# County capitals cannot be transferred as independent barony titles in CK3.
+# The county transaction moves its capital automatically; other baronies may move.
+mam_senior_direct_title_transfer_allowed_trigger = {
+ trigger_if = { limit = { tier = tier_barony }
+  exists = title_province
+  trigger_if = { limit = { exists = title_province }
+   title_province = { is_county_capital = no }
+  }
+ }
+}
+# Character scope. Only a territorial civilian empire governor within this realm.
+mam_senior_valid_empire_parent_trigger = {
+ is_alive = yes is_governor = yes is_independent_ruler = no
+ tgp_is_any_minister = no government_has_flag = government_is_celestial
+ top_liege.primary_title = $REALM$
+ liege = top_liege
+ primary_title = { tier = tier_empire is_landless_type_title = no is_noble_family_title = no }
+ OR = { vassal_contract_has_flag = celestial_civil_appointment vassal_contract_has_flag = meritocratic_civil_appointment }
+}
+# Incumbent scope: direct senior office or a kingdom beneath a civilian empire office.
+mam_senior_supported_hierarchy_trigger = {
+ save_temporary_scope_as = mam_hierarchy_incumbent
+ OR = {
+  liege = top_liege
+  AND = {
+   primary_title = { tier = tier_kingdom }
+   liege = { mam_senior_valid_empire_parent_trigger = { REALM = scope:mam_hierarchy_incumbent.top_liege.primary_title } }
+  }
+ }
+}
+# Story scope. A lower office's live custody/appointment owns its own components.
+mam_senior_jurisdiction_claim_live_trigger = {
+ exists = var:mam_senior_title.holder exists = var:mam_senior_realm.holder
+ OR = {
+  mam_senior_pending_trigger = yes
+  AND = {
+   exists = var:mam_senior_appointee
+   trigger_if = { limit = { exists = var:mam_senior_appointee }
+    var:mam_senior_title.holder = var:mam_senior_appointee
+    var:mam_senior_appointee = { is_alive = yes top_liege.primary_title = prev.var:mam_senior_realm }
+   }
+  }
+ }
+}
+# Title scope; caller binds mam_jurisdiction_file. Never take another live file's land.
+mam_senior_component_claim_available_trigger = {
+ trigger_if = { limit = { exists = var:mam_senior_component_file }
+  OR = {
+   var:mam_senior_component_file = scope:mam_jurisdiction_file
+   var:mam_senior_component_file = { mam_senior_jurisdiction_claim_live_trigger = no }
+  }
+ }
+ trigger_if = { limit = { exists = var:mam_senior_custody_file }
+  OR = {
+   var:mam_senior_custody_file = scope:mam_jurisdiction_file
+   var:mam_senior_custody_file = { mam_senior_pending_trigger = no }
+  }
+ }
+}
+# Title scope. A completed child office can change liege without surrendering
+# its protected land. A still-pending child file remains exclusively in custody.
+mam_senior_vassal_claim_available_trigger = {
+ save_temporary_scope_as = mam_claim_vassal_title
+ OR = {
+  mam_senior_component_claim_available_trigger = yes
+  AND = {
+   exists = var:mam_senior_component_file
+   trigger_if = { limit = { exists = var:mam_senior_component_file }
+    var:mam_senior_component_file = {
+     var:mam_senior_pending = 0
+     var:mam_senior_title = scope:mam_claim_vassal_title
+     exists = var:mam_senior_appointee
+     var:mam_senior_appointee = scope:mam_claim_vassal_title.holder
+    }
+   }
+  }
+ }
+}
+# Character scope: only the throne or the recorded former superior holds custody.
+mam_senior_recorded_custodian_trigger = {
+ OR = {
+  this = scope:mam_jurisdiction_file.var:mam_senior_realm.holder
+  AND = {
+   exists = scope:mam_jurisdiction_file.var:mam_senior_original_liege_title.holder
+   trigger_if = { limit = { exists = scope:mam_jurisdiction_file.var:mam_senior_original_liege_title.holder }
+    this = scope:mam_jurisdiction_file.var:mam_senior_original_liege_title.holder
+    top_liege.primary_title = scope:mam_jurisdiction_file.var:mam_senior_realm
+   }
+  }
+ }
+}
+# Recorded component-title scope. Only exact captured titles, never a geographic sweep.
+mam_senior_recorded_component_ready_trigger = {
+ mam_senior_direct_title_transfer_allowed_trigger = yes
+ exists = holder
+ tier < scope:mam_jurisdiction_file.var:mam_senior_title.tier
+ is_landless_type_title = no is_noble_family_title = no
+ is_leased_out = no is_head_of_faith = no
+ target_is_de_jure_liege_or_above = scope:mam_jurisdiction_file.var:mam_senior_title
+ mam_senior_component_claim_available_trigger = yes
+ trigger_if = { limit = { exists = holder } holder = { mam_senior_recorded_custodian_trigger = yes } }
+}
+# Character scope. Known vassals may keep mixed lower holdings they already held.
+# New heirs with other jurisdictions are not dragged in by one inherited county.
+mam_senior_recorded_vassal_holder_ready_trigger = {
+ save_temporary_scope_as = mam_jurisdiction_vassal_candidate
+ is_alive = yes
+ this != scope:mam_jurisdiction_file.var:mam_senior_appointee
+ top_liege.primary_title = scope:mam_jurisdiction_file.var:mam_senior_realm
+ exists = liege
+ trigger_if = { limit = { exists = liege } liege = { mam_senior_recorded_custodian_trigger = yes } }
+ exists = primary_title
+ trigger_if = { limit = { exists = primary_title }
+  primary_title = {
+   is_landless_type_title = no is_noble_family_title = no
+   tier < scope:mam_jurisdiction_file.var:mam_senior_title.tier
+   target_is_de_jure_liege_or_above = scope:mam_jurisdiction_file.var:mam_senior_title
+   mam_senior_vassal_claim_available_trigger = yes
+  }
+ }
+ trigger_if = { limit = {
+  NOT = { scope:mam_jurisdiction_file = { any_in_list = { variable = mam_senior_original_vassals this = scope:mam_jurisdiction_vassal_candidate } } }
+ }
+  NOT = { any_held_title = {
+   is_landless_type_title = no is_noble_family_title = no tier >= tier_county
+   NOT = { target_is_de_jure_liege_or_above = scope:mam_jurisdiction_file.var:mam_senior_title }
+  } }
+ }
+}
+# Title scope. A recorded vassal title still identifies a clean native successor.
+mam_senior_recorded_vassal_ready_trigger = {
+ exists = holder
+ trigger_if = { limit = { exists = holder } holder = { primary_title = prev mam_senior_recorded_vassal_holder_ready_trigger = yes } }
+}

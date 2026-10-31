@@ -1,0 +1,20 @@
+﻿
+# Passive financial receipts, not a Censor/Justice case system.
+mam_revenue_project_receipt_story = {
+ visible = no on_setup = { }
+ on_owner_death = {
+  clear_saved_scope = mam_cf_receipt_heir
+  title:h_china.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cf_receipt_heir } }
+  if = { limit = { NOT = { exists = scope:mam_cf_receipt_heir } }
+   title:h_china.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_cf_receipt_heir } }
+  }
+  if = { limit = { exists = scope:mam_cf_receipt_heir } make_story_owner = scope:mam_cf_receipt_heir }
+ }
+ effect_group = { days = 90 triggered_effect = { trigger = { always = yes } effect = {
+  if = { limit = { has_variable = mam_pc_date var:mam_pc_date <= { value = current_date subtract = 1825 } }
+   save_scope_as = mam_cf_old_receipt
+   title:h_china = { remove_list_variable = { name = mam_pc_receipts target = scope:mam_cf_old_receipt } }
+   end_story = yes
+  }
+ } } }
+}

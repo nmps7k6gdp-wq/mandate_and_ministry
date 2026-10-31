@@ -1,0 +1,14 @@
+﻿# Add named callbacks, preserving the native on_action's effects.
+yearly_playable_pulse = { on_actions = { mam_dossier_yearly_pulse } }
+mam_dossier_yearly_pulse = {
+ trigger = {
+  is_independent_ruler = yes government_has_flag = government_is_celestial
+  primary_title = { has_variable = mam_ds_enabled }
+  exists = cp:minister_personnel cp:minister_personnel = { mam_personnel_manage_talent_trigger = yes }
+ }
+ effect = { mam_personnel_assignment_maintenance_effect = yes mam_refresh_realm_dossiers_effect = yes mam_ai_service_reviews_effect = yes }
+}
+on_title_gain = { on_actions = { mam_dossier_title_gain } }
+mam_dossier_title_gain = {
+ effect = { scope:title ?= { mam_invalidate_dossier_effect = yes } }
+}

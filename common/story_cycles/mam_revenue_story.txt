@@ -1,0 +1,15 @@
+﻿mam_revenue_case_story = {
+ visible = no on_setup = { }
+ on_owner_death = {
+  clear_saved_scope = mam_rv_next_owner
+  title:h_china.holder ?= { if = { limit = { is_alive = yes } save_scope_as = mam_rv_next_owner } }
+  if = { limit = { NOT = { exists = scope:mam_rv_next_owner } }
+   title:h_china.current_heir ?= { if = { limit = { is_alive = yes } save_scope_as = mam_rv_next_owner } }
+  }
+  if = { limit = { exists = scope:mam_rv_next_owner } make_story_owner = scope:mam_rv_next_owner }
+ }
+ effect_group = { days = 30 triggered_effect = {
+  trigger = { OR = { var:mam_rv_pending = 1 AND = { has_variable = mam_rv_closed var:mam_rv_closed <= { value = current_date subtract = 365 } } } }
+  effect = { if = { limit = { var:mam_rv_pending = 1 } mam_revenue_case_tick_effect = yes } else = { end_story = yes } }
+ } }
+}

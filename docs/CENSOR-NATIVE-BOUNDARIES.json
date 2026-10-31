@@ -1,0 +1,123 @@
+{
+  "audited": "2026-10-30",
+  "game_root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game",
+  "purpose": "Read-only native call and preserved-spying evidence; no native overrides. Compare deliberately after a source change; never auto-refresh to make a check pass.",
+  "definitions": [
+    {
+      "source": "common/scripted_effects/10_dlc_tgp_scripted_effects.txt",
+      "definition": "fired_minister_position_effect",
+      "sha256": "a9c4764e1efc01a2048233b75908ac1bfd14829e8a40921a3ec34d975130b7d6",
+      "line": 1965
+    },
+    {
+      "source": "events/dlc/ep3/ep3_decisions_events.txt",
+      "definition": "ep3_decisions_event.4090",
+      "sha256": "3f39f55b96b358c983cce203395e8dd67ac7f235909892529c3a36c6d38015fe",
+      "line": 6100
+    },
+    {
+      "source": "common/schemes/scheme_types/tgp_dynastic_cycle_schemes.txt",
+      "definition": "celestial_minister_find_secrets_scheme",
+      "sha256": "f21687dfd9a356e965f4f40e3e7d3b7abc7b381a2406ecbfbc918f08688d8831",
+      "line": 826
+    },
+    {
+      "source": "common/character_interactions/10_tgp_interactions.txt",
+      "definition": "censor_find_secrets_interaction",
+      "sha256": "921eec8bb685558c04ee10afdc1d9f345b292e74e45dcb1bfe8af1603163a558",
+      "line": 11132
+    },
+    {
+      "source": "common/on_action/scheme_on_actions.txt",
+      "definition": "on_scheme_discovered",
+      "sha256": "787419d58502af71e34df407a67e114fd945de907d8525749afa4792b00247cd",
+      "line": 2
+    },
+    {
+      "source": "common/on_action/councillor_on_actions.txt",
+      "definition": "task_find_secrets_reveal_selection",
+      "sha256": "56c682355840a2ee181d3ac2902ad23ad7cc52ae1c7e6230869ae72b3386be69",
+      "line": 538
+    },
+    {
+      "source": "common/secret_types/dynastic_cycle_secrets.txt",
+      "definition": "secret_siphoned_treasury",
+      "sha256": "f68b274a7ed44be5694b0d97b3c2f2cd9c6e77bf74fcb7875f5c13b8de194f6a",
+      "line": 10
+    },
+    {
+      "source": "common/secret_types/dynastic_cycle_secrets.txt",
+      "definition": "secret_exam_cheater",
+      "sha256": "75f81ce44cb276c59da5d5a4bac82c9cbffb9b38d9667a6d430a301e08241d86",
+      "line": 188
+    },
+    {
+      "source": "common/secret_types/dynastic_cycle_secrets.txt",
+      "definition": "secret_request_incursion",
+      "sha256": "96001019a02f594bbf010e2c7ec6d4547dd36ca2eda22751a5bc6c157fc5ea5a",
+      "line": 98
+    },
+    {
+      "source": "common/secret_types/00_secret_types.txt",
+      "definition": "secret_embezzler",
+      "sha256": "66766391c06acdf4561fe9c1ad80d8e4ca73be1bf7e6c00f05ea4356c84ebc91",
+      "line": 620
+    },
+    {
+      "source": "common/secret_types/00_secret_types.txt",
+      "definition": "secret_coup_plotter",
+      "sha256": "4aef189ce6d04360da79b7feb93b3eb69f03aa69324d539998ce7b6465f4c75e",
+      "line": 660
+    },
+    {
+      "source": "common/secret_types/00_secret_types.txt",
+      "definition": "secret_murder",
+      "sha256": "aa1ff04d4317540aa3035d7617e05a97dbec4cf6563576ec7e4d11a5dd549140",
+      "line": 326
+    },
+    {
+      "source": "common/secret_types/00_secret_types.txt",
+      "definition": "secret_murder_attempt",
+      "sha256": "7d3b9da66de2661c64f123444ee413e2a8cd3d83707382f127f46fe3f7851198",
+      "line": 81
+    },
+    {
+      "source": "common/council_tasks/00_spymaster_tasks.txt",
+      "definition": "task_support_schemes",
+      "sha256": "19e60ba842d4291a92b50c4fb96044c55ae5e104c99e8eb4ca65f9287f64617f",
+      "line": 205
+    },
+    {
+      "source": "common/modifiers/00_artifact_modifiers.txt",
+      "definition": "artifact_scheme_resistance_add_1_modifier",
+      "sha256": "c6363b663b7ead1f08200f0727fbea3cbdb533f067ec333ccbaf2d1e2b6e7172",
+      "line": 680
+    },
+    {
+      "source": "common/on_action/traits_on_actions.txt",
+      "definition": "on_trait_gained",
+      "sha256": "6e4399a8bc176ccb3398844751dc68b53f3c7f1225afa5571e109b9036bba7a4",
+      "line": 6
+    },
+    {
+      "source": "common/on_action/prison_on_actions.txt",
+      "definition": "on_imprison",
+      "sha256": "e000f82ab0c2b8aca3c8493bd4e276d93750036d760168212b39074171fc6421",
+      "line": 7
+    },
+    {
+      "source": "common/scripted_triggers/00_religious_triggers.txt",
+      "definition": "has_any_criminal_trait_in_rite_trigger",
+      "sha256": "93cb745b7480e6c5c2287ded29f71ab0c6674ff37c0e08d9e36aa99d5d99101c",
+      "line": 623
+    },
+    {
+      "source": "common/character_interactions/00_prison_interactions.txt",
+      "definition": "imprison_interaction",
+      "sha256": "70040a861b909cf8a7bd4aa8e0028bcff6596f261bd328dba58cedf7da228e48",
+      "line": 1
+    }
+  ],
+  "discovery_audited": "2026-10-31",
+  "public_crime_audited": "2026-10-31"
+}

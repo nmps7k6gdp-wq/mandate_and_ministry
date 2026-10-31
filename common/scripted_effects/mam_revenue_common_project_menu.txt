@@ -1,0 +1,6 @@
+﻿mam_revenue_fund_reset_project_menu_effect = {
+ save_scope_as = mam_cf_project_reader
+ every_in_list = { variable = mam_cf_seen_projects
+  scope:mam_cf_project_reader = { remove_list_variable = { name = mam_cf_seen_projects target = prev } }
+ }
+}

@@ -1,0 +1,233 @@
+﻿mam_justice_emperor_trigger = { mam_censor_emperor_trigger = yes }
+mam_justice_officer_trigger = {
+ is_alive = yes is_adult = yes is_imprisoned = no has_title = title:e_minister_of_justice primary_title = title:e_minister_of_justice
+ top_liege = { mam_justice_emperor_trigger = yes cp:minister_justice = prev }
+}
+mam_justice_senior_trigger = { mam_censor_public_subject_trigger = yes is_diarch = no }
+mam_justice_tracked_trigger = {
+ OR = { mam_justice_senior_trigger = yes exists = var:mam_jus_case
+  AND = { has_character_flag = mam_jus_recent exists = var:mam_jus_last_case } }
+}
+mam_justice_self_petition_trigger = {
+ mam_justice_person_trigger = yes
+ trigger_if = { limit = { exists = var:mam_jus_case }
+  var:mam_jus_case = { mam_justice_live_trigger = yes mam_justice_petition_case_trigger = yes }
+ }
+ trigger_else = { exists = var:mam_jus_last_case
+  var:mam_jus_last_case = { NOT = { has_variable = mam_jus_appeal_used }
+   has_variable = mam_jus_closed var:mam_jus_closed >= { value = current_date subtract = 365 }
+  }
+ }
+}
+mam_justice_petition_case_trigger = {
+ NOT = { has_variable = mam_jus_appeal_used }
+ NOT = { has_variable = mam_jus_pending_death }
+ NOT = { has_variable = mam_jus_executing }
+ NOT = { has_variable = mam_jus_native_inflight }
+}
+mam_justice_known_misconduct_trigger = {
+ save_temporary_scope_as = mam_jus_known_case
+ OR = {
+  has_variable = mam_jus_offer_reported has_variable = mam_jus_violation
+  var:mam_jus_realm.holder = { any_owned_story = {
+   story_type = mam_censor_inspection_story exists = var:mam_cen_judicial_record
+   var:mam_cen_judicial_record = scope:mam_jus_known_case
+   has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1
+   has_variable = mam_cen_imperial_seen var:mam_cen_imperial_seen = 1
+  } }
+ }
+}
+mam_justice_any_reason_trigger = {
+ OR = { has_imprisonment_reason = $TARGET$ has_execute_reason = $TARGET$
+  has_banish_reason = $TARGET$ has_revoke_title_reason = $TARGET$ }
+}
+mam_justice_person_trigger = {
+ is_alive = yes is_adult = yes this != title:h_china.holder top_liege = title:h_china.holder
+ is_diarch = no
+}
+mam_justice_native_ground_trigger = {
+ save_temporary_scope_as = mam_jus_ground_target
+ OR = {
+  title:h_china.holder = { has_imprisonment_reason = scope:mam_jus_ground_target }
+  AND = { exists = liege liege = { has_imprisonment_reason = scope:mam_jus_ground_target } }
+  AND = { exists = title:e_minister_of_justice.holder title:e_minister_of_justice.holder = { has_imprisonment_reason = scope:mam_jus_ground_target } }
+ }
+}
+mam_justice_live_trigger = {
+ has_variable = mam_jus_pending var:mam_jus_pending = 1 exists = var:mam_jus_subject
+ exists = var:mam_jus_realm.holder var:mam_jus_realm.holder = { mam_justice_emperor_trigger = yes }
+ var:mam_jus_subject = { mam_justice_person_trigger = yes exists = var:mam_jus_case var:mam_jus_case = prev }
+}
+mam_justice_current_judge_trigger = {
+ exists = var:mam_jus_judge var:mam_jus_judge != var:mam_jus_subject
+ OR = {
+  var:mam_jus_judge = { mam_justice_officer_trigger = yes }
+  AND = { var:mam_jus_judge = var:mam_jus_realm.holder
+   trigger_if = { limit = { var:mam_jus_action = 7 } mam_justice_selected_offense_trigger = yes }
+   OR = { NOT = { exists = title:e_minister_of_justice.holder }
+    title:e_minister_of_justice.holder = var:mam_jus_subject
+    title:e_minister_of_justice.holder = { mam_justice_officer_trigger = no }
+   }
+  }
+ }
+}
+mam_justice_actor_trigger = {
+ exists = scope:mam_jus_case exists = scope:mam_jus_subject exists = scope:mam_jus_token exists = scope:mam_jus_expected
+ scope:mam_jus_case = {
+  mam_justice_live_trigger = yes var:mam_jus_serial = scope:mam_jus_token var:mam_jus_stage = scope:mam_jus_expected
+  exists = var:mam_jus_reviewer var:mam_jus_reviewer = root var:mam_jus_subject = scope:mam_jus_subject
+ }
+ is_alive = yes
+ trigger_if = { limit = { OR = { scope:mam_jus_expected = 2 scope:mam_jus_expected = 7 scope:mam_jus_expected = 10 } }
+  this = scope:mam_jus_subject
+ }
+ trigger_else = { is_imprisoned = no }
+ trigger_if = { limit = { OR = { scope:mam_jus_expected = 1 scope:mam_jus_expected = 4 scope:mam_jus_expected = 9 } }
+  scope:mam_jus_case = { NOT = { has_variable = mam_jus_receipt_review } }
+  this != scope:mam_jus_subject
+  OR = { mam_justice_officer_trigger = yes mam_justice_emperor_trigger = yes }
+  trigger_if = { limit = { mam_justice_emperor_trigger = yes }
+   OR = { NOT = { exists = title:e_minister_of_justice.holder }
+    title:e_minister_of_justice.holder = scope:mam_jus_subject
+    title:e_minister_of_justice.holder = { mam_justice_officer_trigger = no }
+   }
+  }
+ }
+ trigger_if = { limit = { scope:mam_jus_expected = 5 } mam_justice_emperor_trigger = yes }
+ trigger_if = { limit = { scope:mam_jus_expected = 6 }
+  OR = { AND = { scope:mam_jus_case.var:mam_jus_action = 2 this = scope:mam_jus_pardon_performer }
+   AND = { scope:mam_jus_case.var:mam_jus_action >= 3 scope:mam_jus_subject = { is_imprisoned_by = root } } }
+ }
+ trigger_if = { limit = { OR = { scope:mam_jus_expected = 3 scope:mam_jus_expected = 8 } }
+  this != scope:mam_jus_subject top_liege = title:h_china.holder
+  OR = { has_title = title:e_minister_chancellor mam_justice_emperor_trigger = yes
+   AND = { this = scope:mam_jus_case.var:mam_jus_advocate tgp_is_any_minister = yes } }
+ }
+}
+# Native interaction availability may be queried by this module without
+# issuing permission. Actual native on_accept has a separate commitment gate.
+mam_justice_native_gate_trigger = {
+ OR = {
+  $ACTOR$ = { NOT = { has_title = title:e_minister_of_justice } }
+  $TARGET$ = { mam_justice_tracked_trigger = no }
+  AND = { exists = scope:mam_jus_case scope:mam_jus_case = { mam_justice_live_trigger = yes }
+   $TARGET$ = scope:mam_jus_case.var:mam_jus_subject
+  }
+  mam_justice_native_commit_trigger = { ACTOR = $ACTOR$ TARGET = $TARGET$ ACTION = $ACTION$ }
+ }
+}
+mam_justice_native_commit_trigger = {
+ OR = {
+  $ACTOR$ = { NOT = { has_title = title:e_minister_of_justice } }
+  $TARGET$ = { mam_justice_tracked_trigger = no }
+  AND = { exists = scope:mam_jus_case
+   scope:mam_jus_case = { mam_justice_live_trigger = yes has_variable = mam_jus_executing var:mam_jus_executing = 1
+    var:mam_jus_performer = $ACTOR$ var:mam_jus_subject = $TARGET$
+    OR = { var:mam_jus_action = $ACTION$ AND = { var:mam_jus_action = 5 $ACTION$ = mam_justice_action_3 } }
+   }
+  }
+  AND = {
+   $ACTOR$ = { mam_justice_officer_trigger = yes NOT = { has_character_modifier = mam_jus_restrained } }
+   title:h_china.holder = { NOT = { has_realm_law = mam_justice_authority_reserved } }
+   $TARGET$ = { mam_justice_person_trigger = yes this != $ACTOR$ tgp_is_any_minister = no
+    NOT = { is_close_or_extended_family_of = title:h_china.holder }
+    trigger_if = { limit = { exists = var:mam_jus_case } var:mam_jus_case = { NOT = { has_variable = mam_jus_supervised } } }
+   }
+   OR = {
+    AND = { $ACTION$ = mam_justice_action_1 $TARGET$ = { mam_justice_native_ground_trigger = yes } }
+    AND = { $ACTION$ = mam_justice_action_2
+     $TARGET$ = { exists = liege liege = { mam_justice_any_reason_trigger = { TARGET = $TARGET$ } } }
+     NOT = { $TARGET$ = { exists = liege liege = { has_extra_criminal_reason_against_trigger = { CRIMINAL = $TARGET$ } } } }
+    }
+    AND = { $ACTION$ = mam_justice_action_3
+     scope:banish = no scope:demand_conversion = no scope:renounce_claims = no scope:gain_hook = no
+     scope:take_vows = no scope:recruit = no scope:disfigure = no scope:blind = no scope:castrate = no
+     scope:demand_admin = no scope:become_executioner = no scope:change_prison = no scope:make_puppet = no
+    }
+   }
+  }
+ }
+}
+mam_justice_reserved_trigger = {
+ OR = {
+  var:mam_jus_action >= 4
+  has_variable = mam_jus_supervised
+  var:mam_jus_realm.holder = { has_realm_law = mam_justice_authority_reserved }
+  var:mam_jus_judge = { has_character_modifier = mam_jus_restrained }
+  var:mam_jus_subject = { OR = { tgp_is_any_minister = yes is_close_or_extended_family_of = title:h_china.holder } }
+  AND = { var:mam_jus_action = 2 OR = {
+   scope:mam_jus_pardon_performer = var:mam_jus_realm.holder
+   scope:mam_jus_pardon_authority = { has_extra_criminal_reason_against_trigger = { CRIMINAL = scope:mam_jus_subject } }
+  } }
+ }
+}
+mam_justice_authorized_trigger = {
+ OR = {
+  AND = { var:mam_jus_judge = var:mam_jus_realm.holder
+   trigger_if = { limit = { var:mam_jus_action = 2 }
+    exists = var:mam_jus_approved_authority var:mam_jus_approved_authority = scope:mam_jus_pardon_authority
+    var:mam_jus_approved_reasons = mam_justice_pardon_reason_mask
+   }
+  }
+  AND = { mam_justice_reserved_trigger = no NOT = { has_variable = mam_jus_shadow } }
+  AND = { has_variable = mam_jus_approved var:mam_jus_approved = 1
+   exists = var:mam_jus_approver var:mam_jus_approver = var:mam_jus_realm.holder
+   trigger_if = { limit = { var:mam_jus_action = 7 }
+    mam_justice_selected_offense_trigger = yes exists = var:mam_jus_approved_offense
+    var:mam_jus_approved_offense = var:mam_jus_proposed_offense
+   }
+   trigger_if = { limit = { var:mam_jus_action = 2 }
+    exists = var:mam_jus_approved_authority var:mam_jus_approved_authority = scope:mam_jus_pardon_authority
+    var:mam_jus_approved_reasons = mam_justice_pardon_reason_mask
+   }
+  }
+  AND = { has_variable = mam_jus_shadow var:mam_jus_shadow = 1 var:mam_jus_action <= 3
+   scope:mam_jus_performer = var:mam_jus_judge
+   var:mam_jus_judge = { mam_justice_officer_trigger = yes NOT = { has_character_modifier = mam_jus_restrained } }
+  }
+ }
+}
+mam_justice_evidence_base_trigger = {
+ title:h_china = { has_variable = mam_jus_statute_started }
+ exists = var:mam_jus_source
+ var:mam_jus_source = { exists = var:mam_cen_subject var:mam_cen_subject = scope:mam_jus_subject }
+}
+mam_justice_paid_evidence_trigger = {
+ mam_justice_evidence_base_trigger = yes
+ var:mam_jus_source = { has_variable = mam_cen_proof var:mam_cen_proof = 1 exists = var:mam_cen_source
+  var:mam_cen_source = { exists = var:mam_patron_minister var:mam_patron_minister = scope:mam_jus_subject
+   has_variable = mam_patron_appointment has_variable = mam_patron_appointed has_variable = mam_patron_amount var:mam_patron_amount > 0
+   has_variable = mam_patron_date var:mam_patron_date >= title:h_china.var:mam_jus_statute_started
+   var:mam_patron_appointed >= title:h_china.var:mam_jus_statute_started
+  }
+ }
+}
+mam_justice_certification_evidence_trigger = {
+ mam_justice_evidence_base_trigger = yes
+ var:mam_jus_source = { has_variable = mam_cen_false_return has_variable = mam_cen_return_exposed var:mam_cen_false_return = 1 var:mam_cen_return_exposed = 1
+  has_variable = mam_cen_false_return_date var:mam_cen_false_return_date >= title:h_china.var:mam_jus_statute_started
+ }
+}
+mam_justice_judicial_evidence_trigger = {
+ mam_justice_evidence_base_trigger = yes
+ var:mam_jus_source = { has_variable = mam_cen_judicial_proof var:mam_cen_judicial_proof = 1 exists = var:mam_cen_judicial_record
+  var:mam_cen_judicial_record = { OR = {
+   AND = { exists = var:mam_jus_offer_author var:mam_jus_offer_author = scope:mam_jus_subject has_variable = mam_jus_offer_sent
+    has_variable = mam_jus_offer_date var:mam_jus_offer_date >= title:h_china.var:mam_jus_statute_started }
+   AND = { exists = var:mam_jus_violation_author var:mam_jus_violation_author = scope:mam_jus_subject has_variable = mam_jus_violation
+    has_variable = mam_jus_violation_date var:mam_jus_violation_date >= title:h_china.var:mam_jus_statute_started }
+  } }
+ }
+}
+mam_justice_custom_evidence_trigger = {
+ OR = { mam_justice_paid_evidence_trigger = yes mam_justice_certification_evidence_trigger = yes mam_justice_judicial_evidence_trigger = yes }
+}
+mam_justice_selected_offense_trigger = {
+ exists = var:mam_jus_proposed_offense
+ OR = {
+  AND = { mam_justice_paid_evidence_trigger = yes var:mam_jus_proposed_offense = var:mam_jus_source.var:mam_cen_source }
+  AND = { mam_justice_paid_evidence_trigger = no mam_justice_certification_evidence_trigger = yes var:mam_jus_proposed_offense = var:mam_jus_source }
+  AND = { mam_justice_paid_evidence_trigger = no mam_justice_certification_evidence_trigger = no
+   mam_justice_judicial_evidence_trigger = yes var:mam_jus_proposed_offense = var:mam_jus_source.var:mam_cen_judicial_record }
+ }
+}

@@ -1,0 +1,191 @@
+﻿namespace = mam_personnel
+mam_personnel.0030 = {
+    trigger = { always = no } # Legacy forced-transfer events retired.
+    immediate = { mam_refresh_power_context_effect = { SUBJECT = scope:mam_nominee } }
+    type = character_event
+    title = mam_personnel.0030.t
+    theme = merit
+    left_portrait = { character = scope:mam_nominee animation = reading }
+    desc = {
+        desc = mam_transfer.preview
+        triggered_desc = { trigger = { exists = scope:mam_exception_candidate } desc = mam_corrupt.exception_notice }
+        desc = mam_power.request_summary
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_power_best_destination } desc = mam_power.comparison } desc = mam_power.no_benchmark }
+        triggered_desc = { trigger = { exists = scope:mam_service_case } desc = mam_case.summary }
+        first_valid = {
+            triggered_desc = { trigger = { exists = scope:mam_source } desc = mam_transfer.source }
+            desc = mam_transfer.unlanded
+        }
+        triggered_desc = { trigger = { exists = scope:mam_source NOT = { exists = scope:mam_replacement_1 } } desc = mam_feedback.no_replacement }
+    }
+    option = {
+        name = mam_transfer.cancel
+        ai_chance = { base = 0 modifier = { add = 100 NOT = { exists = scope:mam_replacement_1 } exists = scope:mam_source } }
+    }
+    option = {
+        name = mam_transfer.submit_unlanded
+        trigger = { custom_tooltip = { text = mam_transfer.rules_checked NOT = { exists = scope:mam_source } mam_nomination_ready_trigger = yes } }
+        hidden_effect = { mam_submit_proposal_effect = yes }
+        ai_chance = { base = 100 }
+    }
+
+    option = {
+        name = mam_transfer.choose_1
+        trigger = { custom_tooltip = { text = mam_transfer.rules_checked exists = scope:mam_replacement_1 mam_nomination_ready_trigger = yes } }
+        hidden_effect = {
+            scope:mam_replacement_1 = { save_scope_as = mam_replacement }
+            mam_submit_proposal_effect = yes
+        }
+        ai_chance = { base = 100 }
+    }
+
+    option = {
+        name = mam_transfer.choose_2
+        trigger = { custom_tooltip = { text = mam_transfer.rules_checked exists = scope:mam_replacement_2 mam_nomination_ready_trigger = yes } }
+        hidden_effect = {
+            scope:mam_replacement_2 = { save_scope_as = mam_replacement }
+            mam_submit_proposal_effect = yes
+        }
+        ai_chance = { base = 0 }
+    }
+
+    option = {
+        name = mam_transfer.choose_3
+        trigger = { custom_tooltip = { text = mam_transfer.rules_checked exists = scope:mam_replacement_3 mam_nomination_ready_trigger = yes } }
+        hidden_effect = {
+            scope:mam_replacement_3 = { save_scope_as = mam_replacement }
+            mam_submit_proposal_effect = yes
+        }
+        ai_chance = { base = 0 }
+    }
+
+}
+mam_personnel.0040 = {
+    trigger = { always = no } # Legacy forced-transfer events retired.
+    immediate = { mam_read_native_successor_effect = yes mam_refresh_power_context_effect = { SUBJECT = scope:mam_nominee } }
+    type = character_event
+    title = mam_personnel.0040.t
+    theme = merit
+    left_portrait = { character = scope:mam_nominee animation = reading }
+    right_portrait = { character = scope:mam_minister }
+    desc = {
+        desc = mam_transfer.approval
+        triggered_desc = { trigger = { exists = scope:mam_exception_candidate } desc = mam_corrupt.exception_notice }
+        desc = mam_power.request_summary
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_power_best_destination } desc = mam_power.comparison } desc = mam_power.no_benchmark }
+        triggered_desc = { trigger = { exists = scope:mam_service_case } desc = mam_case.summary }
+        first_valid = { triggered_desc = { trigger = { exists = scope:mam_native_successor } desc = mam_native.successor } desc = mam_native.no_successor }
+        first_valid = {
+            triggered_desc = { trigger = { exists = scope:mam_reason scope:mam_reason = 2 } desc = mam_reason.approval_patronage }
+            triggered_desc = { trigger = { exists = scope:mam_reason scope:mam_reason = 1 } desc = mam_reason.approval_service }
+            desc = mam_reason.approval_professional
+        }
+        first_valid = {
+            triggered_desc = { trigger = { exists = scope:mam_source } desc = mam_transfer.approval_source }
+            desc = mam_transfer.unlanded
+        }
+        desc = mam_transfer.conditions
+    }
+    option = {
+        name = mam_transfer.approve
+        trigger = { custom_tooltip = { text = mam_transfer.rules_checked this = scope:mam_emperor mam_proposal_valid_trigger = yes } }
+        hidden_effect = { mam_commit_proposal_effect = yes }
+        ai_chance = {
+            base = 60
+            modifier = { add = -40 exists = scope:mam_exception_candidate }
+            modifier = { add = 25 exists = scope:mam_exception_candidate has_trait = arbitrary }
+            modifier = { add = 20 exists = scope:mam_service_case scope:mam_service_case = { mam_service_concern_value >= 4 } }
+            modifier = { add = 15 exists = scope:mam_service_case scope:mam_nominee.mam_public_suitability >= { value = scope:mam_incumbent.mam_public_suitability add = 10 } }
+            modifier = { add = -40 exists = scope:mam_service_case scope:mam_nominee.mam_public_suitability < scope:mam_incumbent.mam_public_suitability }
+            modifier = { add = -30 exists = scope:mam_service_case has_relation_friend = scope:mam_incumbent }
+            modifier = { add = -25 exists = scope:mam_reason scope:mam_reason = 2 has_trait = just }
+            modifier = { add = -20 exists = scope:mam_reason scope:mam_reason = 2 has_trait = honest }
+            modifier = { add = 20 has_trait = diligent }
+            modifier = { add = 20 has_trait = just }
+            modifier = { add = -30 has_trait = arbitrary }
+            modifier = { add = -25 has_trait = paranoid NOT = { house = scope:mam_nominee.house } }
+            modifier = { add = 15 has_relation_friend = scope:mam_minister }
+            modifier = { add = -40 has_relation_rival = scope:mam_minister }
+            modifier = { factor = 0 exists = scope:mam_exception_candidate has_trait = just }
+            modifier = { factor = 0 exists = scope:mam_exception_candidate has_trait = honest }
+        }
+    }
+    option = {
+        name = mam_transfer.reject
+        hidden_effect = {
+            if = { limit = { scope:mam_posting.var:mam_case_generation = scope:mam_generation } scope:mam_posting = { set_variable = { name = mam_case_outcome value = 2 } } }
+            mam_clear_matching_proposal_effect = yes
+            mam_notify_requester_effect = { EVENT = mam_personnel.0043 }
+        }
+        ai_chance = { base = 30 }
+    }
+}
+mam_personnel.0041 = {
+    trigger = { always = no } # Legacy forced-transfer events retired.
+    type = character_event
+    title = mam_personnel.0041.t
+    theme = merit
+    left_portrait = { character = scope:mam_nominee }
+    desc = {
+        first_valid = {
+            triggered_desc = {
+                trigger = {
+                    scope:mam_posting.holder = scope:mam_nominee
+                    scope:mam_nominee = { mam_clean_bundle_trigger = { TITLE = scope:mam_posting } }
+                    trigger_if = {
+                        limit = { exists = scope:mam_source }
+                        scope:mam_source.holder = scope:mam_replacement
+                        scope:mam_replacement = { mam_clean_source_bundle_trigger = { TITLE = scope:mam_source } }
+                    }
+                }
+                desc = mam_transfer.success
+            }
+            desc = mam_transfer.postcondition_failure
+        }
+    }
+    option = { name = mam_personnel.close ai_chance = { base = 100 } }
+}
+mam_personnel.0042 = {
+    trigger = { always = no } # Legacy forced-transfer events retired.
+    type = character_event
+    title = mam_personnel.0042.t
+    desc = mam_transfer.stale
+    theme = merit
+    option = { name = mam_personnel.close ai_chance = { base = 100 } }
+}
+mam_personnel.0043 = {
+    trigger = { always = no } # Legacy forced-transfer events retired.
+    type = character_event
+    title = mam_personnel.0043.t
+    desc = mam_transfer.declined
+    theme = merit
+    option = { name = mam_personnel.close ai_chance = { base = 100 } }
+}
+mam_personnel.0044 = {
+    trigger = { always = no } # Legacy forced-transfer events retired.
+    type = character_event
+    hidden = yes
+    immediate = {
+        if = {
+            limit = {
+                exists = scope:mam_emperor
+                exists = scope:mam_generation
+                exists = scope:mam_proposal_realm
+                scope:mam_proposal_realm = {
+                    has_variable = mam_active_proposal_generation
+                    var:mam_active_proposal_generation = scope:mam_generation
+                    has_variable = mam_active_proposal_emperor
+                    var:mam_active_proposal_emperor = scope:mam_emperor
+                }
+            }
+            mam_clear_matching_proposal_effect = yes
+            if = { limit = { is_ai = no } trigger_event = mam_personnel.0042 }
+            scope:mam_emperor ?= {
+                if = {
+                    limit = { is_alive = yes is_ai = no this != scope:mam_requester }
+                    trigger_event = mam_personnel.0042
+                }
+            }
+        }
+    }
+}

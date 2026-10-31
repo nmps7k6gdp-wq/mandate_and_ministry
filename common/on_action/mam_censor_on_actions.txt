@@ -1,0 +1,51 @@
+﻿on_game_start_after_lobby = { on_actions = { mam_censor_startup } }
+mam_censor_startup = { effect = {
+ every_independent_ruler = { limit = { mam_censor_emperor_trigger = yes }
+  mam_censor_intel_ensure_effect = yes
+  title:h_china.var:mam_cen_active ?= { mam_censor_tick_effect = yes }
+  mam_censor_initiative_effect = yes
+ }
+} }
+quarterly_playable_pulse = { on_actions = { mam_censor_quarterly } }
+mam_censor_quarterly = {
+ trigger = { mam_censor_emperor_trigger = yes }
+ effect = {
+  mam_censor_intel_ensure_effect = yes
+  title:h_china = { if = { limit = { exists = var:mam_cen_active var:mam_cen_active = { var:mam_cen_pending = 0 } } remove_variable = mam_cen_active } }
+  title:h_china.var:mam_cen_active ?= { mam_censor_tick_effect = yes }
+  mam_censor_initiative_effect = yes
+ }
+}
+on_title_gain = { on_actions = { mam_censor_office_gain } }
+mam_censor_office_gain = {
+ trigger = { exists = scope:title OR = { scope:title = title:e_minister_censor scope:title = title:h_china } }
+ effect = {
+  title:h_china.holder ?= { mam_censor_intel_ensure_effect = yes }
+  title:h_china.var:mam_cen_active ?= { mam_censor_tick_effect = yes }
+ }
+}
+
+on_scheme_discovered = { on_actions = { mam_censor_intel_plot_discovered } }
+mam_censor_intel_plot_discovered = { effect = { mam_censor_intel_capture_plot_effect = yes } }
+
+on_trait_gained = { on_actions = { mam_censor_public_trait_gained } }
+mam_censor_public_trait_gained = {
+ trigger = { exists = title:h_china.holder mam_censor_public_subject_trigger = yes
+  mam_censor_public_trait_trigger = yes mam_censor_public_ground_trigger = yes
+  mam_censor_public_new_trigger = yes
+ }
+ effect = {
+  title:h_china.holder = { mam_censor_public_poll_effect = yes }
+ }
+}
+on_imprison = { on_actions = { mam_censor_public_arrest } }
+mam_censor_public_arrest = {
+ trigger = { mam_censor_public_subject_trigger = yes mam_censor_public_detention_trigger = yes exists = scope:imprisoner
+  scope:imprisoner = { top_liege = title:h_china.holder }
+ }
+ effect = {
+  scope:imprisoner = { save_scope_as = mam_cen_public_accuser }
+  save_scope_value_as = { name = mam_cen_public_kind value = 32 }
+  mam_censor_public_capture_effect = yes
+ }
+}

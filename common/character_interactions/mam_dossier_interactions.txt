@@ -1,0 +1,23 @@
+﻿mam_inspect_dossier_interaction = {
+ category = interaction_category_ministry icon = scroll_scales
+ desc = mam_inspect_dossier_interaction_desc common_interaction = yes auto_accept = yes
+ ai_frequency = 0 ai_targets = { ai_recipients = vassals } interface_priority = 43
+ is_shown = { always = no # Consolidated into Personnel: Review Official.
+
+  scope:actor = { mam_dossier_can_read_trigger = yes }
+  scope:recipient = { mam_dossier_governor_trigger = yes top_liege = scope:actor.top_liege }
+ }
+ on_accept = {
+  if = { limit = {
+   scope:actor = { mam_dossier_can_read_trigger = yes }
+   scope:recipient = { mam_dossier_governor_trigger = yes top_liege = scope:actor.top_liege }
+  }
+   scope:actor = {
+    scope:recipient = { save_scope_as = mam_dossier_governor }
+    save_scope_value_as = { name = mam_dossier_return value = 0 }
+    mam_prepare_dossier_report_effect = yes trigger_event = mam_personnel.0060
+   }
+  }
+ }
+ ai_potential = { always = no } ai_will_do = { base = 0 }
+}

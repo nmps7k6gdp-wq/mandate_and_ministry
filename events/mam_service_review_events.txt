@@ -1,0 +1,124 @@
+﻿namespace = mam_personnel
+mam_personnel.0062 = {
+ type = character_event title = mam_personnel.0062.t theme = merit
+ left_portrait = { character = scope:mam_dossier_governor animation = reading }
+ desc = {
+  desc = mam_dossier.heading
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_srv_saved = 1 } desc = mam_service.saved }
+   triggered_desc = { trigger = { scope:mam_srv_saved = 0 } desc = mam_service.changed }
+  }
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_srv_choice = 0 } desc = mam_service.insufficient }
+   triggered_desc = { trigger = { scope:mam_srv_choice = 2 } desc = mam_service.suggest_investigate }
+   triggered_desc = { trigger = { scope:mam_srv_choice = 3 } desc = mam_service.suggest_commend }
+   desc = mam_service.suggest_retain
+  }
+  desc = { first_valid = {
+ triggered_desc = { trigger = { scope:mam_srv_reason = 0 } desc = mam_service.reason_0 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 1 } desc = mam_service.reason_1 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 2 } desc = mam_service.reason_2 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 3 } desc = mam_service.reason_3 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 4 } desc = mam_service.reason_4 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 5 } desc = mam_service.reason_5 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 6 } desc = mam_service.reason_6 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 7 } desc = mam_service.reason_7 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 8 } desc = mam_service.reason_8 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 9 } desc = mam_service.reason_9 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 10 } desc = mam_service.reason_10 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 11 } desc = mam_service.reason_11 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 12 } desc = mam_service.reason_12 }
+ triggered_desc = { trigger = { scope:mam_srv_reason = 13 } desc = mam_service.reason_13 }
+ desc = mam_service.reason_0
+} }
+  triggered_desc = { trigger = { scope:mam_srv_choice > 0 } desc = mam_service.numbers }
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_srv_stored < 0 } desc = mam_service.no_advice }
+   desc = mam_service.author
+  }
+  triggered_desc = { trigger = { scope:mam_srv_stored >= 0 scope:mam_srv_current = 0 } desc = mam_service.stale }
+  first_valid = {
+   triggered_desc = { trigger = { scope:mam_srv_stored = 0 } desc = mam_service.record_observe }
+   triggered_desc = { trigger = { scope:mam_srv_stored = 1 } desc = mam_service.record_retain }
+   triggered_desc = { trigger = { scope:mam_srv_stored = 2 } desc = mam_service.record_investigate }
+  }
+  triggered_desc = { trigger = { scope:mam_srv_stored = 3 } desc = mam_service.record_commend }
+  triggered_desc = { trigger = { scope:mam_srv_stored >= 0 } desc = { first_valid = {
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 0 } desc = mam_service.reason_0 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 1 } desc = mam_service.reason_1 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 2 } desc = mam_service.reason_2 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 3 } desc = mam_service.reason_3 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 4 } desc = mam_service.reason_4 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 5 } desc = mam_service.reason_5 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 6 } desc = mam_service.reason_6 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 7 } desc = mam_service.reason_7 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 8 } desc = mam_service.reason_8 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 9 } desc = mam_service.reason_9 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 10 } desc = mam_service.reason_10 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 11 } desc = mam_service.reason_11 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 12 } desc = mam_service.reason_12 }
+ triggered_desc = { trigger = { scope:mam_srv_record_reason = 13 } desc = mam_service.reason_13 }
+ desc = mam_service.reason_0
+} } }
+  triggered_desc = { trigger = { scope:mam_dossier_title = { mam_service_case_cooldown_trigger = yes } } desc = mam_case.cooldown }
+  desc = mam_service.short_limits
+ }
+ option = { name = mam_service.observe
+  trigger = { mam_service_can_record_trigger = yes  }
+  hidden_effect = {
+   mam_record_player_service_advice_effect = { KIND = 0 OBSERVE = yes INVESTIGATE = no NOT_COMMEND = yes }
+   mam_prepare_service_review_effect = yes trigger_event = mam_personnel.0062
+  }
+ }
+ option = { name = mam_service.retain
+  trigger = { mam_service_can_record_trigger = yes scope:mam_dossier_title = { mam_service_safe_advice_trigger = yes NOT = { mam_service_major_concern_trigger = yes } } }
+  hidden_effect = {
+   mam_record_player_service_advice_effect = { KIND = 1 OBSERVE = no INVESTIGATE = no NOT_COMMEND = yes }
+   mam_prepare_service_review_effect = yes trigger_event = mam_personnel.0062
+  }
+ }
+ option = { name = mam_service.investigate
+  trigger = { mam_service_can_record_trigger = yes scope:mam_dossier_title = { mam_service_safe_advice_trigger = yes } }
+  hidden_effect = {
+   mam_record_player_service_advice_effect = { KIND = 2 OBSERVE = no INVESTIGATE = yes NOT_COMMEND = yes }
+   mam_prepare_service_review_effect = yes trigger_event = mam_personnel.0062
+  }
+ }
+ option = { name = mam_service.commend
+  trigger = { mam_service_can_record_trigger = yes scope:mam_dossier_title = { mam_service_evidence_trigger = yes mam_service_concern_value = 0 mam_service_improvement_value > 0 } }
+  hidden_effect = {
+   mam_record_player_service_advice_effect = { KIND = 3 OBSERVE = no INVESTIGATE = no NOT_COMMEND = no }
+   mam_prepare_service_review_effect = yes trigger_event = mam_personnel.0062
+  }
+ }
+
+ option = {
+  name = mam_case.open
+  trigger = { mam_service_case_open_trigger = yes }
+  hidden_effect = { mam_open_service_case_effect = yes }
+ }
+ option = { name = mam_service.method hidden_effect = { trigger_event = mam_personnel.0063 } }
+ option = { name = mam_dossier.back hidden_effect = { mam_prepare_dossier_report_effect = yes trigger_event = mam_personnel.0060 } }
+ option = { name = mam_personnel.close }
+}
+
+mam_personnel.0063 = {
+ type = character_event title = mam_personnel.0063.t theme = merit
+ left_portrait = { character = scope:mam_dossier_governor animation = reading }
+ desc = { desc = mam_service.thresholds desc = mam_service.praise_method desc = mam_service.limits }
+ option = { name = mam_service.back hidden_effect = { trigger_event = mam_personnel.0062 } }
+ option = { name = mam_personnel.close }
+}
+
+
+mam_personnel.0064 = {
+ type = character_event hidden = yes
+ immediate = { mam_enable_dossiers_effect = yes }
+}
+
+mam_personnel.0065 = {
+ type = character_event title = mam_personnel.0065.t theme = merit
+ desc = mam_case.changed
+ option = { name = mam_service.back hidden_effect = { mam_prepare_service_review_effect = yes trigger_event = mam_personnel.0062 } }
+ option = { name = mam_personnel.close }
+}

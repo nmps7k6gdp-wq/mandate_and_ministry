@@ -1,0 +1,130 @@
+﻿# All values take the candidate as current scope. No vanilla merit is changed.
+# Native merit_level increases from low to high; source examples add it positively.
+# Provisional normalization over the Celestial currency cap of nine.
+mam_merit_points = {
+    value = merit_level
+    multiply = 50
+    divide = 9
+    min = 0
+    max = 50
+}
+
+# Qualification evidence, NOT examination grade or numerical exam performance.
+mam_qualification_points = {
+    value = 0
+    if = {
+        limit = {
+            OR = {
+                has_character_flag = passed_palace_exam
+                has_character_modifier = tgp_passed_palace_exam_modifier
+            }
+        }
+        add = 25
+    }
+    else_if = {
+        limit = {
+            OR = {
+                has_character_flag = passed_metropolitan_exam
+                has_character_modifier = tgp_passed_metropolitan_exam_modifier
+            }
+        }
+        add = 18
+    }
+    else_if = {
+        limit = { mam_has_ordinary_provincial_evidence_trigger = yes }
+        add = 8
+    }
+}
+
+mam_skill_points = {
+    value = learning
+    multiply = 0.3
+    add = { value = stewardship multiply = 0.3 }
+    add = { value = diplomacy multiply = 0.15 }
+    min = 0
+    max = 15
+}
+
+mam_public_suitability = {
+    value = 0
+    add = mam_merit_points
+    add = mam_qualification_points
+    add = mam_exam_distinction_points
+    add = mam_exam_imperial_sponsorship_points
+    add = mam_skill_points
+}
+
+# Only public, non-secret preferences in this read-only prototype.
+# Caller supplies mam_minister. Absent minister produces no personal preference.
+mam_minister_preference = {
+    value = 0
+    if = {
+        limit = { exists = scope:mam_minister }
+        if = {
+            limit = {
+                scope:mam_minister = { has_trait = just }
+                mam_qualification_points >= 18
+            }
+            add = 3
+        }
+        if = {
+            limit = {
+                scope:mam_minister = { has_trait = honest }
+                mam_qualification_points >= 18
+            }
+            add = 3
+        }
+        if = {
+            limit = {
+                scope:mam_minister = { has_trait = diligent }
+                stewardship >= 12
+            }
+            add = 3
+        }
+        if = {
+            limit = {
+                scope:mam_minister = { has_trait = ambitious }
+                exists = house
+                house = scope:mam_minister.house
+            }
+            add = 4
+        }
+        if = {
+            limit = {
+                scope:mam_minister = { has_trait = paranoid }
+                has_relation_rival = scope:mam_minister
+            }
+            subtract = 6
+        }
+    }
+    if = { limit = { exists = scope:mam_minister }
+     if = { limit = { scope:mam_minister = { has_trait = family_first } is_close_family_of = scope:mam_minister } add = 6 }
+     if = { limit = { scope:mam_minister = { has_trait = gregarious } has_relation_friend = scope:mam_minister } add = 4 }
+     if = { limit = { scope:mam_minister = { has_trait = vengeful } has_relation_rival = scope:mam_minister } subtract = 10 }
+     if = { limit = { scope:mam_minister = { has_trait = forgiving } has_relation_rival = scope:mam_minister } add = 4 }
+     if = { limit = { scope:mam_minister = { has_trait = arbitrary } mam_political_client_trigger = yes } add = 5 }
+     if = { limit = { scope:mam_minister = { has_trait = ambitious } mam_political_client_trigger = yes } add = 5 }
+     if = { limit = { scope:mam_minister = { has_trait = trusting } has_character_modifier = mam_personnel_service_endorsement } add = 3 }
+     if = { limit = { scope:mam_minister = { has_trait = greedy } mam_private_obligation_trigger = yes } add = 6 }
+    }
+    if = { limit = { exists = scope:mam_minister }
+     if = { limit = { scope:mam_minister = { has_trait = ambitious } OR = { mam_personnel_shared_faction_trigger = yes mam_personnel_shared_bloc_trigger = yes } } add = 6 }
+     if = { limit = { scope:mam_minister = { has_trait = vengeful } mam_personnel_hostile_house_trigger = yes } subtract = 8 }
+     if = { limit = { scope:mam_minister = { has_trait = forgiving } mam_personnel_hostile_house_trigger = yes } add = 3 }
+     if = { limit = { scope:mam_minister = { has_trait = loyal } faith = scope:mam_emperor.faith has_trait = loyal } add = 4 }
+     if = { limit = { scope:mam_minister = { has_trait = zealous } faith = scope:mam_minister.faith } add = 4 }
+     if = { limit = { scope:mam_minister = { has_trait = cynical } stewardship >= 12 } add = 3 }
+     if = { limit = { scope:mam_minister = { has_trait = humble } stewardship >= 12 learning >= 12 } add = 3 }
+     if = { limit = { scope:mam_minister = { has_trait = arrogant } has_relation_friend = scope:mam_minister } add = 4 }
+     if = { limit = { scope:mam_minister = { has_trait = compassionate } is_landed = yes primary_title = { has_variable = mam_ds_holder mam_service_concern_value > 0 } } add = 2 }
+     if = { limit = { scope:mam_minister = { has_trait = callous } is_landed = yes primary_title = { has_variable = mam_ds_holder mam_service_concern_value > 0 } } subtract = 4 }
+    }
+    min = -15
+    max = 15
+}
+
+mam_recommendation_score = {
+    value = mam_public_suitability
+    add = mam_minister_preference
+    add = mam_private_patronage_preference
+}

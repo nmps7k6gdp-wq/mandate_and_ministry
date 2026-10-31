@@ -1,0 +1,5 @@
+﻿# Incumbent character. Major public concerns precede modest ones; no random verdicts.
+mam_service_case_priority_value = {
+ value = primary_title.mam_service_concern_value
+ multiply = 100
+}

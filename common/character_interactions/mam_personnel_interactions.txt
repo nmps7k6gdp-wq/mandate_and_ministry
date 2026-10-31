@@ -1,0 +1,30 @@
+﻿# Local inspection only. The recipient is never asked to agree and receives no message.
+mam_inspect_credentials_interaction = {
+    category = interaction_category_ministry
+    icon = scroll_scales
+    desc = mam_inspect_credentials_interaction_desc
+    common_interaction = yes
+    auto_accept = yes
+    ai_frequency = 0
+    ai_targets = { ai_recipients = vassals }
+    interface_priority = 40
+    is_shown = { always = no # Consolidated into Personnel: Review Official.
+
+        scope:actor = { mam_can_open_register_trigger = yes }
+        scope:recipient = {
+            is_alive = yes
+            is_adult = yes
+            top_liege = scope:actor.top_liege
+        }
+    }
+    on_accept = {
+        scope:actor = {
+            mam_resolve_register_authority_effect = yes
+            scope:recipient = { save_scope_as = mam_inspected }
+            save_scope_value_as = { name = mam_credentials_origin value = 0 }
+            trigger_event = mam_personnel.0010
+        }
+    }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}

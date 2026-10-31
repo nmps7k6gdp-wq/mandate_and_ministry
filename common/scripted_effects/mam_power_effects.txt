@@ -1,0 +1,51 @@
+﻿# Ephemeral scopes only. Rebuild from the realm each time; no cached candidate list.
+mam_consider_power_benchmark_effect = {
+ if = { limit = { mam_power_raw_candidate_trigger = yes }
+  if = { limit = { NOT = { exists = scope:mam_power_best } } save_scope_as = mam_power_best }
+  else_if = { limit = { mam_public_suitability > scope:mam_power_best.mam_public_suitability } save_scope_as = mam_power_best }
+ }
+}
+mam_scan_power_benchmark_effect = {
+ clear_saved_scope = mam_power_best
+ scope:mam_emperor = {
+  every_courtier_or_guest = { mam_consider_power_benchmark_effect = yes }
+  every_vassal_or_below = {
+   mam_consider_power_benchmark_effect = yes
+   every_courtier_or_guest = { mam_consider_power_benchmark_effect = yes }
+  }
+ }
+}
+# SUBJECT is inspected during drafting/submission, nominee during approval/commit.
+mam_refresh_power_context_effect = {
+ if = { limit = { exists = scope:mam_exception_candidate exists = $SUBJECT$ $SUBJECT$ != scope:mam_exception_candidate }
+  clear_saved_scope = mam_exception_candidate clear_saved_scope = mam_exception_posting
+ }
+ clear_saved_scope = mam_power_best_destination
+ clear_saved_scope = mam_power_best_source
+ clear_saved_scope = mam_power_context_title
+ clear_saved_scope = mam_power_context_source
+ clear_saved_scope = mam_power_subject
+ save_scope_value_as = { name = mam_power_display_best value = 0 }
+ save_scope_value_as = { name = mam_power_display_gap value = 0 }
+ if = { limit = { exists = scope:mam_emperor exists = scope:mam_posting }
+  $SUBJECT$ ?= { save_scope_as = mam_power_subject }
+  scope:mam_posting = { save_scope_as = mam_power_target save_scope_as = mam_power_context_title }
+  save_scope_value_as = { name = mam_power_replacements_only value = 0 }
+  mam_scan_power_benchmark_effect = yes
+  scope:mam_power_best ?= {
+   save_scope_as = mam_power_best_destination
+   save_scope_value_as = { name = mam_power_display_best value = mam_public_suitability }
+  }
+  scope:mam_power_subject ?= {
+   save_scope_value_as = { name = mam_power_display_gap value = { value = scope:mam_power_display_best subtract = mam_public_suitability min = 0 } }
+   if = { limit = { is_landed = yes }
+    primary_title = { save_scope_as = mam_power_target save_scope_as = mam_power_context_source }
+   }
+  }
+  if = { limit = { exists = scope:mam_power_context_source }
+   save_scope_value_as = { name = mam_power_replacements_only value = 1 }
+   mam_scan_power_benchmark_effect = yes
+   scope:mam_power_best ?= { save_scope_as = mam_power_best_source }
+  }
+ }
+}

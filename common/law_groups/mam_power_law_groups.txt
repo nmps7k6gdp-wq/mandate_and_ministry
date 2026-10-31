@@ -1,0 +1,13 @@
+﻿# Retired in dev.34. Database keys remain only to load and clean up older saves.
+# No default, adoption, effects, costs or flags; these laws are absent from gameplay.
+mam_jurisdiction_laws = {
+ cumulative = no flag = realm_law
+ can_have_group = { always = no }
+ can_change_law_group = { always = no }
+}
+
+mam_discretion_laws = {
+ cumulative = no flag = realm_law
+ can_have_group = { always = no }
+ can_change_law_group = { always = no }
+}
